@@ -1,0 +1,1 @@
+export { PolicemanHomeScreen } from './PolicemanHomeScreen';
