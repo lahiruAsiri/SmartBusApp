@@ -7,8 +7,11 @@ import { OnboardingScreen } from '../screens/onboarding/OnboardingScreen';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { SignupScreen } from '../screens/auth/SignupScreen';
 import { UserHomeScreen } from '../screens/user/UserHomeScreen';
+import { BusDetailsScreen } from '../screens/user/BusDetailsScreen';
 import { PolicemanHomeScreen } from '../screens/policeman/PolicemanHomeScreen';
 import { MapScreen } from '../screens/map/MapScreen';
+import { SettingsScreen } from '../screens/user/SettingsScreen';
+
 
 import { useAuth } from '../contexts/AuthContext';
 import { getBooleanItem } from '../utils/storage';
@@ -21,30 +24,17 @@ export const AppNavigator = () => {
   const { user, userData, loading } = useAuth();
   const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
 
-  // Initial check
   useEffect(() => {
-    const check = async () => {
+    const checkOnboarding = async () => {
       const completed = await getBooleanItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
-      setOnboardingCompleted(completed ?? false);
+      setOnboardingCompleted(completed);
     };
-    check();
+    checkOnboarding();
   }, []);
-
-  // ← THIS IS THE KEY: Listen for storage changes in real-time
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      const completed = await getBooleanItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
-      if (completed === true && onboardingCompleted !== true) {
-        setOnboardingCompleted(true);
-      }
-    }, 300);
-
-    return () => clearInterval(interval);
-  }, [onboardingCompleted]);
 
   if (loading || onboardingCompleted === null) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
     );
@@ -57,6 +47,7 @@ export const AppNavigator = () => {
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         ) : !user ? (
           <>
+            <Stack.Screen name="Auth" component={LoginScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
           </>
@@ -68,7 +59,10 @@ export const AppNavigator = () => {
         ) : (
           <>
             <Stack.Screen name="UserHome" component={UserHomeScreen} />
+            <Stack.Screen name="BusDetails" component={BusDetailsScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+
           </>
         )}
       </Stack.Navigator>
