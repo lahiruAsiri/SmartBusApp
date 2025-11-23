@@ -1,4 +1,4 @@
-// File: src/constants/config.ts
+// File: src/constants/config.ts (Updated)
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 
@@ -25,10 +25,8 @@ const DEFAULT_LOCATION = {
   longitudeDelta: 0.0421,
 };
 
-// Get user's current location or use default
 export const getInitialMapRegion = async () => {
   try {
-    // Request location permission
     const { status } = await Location.requestForegroundPermissionsAsync();
     
     if (status !== 'granted') {
@@ -36,7 +34,6 @@ export const getInitialMapRegion = async () => {
       return DEFAULT_LOCATION;
     }
 
-    // Get current position
     const location = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.Balanced,
     });
@@ -53,15 +50,31 @@ export const getInitialMapRegion = async () => {
   }
 };
 
-// Static default for initial load
+// ============================================
+// MULTIPLE OSM TILE SERVER OPTIONS
+// ============================================
+
 export const MAP_CONFIG = {
   initialRegion: DEFAULT_LOCATION,
-  osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
   defaultLocation: DEFAULT_LOCATION,
+  
+  // OPTION 1: Carto CDN (Best for production - No restrictions)
+  osmTileUrl: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
+  
+  // OPTION 2: Alternative tile servers (uncomment to use)
+  // osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',  // Original (blocked on some Android)
+  // osmTileUrl: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',  // Humanitarian style
+  // osmTileUrl: 'https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png',  // Wikimedia tiles
+  
+  // Tile subdomains for load balancing
+  tileSubdomains: ['a', 'b', 'c'],
+  
+  // User agent for OSM compliance
+  userAgent: 'SmartBusApp/1.0 (lahiru@example.com)',  // Replace with your email
 };
 
 export const STORAGE_KEYS = {
   ONBOARDING_COMPLETED: '@onboarding_completed',
   USER_ROLE: '@user_role',
-  LAST_LOCATION: '@last_location', // Store last known location
+  LAST_LOCATION: '@last_location',
 };
