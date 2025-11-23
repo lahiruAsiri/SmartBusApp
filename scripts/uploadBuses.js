@@ -147,7 +147,21 @@ const buses = [
   "destination": "Kottawa",
   "from": "Mount Lavinia",
   "status": "Delayed",
-  "occupancy": 55,
+  "occupancy": 80,
+  "totalSeats": 50,
+  "location": {
+  "latitude": 6.8624,
+  "longitude": 79.9631
+  },
+  "isActive": true
+  },
+  {
+  "id": "bus_245_NC-5060",
+  "routeNumber": "255",
+  "destination": "Kottawa",
+  "from": "Mount Lavinia",
+  "status": "Delayed",
+  "occupancy": 80,
   "totalSeats": 50,
   "location": {
   "latitude": 6.8624,
