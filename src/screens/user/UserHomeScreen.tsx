@@ -3,7 +3,7 @@
 // ============================================
 
 // File: src/screens/user/UserHomeScreen.tsx
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,45 +16,14 @@ import {
 } from 'react-native';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
-import { MAP_CONFIG } from '../../constants/config';
+import { getInitialMapRegion, MAP_CONFIG } from '../../constants/config';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { Alert } from 'react-native';
+import { subscribeToAllBuses, getNearbyBuses, Bus } from '../../services/busService';
+import { getCurrentLocation, UserLocation } from '../../services/locationService';
 
 const { width } = Dimensions.get('window');
-
-// Dummy bus data with locations
-const DUMMY_BUSES = [
-  {
-    id: '1',
-    routeNumber: '138',
-    destination: 'Colombo Fort',
-    from: 'Negombo Bus Stand',
-    arrivalTime: '5 min',
-    occupancy: 45,
-    status: 'On time',
-    location: { latitude: 7.2906, longitude: 79.8570 },
-  },
-  {
-    id: '2',
-    routeNumber: '240',
-    destination: 'Pettah',
-    from: 'Katunayake',
-    arrivalTime: '12 min',
-    occupancy: 68,
-    status: 'On time',
-    location: { latitude: 7.2926, longitude: 79.8590 },
-  },
-  {
-    id: '3',
-    routeNumber: '03',
-    destination: 'Maharagama',
-    from: 'Grand Hotel',
-    arrivalTime: '20 min',
-    occupancy: 85,
-    status: 'Delayed',
-    location: { latitude: 7.2886, longitude: 79.8550 },
-  },
-];
 
 const SAVED_LOCATIONS = [
   { id: '1', name: 'Home', route: '71', from: 'Negombo', arrivalTime: '7 min' },
@@ -67,6 +36,73 @@ export const UserHomeScreen = ({ navigation }: any) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const sidebarAnim = useRef(new Animated.Value(-width * 0.8)).current;
   const overlayAnim = useRef(new Animated.Value(0)).current;
+  const [buses, setBuses] = useState<Bus[]>([]);
+  const [nearbyBuses, setNearbyBuses] = useState<Bus[]>([]);
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [miniMapRegion, setMiniMapRegion] = useState(MAP_CONFIG.initialRegion);
+
+
+  // Fetch user location on mount
+  useEffect(() => {
+    const fetchLocation = async () => {
+      const location = await getCurrentLocation();
+      if (location) {
+        setUserLocation(location);
+      } else {
+        Alert.alert(
+          'Location Required',
+          'Please enable location services to see nearby buses.',
+          [{ text: 'OK' }]
+        );
+        // Use default location (Negombo)
+        setUserLocation({ latitude: 7.2906, longitude: 79.8570 });
+      }
+    };
+    fetchLocation();
+  }, []);
+
+  // Subscribe to nearby buses based on user location
+  useEffect(() => {
+    if (!userLocation) return;
+
+    setLoading(true);
+    const unsubscribe = getNearbyBuses(
+      userLocation.latitude,
+      userLocation.longitude,
+      10, // 10km radius
+      (buses) => {
+        setNearbyBuses(buses);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [userLocation]);
+
+  // Subscribe to all buses for map view
+  useEffect(() => {
+    const unsubscribe = subscribeToAllBuses(
+      (buses) => {
+        setBuses(buses);
+      },
+      (error) => {
+        console.error('Error loading buses:', error);
+        Alert.alert('Error', 'Failed to load bus data');
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  // Load user location for mini map
+  useEffect(() => {
+    const loadLocation = async () => {
+      const region = await getInitialMapRegion();
+      setMiniMapRegion(region);
+    };
+    loadLocation();
+  }, []);
 
   const toggleSidebar = () => {
     const toValue = sidebarVisible ? -width * 0.8 : 0;
@@ -166,7 +202,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             <MapView
               style={styles.miniMap}
               provider={PROVIDER_DEFAULT}
-              initialRegion={MAP_CONFIG.initialRegion}
+              initialRegion={miniMapRegion}  // Use dynamic region
               scrollEnabled={false}
               zoomEnabled={false}
               rotateEnabled={false}
@@ -175,7 +211,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             >
               <UrlTile urlTemplate={MAP_CONFIG.osmTileUrl} maximumZ={19} flipY={false} />
 
-              {DUMMY_BUSES.map((bus) => (
+              {nearbyBuses.map((bus) => (
                 <Marker key={bus.id} coordinate={bus.location}>
                   <View
                     style={[
@@ -194,7 +230,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 <View style={styles.miniMapInfoLeft}>
                   <Ionicons name="bus" size={20} color={colors.primary} />
                   <Text style={[styles.miniMapInfoText, { color: colors.text }]}>
-                    {DUMMY_BUSES.length} buses nearby
+                    {nearbyBuses.length} buses nearby
                   </Text>
                 </View>
                 <View style={[styles.miniMapBadge, { backgroundColor: colors.primary }]}>
@@ -204,7 +240,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
               </View>
 
               <View style={styles.quickBusList}>
-                {DUMMY_BUSES.slice(0, 2).map((bus) => (
+                {nearbyBuses.slice(0, 2).map((bus) => (
                   <View
                     key={bus.id}
                     style={[
@@ -267,7 +303,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
 
-          {DUMMY_BUSES.slice(0, 2).map((bus) => (
+          {nearbyBuses.slice(0, 2).map((bus) => (
             <TouchableOpacity
               key={bus.id}
               style={[styles.routeCard, { backgroundColor: colors.card }]}
@@ -363,7 +399,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
 
-          {DUMMY_BUSES.map((bus) => (
+          {nearbyBuses.map((bus) => (
             <TouchableOpacity
               key={bus.id}
               style={[styles.busCard, { backgroundColor: colors.card }]}
