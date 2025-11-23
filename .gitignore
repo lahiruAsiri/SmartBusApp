@@ -42,3 +42,5 @@ yarn-error.*
 .env
 .env.local
 .env.production
+
+scripts/serviceAccountKey.json
