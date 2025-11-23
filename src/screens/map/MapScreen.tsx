@@ -6,11 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  ScrollView as RNScrollView,
+  StatusBar,
 } from 'react-native';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { COLORS } from '../../constants/colors';
+import { useTheme } from '../../contexts/ThemeContext';
 import { MAP_CONFIG } from '../../constants/config';
 
 const DUMMY_BUSES = [
@@ -47,6 +47,7 @@ const DUMMY_BUSES = [
 ];
 
 export const MapScreen = ({ navigation }: any) => {
+  const { colors, isDark } = useTheme();
   const [selectedBus, setSelectedBus] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -62,9 +63,15 @@ export const MapScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={mapStyles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+        translucent
+      />
+
       <MapView
-        style={mapStyles.map}
+        style={styles.map}
         provider={PROVIDER_DEFAULT}
         initialRegion={MAP_CONFIG.initialRegion}
         showsUserLocation
@@ -80,50 +87,49 @@ export const MapScreen = ({ navigation }: any) => {
           >
             <View
               style={[
-                mapStyles.marker,
+                styles.marker,
                 { backgroundColor: getOccupancyColor(bus.occupancy) },
               ]}
             >
-              <Ionicons name="bus" size={16} color={COLORS.white} />
-              <Text style={mapStyles.markerText}>{bus.routeNumber}</Text>
+              <Ionicons name="bus" size={16} color="#FFF" />
+              <Text style={styles.markerText}>{bus.routeNumber}</Text>
             </View>
           </Marker>
         ))}
       </MapView>
 
       {/* Header */}
-      <View style={mapStyles.header}>
-        <TouchableOpacity
-          style={mapStyles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color={COLORS.text} />
+      <View style={[styles.header, { backgroundColor: colors.card }]}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={mapStyles.headerTitle}>Live Bus Tracking</Text>
-        <TouchableOpacity style={mapStyles.filterBtn}>
-          <Ionicons name="filter" size={22} color={COLORS.text} />
+        <Text style={[styles.headerTitle, { color: colors.text }]}>
+          Live Bus Tracking
+        </Text>
+        <TouchableOpacity style={styles.filterBtn}>
+          <Ionicons name="filter" size={22} color={colors.text} />
         </TouchableOpacity>
       </View>
 
       {/* Legend */}
-      <View style={mapStyles.legend}>
-        <View style={mapStyles.legendItem}>
-          <View style={[mapStyles.legendDot, { backgroundColor: '#22C55E' }]} />
-          <Text style={mapStyles.legendText}>&lt;50%</Text>
+      <View style={[styles.legend, { backgroundColor: colors.card }]}>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendDot, { backgroundColor: '#22C55E' }]} />
+          <Text style={[styles.legendText, { color: colors.textLight }]}>&lt;50%</Text>
         </View>
-        <View style={mapStyles.legendItem}>
-          <View style={[mapStyles.legendDot, { backgroundColor: '#F59E0B' }]} />
-          <Text style={mapStyles.legendText}>50-75%</Text>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendDot, { backgroundColor: '#F59E0B' }]} />
+          <Text style={[styles.legendText, { color: colors.textLight }]}>50–75%</Text>
         </View>
-        <View style={mapStyles.legendItem}>
-          <View style={[mapStyles.legendDot, { backgroundColor: '#EF4444' }]} />
-          <Text style={mapStyles.legendText}>&gt;75%</Text>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendDot, { backgroundColor: '#EF4444' }]} />
+          <Text style={[styles.legendText, { color: colors.textLight }]}>&gt;75%</Text>
         </View>
       </View>
 
       {/* My Location Button */}
-      <TouchableOpacity style={mapStyles.locationBtn}>
-        <Ionicons name="locate" size={24} color={COLORS.primary} />
+      <TouchableOpacity style={[styles.locationBtn, { backgroundColor: colors.card }]}>
+        <Ionicons name="locate" size={24} color={colors.primary} />
       </TouchableOpacity>
 
       {/* Bus Detail Modal */}
@@ -133,81 +139,84 @@ export const MapScreen = ({ navigation }: any) => {
         animationType="slide"
         onRequestClose={() => setShowModal(false)}
       >
-        <View style={mapStyles.modalContainer}>
+        <View style={styles.modalContainer}>
           <TouchableOpacity
-            style={mapStyles.modalOverlay}
+            style={styles.modalOverlay}
             activeOpacity={1}
             onPress={() => setShowModal(false)}
           />
-
-          <View style={mapStyles.modalContent}>
+          <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
             {selectedBus && (
               <>
-                <View style={mapStyles.modalHandle} />
+                <View style={[styles.modalHandle, { backgroundColor: colors.border }]} />
 
-                <View style={mapStyles.modalHeader}>
+                <View style={styles.modalHeader}>
                   <View
                     style={[
-                      mapStyles.modalBadge,
+                      styles.modalBadge,
                       { backgroundColor: getOccupancyColor(selectedBus.occupancy) },
                     ]}
                   >
-                    <Text style={mapStyles.modalRouteNumber}>
+                    <Text style={styles.modalRouteNumber}>
                       {selectedBus.routeNumber}
                     </Text>
                   </View>
-                  <View style={mapStyles.modalInfo}>
-                    <Text style={mapStyles.modalDestination}>
+                  <View style={styles.modalInfo}>
+                    <Text style={[styles.modalDestination, { color: colors.text }]}>
                       {selectedBus.destination}
                     </Text>
-                    <Text style={mapStyles.modalFrom}>from {selectedBus.from}</Text>
+                    <Text style={[styles.modalFrom, { color: colors.textLight }]}>
+                      from {selectedBus.from}
+                    </Text>
                   </View>
                   <TouchableOpacity onPress={() => setShowModal(false)}>
-                    <Ionicons name="close" size={28} color={COLORS.textLight} />
+                    <Ionicons name="close" size={28} color={colors.textLight} />
                   </TouchableOpacity>
                 </View>
 
-                <View style={mapStyles.modalStats}>
-                  <View style={mapStyles.statItem}>
-                    <Ionicons name="time-outline" size={20} color={COLORS.primary} />
-                    <Text style={mapStyles.statValue}>{selectedBus.arrivalTime}</Text>
-                    <Text style={mapStyles.statLabel}>Arrival</Text>
+                <View style={[styles.modalStats, { backgroundColor: isDark ? colors.background : '#F8FAFC' }]}>
+                  <View style={styles.statItem}>
+                    <Ionicons name="time-outline" size={20} color={colors.primary} />
+                    <Text style={[styles.statValue, { color: colors.text }]}>
+                      {selectedBus.arrivalTime}
+                    </Text>
+                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Arrival</Text>
                   </View>
-
-                  <View style={mapStyles.statDivider} />
-
-                  <View style={mapStyles.statItem}>
+                  <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
+                  <View style={styles.statItem}>
                     <MaterialCommunityIcons
                       name="account-group"
                       size={20}
                       color={getOccupancyColor(selectedBus.occupancy)}
                     />
-                    <Text style={mapStyles.statValue}>{selectedBus.occupancy}%</Text>
-                    <Text style={mapStyles.statLabel}>Full</Text>
+                    <Text style={[styles.statValue, { color: colors.text }]}>
+                      {selectedBus.occupancy}%
+                    </Text>
+                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Full</Text>
                   </View>
-
-                  <View style={mapStyles.statDivider} />
-
-                  <View style={mapStyles.statItem}>
+                  <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
+                  <View style={styles.statItem}>
                     <Ionicons
                       name="checkmark-circle"
                       size={20}
                       color={selectedBus.status === 'On time' ? '#22C55E' : '#F59E0B'}
                     />
-                    <Text style={mapStyles.statValue}>{selectedBus.status}</Text>
-                    <Text style={mapStyles.statLabel}>Status</Text>
+                    <Text style={[styles.statValue, { color: colors.text }]}>
+                      {selectedBus.status}
+                    </Text>
+                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Status</Text>
                   </View>
                 </View>
 
                 <TouchableOpacity
-                  style={mapStyles.detailsBtn}
+                  style={[styles.detailsBtn, { backgroundColor: colors.primary }]}
                   onPress={() => {
                     setShowModal(false);
                     navigation.navigate('BusDetails', { bus: selectedBus });
                   }}
                 >
-                  <Text style={mapStyles.detailsBtnText}>View Full Details</Text>
-                  <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
+                  <Text style={styles.detailsBtnText}>View Full Details</Text>
+                  <Ionicons name="arrow-forward" size={20} color="#FFF" />
                 </TouchableOpacity>
               </>
             )}
@@ -218,7 +227,7 @@ export const MapScreen = ({ navigation }: any) => {
   );
 };
 
-const mapStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -232,14 +241,14 @@ const mapStyles = StyleSheet.create({
     right: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
     padding: 12,
     borderRadius: 14,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 8,
+    zIndex: 10,
   },
   backBtn: {
     padding: 4,
@@ -248,7 +257,6 @@ const mapStyles = StyleSheet.create({
     flex: 1,
     fontSize: 17,
     fontWeight: '700',
-    color: COLORS.text,
     textAlign: 'center',
   },
   filterBtn: {
@@ -258,14 +266,14 @@ const mapStyles = StyleSheet.create({
     position: 'absolute',
     top: 120,
     right: 16,
-    backgroundColor: COLORS.white,
     padding: 12,
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 6,
+    zIndex: 10,
   },
   legendItem: {
     flexDirection: 'row',
@@ -280,7 +288,7 @@ const mapStyles = StyleSheet.create({
   },
   legendText: {
     fontSize: 12,
-    color: COLORS.textLight,
+    fontWeight: '500',
   },
   locationBtn: {
     position: 'absolute',
@@ -289,14 +297,14 @@ const mapStyles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 10,
   },
   marker: {
     flexDirection: 'row',
@@ -304,13 +312,18 @@ const mapStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: COLORS.white,
+    borderWidth: 3,
+    borderColor: '#FFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   markerText: {
     fontSize: 12,
     fontWeight: '700',
-    color: COLORS.white,
+    color: '#FFF',
     marginLeft: 4,
   },
   modalContainer: {
@@ -319,19 +332,22 @@ const mapStyles = StyleSheet.create({
   },
   modalOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    backgroundColor: COLORS.white,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     padding: 20,
     paddingBottom: 40,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 20,
   },
   modalHandle: {
     width: 40,
     height: 4,
-    backgroundColor: '#E2E8F0',
     borderRadius: 2,
     alignSelf: 'center',
     marginBottom: 20,
@@ -351,7 +367,7 @@ const mapStyles = StyleSheet.create({
   modalRouteNumber: {
     fontSize: 20,
     fontWeight: '800',
-    color: COLORS.white,
+    color: '#FFF',
   },
   modalInfo: {
     flex: 1,
@@ -360,16 +376,13 @@ const mapStyles = StyleSheet.create({
   modalDestination: {
     fontSize: 20,
     fontWeight: '700',
-    color: COLORS.text,
   },
   modalFrom: {
     fontSize: 14,
-    color: COLORS.textLight,
     marginTop: 2,
   },
   modalStats: {
     flexDirection: 'row',
-    backgroundColor: '#F8FAFC',
     borderRadius: 14,
     padding: 16,
     marginBottom: 20,
@@ -381,31 +394,27 @@ const mapStyles = StyleSheet.create({
   statValue: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.text,
     marginTop: 6,
   },
   statLabel: {
     fontSize: 12,
-    color: COLORS.textLight,
     marginTop: 2,
   },
   statDivider: {
     width: 1,
     height: 40,
-    backgroundColor: '#E2E8F0',
   },
   detailsBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     borderRadius: 14,
   },
   detailsBtnText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.white,
+    color: '#FFF',
     marginRight: 8,
   },
-}); 
+});
