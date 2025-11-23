@@ -1,5 +1,5 @@
-// File: src/screens/map/MapScreen.tsx
-import React, { useState } from 'react';
+// File: src/screens/map/MapScreen.tsx (Updated)
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,49 +7,55 @@ import {
   TouchableOpacity,
   Modal,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
-import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { Marker, UrlTile, PROVIDER_DEFAULT, Region } from 'react-native-maps';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
-import { MAP_CONFIG } from '../../constants/config';
-
-const DUMMY_BUSES = [
-  {
-    id: '1',
-    routeNumber: '138',
-    destination: 'Colombo Fort',
-    from: 'Negombo Bus Stand',
-    arrivalTime: '5 min',
-    occupancy: 45,
-    status: 'On time',
-    location: { latitude: 7.2906, longitude: 79.8570 },
-  },
-  {
-    id: '2',
-    routeNumber: '240',
-    destination: 'Pettah',
-    from: 'Katunayake',
-    arrivalTime: '12 min',
-    occupancy: 68,
-    status: 'On time',
-    location: { latitude: 7.2926, longitude: 79.8590 },
-  },
-  {
-    id: '3',
-    routeNumber: '03',
-    destination: 'Maharagama',
-    from: 'Grand Hotel',
-    arrivalTime: '20 min',
-    occupancy: 85,
-    status: 'Delayed',
-    location: { latitude: 7.2886, longitude: 79.8550 },
-  },
-];
+import { MAP_CONFIG, getInitialMapRegion } from '../../constants/config';
+import { subscribeToAllBuses, Bus } from '../../services/busService';
 
 export const MapScreen = ({ navigation }: any) => {
   const { colors, isDark } = useTheme();
+  const mapRef = useRef<MapView>(null);
   const [selectedBus, setSelectedBus] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
+  const [buses, setBuses] = useState<Bus[]>([]);
+  const [mapRegion, setMapRegion] = useState<Region>(MAP_CONFIG.initialRegion);
+  const [loading, setLoading] = useState(true);
+  const [locationLoading, setLocationLoading] = useState(true);
+
+  // Load user location on mount
+  useEffect(() => {
+    const loadUserLocation = async () => {
+      setLocationLoading(true);
+      const region = await getInitialMapRegion();
+      setMapRegion(region);
+      setLocationLoading(false);
+      
+      // Animate map to user location
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(region, 1000);
+      }
+    };
+    loadUserLocation();
+  }, []);
+
+  // Subscribe to buses
+  useEffect(() => {
+    const unsubscribe = subscribeToAllBuses(
+      (buses) => {
+        setBuses(buses);
+        setLoading(false);
+      },
+      (error) => {
+        console.error('Error loading buses:', error);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
@@ -62,6 +68,24 @@ export const MapScreen = ({ navigation }: any) => {
     setShowModal(true);
   };
 
+  const handleMyLocation = async () => {
+    const region = await getInitialMapRegion();
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(region, 1000);
+    }
+  };
+
+  if (locationLoading) {
+    return (
+      <View style={[styles.loadingContainer, { backgroundColor: colors.background }]}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={[styles.loadingText, { color: colors.text }]}>
+          Loading your location...
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar
@@ -71,15 +95,16 @@ export const MapScreen = ({ navigation }: any) => {
       />
 
       <MapView
+        ref={mapRef}
         style={styles.map}
         provider={PROVIDER_DEFAULT}
-        initialRegion={MAP_CONFIG.initialRegion}
+        initialRegion={mapRegion}
         showsUserLocation
         showsMyLocationButton={false}
       >
         <UrlTile urlTemplate={MAP_CONFIG.osmTileUrl} maximumZ={19} flipY={false} />
 
-        {DUMMY_BUSES.map((bus) => (
+        {buses.map((bus) => (
           <Marker
             key={bus.id}
             coordinate={bus.location}
@@ -128,11 +153,14 @@ export const MapScreen = ({ navigation }: any) => {
       </View>
 
       {/* My Location Button */}
-      <TouchableOpacity style={[styles.locationBtn, { backgroundColor: colors.card }]}>
+      <TouchableOpacity 
+        style={[styles.locationBtn, { backgroundColor: colors.card }]}
+        onPress={handleMyLocation}
+      >
         <Ionicons name="locate" size={24} color={colors.primary} />
       </TouchableOpacity>
 
-      {/* Bus Detail Modal */}
+      {/* Bus Detail Modal - Same as before */}
       <Modal
         visible={showModal}
         transparent
@@ -178,7 +206,7 @@ export const MapScreen = ({ navigation }: any) => {
                   <View style={styles.statItem}>
                     <Ionicons name="time-outline" size={20} color={colors.primary} />
                     <Text style={[styles.statValue, { color: colors.text }]}>
-                      {selectedBus.arrivalTime}
+                      {selectedBus.arrivalTime || 'N/A'}
                     </Text>
                     <Text style={[styles.statLabel, { color: colors.textLight }]}>Arrival</Text>
                   </View>
@@ -230,6 +258,15 @@ export const MapScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
