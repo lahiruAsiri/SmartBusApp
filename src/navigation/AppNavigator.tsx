@@ -47,7 +47,7 @@ export const AppNavigator = () => {
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         ) : !user ? (
           <>
-            <Stack.Screen name="Auth" component={LoginScreen} />
+            {/* <Stack.Screen name="Auth" component={LoginScreen} /> */}
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
           </>
