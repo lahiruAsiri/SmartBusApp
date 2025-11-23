@@ -13,6 +13,7 @@ import {
   Animated,
   Dimensions,
   StatusBar,
+  Image,
 } from 'react-native';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
@@ -152,7 +153,11 @@ export const UserHomeScreen = ({ navigation }: any) => {
         </TouchableOpacity>
 
         <View style={styles.logoContainer}>
-          <Text style={[styles.logoText, { color: colors.primary }]}>SMART BUS</Text>
+          <Image
+                        source={require('../../../assets/AppLogo.png')}
+                        style={styles.logo}
+                        resizeMode="contain"
+                      />
         </View>
 
         <TouchableOpacity onPress={toggleTheme} style={styles.themeButton}>
@@ -602,11 +607,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logoText: {
-    fontSize: 24,
-    fontWeight: '800',
-    letterSpacing: 1.5,
-  },
+  logo: { width: 200, height: 50 },
   content: {
     flex: 1,
   },
