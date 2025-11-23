@@ -1,5 +1,5 @@
 // File: src/screens/user/BusDetailsScreen.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,25 @@ import {
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
+import { subscribeToBus } from '../../services/busService';
+
 
 export const BusDetailsScreen = ({ route, navigation }: any) => {
   const { bus } = route.params;
   const { colors, isDark } = useTheme();
+  const [busData, setBusData] = useState(bus);
+
+  useEffect(() => {
+    if (!bus.id) return;
+    
+    const unsubscribe = subscribeToBus(bus.id, (updatedBus) => {
+      if (updatedBus) {
+        setBusData(updatedBus);
+      }
+    });
+    
+  return () => unsubscribe();
+}, [bus.id]);
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
@@ -28,7 +43,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   };
 
   const totalSeats = 45;
-  const occupied = Math.round((bus.occupancy / 100) * totalSeats);
+  const occupied = Math.round((busData.occupancy / 100) * totalSeats);
   const available = totalSeats - occupied;
 
   return (
@@ -43,7 +58,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>Bus Details</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>busData Details</Text>
         <TouchableOpacity style={styles.shareBtn}>
           <Ionicons name="share-outline" size={24} color={colors.text} />
         </TouchableOpacity>
@@ -55,29 +70,29 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
           <View
             style={[
               styles.routeBadgeLarge,
-              { backgroundColor: getOccupancyColor(bus.occupancy) },
+              { backgroundColor: getOccupancyColor(busData.occupancy) },
             ]}
           >
-            <Text style={styles.routeNumberLarge}>{bus.routeNumber}</Text>
+            <Text style={styles.routeNumberLarge}>{busData.routeNumber}</Text>
           </View>
           <Text style={[styles.destinationLarge, { color: colors.text }]}>
-            {bus.destination}
+            {busData.destination}
           </Text>
           <Text style={[styles.fromText, { color: colors.textLight }]}>
-            from {bus.from}
+            from {busData.from}
           </Text>
           <View style={styles.statusRow}>
             <View style={styles.statusItem}>
               <Ionicons name="time-outline" size={18} color={colors.primary} />
               <Text style={[styles.statusValue, { color: colors.text }]}>
-                {bus.arrivalTime}
+                {busData.arrivalTime}
               </Text>
             </View>
             <View style={styles.statusDivider} />
             <View style={styles.statusItem}>
-              <Ionicons name="checkmark-circle" size={18} color="#22C55E" />
+              <Ionicons name="checkmark-circle" size={18} color={busData.status === 'On time' ? '#22C55E' : '#F59E0B'} />
               <Text style={[styles.statusValue, { color: colors.text }]}>
-                {bus.status}
+                {busData.status}
               </Text>
             </View>
           </View>
@@ -93,30 +108,30 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
               <View
                 style={[
                   styles.occupancyBadge,
-                  { backgroundColor: getOccupancyColor(bus.occupancy) + '20' },
+                  { backgroundColor: getOccupancyColor(busData.occupancy) + '20' },
                 ]}
               >
                 <MaterialCommunityIcons
                   name="account-group"
                   size={24}
-                  color={getOccupancyColor(bus.occupancy)}
+                  color={getOccupancyColor(busData.occupancy)}
                 />
                 <Text
                   style={[
                     styles.occupancyPercentText,
-                    { color: getOccupancyColor(bus.occupancy) },
+                    { color: getOccupancyColor(busData.occupancy) },
                   ]}
                 >
-                  {bus.occupancy}%
+                  {busData.occupancy}%
                 </Text>
               </View>
               <Text
                 style={[
                   styles.occupancyLabel,
-                  { color: getOccupancyColor(bus.occupancy) },
+                  { color: getOccupancyColor(busData.occupancy) },
                 ]}
               >
-                {getOccupancyLabel(bus.occupancy)}
+                {getOccupancyLabel(busData.occupancy)}
               </Text>
             </View>
 
@@ -126,8 +141,8 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                   style={[
                     styles.progressFill,
                     {
-                      width: `${bus.occupancy}%`,
-                      backgroundColor: getOccupancyColor(bus.occupancy),
+                      width: `${busData.occupancy}%`,
+                      backgroundColor: getOccupancyColor(busData.occupancy),
                     },
                   ]}
                 />
@@ -180,7 +195,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                   Current Location
                 </Text>
                 <Text style={[styles.journeyValue, { color: colors.text }]}>
-                  {bus.from}
+                  {busData.from}
                 </Text>
               </View>
             </View>
@@ -194,7 +209,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                   Destination
                 </Text>
                 <Text style={[styles.journeyValue, { color: colors.text }]}>
-                  {bus.destination}
+                  {busData.destination}
                 </Text>
               </View>
             </View>
@@ -208,7 +223,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                   Expected Arrival
                 </Text>
                 <Text style={[styles.journeyValue, { color: colors.text }]}>
-                  {bus.arrivalTime}
+                  {busData.arrivalTime}
                 </Text>
               </View>
             </View>
@@ -223,7 +238,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
               <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
               <View style={styles.updateContent}>
                 <Text style={[styles.updateText, { color: colors.text }]}>
-                  Bus departed from {bus.from}
+                  Bus departed from {busData.from}
                 </Text>
                 <Text style={[styles.updateTime, { color: colors.textLight }]}>2 min ago</Text>
               </View>
@@ -232,7 +247,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
               <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
               <View style={styles.updateContent}>
                 <Text style={[styles.updateText, { color: colors.text }]}>
-                  Occupancy level: {bus.occupancy}%
+                  Occupancy level: {busData.occupancy}%
                 </Text>
                 <Text style={[styles.updateTime, { color: colors.textLight }]}>1 min ago</Text>
               </View>
