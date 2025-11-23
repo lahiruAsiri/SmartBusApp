@@ -6,12 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { COLORS } from '../../constants/colors';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export const BusDetailsScreen = ({ route, navigation }: any) => {
   const { bus } = route.params;
+  const { colors, isDark } = useTheme();
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
@@ -30,24 +32,26 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   const available = totalSeats - occupied;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={colors.background}
+      />
+
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backBtn}
-        >
-          <Ionicons name="arrow-back" size={24} color={COLORS.text} />
+      <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Bus Details</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Bus Details</Text>
         <TouchableOpacity style={styles.shareBtn}>
-          <Ionicons name="share-outline" size={24} color={COLORS.text} />
+          <Ionicons name="share-outline" size={24} color={colors.text} />
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Bus Hero Card */}
-        <View style={styles.heroCard}>
+        <View style={[styles.heroCard, { backgroundColor: colors.card }]}>
           <View
             style={[
               styles.routeBadgeLarge,
@@ -56,27 +60,35 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
           >
             <Text style={styles.routeNumberLarge}>{bus.routeNumber}</Text>
           </View>
-          <Text style={styles.destinationLarge}>{bus.destination}</Text>
-          <Text style={styles.fromText}>from {bus.from}</Text>
-
+          <Text style={[styles.destinationLarge, { color: colors.text }]}>
+            {bus.destination}
+          </Text>
+          <Text style={[styles.fromText, { color: colors.textLight }]}>
+            from {bus.from}
+          </Text>
           <View style={styles.statusRow}>
             <View style={styles.statusItem}>
-              <Ionicons name="time-outline" size={18} color={COLORS.primary} />
-              <Text style={styles.statusValue}>{bus.arrivalTime}</Text>
+              <Ionicons name="time-outline" size={18} color={colors.primary} />
+              <Text style={[styles.statusValue, { color: colors.text }]}>
+                {bus.arrivalTime}
+              </Text>
             </View>
             <View style={styles.statusDivider} />
             <View style={styles.statusItem}>
               <Ionicons name="checkmark-circle" size={18} color="#22C55E" />
-              <Text style={styles.statusValue}>{bus.status}</Text>
+              <Text style={[styles.statusValue, { color: colors.text }]}>
+                {bus.status}
+              </Text>
             </View>
           </View>
         </View>
 
         {/* Occupancy Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Real-Time Occupancy</Text>
-
-          <View style={styles.occupancyCard}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>
+            Real-Time Occupancy
+          </Text>
+          <View style={[styles.occupancyCard, { backgroundColor: colors.card }]}>
             <View style={styles.occupancyHeader}>
               <View
                 style={[
@@ -109,7 +121,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
             </View>
 
             <View style={styles.progressBarContainer}>
-              <View style={styles.progressBar}>
+              <View style={[styles.progressBar, { backgroundColor: colors.border }]}>
                 <View
                   style={[
                     styles.progressFill,
@@ -121,47 +133,33 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                 />
               </View>
               <View style={styles.progressLabels}>
-                <Text style={styles.progressLabelText}>0%</Text>
-                <Text style={styles.progressLabelText}>50%</Text>
-                <Text style={styles.progressLabelText}>100%</Text>
+                <Text style={[styles.progressLabelText, { color: colors.textLight }]}>0%</Text>
+                <Text style={[styles.progressLabelText, { color: colors.textLight }]}>50%</Text>
+                <Text style={[styles.progressLabelText, { color: colors.textLight }]}>100%</Text>
               </View>
             </View>
 
             <View style={styles.seatsInfo}>
               <View style={styles.seatItem}>
-                <View style={[styles.seatIcon, { backgroundColor: '#E2E8F0' }]}>
-                  <MaterialCommunityIcons
-                    name="seat"
-                    size={20}
-                    color={COLORS.textLight}
-                  />
+                <View style={[styles.seatIcon, { backgroundColor: colors.border }]}>
+                  <MaterialCommunityIcons name="seat" size={20} color={colors.textLight} />
                 </View>
-                <Text style={styles.seatNumber}>{totalSeats}</Text>
-                <Text style={styles.seatLabel}>Total</Text>
+                <Text style={[styles.seatNumber, { color: colors.text }]}>{totalSeats}</Text>
+                <Text style={[styles.seatLabel, { color: colors.textLight }]}>Total</Text>
               </View>
-
               <View style={styles.seatItem}>
                 <View style={[styles.seatIcon, { backgroundColor: '#FEE2E2' }]}>
-                  <MaterialCommunityIcons
-                    name="seat"
-                    size={20}
-                    color="#EF4444"
-                  />
+                  <MaterialCommunityIcons name="seat" size={20} color="#EF4444" />
                 </View>
-                <Text style={styles.seatNumber}>{occupied}</Text>
-                <Text style={styles.seatLabel}>Occupied</Text>
+                <Text style={[styles.seatNumber, { color: colors.text }]}>{occupied}</Text>
+                <Text style={[styles.seatLabel, { color: colors.textLight }]}>Occupied</Text>
               </View>
-
               <View style={styles.seatItem}>
                 <View style={[styles.seatIcon, { backgroundColor: '#DCFCE7' }]}>
-                  <MaterialCommunityIcons
-                    name="seat"
-                    size={20}
-                    color="#22C55E"
-                  />
+                  <MaterialCommunityIcons name="seat" size={20} color="#22C55E" />
                 </View>
-                <Text style={styles.seatNumber}>{available}</Text>
-                <Text style={styles.seatLabel}>Available</Text>
+                <Text style={[styles.seatNumber, { color: colors.text }]}>{available}</Text>
+                <Text style={[styles.seatLabel, { color: colors.textLight }]}>Available</Text>
               </View>
             </View>
           </View>
@@ -169,40 +167,49 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
 
         {/* Journey Info */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Journey Information</Text>
-
-          <View style={styles.journeyCard}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>
+            Journey Information
+          </Text>
+          <View style={[styles.journeyCard, { backgroundColor: colors.card }]}>
             <View style={styles.journeyItem}>
-              <View style={styles.journeyIconWrap}>
-                <Ionicons name="location" size={20} color={COLORS.primary} />
+              <View style={[styles.journeyIconWrap, { backgroundColor: colors.inputBg }]}>
+                <Ionicons name="location" size={20} color={colors.primary} />
               </View>
               <View style={styles.journeyInfo}>
-                <Text style={styles.journeyLabel}>Current Location</Text>
-                <Text style={styles.journeyValue}>{bus.from}</Text>
+                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
+                  Current Location
+                </Text>
+                <Text style={[styles.journeyValue, { color: colors.text }]}>
+                  {bus.from}
+                </Text>
               </View>
             </View>
-
-            <View style={styles.journeyLine} />
-
+            <View style={[styles.journeyLine, { backgroundColor: colors.border }]} />
             <View style={styles.journeyItem}>
-              <View style={styles.journeyIconWrap}>
+              <View style={[styles.journeyIconWrap, { backgroundColor: '#DCFCE7' }]}>
                 <Ionicons name="flag" size={20} color="#22C55E" />
               </View>
               <View style={styles.journeyInfo}>
-                <Text style={styles.journeyLabel}>Destination</Text>
-                <Text style={styles.journeyValue}>{bus.destination}</Text>
+                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
+                  Destination
+                </Text>
+                <Text style={[styles.journeyValue, { color: colors.text }]}>
+                  {bus.destination}
+                </Text>
               </View>
             </View>
-
-            <View style={styles.journeyLine} />
-
+            <View style={[styles.journeyLine, { backgroundColor: colors.border }]} />
             <View style={styles.journeyItem}>
-              <View style={styles.journeyIconWrap}>
+              <View style={[styles.journeyIconWrap, { backgroundColor: '#FEF3C7' }]}>
                 <Ionicons name="time" size={20} color="#F59E0B" />
               </View>
               <View style={styles.journeyInfo}>
-                <Text style={styles.journeyLabel}>Expected Arrival</Text>
-                <Text style={styles.journeyValue}>{bus.arrivalTime}</Text>
+                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
+                  Expected Arrival
+                </Text>
+                <Text style={[styles.journeyValue, { color: colors.text }]}>
+                  {bus.arrivalTime}
+                </Text>
               </View>
             </View>
           </View>
@@ -210,34 +217,31 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
 
         {/* Live Updates */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Live Updates</Text>
-
-          <View style={styles.updatesCard}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Live Updates</Text>
+          <View style={[styles.updatesCard, { backgroundColor: colors.card }]}>
             <View style={styles.updateItem}>
-              <View style={styles.updateDot} />
+              <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
               <View style={styles.updateContent}>
-                <Text style={styles.updateText}>
+                <Text style={[styles.updateText, { color: colors.text }]}>
                   Bus departed from {bus.from}
                 </Text>
-                <Text style={styles.updateTime}>2 min ago</Text>
+                <Text style={[styles.updateTime, { color: colors.textLight }]}>2 min ago</Text>
               </View>
             </View>
-
             <View style={styles.updateItem}>
-              <View style={styles.updateDot} />
+              <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
               <View style={styles.updateContent}>
-                <Text style={styles.updateText}>
+                <Text style={[styles.updateText, { color: colors.text }]}>
                   Occupancy level: {bus.occupancy}%
                 </Text>
-                <Text style={styles.updateTime}>1 min ago</Text>
+                <Text style={[styles.updateTime, { color: colors.textLight }]}>1 min ago</Text>
               </View>
             </View>
-
             <View style={styles.updateItem}>
               <View style={[styles.updateDot, { backgroundColor: '#22C55E' }]} />
               <View style={styles.updateContent}>
-                <Text style={styles.updateText}>Next stop in 500m</Text>
-                <Text style={styles.updateTime}>Just now</Text>
+                <Text style={[styles.updateText, { color: colors.text }]}>Next stop in 500m</Text>
+                <Text style={[styles.updateTime, { color: colors.textLight }]}>Just now</Text>
               </View>
             </View>
           </View>
@@ -246,16 +250,25 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
         {/* Action Buttons */}
         <View style={styles.actions}>
           <TouchableOpacity
-            style={styles.primaryBtn}
+            style={[styles.primaryBtn, { backgroundColor: colors.primary }]}
             onPress={() => navigation.navigate('Map', { selectedBus: bus })}
           >
-            <Ionicons name="map" size={20} color={COLORS.white} />
+            <Ionicons name="map" size={20} color="#FFF" />
             <Text style={styles.primaryBtnText}>Track on Map</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.secondaryBtn}>
-            <Ionicons name="notifications-outline" size={20} color={COLORS.primary} />
-            <Text style={styles.secondaryBtnText}>Set Alert</Text>
+          <TouchableOpacity
+            style={[
+              styles.secondaryBtn,
+              {
+                backgroundColor: colors.card,
+                borderColor: colors.primary,
+              },
+            ]}
+          >
+            <Ionicons name="notifications-outline" size={20} color={colors.primary} />
+            <Text style={[styles.secondaryBtnText, { color: colors.primary }]}>
+              Set Alert
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -266,7 +279,6 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
   },
   header: {
     flexDirection: 'row',
@@ -275,9 +287,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 55,
     paddingBottom: 15,
-    backgroundColor: COLORS.white,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
   },
   backBtn: {
     padding: 8,
@@ -285,7 +295,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.text,
   },
   shareBtn: {
     padding: 8,
@@ -294,16 +303,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heroCard: {
-    backgroundColor: COLORS.white,
     margin: 16,
     padding: 24,
     borderRadius: 20,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 4,
+    elevation: 6,
   },
   routeBadgeLarge: {
     width: 80,
@@ -316,22 +324,21 @@ const styles = StyleSheet.create({
   routeNumberLarge: {
     fontSize: 28,
     fontWeight: '800',
-    color: COLORS.white,
+    color: '#FFF',
   },
   destinationLarge: {
     fontSize: 24,
     fontWeight: '700',
-    color: COLORS.text,
     marginBottom: 4,
   },
   fromText: {
     fontSize: 14,
-    color: COLORS.textLight,
     marginBottom: 20,
   },
   statusRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10,
   },
   statusItem: {
     flexDirection: 'row',
@@ -341,7 +348,6 @@ const styles = StyleSheet.create({
   statusValue: {
     fontSize: 15,
     fontWeight: '600',
-    color: COLORS.text,
     marginLeft: 6,
   },
   statusDivider: {
@@ -355,20 +361,18 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 17,
     fontWeight: '700',
-    color: COLORS.text,
     marginHorizontal: 16,
     marginBottom: 12,
   },
   occupancyCard: {
-    backgroundColor: COLORS.white,
     marginHorizontal: 16,
     padding: 20,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.08,
     shadowRadius: 6,
-    elevation: 2,
+    elevation: 3,
   },
   occupancyHeader: {
     flexDirection: 'row',
@@ -397,7 +401,6 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 10,
-    backgroundColor: '#E2E8F0',
     borderRadius: 5,
     overflow: 'hidden',
   },
@@ -412,7 +415,6 @@ const styles = StyleSheet.create({
   },
   progressLabelText: {
     fontSize: 11,
-    color: COLORS.textLight,
   },
   seatsInfo: {
     flexDirection: 'row',
@@ -432,61 +434,60 @@ const styles = StyleSheet.create({
   seatNumber: {
     fontSize: 20,
     fontWeight: '700',
-    color: COLORS.text,
   },
   seatLabel: {
     fontSize: 12,
-    color: COLORS.textLight,
     marginTop: 2,
   },
   journeyCard: {
-    backgroundColor: COLORS.white,
     marginHorizontal: 16,
     padding: 20,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.08,
     shadowRadius: 6,
-    elevation: 2,
+    elevation: 3,
   },
   journeyItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 12,
   },
   journeyIconWrap: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F1F5F9',
     alignItems: 'center',
     justifyContent: 'center',
   },
   journeyInfo: {
     marginLeft: 14,
+    flex: 1,
   },
   journeyLabel: {
     fontSize: 12,
-    color: COLORS.textLight,
   },
   journeyValue: {
     fontSize: 16,
     fontWeight: '600',
-    color: COLORS.text,
     marginTop: 2,
   },
   journeyLine: {
     width: 2,
     height: 24,
-    backgroundColor: '#E2E8F0',
     marginLeft: 19,
     marginVertical: 4,
   },
   updatesCard: {
-    backgroundColor: COLORS.white,
     marginHorizontal: 16,
     padding: 16,
     borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
   },
   updateItem: {
     flexDirection: 'row',
@@ -496,7 +497,6 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: COLORS.primary,
     marginTop: 4,
   },
   updateContent: {
@@ -505,11 +505,9 @@ const styles = StyleSheet.create({
   },
   updateText: {
     fontSize: 14,
-    color: COLORS.text,
   },
   updateTime: {
     fontSize: 12,
-    color: COLORS.textLight,
     marginTop: 2,
   },
   actions: {
@@ -520,7 +518,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     borderRadius: 14,
     marginBottom: 12,
@@ -528,23 +525,20 @@ const styles = StyleSheet.create({
   primaryBtnText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.white,
+    color: '#FFF',
     marginLeft: 8,
   },
   secondaryBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.white,
     paddingVertical: 16,
     borderRadius: 14,
     borderWidth: 2,
-    borderColor: COLORS.primary,
   },
   secondaryBtnText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.primary,
     marginLeft: 8,
   },
 });
