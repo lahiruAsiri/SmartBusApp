@@ -14,6 +14,8 @@ import {
   Dimensions,
   StatusBar,
   Image,
+  TextInput,
+  Keyboard,
 } from 'react-native';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,7 +44,24 @@ export const UserHomeScreen = ({ navigation }: any) => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [loading, setLoading] = useState(true);
   const [miniMapRegion, setMiniMapRegion] = useState(MAP_CONFIG.initialRegion);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Bus[]>([]);
 
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+    if (text.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+    
+    const query = text.toLowerCase();
+    const filtered = buses.filter(bus => 
+      bus.routeNumber.toLowerCase().includes(query) ||
+      bus.destination.toLowerCase().includes(query) ||
+      bus.from.toLowerCase().includes(query)
+    );
+    setSearchResults(filtered);
+  };
 
   // Fetch user location on mount
   useEffect(() => {
@@ -180,15 +199,58 @@ export const UserHomeScreen = ({ navigation }: any) => {
         </View>
 
         {/* Search Bar */}
-        <TouchableOpacity style={[styles.searchBar, { backgroundColor: colors.card }]}>
-          <Ionicons name="search" size={22} color={colors.textLight} />
-          <Text style={[styles.searchPlaceholder, { color: colors.textLight }]}>
-            Enter the destination
-          </Text>
-          <View style={[styles.miniMapIconBtn, { backgroundColor: colors.primary + '15' }]}>
-            <Ionicons name="location" size={18} color={colors.primary} />
+        <View style={[styles.searchContainer, { backgroundColor: colors.card }]}>
+          <View style={styles.searchBarInner}>
+            <Ionicons name="search" size={22} color={colors.textLight} />
+            <TextInput
+              style={[styles.searchInput, { color: colors.text }]}
+              placeholder="Enter destination or bus number..."
+              placeholderTextColor={colors.textLight + '80'}
+              value={searchQuery}
+              onChangeText={handleSearch}
+            />
+            {searchQuery !== '' && (
+              <TouchableOpacity onPress={() => { setSearchQuery(''); setSearchResults([]); Keyboard.dismiss(); }}>
+                <Ionicons name="close-circle" size={20} color={colors.textLight} />
+              </TouchableOpacity>
+            )}
           </View>
-        </TouchableOpacity>
+
+          {/* Search Results */}
+          {searchQuery !== '' && (
+            <View style={styles.searchResultsList}>
+              {searchResults.length > 0 ? (
+                searchResults.map((bus) => (
+                  <TouchableOpacity
+                    key={bus.id}
+                    style={[styles.searchResultItem, { borderTopColor: colors.border }]}
+                    onPress={() => {
+                      navigation.navigate('BusDetails', { bus });
+                      setSearchQuery('');
+                      setSearchResults([]);
+                    }}
+                  >
+                    <View style={[styles.resultIcon, { backgroundColor: colors.primary + '15' }]}>
+                      <Ionicons name="bus" size={20} color={colors.primary} />
+                    </View>
+                    <View style={styles.resultInfo}>
+                      <View style={styles.resultHeader}>
+                        <Text style={[styles.resultRoute, { color: colors.primary }]}>{bus.routeNumber}</Text>
+                        <Text style={[styles.resultDestination, { color: colors.text }]}>{bus.destination}</Text>
+                      </View>
+                      <Text style={[styles.resultFrom, { color: colors.textLight }]}>From: {bus.from}</Text>
+                    </View>
+                    <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
+                  </TouchableOpacity>
+                ))
+              ) : (
+                <View style={styles.noResults}>
+                  <Text style={[styles.noResultsText, { color: colors.textLight }]}>No buses found</Text>
+                </View>
+              )}
+            </View>
+          )}
+        </View>
 
         {/* Mini Map Section */}
         <View style={styles.section}>
@@ -623,24 +685,71 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
   },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  searchContainer: {
     marginHorizontal: 20,
     marginBottom: 25,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
     shadowRadius: 8,
     elevation: 3,
+    overflow: 'hidden',
   },
-  searchPlaceholder: {
+  searchBarInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  searchInput: {
     flex: 1,
     marginLeft: 12,
     fontSize: 16,
+    height: '100%',
+  },
+  searchResultsList: {
+    maxHeight: 250,
+  },
+  searchResultItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    paddingHorizontal: 16,
+    borderTopWidth: 1,
+  },
+  resultIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  resultInfo: {
+    flex: 1,
+  },
+  resultHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
+  },
+  resultRoute: {
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  resultDestination: {
+    fontWeight: '600',
+  },
+  resultFrom: {
+    fontSize: 12,
+  },
+  noResults: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  noResultsText: {
+    fontSize: 14,
   },
   miniMapIconBtn: {
     width: 36,
