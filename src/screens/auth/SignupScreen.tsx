@@ -19,6 +19,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 
 const POLICEMAN_SECRET_CODE = "POLICE2025"; // Change this to anything you want
+const DRIVER_SECRET_CODE = "BUS2025"; // Secret code for bus drivers
 
 export const SignupScreen = ({ navigation }: any) => {
   const { colors, isDark, toggleTheme } = useTheme();
@@ -26,8 +27,8 @@ export const SignupScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState<'user' | 'policeman'>('user');
-  const [secretCode, setSecretCode] = useState(''); // Only shown for policeman
+  const [role, setRole] = useState<'user' | 'policeman' | 'driver'>('user');
+  const [secretCode, setSecretCode] = useState(''); // Only shown for policeman and driver
   const [loading, setLoading] = useState(false);
 
   const { signUp } = useAuth();
@@ -58,6 +59,18 @@ export const SignupScreen = ({ navigation }: any) => {
         Alert.alert(
           'Access Denied',
           'Invalid police verification code.\n\nPlease contact admin for the correct code.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+    }
+
+    // Special check for Driver
+    if (role === 'driver') {
+      if (secretCode !== DRIVER_SECRET_CODE) {
+        Alert.alert(
+          'Access Denied',
+          'Invalid driver verification code.\n\nPlease contact admin for the correct code.',
           [{ text: 'OK' }]
         );
         return;
@@ -187,18 +200,30 @@ export const SignupScreen = ({ navigation }: any) => {
                 onPress={() => setRole('policeman')}
               >
                 <Ionicons name="shield-checkmark-outline" size={24} color={role === 'policeman' ? colors.primary : colors.textLight} />
-                <Text style={[styles.roleText, role === 'policeman' && { color: colors.primary, fontWeight: '700' }]}>Policeman</Text>
+                <Text style={[styles.roleText, role === 'policeman' && { color: colors.primary, fontWeight: '700' }]}>Police</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.roleButton,
+                  role === 'driver' && styles.roleButtonActive,
+                  role === 'driver' && { borderColor: colors.primary },
+                ]}
+                onPress={() => setRole('driver')}
+              >
+                <Ionicons name="bus-outline" size={24} color={role === 'driver' ? colors.primary : colors.textLight} />
+                <Text style={[styles.roleText, role === 'driver' && { color: colors.primary, fontWeight: '700' }]}>Driver</Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          {/* Secret Code Input - Only visible when Policeman is selected */}
-          {role === 'policeman' && (
+          {/* Secret Code Input - Only visible when Policeman or Driver is selected */}
+          {(role === 'policeman' || role === 'driver') && (
             <View style={styles.inputWrapper}>
               <Ionicons name="key-outline" size={20} color={colors.primary} style={styles.inputIcon} />
               <TextInput
                 style={[styles.input, { borderColor: colors.primary + '60', color: colors.text }]}
-                placeholder="Enter Police Code (Required)"
+                placeholder={role === 'policeman' ? "Enter Police Code (Required)" : "Enter Driver Code (Required)"}
                 placeholderTextColor={colors.textLight + '80'}
                 value={secretCode}
                 onChangeText={setSecretCode}
@@ -287,11 +312,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  roleSection: { marginVertical: 20 },
+  roleSection: { marginVertical: 10 },
   roleLabel: { fontSize: 16, fontWeight: '600', marginBottom: 12, textAlign: 'center' },
-  roleButtons: { flexDirection: 'row', justifyContent: 'space-around' },
+  roleButtons: { flexDirection: 'row', justifyContent: 'center', gap: 10 },
   roleButton: {
-    width: 120,
+    width: 95,
     height: 100,
     borderRadius: 20,
     borderWidth: 2,
