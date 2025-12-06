@@ -9,6 +9,7 @@ import { SignupScreen } from '../screens/auth/SignupScreen';
 import { UserHomeScreen } from '../screens/user/UserHomeScreen';
 import { BusDetailsScreen } from '../screens/user/BusDetailsScreen';
 import { PolicemanHomeScreen } from '../screens/policeman/PolicemanHomeScreen';
+import { DriverHomeScreen } from '../screens/driver/DriverHomeScreen';
 import { MapScreen } from '../screens/map/MapScreen';
 import { SettingsScreen } from '../screens/user/SettingsScreen';
 
@@ -40,6 +41,15 @@ export const AppNavigator = () => {
     );
   }
 
+  // Prevent flash of "User" screen while fetching role data
+  if (user && !userData) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -55,6 +65,10 @@ export const AppNavigator = () => {
           <>
             <Stack.Screen name="PolicemanHome" component={PolicemanHomeScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
+          </>
+        ) : userData?.role === 'driver' ? (
+          <>
+            <Stack.Screen name="DriverHome" component={DriverHomeScreen} />
           </>
         ) : (
           <>
