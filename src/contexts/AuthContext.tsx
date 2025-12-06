@@ -12,7 +12,7 @@ import { auth, db } from '../api/firebase';
 interface UserData {
   email: string;
   displayName: string;
-  role: 'user' | 'policeman';
+  role: 'user' | 'policeman' | 'driver';
   uid: string;
 }
 
@@ -20,7 +20,7 @@ interface AuthContextType {
   user: User | null;
   userData: UserData | null;
   loading: boolean;
-  signUp: (email: string, password: string, displayName: string, role: 'user' | 'policeman') => Promise<void>;
+  signUp: (email: string, password: string, displayName: string, role: 'user' | 'policeman' | 'driver') => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     email: string, 
     password: string, 
     displayName: string, 
-    role: 'user' | 'policeman'
+    role: 'user' | 'policeman' | 'driver'
   ): Promise<void> => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
