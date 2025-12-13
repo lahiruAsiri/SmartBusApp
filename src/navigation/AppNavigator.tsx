@@ -11,7 +11,10 @@ import { BusDetailsScreen } from '../screens/user/BusDetailsScreen';
 import { PolicemanHomeScreen } from '../screens/policeman/PolicemanHomeScreen';
 import { DriverHomeScreen } from '../screens/driver/DriverHomeScreen';
 import { MapScreen } from '../screens/map/MapScreen';
+import { PolicemanAlertsScreen } from '@/screens/policeman/PolicemanAlertsScreen';
 import { SettingsScreen } from '../screens/user/SettingsScreen';
+import { BusViolationDetailsScreen } from '@/screens/policeman/BusViolationDetailsScreen';
+import { DriverProfileScreen } from '@/screens/driver/DriverProfileScreen';
 
 
 import { useAuth } from '../contexts/AuthContext';
@@ -65,10 +68,13 @@ export const AppNavigator = () => {
           <>
             <Stack.Screen name="PolicemanHome" component={PolicemanHomeScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
+            <Stack.Screen name="PolicemanAlerts" component={PolicemanAlertsScreen} />
+            <Stack.Screen name="BusViolationDetails" component={BusViolationDetailsScreen} />
           </>
         ) : userData?.role === 'driver' ? (
           <>
             <Stack.Screen name="DriverHome" component={DriverHomeScreen} />
+            <Stack.Screen name="DriverProfile" component={DriverProfileScreen} />
           </>
         ) : (
           <>
