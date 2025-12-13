@@ -27,9 +27,11 @@
         "backgroundColor": "#2196F3"
       },
       "package": "com.yourcompany.smartbusapp",
+      "versionCode": 1,
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "VIBRATE"
       ],
       "config": {
         "googleMaps": {
@@ -44,9 +46,13 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Smart Bus to use your location for tracking nearby buses."
+          "locationAlwaysAndWhenInUsePermission": "Allow Smart Bus to use your location for tracking nearby buses.",
+          "locationAlwaysPermission": "Smart Bus needs background location for alerts."
         }
-      ]
+      ],
+      "expo-notifications",
+      "@react-native-firebase/app",
+      "@react-native-firebase/messaging"
     ]
   }
 }
