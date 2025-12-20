@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { 
-  createUserWithEmailAndPassword, 
+import {
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
@@ -35,20 +35,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('AuthContext: Setting up auth listener...');
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      console.log('AuthContext: onAuthStateChanged triggered - user:', !!firebaseUser);
       setUser(firebaseUser);
-      
+
       if (firebaseUser) {
-        const userDocRef = doc(db, 'users', firebaseUser.uid);
-        const userDoc = await getDoc(userDocRef);
-        
-        if (userDoc.exists()) {
-          setUserData(userDoc.data() as UserData);
+        console.log('AuthContext: Fetching user data for uid:', firebaseUser.uid);
+        try {
+          const userDocRef = doc(db, 'users', firebaseUser.uid);
+
+          // Add a timeout to the Firestore fetch
+          const docPromise = getDoc(userDocRef);
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Firestore timeout')), 5000)
+          );
+
+          const userDoc = await Promise.race([docPromise, timeoutPromise]) as any;
+
+          if (userDoc.exists()) {
+            console.log('AuthContext: User data found');
+            setUserData(userDoc.data() as UserData);
+          } else {
+            console.warn('AuthContext: User data doc NOT FOUND in users collection');
+            setUserData(null);
+          }
+        } catch (err) {
+          console.error('AuthContext: Error fetching user data:', err);
+          setUserData(null);
         }
       } else {
+        console.log('AuthContext: No user logged in');
         setUserData(null);
       }
-      
+
+      console.log('AuthContext: Setting loading to false');
       setLoading(false);
     });
 
@@ -56,9 +77,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signUp = async (
-    email: string, 
-    password: string, 
-    displayName: string, 
+    email: string,
+    password: string,
+    displayName: string,
     role: 'user' | 'policeman' | 'driver'
   ): Promise<void> => {
     try {
