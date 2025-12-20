@@ -69,7 +69,7 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
 
           <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Map')}>
             <Text style={[styles.menuItemText, { color: colors.text }]}>Live Bus Tracking</Text>
-            <Text style={styles.arrow}>→</Text>
+            <Text style={styles.arrow}>-&gt;</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('PolicemanAlerts')}>
@@ -78,17 +78,17 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
               <Text style={[styles.menuItemText, { color: colors.text, fontWeight: '600' }]}>
                 Violation History
               </Text>
-              {alertCount > 0 && (
+              {alertCount > 0 ? (
                 <View style={styles.alertBadge}>
                   <Text style={styles.alertBadgeText}>{alertCount}</Text>
                 </View>
-              )}
+              ) : null}
             </View>
-            <Text style={styles.arrow}>→</Text>
+            <Text style={styles.arrow}>-&gt;</Text>
           </TouchableOpacity>
         </View>
 
-        {/* LOGOUT BUTTON — WORKING 100% */}
+        {/* LOGOUT BUTTON - WORKING 100% */}
         <TouchableOpacity
           style={[styles.logoutButton, { borderColor: '#FF3B30' }]}
           onPress={handleLogout}
