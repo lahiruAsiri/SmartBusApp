@@ -53,9 +53,9 @@ export const UserHomeScreen = ({ navigation }: any) => {
       setSearchResults([]);
       return;
     }
-    
+
     const query = text.toLowerCase();
-    const filtered = buses.filter(bus => 
+    const filtered = buses.filter(bus =>
       bus.routeNumber.toLowerCase().includes(query) ||
       bus.destination.toLowerCase().includes(query) ||
       bus.from.toLowerCase().includes(query)
@@ -84,7 +84,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
   // Subscribe to nearby buses based on user location
   useEffect(() => {
-    if (!userLocation) return;
+    if (!userLocation || !userData) return;
 
     setLoading(true);
     const unsubscribe = getNearbyBuses(
@@ -98,22 +98,27 @@ export const UserHomeScreen = ({ navigation }: any) => {
     );
 
     return () => unsubscribe();
-  }, [userLocation]);
+  }, [userLocation, !!userData]);
 
   // Subscribe to all buses for map view
   useEffect(() => {
+    if (!userData) return;
+
     const unsubscribe = subscribeToAllBuses(
       (buses) => {
         setBuses(buses);
       },
       (error) => {
-        console.error('Error loading buses:', error);
-        Alert.alert('Error', 'Failed to load bus data');
+        // Only log if we still have a user (to avoid spamming permission errors during logout)
+        if (userData) {
+          console.error('Error loading buses:', error);
+          Alert.alert('Error', 'Failed to load bus data');
+        }
       }
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [!!userData]);
 
   // Load user location for mini map
   useEffect(() => {
@@ -173,10 +178,10 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
         <View style={styles.logoContainer}>
           <Image
-                        source={require('../../../assets/AppLogo.png')}
-                        style={styles.logo}
-                        resizeMode="contain"
-                      />
+            source={require('../../../assets/AppLogo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
         </View>
 
         <TouchableOpacity onPress={toggleTheme} style={styles.themeButton}>
@@ -217,7 +222,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
           </View>
 
           {/* Search Results */}
-          {searchQuery !== '' && (
+          {searchQuery !== '' ? (
             <View style={styles.searchResultsList}>
               {searchResults.length > 0 ? (
                 searchResults.map((bus) => (
@@ -225,7 +230,8 @@ export const UserHomeScreen = ({ navigation }: any) => {
                     key={bus.id}
                     style={[styles.searchResultItem, { borderTopColor: colors.border }]}
                     onPress={() => {
-                      navigation.navigate('BusDetails', { bus });
+                      const { lastUpdated, ...serializableBus } = bus;
+                      navigation.navigate('BusDetails', { bus: serializableBus });
                       setSearchQuery('');
                       setSearchResults([]);
                     }}
@@ -238,18 +244,18 @@ export const UserHomeScreen = ({ navigation }: any) => {
                         <Text style={[styles.resultRoute, { color: colors.primary }]}>{bus.routeNumber}</Text>
                         <Text style={[styles.resultDestination, { color: colors.text }]}>{bus.destination}</Text>
                       </View>
-                      <Text style={[styles.resultFrom, { color: colors.textLight }]}>From: {bus.from}</Text>
+                      <Text style={[styles.resultFrom, { color: colors.textLight }]}>from {bus.from}</Text>
                     </View>
                     <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
                   </TouchableOpacity>
                 ))
               ) : (
                 <View style={styles.noResults}>
-                  <Text style={[styles.noResultsText, { color: colors.textLight }]}>No buses found</Text>
+                  <Text style={[styles.noResultsText, { color: colors.textLight }]}>No buses found for "{searchQuery}"</Text>
                 </View>
               )}
             </View>
-          )}
+          ) : null}
         </View>
 
         {/* Mini Map Section */}
