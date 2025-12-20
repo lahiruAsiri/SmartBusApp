@@ -11,24 +11,26 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { subscribeToBus } from '../../services/busService';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 export const BusDetailsScreen = ({ route, navigation }: any) => {
   const { bus } = route.params;
   const { colors, isDark } = useTheme();
+  const { userData } = useAuth();
   const [busData, setBusData] = useState(bus);
 
   useEffect(() => {
-    if (!bus.id) return;
-    
+    if (!bus.id || !userData) return;
+
     const unsubscribe = subscribeToBus(bus.id, (updatedBus) => {
-      if (updatedBus) {
+      if (updatedBus && userData) {
         setBusData(updatedBus);
       }
     });
-    
-  return () => unsubscribe();
-}, [bus.id]);
+
+    return () => unsubscribe();
+  }, [bus.id, !!userData]);
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
