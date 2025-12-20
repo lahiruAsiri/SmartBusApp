@@ -61,8 +61,8 @@ export function setupGlobalNotificationListener() {
 export async function triggerSpeedingAlert(busData: any) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: '🚨 Speeding Violation!',
-      body: `${busData.busId} • Route ${busData.routeNumber} • ${busData.speed} km/h`,
+      title: 'Speeding Violation!',
+      body: `${busData.busId} | Route ${busData.routeNumber} | ${busData.speed} km/h`,
       sound: true,
       badge: 1,
       data: { screen: 'PolicemanAlerts' },
