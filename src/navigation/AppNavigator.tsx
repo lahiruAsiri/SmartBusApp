@@ -30,11 +30,20 @@ export const AppNavigator = () => {
 
   useEffect(() => {
     const checkOnboarding = async () => {
-      const completed = await getBooleanItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
-      setOnboardingCompleted(completed);
+      console.log('AppNavigator: Checking onboarding...');
+      try {
+        const completed = await getBooleanItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
+        console.log('AppNavigator: Onboarding status:', completed);
+        setOnboardingCompleted(completed ?? false); // Fallback to false if null
+      } catch (err) {
+        console.error('AppNavigator: Onboarding check failed:', err);
+        setOnboardingCompleted(false);
+      }
     };
     checkOnboarding();
   }, []);
+
+  console.log('AppNavigator: Rendering state - loading:', loading, 'onboarding:', onboardingCompleted, 'user:', !!user, 'userData:', !!userData);
 
   if (loading || onboardingCompleted === null) {
     return (
@@ -44,13 +53,18 @@ export const AppNavigator = () => {
     );
   }
 
-  // Prevent flash of "User" screen while fetching role data
   if (user && !userData) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
-      </View>
-    );
+    // If loading is finished but we still have no userData, it usually means a permission error
+    // or the user document doesn't exist. We allow them to go to Login to re-authenticate or fix it.
+    if (!loading) {
+      console.log('AppNavigator: User authenticated but no userData found. Falling back to Login.');
+    } else {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      );
+    }
   }
 
   return (
@@ -58,9 +72,8 @@ export const AppNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!onboardingCompleted ? (
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        ) : !user ? (
+        ) : (!user || !userData) ? (
           <>
-            {/* <Stack.Screen name="Auth" component={LoginScreen} /> */}
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
           </>
@@ -82,7 +95,6 @@ export const AppNavigator = () => {
             <Stack.Screen name="BusDetails" component={BusDetailsScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
-
           </>
         )}
       </Stack.Navigator>
