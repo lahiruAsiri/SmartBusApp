@@ -85,7 +85,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-      
+
       {/* Header */}
       <View style={[styles.header, { backgroundColor: colors.card }]}>
         <View>
@@ -100,9 +100,9 @@ export const DriverHomeScreen = ({ navigation }: any) => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        
+
         {/* Performance Summary Card */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
         >
@@ -121,7 +121,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.statSmall}>Days Safe</Text>
             </View>
           </View>
-          <Text style={styles.viewAll}>Tap to view full history →</Text>
+          <Text style={styles.viewAll}>Tap to view full history -&gt;</Text>
         </TouchableOpacity>
 
         {/* Status Card */}
@@ -138,7 +138,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
             </View>
             <Switch value={isShiftActive} onValueChange={toggleShift} />
           </View>
-          
+
           {isShiftActive && (
             <View style={styles.broadcastingContainer}>
               <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]} />
@@ -207,7 +207,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <View style={[styles.card, { backgroundColor: colors.card, padding: 15 }]}>
                 <View style={styles.occupancyButtons}>
                   {(['Low', 'Medium', 'High'] as const).map(level => (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       key={level}
                       style={[styles.occButton, occupancy === level && { backgroundColor: getOccupancyColor(level), borderColor: getOccupancyColor(level) }]}
                       onPress={() => setOccupancy(level)}
