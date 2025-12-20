@@ -40,12 +40,12 @@ export const OnboardingScreen = () => {
     }
   };
 
-  // ← YOUR EXACT renderItem – NOT CHANGED AT ALL
+  // <- YOUR EXACT renderItem - NOT CHANGED AT ALL
   const renderItem = ({ item }: { item: OnboardingItem }) => (
     <View style={styles.slide}>
       <View style={styles.imageContainer}>
         <View style={styles.imagePlaceholder}>
-          <Text style={styles.placeholderText}>🚌</Text>
+          <Text style={styles.placeholderText}>[BUS]</Text>
         </View>
       </View>
       <Text style={styles.title}>{item.title}</Text>
