@@ -54,7 +54,7 @@ export const PolicemanAlertsScreen = ({ navigation }: any) => {
               <View style={styles.row}>
                 <Ionicons name="alert-circle" size={28} color="#FF3B30" />
                 <View style={{ marginLeft: 12, flex: 1 }}>
-                  <Text style={[styles.busId, { color: colors.text }]}>{item.busId} • Route {item.routeNumber}</Text>
+                  <Text style={[styles.busId, { color: colors.text }]}>{item.busId} | Route {item.routeNumber}</Text>
                   <Text style={styles.speed}>Speed: {item.speed} km/h</Text>
                   <Text style={[styles.location, { color: colors.textLight }]}>
                     Lat: {item.location.latitude.toFixed(6)}, Lng: {item.location.longitude.toFixed(6)}
