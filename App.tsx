@@ -1,4 +1,4 @@
-// App.tsx (FINAL VERSION — NO NESTING ERROR)
+// App.tsx - Entry Point
 import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -19,7 +19,7 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <AuthProvider>
-          <AppNavigator />  {/* Your navigator already has NavigationContainer */}
+          <AppNavigator />
           <StatusBar style="auto" />
         </AuthProvider>
       </ThemeProvider>
