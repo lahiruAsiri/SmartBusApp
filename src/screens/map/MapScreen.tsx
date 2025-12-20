@@ -14,9 +14,11 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MAP_CONFIG, getInitialMapRegion } from '../../constants/config';
 import { subscribeToAllBuses, Bus } from '../../services/busService';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const MapScreen = ({ navigation }: any) => {
   const { colors, isDark } = useTheme();
+  const { userData } = useAuth();
   const mapRef = useRef<MapView>(null);
   const [selectedBus, setSelectedBus] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +34,7 @@ export const MapScreen = ({ navigation }: any) => {
       const region = await getInitialMapRegion();
       setMapRegion(region);
       setLocationLoading(false);
-      
+
       // Animate map to user location
       if (mapRef.current) {
         mapRef.current.animateToRegion(region, 1000);
@@ -43,19 +45,23 @@ export const MapScreen = ({ navigation }: any) => {
 
   // Subscribe to buses
   useEffect(() => {
+    if (!userData) return;
+
     const unsubscribe = subscribeToAllBuses(
       (buses) => {
         setBuses(buses);
         setLoading(false);
       },
       (error) => {
-        console.error('Error loading buses:', error);
-        setLoading(false);
+        if (userData) {
+          console.error('Error loading buses:', error);
+          setLoading(false);
+        }
       }
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [!!userData]);
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
@@ -144,7 +150,7 @@ export const MapScreen = ({ navigation }: any) => {
         </View>
         <View style={styles.legendItem}>
           <View style={[styles.legendDot, { backgroundColor: '#F59E0B' }]} />
-          <Text style={[styles.legendText, { color: colors.textLight }]}>50–75%</Text>
+          <Text style={[styles.legendText, { color: colors.textLight }]}>50-75%</Text>
         </View>
         <View style={styles.legendItem}>
           <View style={[styles.legendDot, { backgroundColor: '#EF4444' }]} />
@@ -153,7 +159,7 @@ export const MapScreen = ({ navigation }: any) => {
       </View>
 
       {/* My Location Button */}
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.locationBtn, { backgroundColor: colors.card }]}
         onPress={handleMyLocation}
       >
@@ -240,7 +246,8 @@ export const MapScreen = ({ navigation }: any) => {
                   style={[styles.detailsBtn, { backgroundColor: colors.primary }]}
                   onPress={() => {
                     setShowModal(false);
-                    navigation.navigate('BusDetails', { bus: selectedBus });
+                    const { lastUpdated, ...serializableBus } = selectedBus;
+                    navigation.navigate('BusDetails', { bus: serializableBus });
                   }}
                 >
                   <Text style={styles.detailsBtnText}>View Full Details</Text>
