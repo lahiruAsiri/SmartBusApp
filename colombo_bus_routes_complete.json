@@ -1,0 +1,4149 @@
+{
+  "document_title": "List of bus routes in Colombo - Sri Lanka",
+  "source": "Wikipedia",
+  "description": "Comprehensive list of bus routes operating in and around Colombo, Western Province, Sri Lanka",
+  "districts": [
+    {
+      "district_name": "Colombo District",
+      "sections": [
+        {
+          "section_name": "Colombo Metropolitan Routes",
+          "subsections": [
+            {
+              "name": "Colombo Metropolitan Routes",
+              "routes": [
+                {
+                  "route_number": "100",
+                  "start": "[[Pettah, Colombo",
+                  "end": "Pettah]] !ටෙකා&ව",
+                  "via": "Panadura පාන*ර / Moratuwa",
+                  "distance": "Panadura - Walana - Old Galle Road - Keselwatta - Moratuwa - Ratmalana - Mt. Lavinia"
+                },
+                {
+                  "route_number": "101",
+                  "start": "[[Pettah, Colombo",
+                  "end": "Pettah]]",
+                  "via": "Moratuwa",
+                  "distance": "Katubedda - Ratmalana - Mt. Lavinia (Galkissa) - Dehiwala - Wellawatta -"
+                },
+                {
+                  "route_number": "102/256",
+                  "start": "Kotahena",
+                  "end": "Borupana",
+                  "via": "Borupana - Ratmalana - Mt. Lavinia (Galkissa) - Dehiwala - Wellawatta - Bambalapitiya"
+                },
+                {
+                  "route_number": "103",
+                  "start": "Fort (Colombo)",
+                  "end": "Narahenpita / Borella",
+                  "via": "Narahenpita - Kanatta Junction - Borella - Punchi Borella - Maradana - Technical",
+                  "distance": "6.4 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "104",
+                  "start": "Bambalapitiya",
+                  "end": "Wattala / Ja-Ela",
+                  "via": "Ja-ela - Wattala - Peliyagoda - New Kelani Bridge - Orugodawatta - Dematagoda -"
+                },
+                {
+                  "route_number": "107",
+                  "start": "Fort",
+                  "end": "Elakanda",
+                  "via": "Elakanda - Wattala - Peliyagoda - Old Kelani Bridge - Sirimavo Bandaranaika Road"
+                },
+                {
+                  "route_number": "112",
+                  "start": "Kotahena",
+                  "end": "Maharagama",
+                  "via": "Maharagama - Navinna - Delkanda - Nugegoda - Kirillapone - Havelock Town -"
+                },
+                {
+                  "route_number": "120",
+                  "start": "Pettah",
+                  "end": "Piliyandala / Kesbewa / Horana",
+                  "via": "Horana - Pokunuwita - Gonapola - Kahatuduwa - Kesbewa - Piliyandala -",
+                  "distance": "41 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "122",
+                  "start": "Pettah",
+                  "end": "Avissawella",
+                  "via": "61 km",
+                  "distance": "goo.gl/maps/EZupmAKzDsM2"
+                },
+                {
+                  "route_number": "125",
+                  "start": "Pettah",
+                  "end": "Padukka / Ingiriya",
+                  "via": "Ingiriya - Handapangoda - Padukka - Meegoda - Godagama - Homagama - Makumbura",
+                  "distance": "56 km",
+                  "map_link": "goo.gl/maps/1hrBN7KJNZB2"
+                },
+                {
+                  "route_number": "137",
+                  "start": "Pettah(SLTB)",
+                  "end": "Weragama / Moratuwa"
+                },
+                {
+                  "route_number": "138",
+                  "start": "Pettah",
+                  "end": "1)Maharagama / Kottawa / Homagama",
+                  "via": "1) Homagama - Kottawa - Pannipitiya - Maharagama - Navinna - Delkanda - Nugegoda -"
+                },
+                {
+                  "route_number": "138/1",
+                  "start": "Fort",
+                  "end": "Kirillawala",
+                  "via": "Kirillawala - (follows route 138 Kadawatha)",
+                  "distance": "22 km",
+                  "map_link": "goo.gl/maps/k2X99ag5EQM2"
+                },
+                {
+                  "route_number": "138/2",
+                  "start": "Pettah",
+                  "end": "Mattegoda",
+                  "via": "Mattegoda - Salgaha junction - Mattegoda junction - Pinhena junction - Kottawa -",
+                  "distance": "25 km",
+                  "map_link": "goo.gl/maps/otGDE4F9pAG2"
+                },
+                {
+                  "route_number": "138/3",
+                  "start": "Pettah",
+                  "end": "Rukmalgama",
+                  "via": "Rukmalgama - Pola junction - Kottawa - (follows route 138)",
+                  "distance": "25 km",
+                  "map_link": "goo.gl/maps/h1J92Fcg5nF2"
+                },
+                {
+                  "route_number": "138/4",
+                  "start": "Pettah",
+                  "end": "Athurugiriya",
+                  "via": "Athurugiriya - Old junction - Walgama junction - Rukmalgama - Pola junction - Kottawa",
+                  "distance": "29 km",
+                  "map_link": "goo.gl/maps/MocyKEY55gA2"
+                },
+                {
+                  "route_number": "138/6",
+                  "start": "Pettah",
+                  "end": "Elakanda"
+                },
+                {
+                  "route_number": "NO/LIMITED OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "140",
+                  "start": "Kollupitiya",
+                  "end": "Wellampitiya",
+                  "via": "Wellampitiya - Kolonnawa Road - Dematagoda - Sri Vajiragnana Road - Maradana Road"
+                },
+                {
+                  "route_number": "141",
+                  "start": "Wellawatta",
+                  "end": "Narahenpita",
+                  "via": "Wellawatta - W.A. Silva Road - Pamankada Road - Kirulapone",
+                  "distance": "3.5 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "143",
+                  "start": "Pettah / Kaduwela",
+                  "end": "Kaduwela / Hanwella",
+                  "via": "Hanwella - Ranala - Kaduwela - Angoda - Wellampitiya - Orugodawatta - Kosgas"
+                },
+                {
+                  "route_number": "144",
+                  "start": "Fort",
+                  "end": "Rajagiriya",
+                  "via": "Rajagiriya - Kotte Road - Borella - Punchi Borella - Maradana -",
+                  "distance": "6 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "145",
+                  "start": "Seemamalakaya",
+                  "end": "Mattakkuliya",
+                  "via": "Gangaramaya - Nawaloka - Fort - Kochchikade - Hettiyawatta - Modera - Mattakkulia"
+                },
+                {
+                  "route_number": "148",
+                  "start": "Pettah / Hanwella",
+                  "end": "Labugama",
+                  "via": "Labugama - Kaluaggala - Hanwella - Ranala - Kaduwela - Pettah"
+                },
+                {
+                  "route_number": "150",
+                  "start": "Kelanimulla",
+                  "end": "Seemamalakaya",
+                  "via": "Kelani temple - Kelanimulla - Angoda - Aggona Junction - Kalapaluwawa - Ambagaha"
+                },
+                {
+                  "route_number": "151",
+                  "start": "Pettah",
+                  "end": "Ambatale"
+                },
+                {
+                  "route_number": "152",
+                  "start": "Pettah",
+                  "end": "Gothatuwa (IDH) / Foreign Employment zone.",
+                  "via": "Battaramulla - Angoda - Gothatuwa - Kolonnawa - Dematagoda - Kosgas Handiya -"
+                },
+                {
+                  "route_number": "153",
+                  "start": "Borella",
+                  "end": "Sri J'pura Hospital (Nawarohala)",
+                  "via": "Rajagiriya - Ethulkotte - Pitakotte Junc - Beddagana Junc - Madiwela Junc -"
+                },
+                {
+                  "route_number": "154",
+                  "start": "Angulana / Bambalapitiya (SLTB)",
+                  "end": "Peliyagoda - University of Kelaniya - New Kelani Bridge - Orugodawatte - Dematagoda -"
+                },
+                {
+                  "route_number": "155",
+                  "start": "Mattakkuliya",
+                  "end": "Soysapura / Mt. Lavinia(SLTB)",
+                  "via": "Moratuwa govt. ﬂats (Soysapura) - (154 route up to University of Colombo) - Town-Hall"
+                },
+                {
+                  "route_number": "160"
+                },
+                {
+                  "route_number": "Mattakkuliya"
+                },
+                {
+                  "route_number": "Battaramulla"
+                },
+                {
+                  "route_number": "NO/LIMITED OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "162",
+                  "start": "Pettah / Piliyandala",
+                  "end": "Bandaragama",
+                  "via": "120 Route up to Piliyandala - Kesbewa",
+                  "distance": "35 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "164",
+                  "start": "Town Hall",
+                  "end": "Salmal Uyana",
+                  "via": "Salmal Uyana - Angoda - Kotikawatte - Wellampitiya - Kolonnawa - Dematagoda -"
+                },
+                {
+                  "route_number": "166",
+                  "start": "Slave Island",
+                  "end": "Angoda",
+                  "via": "Angoda - Kotikawatta - Wellampitiya - Kolonnawa - Dematagoda - Nalanda College -"
+                },
+                {
+                  "route_number": "167",
+                  "start": "Thotalanga",
+                  "end": "Dehiwela - Wellawatta - Bambalapitiya - Bauddhaloka Mawatha - University of"
+                },
+                {
+                  "route_number": "168",
+                  "start": "Kotahena",
+                  "end": "Nugegoda",
+                  "via": "Jubilee Post - Pita Kotte Junc - Ethul Kotte - Rajagiriya - Ayurweda junction - Cotta Road"
+                },
+                {
+                  "route_number": "170",
+                  "start": "Pettah",
+                  "end": "Athurugiriya",
+                  "via": "Pettah - Rajagiriya - Battaramulla - Thalangama - Malabe - Athurugiriya",
+                  "distance": "21 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "170/2",
+                  "start": "Pettah",
+                  "end": "Millenium City (Athurugiriya)"
+                },
+                {
+                  "route_number": "171",
+                  "start": "Fort",
+                  "end": "Pelawatta",
+                  "via": "Fort - Pettah - Hultsdorf - Technical Junction - Maradana - Punchi Borella - Borella -"
+                },
+                {
+                  "route_number": "172",
+                  "start": "Borella",
+                  "end": "Moragasmulla",
+                  "via": "Ayurveda"
+                },
+                {
+                  "route_number": "173",
+                  "start": "Thotalanga",
+                  "end": "Nugegoda",
+                  "via": "Nawala - Narahenpita"
+                },
+                {
+                  "route_number": "174",
+                  "start": "Kottawa",
+                  "end": "Borella",
+                  "via": "Kottawa - Pannipitiya - Polwatta - Thalawathugoda - Wickramasinghepura Junction -"
+                },
+                {
+                  "route_number": "175",
+                  "start": "Kollupitiya",
+                  "end": "Kohilawatta",
+                  "via": "Kohilawatte - Gothatuwa New Town (IDH) - Ambagaha Junction - Welikada (Rajagiriya) -"
+                },
+                {
+                  "route_number": "176",
+                  "start": "Hettiyawatta",
+                  "end": "Nugegoda / Karagampitiya / Dehiwala(SLTB)",
+                  "via": "Dehiwala - Hill Street - Karagampitiya - National zoological garden - Kalubowila -"
+                },
+                {
+                  "route_number": "177",
+                  "start": "Kollupitiya",
+                  "end": "Kaduwela",
+                  "via": "Kaduwela - Kothalawala - Malabe - Thalangama - Koswatta - Battaramulla - Welikada -"
+                },
+                {
+                  "route_number": "177/3",
+                  "start": "Kollupitiya",
+                  "end": "Kuruwita"
+                },
+                {
+                  "route_number": "178",
+                  "start": "Narahenpita",
+                  "end": "Mattakkuliya",
+                  "via": "Borella - Dematagoda - Orugodawatte - Ingurukade Handiya"
+                },
+                {
+                  "route_number": "179",
+                  "start": "Bambalapitiya",
+                  "end": "Battaramulla",
+                  "via": "Bauddhaloka Mawatha - Torington - Borella - Rajagiriya - Ethul Kotte"
+                },
+                {
+                  "route_number": "180",
+                  "start": "Pettah",
+                  "end": "Nittambuwa",
+                  "via": "Armour Street - Sugathadasa Stadium - Ingurukade Junc - New Kelani Bridge -",
+                  "distance": "40 km",
+                  "map_link": "goo.gl/maps/oTJCymY94Bp"
+                },
+                {
+                  "route_number": "184",
+                  "start": "Colombo",
+                  "end": "Ranpokunugama"
+                },
+                {
+                  "route_number": "186",
+                  "start": "Borella",
+                  "end": "Jayawadanagama",
+                  "via": "Jayawadanagama - Wickramasinghepura - Pelawatta - Battaramulla - Ethul Kotte -"
+                },
+                {
+                  "route_number": "187",
+                  "start": "Fort",
+                  "end": "Katunayake / Ja-Ela"
+                },
+                {
+                  "route_number": "187 E-03",
+                  "start": "Fort",
+                  "end": "Katunayake / [[Bandaranaike International Airport",
+                  "via": "Airport]]",
+                  "distance": "via [[E03 expressway (Sri Lanka)",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "187/1",
+                  "start": "Fort",
+                  "end": "Ekala",
+                  "via": "Ekala - Ja-ela - Kandana - welisara - Wattala - Peliyagoda - Fort"
+                },
+                {
+                  "route_number": "187/2",
+                  "start": "Fort",
+                  "end": "Nivasipura",
+                  "via": "Nivasipura - Ekala - Ja-ela - Kandana - welisara - Wattala - Peliyagoda - Fort"
+                },
+                {
+                  "route_number": "188",
+                  "start": "Pettah(SLTB) Fort(Private)",
+                  "end": "Raddolugama",
+                  "via": "Raddolugama - Seeduwa - Jaela - Kandana - Wattala - Peliyagoda - Fort"
+                },
+                {
+                  "route_number": "190",
+                  "start": "Colombo",
+                  "end": "Meegoda",
+                  "via": "Pettah - Fort - Lake House - Gamini Hall Junc - Town Hall - Eye Hospital - Borella -"
+                },
+                {
+                  "route_number": "193",
+                  "start": "Town Hall",
+                  "end": "Kadawatha",
+                  "via": "Town Hall - Carey College - Punchi Borella - Nalanda College - Dematagoda -",
+                  "distance": "goo.gl/maps/EHGQb7xXnqH2"
+                },
+                {
+                  "route_number": "194"
+                },
+                {
+                  "route_number": "Bambalapitiya"
+                },
+                {
+                  "route_number": "Ja-Ela"
+                },
+                {
+                  "route_number": "NO/LIMITED OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "200",
+                  "start": "Pettah",
+                  "end": "Gampaha",
+                  "via": "Armor Street, Aluth Palama, 4 Kanuwa, Kelani Campus, Kiribathgoda, Mahara,",
+                  "distance": "31 km",
+                  "map_link": "goo.gl/maps/KrEkXJm2Rq82"
+                },
+                {
+                  "route_number": "202",
+                  "start": "Gampaha",
+                  "end": "Kirindiwala",
+                  "via": "Gampaha, Miriswatta, Balummahara, Waliweriya, Henegama,Kirindiwala",
+                  "distance": "20 km",
+                  "map_link": "goo.gl/maps/KrEkXJm2Rq82"
+                },
+                {
+                  "route_number": "218",
+                  "start": "Fort",
+                  "end": "Parakandeniya",
+                  "via": "Kiribathgoda, Kadawatha, KokisKade Junction"
+                },
+                {
+                  "route_number": "224",
+                  "start": "Pettah",
+                  "end": "Pugoda",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Viharaya, Nagahamulla Junc,",
+                  "distance": "41 km",
+                  "map_link": "goo.gl/maps/Rw9BD5aKmC12"
+                },
+                {
+                  "route_number": "225",
+                  "start": "Pettah",
+                  "end": "Kirindiwala",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Viharaya, Nagahamulla Junc,",
+                  "distance": "45 km"
+                },
+                {
+                  "route_number": "226",
+                  "start": "Pettah",
+                  "end": "Dekatana",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Viharaya, Nagahamulla Junc,"
+                },
+                {
+                  "route_number": "228",
+                  "start": "Pettah",
+                  "end": "Weliweriya / Gampaha",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Viharaya, Nagahamulla Junc,"
+                },
+                {
+                  "route_number": "230",
+                  "start": "Pettah",
+                  "end": "Kiribathgoda",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Viharaya, Nagahamulla Junc,",
+                  "distance": "18.5 km",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "234",
+                  "start": "Pettah",
+                  "end": "Delgoda",
+                  "via": "Armor Street, New Kelani Bridge, 4th Mile Post, Kelani Campus, Kiribathgoda, Makola,",
+                  "distance": "25 km",
+                  "map_link": "goo.gl/maps/NiJGm7Cum8u"
+                },
+                {
+                  "route_number": "240",
+                  "start": "Pettah",
+                  "end": "Negombo",
+                  "via": "Negombo - Katunayake(18th Mile Post Junction) - Sedduwa - Jaela - Kandana - wattala"
+                },
+                {
+                  "route_number": "240 E-03",
+                  "start": "Negombo",
+                  "end": "via [[E03 expressway (Sri Lanka)",
+                  "via": "{{Expressway code (Sri Lanka)",
+                  "distance": "03}} Colombo -"
+                },
+                {
+                  "route_number": "260",
+                  "start": "Pettah",
+                  "end": "Hendala",
+                  "via": "Hendala Junction-Elakanda-Hekitta-Thotalanga-Armour Street-Pettah"
+                },
+                {
+                  "route_number": "261",
+                  "start": "Pettah",
+                  "end": "Kadawatha",
+                  "via": "Thotalanga, Old bridge, Peliyagoda, Wattala, Hunupitiya, Enderamulla, Dalupitiya,"
+                },
+                {
+                  "route_number": "262",
+                  "start": "Pettah",
+                  "end": "Ragama",
+                  "via": "Mahabage"
+                },
+                {
+                  "route_number": "265",
+                  "start": "Pettah",
+                  "end": "Minuwangoda(Private)/Divulapitiya(SLTB)",
+                  "via": "Minuwangoda - Kotugoda - Ekala - Jaela - Mahabage - Wattala - Paliyagoda - Pettah"
+                },
+                {
+                  "route_number": "265 E-03",
+                  "start": "Pettah",
+                  "end": "Minuwangoda",
+                  "via": "via Ja-Ela Interchange [[E03 expressway (Sri Lanka)",
+                  "distance": "{{Expressway code (Sri Lanka)",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "268",
+                  "start": "Pettah"
+                },
+                {
+                  "route_number": "275",
+                  "start": "Pettah",
+                  "end": "Bopitiya"
+                },
+                {
+                  "route_number": "280/112",
+                  "start": "Horana",
+                  "end": "Kotahena",
+                  "via": "Kottawa - Maharagama"
+                },
+                {
+                  "route_number": "333",
+                  "start": "Fort",
+                  "end": "Yagoda",
+                  "via": "Kiribathgoda, Kadawatha, Kirillawala"
+                },
+                {
+                  "route_number": "343",
+                  "start": "Fort",
+                  "end": "Mawaramandiya",
+                  "via": "Peliyagoda, Kiribathgoda, Makola",
+                  "distance": "18.5 km",
+                  "map_link": "goo.gl/maps/Ktv6yFmLDzy"
+                },
+                {
+                  "route_number": "356",
+                  "start": "Fort",
+                  "end": "Karabugas Handiya",
+                  "via": "Peliyagoda, Kiribathgoda, Makola Junc, Sapugaskanda, Power House Junc, Demo Junc,",
+                  "distance": "24 km",
+                  "map_link": "goo.gl/maps/UgMYFyEyysE2"
+                },
+                {
+                  "route_number": "400",
+                  "start": "Colombo",
+                  "end": "Aluthgama",
+                  "via": "Moratuwa, Panadura, Wadduwa, Kalutara"
+                },
+                {
+                  "route_number": "400/1",
+                  "start": "Colombo",
+                  "end": "Kalutara"
+                },
+                {
+                  "route_number": "428",
+                  "start": "Colombo",
+                  "end": "Wallawita"
+                },
+                {
+                  "route_number": "430",
+                  "start": "Colombo",
+                  "end": "Mathugama",
+                  "via": "Galle Road up to Katukurunda - Nagoda - Dodangoda",
+                  "distance": "68 km",
+                  "map_link": "goo.gl/maps/bFSJNcCh8Cz"
+                },
+                {
+                  "route_number": "435",
+                  "start": "Colombo",
+                  "end": "Pelawatta"
+                },
+                {
+                  "route_number": "514",
+                  "start": "Fort",
+                  "end": "Weliweriya",
+                  "via": "Kiribathgoda, Kadawatha, Kirillawala",
+                  "distance": "26.5 km",
+                  "map_link": "goo.gl/maps/3HbpTf3VX9K2"
+                },
+                {
+                  "route_number": "738",
+                  "start": "Fort",
+                  "end": "Kossinna",
+                  "via": "Kiribathgoda, Kadawatha, Kirillawala"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Dehiwala",
+          "subsections": [
+            {
+              "name": "Dehiwala",
+              "routes": [
+                {
+                  "route_number": "118/156",
+                  "start": "Dehiwala",
+                  "end": "Beddagana",
+                  "via": "Dehiwala - Karagampitiya - Nedimala - Anderson Road Junction - Kalubowila -"
+                },
+                {
+                  "route_number": "119",
+                  "start": "Dehiwala",
+                  "end": "Maharagama",
+                  "via": "Karagampitiya - Nedimala - Nikape - Bellanthota - Bellanwila Rajamaha Viharaya -",
+                  "distance": "7.4 km",
+                  "map_link": "goo.gl/maps/h63eL1xpEop"
+                },
+                {
+                  "route_number": "132",
+                  "start": "Karagampitiya",
+                  "end": "Mawaramandiya"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "136",
+                  "start": "Karagampitiya",
+                  "end": "Ragama"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "139",
+                  "start": "Khathuduwa",
+                  "end": "Kahathuduwa - Piliyandala - Boralesgamuwa - Rattanapitiya - Pepiliyana - Kohuwala -"
+                },
+                {
+                  "route_number": "139/1",
+                  "start": "Kalubowila Hospital",
+                  "end": "Piliyandala",
+                  "via": "Piliyandala - Boralesgamuwa - Rattanapitiya - Pepiliyana - Kohuwala - Kalubowila"
+                },
+                {
+                  "route_number": "147",
+                  "start": "Mt. Lavinia",
+                  "end": "Bakery Junction",
+                  "via": "Mt.Lavinia - Templers Rd - Siddhalepa Hospital - Arisen Ahubudu House - Bakery"
+                },
+                {
+                  "route_number": "156",
+                  "start": "Dehiwala",
+                  "end": "Nugegoda"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "163",
+                  "start": "Dehiwala",
+                  "end": "Battaramulla",
+                  "via": "Dehiwala - William Junc - Kalubowila (Colombo South Teaching Hospital)- Kohuwala -",
+                  "distance": "10 km",
+                  "map_link": "goo.gl/maps/av752bugki32"
+                },
+                {
+                  "route_number": "167",
+                  "start": "Dehiwala",
+                  "end": "Thotalanga"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "176",
+                  "start": "Karagampitiya / Dehiwala",
+                  "end": "Dehiwala Zoological Garden - Kalubowila - Kohuwala - Nugegoda - Nawala -"
+                },
+                {
+                  "route_number": "198",
+                  "start": "Mt. Lavinia",
+                  "end": "Battaramulla"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "255",
+                  "start": "Mt. Lavinia",
+                  "end": "Kottawa",
+                  "via": "Mt. Lavinia - Rathmalana - Katubedda - Moratuwa Campus - Molpe - Suwarapola -",
+                  "distance": "17 km",
+                  "map_link": "goo.gl/maps/rvVduBtokDB2"
+                },
+                {
+                  "route_number": "313",
+                  "start": "Kalubowila",
+                  "end": "Homagama",
+                  "via": "Kalubowila - Kohuwala - Nugegoda - Maharagama - Pannipitiya - Kottawa - Homagama"
+                },
+                {
+                  "route_number": "981",
+                  "start": "Dehiwala",
+                  "end": "Attidiya"
+                },
+                {
+                  "route_number": "(Limited Operations at the moment)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Nugegoda",
+          "subsections": [
+            {
+              "name": "Nugegoda",
+              "routes": [
+                {
+                  "route_number": "113",
+                  "start": "Udahamulla / Jubilee Post",
+                  "end": "Fort",
+                  "via": "Udahamulla - Embuldeniya Junction - Jubilee Post - Nugegoda - Kirulapone -"
+                },
+                {
+                  "route_number": "114",
+                  "start": "Pitakotte",
+                  "end": "Pettah",
+                  "via": "Pitakotte - Pagoda Road - Nugegoda - Kirulapone - Thimbirigasyaya - Jawatta -"
+                },
+                {
+                  "route_number": "115",
+                  "start": "Pitakotte / Nugegoda",
+                  "end": "Pettah",
+                  "via": "Pitakotte - Pagoda Road - Nugegoda - Kirulapone - Thimbirigasyaya - Jawatta -"
+                },
+                {
+                  "route_number": "117",
+                  "start": "Nugegoda",
+                  "end": "Ratmalana",
+                  "via": "Nugegoda - Old Kesbewa Road - Kattiya Junction - Gamsabha Junction - Pepiliyana"
+                },
+                {
+                  "route_number": "119",
+                  "start": "Nugegoda",
+                  "end": "Maharagama",
+                  "via": "6 km",
+                  "distance": "goo.gl/maps/x39Zevw2Npr"
+                },
+                {
+                  "route_number": "121/1",
+                  "start": "Wijerama (Udahamulla)",
+                  "end": "Pirivena junction (Boralesgamuwa)",
+                  "via": "Wijerama Junction - University of Sri J'pura - Egodawatta - Piriwena Junction"
+                },
+                {
+                  "route_number": "135",
+                  "start": "Kohuwala",
+                  "end": "Kelaniya",
+                  "via": "Kohuwala - Dutugemunu St - Pamankada - Havelock Town - Thimbirigasyaya Junction -",
+                  "distance": "17.6 km",
+                  "map_link": "goo.gl/maps/YYAheJuWbMo"
+                },
+                {
+                  "route_number": "139/1",
+                  "start": "Kohuwala",
+                  "end": "Piliyandala"
+                },
+                {
+                  "route_number": "156",
+                  "start": "Nugegoda",
+                  "end": "Dehiwala"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "168",
+                  "start": "Nugegoda",
+                  "end": "Kotahena",
+                  "via": "Jubilee Post - Piakotte, Ethulkotte, Rajagiriya - Ayurweda Junc - Cotta Road - Borella,"
+                },
+                {
+                  "route_number": "173",
+                  "start": "Nugegoda",
+                  "end": "Thotalanga",
+                  "via": "Nawala - Narahenpita"
+                },
+                {
+                  "route_number": "176",
+                  "start": "Nugegoda",
+                  "end": "Hettiyawaththa",
+                  "via": "Nawala - Koswaththa - Rajagiriya - Ayurweda Junc - Castle Street - Borella - Punchi"
+                },
+                {
+                  "route_number": "183",
+                  "start": "Panadura",
+                  "end": "Nugegoda",
+                  "via": "Panadura - Walana - Old Galle Rd - Keselwatta - Moratuwa - Ratmalana - Mt Lavinia -"
+                },
+                {
+                  "route_number": "259",
+                  "start": "Nugegoda",
+                  "end": "Thalapathpitiya"
+                },
+                {
+                  "route_number": "689",
+                  "start": "Nugegoda"
+                },
+                {
+                  "route_number": "(Hokandara - Pittugala section Not properly maintained)",
+                  "start": "Nugegoda - Old Kesbewa Road - Kattiya Junction - Pangiriwatta - Delkanda - Station",
+                  "end": "10 km",
+                  "via": "goo.gl/maps/fWK6u5Qeq3y"
+                },
+                {
+                  "route_number": "690",
+                  "start": "Nugegoda",
+                  "end": "Sri J'Pura Hospital (Nawarohala)"
+                },
+                {
+                  "route_number": "992",
+                  "start": "Nugegoda",
+                  "end": "Athurugiriya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Moratuwa",
+          "subsections": [
+            {
+              "name": "Moratuwa",
+              "routes": [
+                {
+                  "route_number": "100",
+                  "start": "Moratuwa",
+                  "end": "[[Pettah, Colombo",
+                  "via": "Pettah]] !ටෙකා&ව",
+                  "distance": "Panadura - Walana - Old Galle Road - Keselwatta - Moratuwa - Ratmalana - Mt. Lavinia"
+                },
+                {
+                  "route_number": "101",
+                  "start": "Moratuwa",
+                  "end": "[[Pettah, Colombo",
+                  "via": "Pettah]]",
+                  "distance": "Moratuwa - Ratmalana - Mt. Lavinia (Galkissa) - Dehiwala - Wellawatta - Bambalapitiya"
+                },
+                {
+                  "route_number": "102/256",
+                  "start": "Borupana",
+                  "end": "Kotahena",
+                  "via": "Golumandama Junction - Rathmalana - Mt. Lavinia - Dehiwala - Wellawatta -"
+                },
+                {
+                  "route_number": "117",
+                  "start": "Ratmalana",
+                  "end": "Nugegoda"
+                },
+                {
+                  "route_number": "142",
+                  "start": "Moratuwa",
+                  "end": "Panadura",
+                  "via": "Moratuwa - Koralawella - Egodauyana - Panadura"
+                },
+                {
+                  "route_number": "142/2",
+                  "start": "Moratuwa",
+                  "end": "Panadura"
+                },
+                {
+                  "route_number": "154",
+                  "start": "Angulana",
+                  "end": "Kiribathgoda",
+                  "via": "Kiribathgoda - Kelaniya - Peliyagoda - Orugodawatta - Dematagoda - Borella -",
+                  "distance": "26 km",
+                  "map_link": "goo.gl/maps/ivEWdxsRgzG2"
+                },
+                {
+                  "route_number": "158",
+                  "start": "Moratuwa",
+                  "end": "Piliyandala",
+                  "via": "Moratuwa - Rawatawatta - Moratumulla - Molpe - Deniya junction - Suwarapola -"
+                },
+                {
+                  "route_number": "158/1",
+                  "start": "Moratuwa",
+                  "end": "Willorawatta",
+                  "via": "Moratuwa - Rawatawatta - Moratumulla - Willorawatta"
+                },
+                {
+                  "route_number": "161",
+                  "start": "Angulana Station",
+                  "end": "Galle Road",
+                  "via": "Angulana - Dahampura - Samanpura - Galle Road Junction (via Station Road)"
+                },
+                {
+                  "route_number": "192",
+                  "start": "Moratuwa",
+                  "end": "Maharagama",
+                  "via": "Moratuwa - Maliban junction - Attidiya - Bellanthota Junc - Bellanwila - Boralesgamuwa",
+                  "distance": "15 km",
+                  "map_link": "goo.gl/maps/18gwuFmgRpq"
+                },
+                {
+                  "route_number": "197",
+                  "start": "Moratuwa",
+                  "end": "Ketwathumulla"
+                },
+                {
+                  "route_number": "208",
+                  "start": "Moratuwa",
+                  "end": "Indibedda",
+                  "via": "Moratuwa - Lunawa - Rawatawatta - Moratumulla - Ihala Indibedda - Indibedda"
+                },
+                {
+                  "route_number": "240 E-03",
+                  "start": "Moratuwa",
+                  "end": "Negombo",
+                  "via": "Moratuwa-Rathmalana-Bambalapitiya-Pettah-Peliyagoda-CKE-Katunayake 18th Mile"
+                },
+                {
+                  "route_number": "255/1",
+                  "start": "Katubedda",
+                  "end": "Molpe"
+                },
+                {
+                  "route_number": "256",
+                  "start": "Ratmalana",
+                  "end": "Borupana"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Maharagama",
+          "subsections": [
+            {
+              "name": "Maharagama",
+              "routes": [
+                {
+                  "route_number": "17",
+                  "start": "Kandy",
+                  "end": "Maharagama - Malambe - Kaduwela - Delgoda - Belummahara - Galigamuwa - Kegalle"
+                },
+                {
+                  "route_number": "17/",
+                  "start": "Kurunegala"
+                },
+                {
+                  "route_number": "69/122",
+                  "start": "Kandy",
+                  "end": "Maharagama - Homagama - Pahathgama - Kosgama - Awissawaella - Karawanella -"
+                },
+                {
+                  "route_number": "112",
+                  "start": "Kotahena",
+                  "end": "Maharagama - Navinna - Delkanda - Nugegoda - Kirillapone - Havelock Town -"
+                },
+                {
+                  "route_number": "119",
+                  "start": "Dehiwala / Nugegoda",
+                  "end": "1)Dehiwala - Karagampitiya - Nedimala - Bellanthota - Bellanvila - Boralesgamuwa -"
+                },
+                {
+                  "route_number": "122",
+                  "start": "Avissawella",
+                  "end": "Kottawa - Homagama - Godagama - Meepe - Pahathgama - Kaluaggala -Kosgama -"
+                },
+                {
+                  "route_number": "122",
+                  "start": "Embilipitiya",
+                  "end": "Kottawa - Homagama - Godagama - Kosgama - Awissawella - Eheliyagoda - Ratnapura"
+                },
+                {
+                  "route_number": "122/674",
+                  "start": "Anguruwella",
+                  "end": "Kottawa - Homagama - Godagama - Pahathgama - Kosgama - Awissawaella -"
+                },
+                {
+                  "route_number": "123",
+                  "start": "Athurugiriya",
+                  "end": "Maharagama - Pannipitiya - Kottawa - Pola Junction - Rukmalgama - Walgama - Old"
+                },
+                {
+                  "route_number": "124",
+                  "start": "Ihala Bope",
+                  "end": "Maharagama - Pannipitiya - Kottawa - Makumbura - Homagama - Godagama -",
+                  "via": "27 km",
+                  "distance": "goo.gl/maps/AUBxtGGuZeL2"
+                },
+                {
+                  "route_number": "125/1",
+                  "start": "Padukka / Ingiriya",
+                  "end": "Ingiriya - Handapangoda - Padukka - Watareka - Meegoda - Godagama - Homagama -",
+                  "via": "37 km",
+                  "distance": "goo.gl/maps/LGXhFiDwXSS2"
+                },
+                {
+                  "route_number": "128/1",
+                  "start": "Moonamalewatta"
+                },
+                {
+                  "route_number": "131",
+                  "start": "Wellampitiya",
+                  "end": "Maharagama - Wijerama - Nugegoda - Kirulapana - Havelock road - Park road -"
+                },
+                {
+                  "route_number": "138",
+                  "start": "Pettah",
+                  "end": "Maharagama - Navinna - Delkanda - Nugegoda - Kirillapone - Havelock Town -",
+                  "via": "17 km"
+                },
+                {
+                  "route_number": "192",
+                  "start": "Moratuwa",
+                  "end": "Moratuwa - Maliban junction - Bakery junction - Attidiya -Bellanthota Junc - Bellanwila",
+                  "via": "15 km"
+                },
+                {
+                  "route_number": "212",
+                  "start": "Nawarohala (Sri J'pura Hospital)",
+                  "end": "Maharagama - Pamunuwa Road - Pamunuwa - Thalapathpitiya - Nawa Rohala"
+                },
+                {
+                  "route_number": "280",
+                  "start": "Horana",
+                  "end": "Pannipitiya - Kottawa - Pinhena junction - Dolekade Junction - Diyagama -"
+                },
+                {
+                  "route_number": "297",
+                  "start": "Sikurada pola",
+                  "end": "Maharagama - Pannipitiya - Moraketiya junction - Kosgahahena junction -",
+                  "via": "7 km",
+                  "distance": "goo.gl/maps/xjKP9sg3iP82"
+                },
+                {
+                  "route_number": "299",
+                  "start": "Lenagala",
+                  "end": "Kottawa - Homagama - Godagama - Lenagala"
+                },
+                {
+                  "route_number": "299/1",
+                  "start": "Meegodadeniya",
+                  "end": "Kottawa - Homagama - Godagama - Meegodadeniya"
+                },
+                {
+                  "route_number": "308",
+                  "start": "Homagama",
+                  "end": "Maharagama - Pannipitiya - Kottawa - Dolekade - Niyandagala - Homagama"
+                },
+                {
+                  "route_number": "341",
+                  "start": "Piliyandala",
+                  "end": "Maharagama - Arawwala - Weralugas junction - Egodawaththa - Makuluduwa -",
+                  "via": "7.5 km",
+                  "distance": "goo.gl/maps/RoavZms47WA2"
+                },
+                {
+                  "route_number": "341/1",
+                  "start": "Katuwawala",
+                  "end": "Maharagama (341 Piliyandala Road) - Godigamuwa - Neelammahara - Katuwawala",
+                  "via": "3.5 km",
+                  "distance": "goo.gl/maps/9hjwZtq3AK32"
+                },
+                {
+                  "route_number": "341/2",
+                  "start": "Karadiyana",
+                  "end": "Maharagama - Arawwala - Niwanthidiya - Bokundara - Karadiyana"
+                },
+                {
+                  "route_number": "341",
+                  "start": "Wewala",
+                  "end": "B 367 Road (341 Piliyandala Road)"
+                },
+                {
+                  "route_number": "212/341",
+                  "start": "Bokundara",
+                  "end": "Maharagama - Moraketiya junction - Arawwala road/Sri Sumangala Mawatha (Former"
+                },
+                {
+                  "route_number": "345",
+                  "start": "Katuwawala",
+                  "end": "Maharagama - Dehiwala Rd - Maharagama Cancer Hospital - Katuwawala -",
+                  "via": "3.2 km",
+                  "distance": "goo.gl/maps/VgXkdVHqDoM2"
+                },
+                {
+                  "route_number": "672/1",
+                  "start": "Warakapola"
+                },
+                {
+                  "route_number": "990",
+                  "start": "Vidyala Junction",
+                  "end": "Temple Road - Dewram Wehera - Ambagas hathara - Weera Mawatha - Vidyala junction"
+                },
+                {
+                  "route_number": "990/1",
+                  "start": "Dambahena",
+                  "end": "Temple Road - Dambahena Road - Araliya Uyana - Dambahena"
+                },
+                {
+                  "route_number": "993",
+                  "start": "Malabe",
+                  "end": "Maharagama - Old Road - Pannipitiya Nursing Home (Moraketiya) - Moragahakanda -",
+                  "via": "10.3 km",
+                  "distance": "goo.gl/maps/Q7znY47GjNv"
+                },
+                {
+                  "route_number": "993 /1"
+                },
+                {
+                  "route_number": "994",
+                  "start": "Hokandara",
+                  "end": "Pamunuwa - Polwatta - Dewala Road - Hokandara"
+                },
+                {
+                  "route_number": "996/1",
+                  "start": "Katukurunda",
+                  "end": "Pannipitiya - Old Kottawa Road - Bogahawaththa Road - Liyanagoda - Katukurunda"
+                },
+                {
+                  "route_number": "EX001",
+                  "start": "Galle",
+                  "end": "Southern Expressway (E01)",
+                  "via": "112 km",
+                  "distance": "goo.gl/maps/HJsSeQnHGYv"
+                },
+                {
+                  "route_number": "EX001/1",
+                  "start": "Matara",
+                  "end": "Southern Expressway (E01)",
+                  "via": "140 km",
+                  "distance": "goo.gl/maps/eGtNbJgrxwL2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Battaramulla",
+          "subsections": [
+            {
+              "name": "Battaramulla",
+              "routes": [
+                {
+                  "route_number": "17/3",
+                  "start": "Kurunegala",
+                  "end": "(Starts from Dencil Kobbekaduwa Mawatha) - Pelawatta - Parliament Road -"
+                },
+                {
+                  "route_number": "122/1",
+                  "start": "Avissawella",
+                  "end": "Kottawa - Homagama - Hanwella - Kosgama - Puwakpitiya."
+                },
+                {
+                  "route_number": "152",
+                  "start": "Pettah",
+                  "end": "(Starts from Dencil Kobbekaduwa Mawatha) - Koswatta - Heenetikumbura - Aggona -"
+                },
+                {
+                  "route_number": "160",
+                  "start": "Mattakkuliya",
+                  "end": "Ethul Kotte - Rajagiriya - Borella - Ward Place - Town hall - Fort - Kochchikade - Modara"
+                },
+                {
+                  "route_number": "163",
+                  "start": "Dehiwala",
+                  "end": "(Starts from Dencil Kobbekaduwa Mawatha) -Koswatta - Battaramulla Main Junction -",
+                  "via": "10 km",
+                  "distance": "goo.gl/maps/av752bugki32"
+                },
+                {
+                  "route_number": "171",
+                  "start": "Colombo-Fort",
+                  "end": "(Starts from Kandawatta Junction) - Korambe - Koswatta - Battaramulla Main Junction -"
+                },
+                {
+                  "route_number": "171/5",
+                  "start": "Divulapitiya",
+                  "end": "(Starts from Isurupaya) - Pelawatta - Battaramulla Main Junction - Rajagiriya - Colombo"
+                },
+                {
+                  "route_number": "179",
+                  "start": "Bambalapitiya",
+                  "end": "Ethul Kotte - Rajagiriya - Borella - Bauddhaloka Mawatha - Torington"
+                },
+                {
+                  "route_number": "198",
+                  "start": "Mount Lavinia",
+                  "end": "Ethul Kotte - Rajagiriya - Nawala - Narahenpita - Kirulapana - Havlock Town - Dickmans"
+                },
+                {
+                  "route_number": "374",
+                  "start": "Palawatta",
+                  "end": "Korambe - Batapotha - Akuregoda"
+                },
+                {
+                  "route_number": "457/1",
+                  "start": "Panadura",
+                  "end": "(Starts from Dencil Kobbekaduwa Mawatha) - Robert Gunawardhana Mawatha -"
+                },
+                {
+                  "route_number": "714",
+                  "start": "Borella",
+                  "end": "Thalahena - Himbutana - Galwana - Angoda - Kotikawatta - Kolonnawa - Dematagoda"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kottawa",
+          "subsections": [
+            {
+              "name": "Kottawa",
+              "routes": [
+                {
+                  "route_number": "129",
+                  "start": "Kottawa",
+                  "end": "Moragahahena",
+                  "via": "Makumbura - Homagama - Pitipana junction - Pitipana - Thalagala - Moragahahena",
+                  "distance": "15.5 km",
+                  "map_link": "goo.gl/maps/8VrmybR1CYy"
+                },
+                {
+                  "route_number": "138/131",
+                  "start": "Kottawa",
+                  "end": "Wellampitiya",
+                  "via": "Pannipitiya - Maharagama - Wijerama - Nugegoda - Kirulapana - Havelock road - Park"
+                },
+                {
+                  "route_number": "138",
+                  "start": "Kottawa",
+                  "end": "Pettah",
+                  "via": "Homagama - Kottawa - Pannipitiya - Maharagama - Navinna - Delkanda - Nugegoda -",
+                  "distance": "22 km",
+                  "map_link": "goo.gl/maps/RhUeVp8rUY92"
+                },
+                {
+                  "route_number": "138/2",
+                  "start": "Mattegoda",
+                  "end": "Pettah",
+                  "via": "Mattegoda - Pinhena Junction - Kottawa - (follows route 138)",
+                  "distance": "25 km",
+                  "map_link": "goo.gl/maps/otGDE4F9pAG2"
+                },
+                {
+                  "route_number": "138/3",
+                  "start": "Rukmalgama",
+                  "end": "Pettah",
+                  "via": "Rukmalgama - Pola Junction - Kottawa - (follows route 138)",
+                  "distance": "25 km",
+                  "map_link": "goo.gl/maps/h1J92Fcg5nF2"
+                },
+                {
+                  "route_number": "174",
+                  "start": "Kottawa",
+                  "end": "Borella",
+                  "via": "Kottawa - Pannipitiya - Polwatta - Thalawathugoda - Wickramasinghepura Junction -"
+                },
+                {
+                  "route_number": "255",
+                  "start": "Kottawa",
+                  "end": "Mt Lavinia",
+                  "via": "Kottawa - Pinhena Junction - Siddamulla - Kudamaduwa - Mawiththara - Miriswatta -",
+                  "distance": "17 km",
+                  "map_link": "goo.gl/maps/rvVduBtokDB2"
+                },
+                {
+                  "route_number": "296",
+                  "start": "Kottawa",
+                  "end": "Piliyandala",
+                  "via": "Pinhena junction - Sikurada Pola - Mihindu Pura - Gorakapitiya - Nampamunuwa - Dole",
+                  "distance": "8 km",
+                  "map_link": "goo.gl/maps/uueHCBHoYP92"
+                },
+                {
+                  "route_number": "336",
+                  "start": "Kottawa",
+                  "end": "Malabe/Neville Fernando Teaching Hospital (NFTH)",
+                  "via": "Kottawa - Pola Junction - Water tank Junction - Hatharaman Junction - Podi Kade -",
+                  "distance": "13.5 km",
+                  "map_link": "goo.gl/maps/xLoSs6K8R2k"
+                },
+                {
+                  "route_number": "336/1",
+                  "start": "Kottawa",
+                  "end": "Malabe",
+                  "via": "Horahena"
+                },
+                {
+                  "route_number": "342",
+                  "start": "Kottawa",
+                  "end": "Piliyandala",
+                  "via": "Pinhena junction - Mattegoda - Polgasovita - Kesbewa - Piliyandala",
+                  "distance": "12 km",
+                  "map_link": "goo.gl/maps/x4X73e6UkBK2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Piliyandala",
+          "subsections": [
+            {
+              "name": "Piliyandala",
+              "routes": [
+                {
+                  "route_number": "17/255",
+                  "start": "Kandy",
+                  "end": "Miriswatthe Junc., Kottawa, Pannipitiya, Hokandara, Malambe, Kaduwela,"
+                },
+                {
+                  "route_number": "32",
+                  "start": "Kataragama"
+                },
+                {
+                  "route_number": "116",
+                  "start": "Mattakkuliya"
+                },
+                {
+                  "route_number": "NO OPERATION AT PRESENT",
+                  "status": "Limited or No Operation"
+                },
+                {
+                  "route_number": "120",
+                  "start": "Pettah",
+                  "end": "23 km",
+                  "via": "from Kesbewa"
+                },
+                {
+                  "route_number": "127",
+                  "start": "Piliyandala - Kesbewa - Kahatuduwa - Moragahahena"
+                },
+                {
+                  "route_number": "139",
+                  "start": "Kalubowila",
+                  "end": "(Starts from Kahathuduwa) - Polgasowita - Kesbewa - Piliyandala - Bokundara -"
+                },
+                {
+                  "route_number": "139 /1",
+                  "start": "Kalubowila",
+                  "end": "Piliyandala - Bokundara - Werahara - Boralesgamuwa - Rattanapitiya - Pepiliyana -"
+                },
+                {
+                  "route_number": "139 /3",
+                  "start": "Korala Ima",
+                  "end": "Piliyandala - Kesbewa - Polgasowita - Kahathuduwa - Old Road - Korala Ima"
+                },
+                {
+                  "route_number": "149",
+                  "start": "Diyagama / Bandaragama",
+                  "end": "1)Piliyandala - Kesbewa - Polgasowita - Kahathuduwa - Diyagama Road - Tea Kotuwa"
+                },
+                {
+                  "route_number": "149 /2",
+                  "start": "Homagama Hospital"
+                },
+                {
+                  "route_number": "157",
+                  "start": "Kahapola",
+                  "end": "Piliyandala - Batakettara - Kotagedara - Madapatha- Kahapola"
+                },
+                {
+                  "route_number": "157 /1",
+                  "start": "LS Watthe / Makandana"
+                },
+                {
+                  "route_number": "157 /2",
+                  "start": "Gedabuwana"
+                },
+                {
+                  "route_number": "158",
+                  "start": "Moratuwa",
+                  "end": "Piliyandala - Suwarapola - Katubedda - Moratuwa"
+                },
+                {
+                  "route_number": "159",
+                  "start": "Palagama",
+                  "end": "Piliyandala - Miriswaththa - Kesbawa - Halpita - Polgasowita - Ambalangoda -"
+                },
+                {
+                  "route_number": "162",
+                  "start": "Kahapola",
+                  "end": "Jaburaliya"
+                },
+                {
+                  "route_number": "162 /1",
+                  "start": "Bandaragama"
+                },
+                {
+                  "route_number": "162 /2",
+                  "start": "Ambalangoda"
+                },
+                {
+                  "route_number": "192 /3",
+                  "start": "Jaburaliya"
+                },
+                {
+                  "route_number": "295",
+                  "start": "Dampe"
+                },
+                {
+                  "route_number": "295 /1",
+                  "start": "Hadigama"
+                },
+                {
+                  "route_number": "296",
+                  "start": "Kottawa",
+                  "end": "Dolekanaththa - Salgaha Handiya - Mackpack - Gorakapitiya - Polkotuwa handiya -",
+                  "via": "8.3 km",
+                  "distance": "goo.gl/maps/uueHCBHoYP92"
+                },
+                {
+                  "route_number": "341",
+                  "start": "Maharagama",
+                  "end": "Vishwakalawa - Dolekanaththa - Makuludoowa - Egodawaththa - Arawwala",
+                  "via": "7.5 km",
+                  "distance": "goo.gl/maps/RoavZms47WA2"
+                },
+                {
+                  "route_number": "342",
+                  "start": "Kottawa",
+                  "end": "Piliyandala - Kesbawa - Halpita - Polgasowita - Siyambalagoda - Salgas Junc - Pinhena",
+                  "via": "12 km",
+                  "distance": "goo.gl/maps/x4X73e6UkBK2"
+                },
+                {
+                  "route_number": "795",
+                  "start": "Gonamadiththa"
+                },
+                {
+                  "route_number": "866",
+                  "start": "Karigampamunuwa",
+                  "end": "}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Homagama",
+          "subsections": [
+            {
+              "name": "Homagama",
+              "routes": [
+                {
+                  "route_number": "138",
+                  "start": "Pettah",
+                  "end": "Homagama - Kottawa - Pannipitiya - Maharagama - Navinna - Delkanda - Nugegoda -",
+                  "via": "26 km",
+                  "distance": "goo.gl/maps/KKBeSYuPPyF2"
+                },
+                {
+                  "route_number": "149",
+                  "start": "Piliyandala"
+                },
+                {
+                  "route_number": "203",
+                  "start": "Dampe"
+                },
+                {
+                  "route_number": "219",
+                  "start": "Hanwella",
+                  "end": "Panagoda - Meegoda (High level Road) - Artigala Mawatha - Lo level Road - Hanwella"
+                },
+                {
+                  "route_number": "293",
+                  "start": "Hanwella",
+                  "end": "Homagama - Godagama - Panagoda - Welipillewa - Ambulgama - Hanwella"
+                },
+                {
+                  "route_number": "299",
+                  "start": "Lenagala"
+                },
+                {
+                  "route_number": "308",
+                  "start": "Maharagama",
+                  "end": "Homagama - Niyandagala - Dolekade junction - Pinhena junction - Kottawa -"
+                },
+                {
+                  "route_number": "313",
+                  "start": "Kalubowila (Colombo South Teaching Hospital)",
+                  "end": "Homagama - Makumbura - Kottawa - Pannipitiya - Maharagama - Wijerama - Delkanda"
+                },
+                {
+                  "route_number": "366",
+                  "start": "Halbarawa"
+                },
+                {
+                  "route_number": "392",
+                  "start": "Migodadeniya"
+                },
+                {
+                  "route_number": "697",
+                  "start": "Kaduwela",
+                  "end": "Homagama - Walgama junction - Old Athurugiriya junction - Athurugiriya - Oruwala -",
+                  "via": "16 km",
+                  "distance": "goo.gl/maps/eP9voE9L9en"
+                },
+                {
+                  "route_number": "698",
+                  "start": "Kaduwela",
+                  "end": "Homagama - Walgama junction - Old Athurugiriya junction- Habarakada -"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Avissawella",
+          "subsections": [
+            {
+              "name": "Avissawella",
+              "routes": [
+                {
+                  "route_number": "03/1",
+                  "start": "Pettah",
+                  "end": "Puwakpitiya, Kosgama, Hanwella, Kaduwela"
+                },
+                {
+                  "route_number": "03/177",
+                  "start": "Kollupitiya",
+                  "end": "Puwakpitiya, Kosgama, Hanwella, Kaduwela, Malmbe, Battaramulla, Rajagiriya,"
+                },
+                {
+                  "route_number": "23",
+                  "start": "Kithulgala"
+                },
+                {
+                  "route_number": "23/1",
+                  "start": "Ginigathhena"
+                },
+                {
+                  "route_number": "69/4",
+                  "start": "Kandy",
+                  "end": "Dehi Owita, Karawanella, Ruwanwella, Galigamuwa, Kegalle, Kadugannawa and"
+                },
+                {
+                  "route_number": "122",
+                  "start": "Pettah / Maharagama",
+                  "end": "Puwakpitiya, Kosgama, Pahathgama, Godagama, Homagama",
+                  "via": "61 km",
+                  "distance": "goo.gl/maps/EZupmAKzDsM2"
+                },
+                {
+                  "route_number": "122/1",
+                  "start": "Sri Jayawardhanapura Hospital"
+                },
+                {
+                  "route_number": "122/1",
+                  "start": "Battaramulla",
+                  "end": "Puwakpitiya, Kosgama, Pahathgama, Godagama, Homagama, Kottawa, Pannipitiya,"
+                },
+                {
+                  "route_number": "126",
+                  "start": "Ingiriya"
+                },
+                {
+                  "route_number": "239/1",
+                  "start": "Thummodara / Padukka"
+                },
+                {
+                  "route_number": "470",
+                  "start": "Eheliyagoda"
+                },
+                {
+                  "route_number": "470/2",
+                  "start": "Ratnapura"
+                },
+                {
+                  "route_number": "603",
+                  "start": "Uruwela"
+                },
+                {
+                  "route_number": "605",
+                  "start": "Kosgama"
+                },
+                {
+                  "route_number": "609",
+                  "start": "Napawela"
+                },
+                {
+                  "route_number": "674",
+                  "start": "Kegalle"
+                },
+                {
+                  "route_number": "677",
+                  "start": "Bulathkohupitiya",
+                  "end": "Karawanella"
+                },
+                {
+                  "route_number": "688",
+                  "start": "Aswatta"
+                },
+                {
+                  "route_number": "699",
+                  "start": "Deraniyagala"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Hanwella",
+          "subsections": [
+            {
+              "name": "Hanwella",
+              "routes": [
+                {
+                  "route_number": "143",
+                  "start": "Hanwella - Ranala - Kaduwela - Pettah"
+                },
+                {
+                  "route_number": "148",
+                  "start": "Labugama",
+                  "end": "Labugama - Kaluaggala - Hanwella - Ranala - Kaduwela - Pettah"
+                },
+                {
+                  "route_number": "182",
+                  "start": "Kirindiwela / Pugoda",
+                  "end": "Hanwella - Pugoda - Kirindiwela - Urapola - Attanagalla - Wathupitiwala - Nittambuwa -"
+                },
+                {
+                  "route_number": "182",
+                  "start": "Padukka",
+                  "end": "Hanwella - Pahathgama - Meepe - Galagedara junc. - Padukka"
+                },
+                {
+                  "route_number": "219",
+                  "start": "Homagama"
+                },
+                {
+                  "route_number": "237",
+                  "start": "Kaduwela"
+                },
+                {
+                  "route_number": "293",
+                  "start": "Homagama",
+                  "end": "Panagoda Junc, Godagama"
+                },
+                {
+                  "route_number": "470",
+                  "start": "Avissawella",
+                  "end": "Kosgama, Puwakpitiya",
+                  "via": "}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kaduwela",
+          "subsections": [
+            {
+              "name": "Kaduwela",
+              "routes": [
+                {
+                  "route_number": "143",
+                  "start": "Hanwella / Pettah",
+                  "end": "1) Kaduwela - Ranala - Bomiriya - Embulgama - Artigala - Hanwella"
+                },
+                {
+                  "route_number": "177",
+                  "start": "Kollupitiya",
+                  "end": "Kothalawala - Malabe - Koswatta - Battaramulla - Rajagiriya - Borella - Horton Place"
+                },
+                {
+                  "route_number": "177-170",
+                  "start": "Pettah",
+                  "end": "Malabe, Battaramulla, Rajagiriya, Borella, Word Place, Town Hall, T. B. Jayah Mw., D. R."
+                },
+                {
+                  "route_number": "228/1",
+                  "start": "Gampaha",
+                  "end": "Biyagama, Delgoda, Weliweriya, Belummahara, Miriswatta"
+                },
+                {
+                  "route_number": "237",
+                  "start": "Hanwella",
+                  "end": "Bandarawatte, Biyagama, Malwana, Mapitigama, Udamapitigama"
+                },
+                {
+                  "route_number": "380",
+                  "start": "Kiribathgoda",
+                  "end": "13 km",
+                  "via": "goo.gl/maps/3DSVvPUbPU52"
+                },
+                {
+                  "route_number": "689-177",
+                  "start": "Nugegoda",
+                  "end": "Pittugala, Kahantota, Hokandara, Thalawathugoda, Madiwela, Pita Kotte, Pagoda"
+                },
+                {
+                  "route_number": "697",
+                  "start": "Homagama",
+                  "end": "Korathota, Oruwala, Athurugiriya, Podi Athurugiriya, Walgama",
+                  "via": "16 km",
+                  "distance": "goo.gl/maps/eP9voE9L9en"
+                },
+                {
+                  "route_number": "698",
+                  "start": "Homagama",
+                  "end": "Ranala, Mullegama, Habarakada, Podi Athurugiriya, Walgama"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Athurugiriya",
+          "subsections": [
+            {
+              "name": "Athurugiriya",
+              "routes": [
+                {
+                  "route_number": "123",
+                  "start": "Maharagama",
+                  "end": "Athurugiriya - Old junction - Walgama - Rukmalgama - Kottawa - Pannipitiya -"
+                },
+                {
+                  "route_number": "138/4",
+                  "start": "Pettah",
+                  "end": "Athurugiriya - Old junction - Walgama - Rukmalgama - Kottawa - (then follows 138",
+                  "via": "29 km",
+                  "distance": "goo.gl/maps/MocyKEY55gA2"
+                },
+                {
+                  "route_number": "165",
+                  "start": "Kaduwela"
+                },
+                {
+                  "route_number": "170",
+                  "start": "Pettah",
+                  "end": "Athurugiriya - Arangala - Malabe - Thalahena - Koswatta - Battaramulla - Ethulkotte -"
+                },
+                {
+                  "route_number": "344",
+                  "start": "Malabe"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Malabe",
+          "subsections": [
+            {
+              "name": "Malabe",
+              "routes": [
+                {
+                  "route_number": "170",
+                  "start": "Pettah",
+                  "end": "Battaramulla, Rajagiriya, Town Hall, Maradana, Pettah"
+                },
+                {
+                  "route_number": "336",
+                  "start": "Kottawa",
+                  "end": "Neville Fernando Hospital, Malabe"
+                },
+                {
+                  "route_number": "336/1",
+                  "start": "Kottawa"
+                },
+                {
+                  "route_number": "344",
+                  "start": "Athurugiriya"
+                },
+                {
+                  "route_number": "993",
+                  "start": "Maharagama",
+                  "end": "Arangala Junc, Hokandara, Vidyala Juc, Pannipitiya, Old Road to Maharagama",
+                  "via": "10 km",
+                  "distance": "goo.gl/maps/Q7znY47GjNv"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Padukka",
+          "subsections": [
+            {
+              "name": "Padukka",
+              "routes": [
+                {
+                  "route_number": "125",
+                  "start": "Padukka",
+                  "end": "Pettah",
+                  "via": "Watareka - Meegoda - Godagama - Panagoda - Homagama - Kottawa - Maharagama -",
+                  "distance": "38 km",
+                  "map_link": "goo.gl/maps/Nhv96YcMg572"
+                },
+                {
+                  "route_number": "125/1",
+                  "start": "Padukka",
+                  "end": "Maharagama",
+                  "via": "Watareka - Meegoda - Godagama - Panagoda - Homagama - Kottawa - Pannipitiya -",
+                  "distance": "20 km",
+                  "map_link": "goo.gl/maps/LEqMgA1EjK42"
+                },
+                {
+                  "route_number": "190",
+                  "start": "Pettah",
+                  "end": "Godagama - Habarakada - Athurugiriya - Arangala Junc. - Malabe - Koswatta -"
+                },
+                {
+                  "route_number": "182",
+                  "start": "Padukka",
+                  "end": "Hanwella",
+                  "via": "Meepe - Pahathgama"
+                },
+                {
+                  "route_number": "239",
+                  "start": "Padukka",
+                  "end": "Waga (Irida pola)",
+                  "via": "Meepe, Pitumpe, Pinnawala"
+                },
+                {
+                  "route_number": "239/1",
+                  "start": "Padukka",
+                  "end": "Avissawella",
+                  "via": "Bope, Dambora, Thummodara, Pangngagula, Puwakpitiya"
+                },
+                {
+                  "route_number": "239/2",
+                  "start": "Padukka",
+                  "end": "Udagama / Madakada",
+                  "via": "Bope"
+                },
+                {
+                  "route_number": "282",
+                  "start": "Padukka",
+                  "end": "Horana / Yatawathura",
+                  "via": "Malagala"
+                },
+                {
+                  "route_number": "317",
+                  "start": "Padukka",
+                  "end": "Handapangoda",
+                  "via": "Mahingala"
+                },
+                {
+                  "route_number": "315",
+                  "start": "Meepe",
+                  "end": "Horana",
+                  "via": "Meepe Junc. - Padukka - Poregedara - Millewa - Moragahahena - Perengiyawela -",
+                  "distance": "20 km",
+                  "map_link": "goo.gl/maps/vkyLQrYrYZ12"
+                },
+                {
+                  "route_number": "366/1",
+                  "start": "Padukka",
+                  "end": "Madulawa / Halbarawa",
+                  "via": "Kurugala"
+                },
+                {
+                  "route_number": "364",
+                  "start": "Padukka",
+                  "end": "Batawala"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Inter provincial Routes",
+          "subsections": [
+            {
+              "name": "Inter provincial Routes",
+              "routes": [
+                {
+                  "route_number": "01",
+                  "start": "Kandy / Kegalle / Mawanella (via Kandy Rd)",
+                  "end": "Peliyagoda - Nittambuwa - Kegalle"
+                },
+                {
+                  "route_number": "02",
+                  "start": "Galle Face - Dehiwala - Moratuwa - Panadura - Wadduwa - Kalutara -",
+                  "end": "Matara",
+                  "via": "Matara"
+                },
+                {
+                  "route_number": "03",
+                  "start": "Kataragama / Embilipitiya / Ratnapura / Suriyawewa / Avissawella /",
+                  "end": "[[Kaduwela, Western Province",
+                  "via": "Kaduwela]], Hanwella"
+                },
+                {
+                  "route_number": "04",
+                  "start": "[[Mannar, Sri Lanka",
+                  "end": "Mannar]] / Puttalam / Chilaw / Anuradhapura/Sri",
+                  "via": "Ja-Ela, Negombo, Chilaw, Puttalam, Anuradhapura"
+                },
+                {
+                  "route_number": "05",
+                  "start": "Kurunegala",
+                  "end": "Ja-Ela - Ekala - Minuwangoda - Divulapitiya - Giriulla - Narammala"
+                },
+                {
+                  "route_number": "06",
+                  "start": "Kurunegala",
+                  "end": "Nittambuwa - Warakapola - Ambepussa - Alawwa - Polgahawela -"
+                },
+                {
+                  "route_number": "07",
+                  "start": "Kalpitiya",
+                  "end": "Negombo - Chilaw - Bangadeniya - Palavi - Norochcholai"
+                },
+                {
+                  "route_number": "08",
+                  "start": "Matale",
+                  "end": "Kandy"
+                },
+                {
+                  "route_number": "09",
+                  "start": "Theldeniya",
+                  "end": "Kandy"
+                },
+                {
+                  "route_number": "10",
+                  "start": "Wattegama",
+                  "end": "Kandy"
+                },
+                {
+                  "route_number": "13",
+                  "start": "Dayagama"
+                },
+                {
+                  "route_number": "15",
+                  "start": "Anuradhapura / Medawachchiya / Kekirawa / Wavniya",
+                  "end": "Nittabbuwa, Kurunegala, Dambulla"
+                },
+                {
+                  "route_number": "16",
+                  "start": "Nawalapitiya",
+                  "end": "Peradeniya, Gampola"
+                },
+                {
+                  "route_number": "18",
+                  "start": "Hatton",
+                  "end": "Kaduwela, Avissawella, Ginigatthena"
+                },
+                {
+                  "route_number": "19",
+                  "start": "Gampola",
+                  "end": "Peradeniaya"
+                },
+                {
+                  "route_number": "21",
+                  "start": "Walapane / Padiyapelella",
+                  "end": "Kandy"
+                },
+                {
+                  "route_number": "22",
+                  "start": "Ampara",
+                  "end": "Kandy, Mahiyanganaya, Mahaoya, Padiyathalawa",
+                  "via": "306 km",
+                  "distance": "goo.gl/maps/zhgWdy5d31H2"
+                },
+                {
+                  "route_number": "24",
+                  "start": "Aviththawa",
+                  "end": "Kalutara"
+                },
+                {
+                  "route_number": "26",
+                  "start": "Hakmana",
+                  "end": "Galle, [[Matara, Sri Lanka",
+                  "via": "Matara]], Thihagoda",
+                  "distance": "187 km",
+                  "map_link": "goo.gl/maps/w9PZzhRoh4u"
+                },
+                {
+                  "route_number": "32",
+                  "start": "Tangalle / Hambantota / Kataragama / Middeniya",
+                  "end": "Galle, [[Matara, Sri Lanka",
+                  "via": "Matara]]"
+                },
+                {
+                  "route_number": "38",
+                  "start": "Mahiyanganaya / Bibile",
+                  "end": "Kandy"
+                },
+                {
+                  "route_number": "42",
+                  "start": "Morawaka / Udugama",
+                  "end": "Mathugama, Pelawaththa",
+                  "via": "Morawaka",
+                  "distance": "Morawaka"
+                },
+                {
+                  "route_number": "48",
+                  "start": "Polonnaruwa (Kaduruwela) / Dehiattakandiya / Medirigiriya / Batticaloa / Kalmunai",
+                  "end": "Nittambuwa, Kurunegala, Dambulla, Habarana"
+                },
+                {
+                  "route_number": "49",
+                  "start": "Trincomalee",
+                  "end": "Nittambuwa, Kurunegala, Dambulla, Habarana, Kanthale"
+                },
+                {
+                  "route_number": "57",
+                  "start": "Anuradhapura",
+                  "end": "Nittambuwa, Kurunegala, Wariyapola, Galgamuwa"
+                },
+                {
+                  "route_number": "60",
+                  "start": "Akuressa / Deniyaya",
+                  "end": "Kalutara, Galle, Imaduwa",
+                  "via": "Deniyaya",
+                  "distance": "Deniyaya"
+                },
+                {
+                  "route_number": "67",
+                  "start": "Rakwana",
+                  "end": "Kaduwela, Avissawella, Ratnapura, Kahawawatta, Madampe Junc"
+                },
+                {
+                  "route_number": "78",
+                  "start": "Nawalapitiya",
+                  "end": "Kaduwela, Avissawella, Ginigathhena"
+                },
+                {
+                  "route_number": "79",
+                  "start": "Nuwara Eliya / Welimada",
+                  "end": "Peradeniya, Gampola, Ramboda"
+                },
+                {
+                  "route_number": "87",
+                  "start": "Point Pedro/Kankesanthurai/Jaana/Killinochchi/Vavuniya",
+                  "end": "Chilaw, Puttalam, Anuradhapura"
+                },
+                {
+                  "route_number": "92",
+                  "start": "Kuliyapitiya"
+                },
+                {
+                  "route_number": "98",
+                  "start": "Monaragala / Balangoda / Ampara / Akarapattu",
+                  "end": "Ratnapura / Udawalawe",
+                  "via": "Monaragala",
+                  "distance": "Monaragala"
+                },
+                {
+                  "route_number": "99",
+                  "start": "Badulla",
+                  "end": "Nugegoda, Maharagama, Kottawa, Homagama, Godagama, Meepe, Pahathgama,",
+                  "via": "231 km",
+                  "distance": "goo.gl/maps/WrosGgA5cVy"
+                },
+                {
+                  "route_number": "122",
+                  "start": "Ratnapura / Embilipitiya / Rakwana / Suriyawewa / Hambantota / Kataragama",
+                  "end": "Nugegoda, Maharagama, Kottawa, Homagama, Godagama, Meepe, Pahathgama,",
+                  "via": "Ratnapura",
+                  "distance": "Ratnapura"
+                },
+                {
+                  "route_number": "393",
+                  "start": "Yakkalamulla",
+                  "end": "Kalutara, Ambalangoda, Wanduramba, Baddegama"
+                },
+                {
+                  "route_number": "401",
+                  "start": "Elpitiya",
+                  "end": "Moratuwa, Panadura, Kalutara, Aluthgama, Uragasmanhandiya"
+                },
+                {
+                  "route_number": "677",
+                  "start": "Bulathkohupitiya",
+                  "end": "Kaduwela, Avissawella, Karawanella"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "district_name": "Kalutara District",
+      "sections": [
+        {
+          "section_name": "Panadura",
+          "subsections": [
+            {
+              "name": "Panadura",
+              "routes": [
+                {
+                  "route_number": "02-E01",
+                  "start": "[[Matara, Sri Lanka",
+                  "end": "Matara]] මාතර",
+                  "via": "Panadura - Bandaragama - Galanigama - via [[E01 expressway (Sri Lanka)",
+                  "distance": "{{Expressway"
+                },
+                {
+                  "route_number": "17",
+                  "start": "Kandy",
+                  "end": "Panadura - Dehiwala - Kalubowila - Nugegoda - Pagoda Rd - Kotte Rd - Sri"
+                },
+                {
+                  "route_number": "17/255",
+                  "start": "Kandy",
+                  "end": "Panadura - Katubedda - Piliyandala - Kottawa - Malambe - Kaduwela - Biyagama -"
+                },
+                {
+                  "route_number": "17/1",
+                  "start": "Anuradhapura අ2රාධ4ර / Kurunagala",
+                  "end": "Panadura - New Kandy Rd (17 route) - Ambepussa - Polgahawela - Kurunegala -"
+                },
+                {
+                  "route_number": "64",
+                  "start": "• Bibila",
+                  "end": "Panadura - Bandaragama - Horana - Ingiriya - Idangoda - Ratnapura - Pelmadulla -",
+                  "via": "• 258 km"
+                },
+                {
+                  "route_number": "64/2",
+                  "start": "Mahiyanganaya",
+                  "end": "Badulla (Via Batticaloa Route) - Dunhida - Thaldena - Meegahakiwula - Andaulpotha -",
+                  "via": "256 km"
+                },
+                {
+                  "route_number": "64/311",
+                  "start": "Nuwara Eliya",
+                  "end": "Panadura - Bandarawela (via 64 Batticoloa route) - Welimada - Keppetipola - Haggala -",
+                  "via": "212 km"
+                },
+                {
+                  "route_number": "64/3",
+                  "start": "Ketawatta",
+                  "end": "Meegahakiwula (Via 64 Mahiyanganaya Route) - Komarika - Ketawatta - Morahela",
+                  "via": "237 km"
+                },
+                {
+                  "route_number": "66",
+                  "start": "• Embilipitiya",
+                  "end": "Panadura - Bandaragama - Horana - Poruwadanda - Ingiriya - Madala Junc - Idangoda -",
+                  "via": "• 145 km"
+                },
+                {
+                  "route_number": "87",
+                  "start": "Jaana / Point Pedro",
+                  "end": "Panadura - Moratuwa - Dehiwala - Colombo - Ja Ela - Negombo - Chilaw - Puttalam -"
+                },
+                {
+                  "route_number": "100",
+                  "start": "[[Pettah, Colombo",
+                  "end": "Pettah]]",
+                  "via": "Walana - Old Galle Road - Keselwatta - Moratuwa - Ratmalana - Mt. Lavinia (Galkissa) -",
+                  "distance": "26 km"
+                },
+                {
+                  "route_number": "142",
+                  "start": "Moratuwa",
+                  "end": "Panadura - Athur V Dias Mw - Aluth Palama -",
+                  "via": "9 km"
+                },
+                {
+                  "route_number": "183",
+                  "start": "Nugegoda",
+                  "end": "Walana - Old Galle Rd - Keselwatta - Moratuwa - Ratmalana - Mt Lavinia - Dehiwala -"
+                },
+                {
+                  "route_number": "400/7",
+                  "start": "Kalutara",
+                  "end": "Thalpitiya - Wadduwa - Waskaduwa"
+                },
+                {
+                  "route_number": "447",
+                  "start": "Malamulla"
+                },
+                {
+                  "route_number": "449",
+                  "start": "Karandana",
+                  "end": "Panadura - Bandaragama - Horana - Poruwadanda - Ingiriya - Ellagawa - Madala Junc -",
+                  "via": "52 km"
+                },
+                {
+                  "route_number": "450",
+                  "start": "Ratnapura",
+                  "end": "Panadura - Bandaragama - Horana - Poruwadanda - Ingiriya - Ellagawa - Madala Junc -",
+                  "via": "68 km",
+                  "distance": "goo.gl/maps/eS8ZXmbvrKT2"
+                },
+                {
+                  "route_number": "450/5",
+                  "start": "Horana",
+                  "end": "Panadura - Wekada - Eluwila - Mahawila - Kurusa Junc: - Mahabellana - Bolgoda -",
+                  "via": "19 km"
+                },
+                {
+                  "route_number": "450/9",
+                  "start": "Mahabellana",
+                  "end": "Wekada - Eluwila - Alubomulla - Mahabellana"
+                },
+                {
+                  "route_number": "451",
+                  "start": "Niwdawa"
+                },
+                {
+                  "route_number": "452",
+                  "start": "Rukgaha"
+                },
+                {
+                  "route_number": "453",
+                  "start": "Kiriberiya"
+                },
+                {
+                  "route_number": "453/2",
+                  "start": "Malamulla",
+                  "end": "Panadura - Hospital Junction - Hirana Rd - Cyril Janz Rd - Malamulla"
+                },
+                {
+                  "route_number": "454",
+                  "start": "Mahawila"
+                },
+                {
+                  "route_number": "455",
+                  "start": "Morawinna"
+                },
+                {
+                  "route_number": "456",
+                  "start": "Diggala"
+                },
+                {
+                  "route_number": "457",
+                  "start": "Hirana / Kindelpitiya / Battaramulla",
+                  "end": "Hospital Junction - Hirana Rd - Thanathirimulla - Hirana Thotupola - Kindelpitya"
+                },
+                {
+                  "route_number": "459",
+                  "start": "Anguruwathota",
+                  "end": "Bandaragama - Raigama Junct. - Halthota - Millaniya - Keselhenawa - Madurawala"
+                },
+                {
+                  "route_number": "460",
+                  "start": "Indigaha"
+                },
+                {
+                  "route_number": "462",
+                  "start": "Atulugama",
+                  "end": "Bandaragama"
+                },
+                {
+                  "route_number": "463",
+                  "start": "Moronthuduwa",
+                  "end": "Wadduwa"
+                },
+                {
+                  "route_number": "465/2",
+                  "start": "Gonapola",
+                  "end": "Bandaragama - Weediyagoda"
+                },
+                {
+                  "route_number": "466",
+                  "start": "Indigaha",
+                  "end": "Panadura - Old Galle Rd - Walana Junction - Bekkegama Rd - Galthude Junction"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kalutara",
+          "subsections": [
+            {
+              "name": "Kalutara",
+              "routes": [
+                {
+                  "route_number": "400/1",
+                  "start": "Colombo"
+                },
+                {
+                  "route_number": "400/4",
+                  "start": "Aluthgama",
+                  "end": "Kalutara - Katukurunda - Payagala - Maggona - Beruwala - Aluthgama"
+                },
+                {
+                  "route_number": "400/5",
+                  "start": "Nagoda",
+                  "end": "Katukurunda - Nagoda General Hospital"
+                },
+                {
+                  "route_number": "400/7",
+                  "start": "Panadura",
+                  "end": "Waskaduwa - Wadduwa"
+                },
+                {
+                  "route_number": "418",
+                  "start": "Yatadola",
+                  "end": "Payagala - Pothuwila - Halkandawila"
+                },
+                {
+                  "route_number": "420",
+                  "start": "Horana",
+                  "end": "Nagas Junction - Galpatha - Diyagama - Yala Junction - Bellapitiya",
+                  "via": "27 km",
+                  "distance": "goo.gl/maps/aqMTdVoS7uT2"
+                },
+                {
+                  "route_number": "422",
+                  "start": "Moronthuduwa",
+                  "end": "Kalapugama"
+                },
+                {
+                  "route_number": "423",
+                  "start": "Neboda",
+                  "end": "Palathota Rd - Nagoda - Bombuwala - Thembuwana",
+                  "via": "20.3 km",
+                  "distance": "goo.gl/maps/fNrv4BNXZeD2"
+                },
+                {
+                  "route_number": "446",
+                  "start": "Neboda",
+                  "end": "Katukurunda - Nagoda - Thudugala Junct. - Wellatha - Neboda",
+                  "via": "21 km",
+                  "distance": "goo.gl/maps/EZ62EHH6NHv"
+                },
+                {
+                  "route_number": "425",
+                  "start": "Bandaragama",
+                  "end": "Waskaduwa - Wadiyamankada Junction - Moronthuduwa"
+                },
+                {
+                  "route_number": "438",
+                  "start": "Bandaragama"
+                },
+                {
+                  "route_number": "430/1",
+                  "start": "Mathugama",
+                  "end": "Katukurunda - Nagoda General Hospital - Nagoda Junct. - Dodangoda -",
+                  "via": "}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Mathugama",
+          "subsections": [
+            {
+              "name": "Mathugama",
+              "routes": [
+                {
+                  "route_number": "285",
+                  "start": "Horana",
+                  "end": "Agalawatta - Mahagama - Kalawellawa - Bulathsinhala - Egaloya - Gowinna -",
+                  "via": "42.4 km",
+                  "distance": "goo.gl/maps/u3GVfLmnPb32"
+                },
+                {
+                  "route_number": "458",
+                  "start": "Horana",
+                  "end": "Anguruwatota - Nartupana - Warakagoda - Neboda",
+                  "via": "32.3 km",
+                  "distance": "goo.gl/maps/e1ywTDdPrho"
+                },
+                {
+                  "route_number": "399",
+                  "start": "Pitigala / Elpitiya",
+                  "end": "Agalawatta - Polgampala - Meegahatenna - Pelawatta - Uthuru Pitigala"
+                },
+                {
+                  "route_number": "403",
+                  "start": "Neluwa",
+                  "end": "Agalawatte - Polgampola - Moragala - Meegahatenna - Pelawatta - Thiniyawala -",
+                  "via": "57.5 km",
+                  "distance": "goo.gl/maps/ekAv5oheG9r"
+                },
+                {
+                  "route_number": "428/1",
+                  "start": "Walallawita",
+                  "end": "Horawala - Meegahatenna",
+                  "via": "23 km",
+                  "distance": "goo.gl/maps/rfnSFEXfL3r"
+                },
+                {
+                  "route_number": "430",
+                  "start": "Colombo",
+                  "end": "Pettah - Galle Face - Kollupitiya - Bambalapitiya - Wellawatta - Dehiwala - Mt Lavinia -"
+                },
+                {
+                  "route_number": "430/1",
+                  "start": "Kalutara",
+                  "end": "Kalutara - Katukurunda - Nagoda - Kalutara General Hospital - Dodangoda -"
+                },
+                {
+                  "route_number": "431",
+                  "start": "Kudaligama",
+                  "end": "Agalawatte - Girikola - Veyangalla",
+                  "via": "15 km",
+                  "distance": "goo.gl/maps/cByo8Ymz77w"
+                },
+                {
+                  "route_number": "433/3",
+                  "start": "Baduraliya",
+                  "end": "Agalawatte",
+                  "via": "16 km",
+                  "distance": "goo.gl/maps/qDG1S4EbCqP2"
+                },
+                {
+                  "route_number": "435/2",
+                  "start": "Pelawatta",
+                  "end": "Agalawatte - Kitulgoda - Polgampola - Moragala - Meegahatenna",
+                  "via": "26 km",
+                  "distance": "goo.gl/maps/PnTLtbPYjRx"
+                },
+                {
+                  "route_number": "435/4",
+                  "start": "Agalawatte"
+                },
+                {
+                  "route_number": "437/1",
+                  "start": "Kelinkanda",
+                  "end": "Agalawatte - Lathpandura Junct. - Molkawa - Makeli Ella - Kelinkanda"
+                },
+                {
+                  "route_number": "441",
+                  "start": "Aluthgama",
+                  "end": "Aluthgama - Dharga Town - Ambagaha Junction - Galmatta - Lewwanduwa - Welipenna",
+                  "via": "22.4 km",
+                  "distance": "goo.gl/maps/61TDTEPuHSR2"
+                },
+                {
+                  "route_number": "408",
+                  "start": "Aluthgama",
+                  "end": "Yatadola"
+                },
+                {
+                  "route_number": "458/1",
+                  "start": "Kandy",
+                  "end": "Neboda - Horana - Moragahahena - Padukka - Hanwella - Attanagalla - Pasyala -"
+                },
+                {
+                  "route_number": "458/2",
+                  "start": "Anuradhapura",
+                  "end": "Neboda - Horana - Moragahahena - Padukka - Hanwella - Attanagalla - Pasyala -"
+                },
+                {
+                  "route_number": "458/2",
+                  "start": "Jaana",
+                  "end": "Neboda - Horana - Moragahahena - Padukka - Hanwella - Attanagalla - Pasyala -"
+                },
+                {
+                  "route_number": "482",
+                  "start": "Kalawana",
+                  "end": "Agalawatta - Bellana - Latpandura - Baduraliya - Atweltota - Kodippilikanda -",
+                  "via": "40 km",
+                  "distance": "goo.gl/maps/FhntYmmTdQU2"
+                },
+                {
+                  "route_number": "490",
+                  "start": "Avittawa",
+                  "end": "Horawala - Welipenna - Lewwanduwa - Ittapana - Galatara"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Aluthgama",
+          "subsections": [
+            {
+              "name": "Aluthgama",
+              "routes": [
+                {
+                  "route_number": "24/4",
+                  "start": "Avittawa",
+                  "end": "Dharga Town - Galmatta - Lewwanduwa - Ittapana - Galatara"
+                },
+                {
+                  "route_number": "64",
+                  "start": "Badulla",
+                  "end": "Kalutara - Panadura - Horana - Ratnapura - Pelmadulla - Balangoda - Beragala -"
+                },
+                {
+                  "route_number": "98",
+                  "start": "Akkaraipattu",
+                  "end": "Welipenna - Matugama - Agalawatta - Kalawana - Ratnapura - Pelmadulla - Balangoda"
+                },
+                {
+                  "route_number": "122-400",
+                  "start": "Avissawella",
+                  "end": "Kalutara - Bandaragama - Horana - Malagala Rd - Padukka - Meepe"
+                },
+                {
+                  "route_number": "388/2",
+                  "start": "Ambalangoda",
+                  "end": "Bentota - Induruwa - Kosgoda - Ahungalle - Balapitiya"
+                },
+                {
+                  "route_number": "400",
+                  "start": "Colombo",
+                  "end": "Pettah - Galle Face - Kollupitiya - Bambalapitiya - Wellawatta - Dehiwala - Mt Lavinia -"
+                },
+                {
+                  "route_number": "400/2",
+                  "start": "Nagoda"
+                },
+                {
+                  "route_number": "400/4",
+                  "start": "Kalutara",
+                  "end": "Kalutara - Katukurunda - Payagala - Maggona - Beruwala - Aluthgama"
+                },
+                {
+                  "route_number": "401/1",
+                  "start": "Elpitiya",
+                  "end": "Bentota - Uragasmanhandiya"
+                },
+                {
+                  "route_number": "441",
+                  "start": "Matugama",
+                  "end": "Aluthgama - Dharga Town - Galmatta - Lewwanduwa - Welipenna - Horawala -"
+                },
+                {
+                  "route_number": "408",
+                  "start": "Matugama",
+                  "end": "Yatadola"
+                },
+                {
+                  "route_number": "410/2",
+                  "start": "Pelawatta",
+                  "end": "Horawala - Meegahatenna",
+                  "via": "33.4 km",
+                  "distance": "goo.gl/maps/6Ktkz7PRRXU2"
+                },
+                {
+                  "route_number": "412",
+                  "start": "Meegama / Pahekanuwa",
+                  "end": "Dharga Town - Nakandalagoda - Varapitiya - Polduwa - Adawala - Kamburugoda -"
+                },
+                {
+                  "route_number": "413",
+                  "start": "Maha Uragaha",
+                  "end": "Bentota - Ranthotuwila"
+                },
+                {
+                  "route_number": "472/2",
+                  "start": "Kalawila",
+                  "end": "Kandewiharaya"
+                },
+                {
+                  "route_number": "515",
+                  "start": "Thotakanaththa",
+                  "end": "Bentota - Haburugala - Thunduwa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Horana",
+          "subsections": [
+            {
+              "name": "Horana",
+              "routes": [
+                {
+                  "route_number": "120",
+                  "start": "Horana - Pokunuwita - Gonapola - Kahatuduwa - Kesbewa - Piliyandala -",
+                  "end": "39.6 km",
+                  "via": "goo.gl/maps/MXcRMXwGKAT2"
+                },
+                {
+                  "route_number": "280",
+                  "start": "Maharagama",
+                  "end": "Moragahahena - Kiriwaththuduwa - Diyagama - Dolekade - Kottawa",
+                  "via": "29 km",
+                  "distance": "goo.gl/maps/qKLzacakCG22"
+                },
+                {
+                  "route_number": "281",
+                  "start": "Thalgahawila",
+                  "end": "Kuda Uduwa",
+                  "via": "9.4 km",
+                  "distance": "goo.gl/maps/z4gct1NhNks"
+                },
+                {
+                  "route_number": "282",
+                  "start": "Padukka",
+                  "end": "Gurugoda - Puhuwala - Kahawala - Malagala - Udumulla",
+                  "via": "19 km",
+                  "distance": "goo.gl/maps/r41bmPkGi1w"
+                },
+                {
+                  "route_number": "283",
+                  "start": "Millewa",
+                  "end": "Gurugoda - Puhuwala - Rallagoda",
+                  "via": "13 km"
+                },
+                {
+                  "route_number": "284",
+                  "start": "Moronthuduwa",
+                  "end": "Millaniya",
+                  "via": "15 km",
+                  "distance": "goo.gl/maps/BEiw2aV7N8P2"
+                },
+                {
+                  "route_number": "458",
+                  "start": "Matugama",
+                  "end": "Anguruwatota - Nartupana - Warakagoda - Neboda",
+                  "via": "32km",
+                  "distance": "goo.gl/maps/e1ywTDdPrho"
+                },
+                {
+                  "route_number": "285",
+                  "start": "Matugama",
+                  "end": "Bulatsinhala - Kalawellawa - Agalawatta",
+                  "via": "42.4 km",
+                  "distance": "goo.gl/maps/u3GVfLmnPb32"
+                },
+                {
+                  "route_number": "285/5",
+                  "start": "Dikhenapura",
+                  "end": "Munagama - Prajapathi Balika Vidyalaya"
+                },
+                {
+                  "route_number": "288",
+                  "start": "Bulathsinhala",
+                  "end": "Gurugoda - Poruwadanda - Eduragala",
+                  "via": "27 km",
+                  "distance": "- Bothalegama - Egaloya"
+                },
+                {
+                  "route_number": "289",
+                  "start": "Wagawatta",
+                  "end": "9 km"
+                },
+                {
+                  "route_number": "315",
+                  "start": "Meepe",
+                  "end": "Moragahahena - Millewa - Padukka",
+                  "via": "21 km",
+                  "distance": "goo.gl/maps/vkyLQrYrYZ12"
+                },
+                {
+                  "route_number": "315/1",
+                  "start": "Kandy",
+                  "end": "Padukka - Meepe - Hanwella - Pugoda - Kirindiwela - Attanagalla - Pasyala -",
+                  "via": "131 km"
+                },
+                {
+                  "route_number": "316",
+                  "start": "Handapangoda",
+                  "end": "Poruwadanda - Ratmalgoda",
+                  "via": "12 km"
+                },
+                {
+                  "route_number": "420",
+                  "start": "Kalutara",
+                  "end": "Bellapitiya - Yala Junct. - Dombagoda - Keselhenawa - Galpatha - Uggalboda - Nagas",
+                  "via": "27 km",
+                  "distance": "goo.gl/maps/aqMTdVoS7uT2"
+                },
+                {
+                  "route_number": "449",
+                  "start": "Karandana",
+                  "end": "Ingiriya - Nambapana - Dumbara - Ellagawa - Madala Junction - Yatipawwa - Karandana",
+                  "via": "33 km"
+                },
+                {
+                  "route_number": "450/5",
+                  "start": "Panadura",
+                  "end": "Pokunuwita - Bandaragama - Alubomulla",
+                  "via": "19 km"
+                },
+                {
+                  "route_number": "450/7",
+                  "start": "Ingiriya",
+                  "end": "Horana - Sawgas Junc - ilimba Junc - Gurugoda - Wagawatta Junc - Poruwadanda -",
+                  "via": "13 km"
+                },
+                {
+                  "route_number": "473",
+                  "start": "Kalawana",
+                  "end": "Ingiriya - Kiri Ella - Idangoda - Ayagama - Nikagoda",
+                  "via": "65 km",
+                  "distance": "goo.gl/maps/KT6JQ2X2wbM2"
+                },
+                {
+                  "route_number": "285/11",
+                  "start": "Kalawana",
+                  "end": "Ballapitiya - Govinna - Gavaragiriya - Ayagama - Nikagoda",
+                  "via": "61 km",
+                  "distance": "goo.gl/maps/4EGW1AmSkxm"
+                },
+                {
+                  "route_number": "315/245/04",
+                  "start": "Halawatha (Chilaw)",
+                  "end": "Padukka - Meepe - Hanwella - Pugoda - Kirindiwela - Aththanagalla - Nittambuwa -"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Bandaragama",
+          "subsections": [
+            {
+              "name": "Bandaragama",
+              "routes": [
+                {
+                  "route_number": "162/1",
+                  "start": "Piliyandala",
+                  "end": "Batuwandara - Kesbewa",
+                  "via": "15 km",
+                  "distance": "goo.gl/maps/Z4jM2rLexso"
+                },
+                {
+                  "route_number": "149",
+                  "start": "Piliyandala",
+                  "end": "Weedagama - Gonapola"
+                },
+                {
+                  "route_number": "162",
+                  "start": "Pettah",
+                  "end": "Kesbewa - Piliyandala - Kohuwala",
+                  "via": "35 km",
+                  "distance": "goo.gl/maps/GE2GrWueXC72"
+                },
+                {
+                  "route_number": "425",
+                  "start": "Kalutara",
+                  "end": "Morontuduwa - Wadiyamankada Junct."
+                },
+                {
+                  "route_number": "438",
+                  "start": "Kalutara"
+                },
+                {
+                  "route_number": "439",
+                  "start": "Kendakaduwa"
+                },
+                {
+                  "route_number": "664",
+                  "start": "Gonapola"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Ingiriya",
+          "subsections": [
+            {
+              "name": "Ingiriya",
+              "routes": [
+                {
+                  "route_number": "125",
+                  "start": "Pettah",
+                  "end": "Padukka - Godagama - Homagama - Maharagama",
+                  "via": "53 km",
+                  "distance": "goo.gl/maps/1hrBN7KJNZB2"
+                },
+                {
+                  "route_number": "125/1",
+                  "start": "Maharagama",
+                  "end": "Padukka - Godagama",
+                  "via": "37 km",
+                  "distance": "goo.gl/maps/LGXhFiDwXSS2"
+                },
+                {
+                  "route_number": "288",
+                  "start": "Bulathsinhala",
+                  "end": "Urugala - Halwatura - Bothalegama - Egaloya",
+                  "via": "14 km"
+                },
+                {
+                  "route_number": "450/7",
+                  "start": "Horana",
+                  "end": "Poruwadanda - Gurugoda - Munagama",
+                  "via": "13 km"
+                },
+                {
+                  "route_number": "686",
+                  "start": "Keenagahawila",
+                  "end": "Maha Ingiriya - Naachchimale - Madakada- Nugadanda"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Other",
+          "subsections": [
+            {
+              "name": "Other",
+              "routes": [
+                {
+                  "route_number": "24",
+                  "start": "Colombo",
+                  "end": "Avittawa",
+                  "via": "Kalutara - Aluthgama - Lewwanduwa - Ittapana"
+                },
+                {
+                  "route_number": "24/1",
+                  "start": "Colombo",
+                  "end": "Galaththara"
+                },
+                {
+                  "route_number": "286",
+                  "start": "Bulathsinhala",
+                  "end": "Paragoda"
+                },
+                {
+                  "route_number": "399",
+                  "start": "Pelawatta",
+                  "end": "Elpitiya",
+                  "via": "Pitigala"
+                },
+                {
+                  "route_number": "403",
+                  "start": "Pelawatta",
+                  "end": "Neluwa"
+                },
+                {
+                  "route_number": "427",
+                  "start": "Colombo",
+                  "end": "Serupita",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "428",
+                  "start": "Colombo",
+                  "end": "Walallawita"
+                },
+                {
+                  "route_number": "431/2",
+                  "start": "Colombo",
+                  "end": "kudaligama",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "433",
+                  "start": "Colombo",
+                  "end": "Baduraliya",
+                  "via": "Kalutara - Matugama - Agalawatta"
+                },
+                {
+                  "route_number": "433/1",
+                  "start": "Colombo",
+                  "end": "Athwelthota",
+                  "via": "Kalutara - Matugama - Agalawatta - Baduraliya"
+                },
+                {
+                  "route_number": "433/4",
+                  "start": "Colombo",
+                  "end": "Agalawatta",
+                  "via": "Kalutara - Matugama - Agalawatta"
+                },
+                {
+                  "route_number": "434",
+                  "start": "Colombo",
+                  "end": "Darton ﬁeld",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "435",
+                  "start": "Colombo",
+                  "end": "Pelawatta",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "437",
+                  "start": "Colombo",
+                  "end": "Kelinkanda",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "439",
+                  "start": "Colombo",
+                  "end": "Bulathsingala",
+                  "via": "Kalutara - Matugama"
+                },
+                {
+                  "route_number": "441/400",
+                  "start": "Colombo",
+                  "end": "Madawala",
+                  "via": "Kalutara - Aluthgama"
+                },
+                {
+                  "route_number": "441/1",
+                  "start": "Colombo",
+                  "end": "Kalupahana",
+                  "via": "Kalutara - Aluthgama"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "district_name": "Gampaha District",
+      "sections": [
+        {
+          "section_name": "Gampaha",
+          "subsections": [
+            {
+              "name": "Gampaha",
+              "routes": [
+                {
+                  "route_number": "2",
+                  "start": "Matara",
+                  "end": "Yakkala, Balummahara, Kaduwela, Malabe, Baththaramulla, Kotte, Nugegoda,"
+                },
+                {
+                  "route_number": "181",
+                  "start": "Nittambuwa"
+                },
+                {
+                  "route_number": "200",
+                  "start": "Colombo",
+                  "end": "Miriswatta, Belummahara, Kirillawala, Kadawatha, Kiribathgoda",
+                  "via": "31 km",
+                  "distance": "goo.gl/maps/KrEkXJm2Rq82"
+                },
+                {
+                  "route_number": "201",
+                  "start": "Ja-ela (private)"
+                },
+                {
+                  "route_number": "201/2",
+                  "start": "Nittambuwa",
+                  "end": "Yakkala, Thihariya",
+                  "via": "goo.gl/maps/AhU9GoVyTwF2"
+                },
+                {
+                  "route_number": "202",
+                  "start": "Kirindiwela",
+                  "end": "Miriswatta, Belummahara, Weliweriya, Henegama, Radawana",
+                  "via": "22 km",
+                  "distance": "goo.gl/maps/mT2iwxDjGWG2"
+                },
+                {
+                  "route_number": "205",
+                  "start": "Kirindiwela",
+                  "end": "Miriswatta, Wathurugama, Radawana"
+                },
+                {
+                  "route_number": "207/400",
+                  "start": "Aluthgama",
+                  "end": "Via Balummahara, Delgoda, Hanwella"
+                },
+                {
+                  "route_number": "206",
+                  "start": "Veyangoda"
+                },
+                {
+                  "route_number": "207",
+                  "start": "Pugoda",
+                  "end": "Miriswatta, Belummahara, Weliweriya, Delgoda",
+                  "via": "31 km",
+                  "distance": "goo.gl/maps/yran1Zw9xuR2"
+                },
+                {
+                  "route_number": "209",
+                  "start": "Laksiyahena"
+                },
+                {
+                  "route_number": "211",
+                  "start": "Divulapitiya",
+                  "end": "Udugampola, Naiwala"
+                },
+                {
+                  "route_number": "214",
+                  "start": "Ganemulla"
+                },
+                {
+                  "route_number": "215",
+                  "start": "Havaniwala",
+                  "end": "Havaniwala,Yakkala,Gampaha"
+                },
+                {
+                  "route_number": "228",
+                  "start": "Colombo",
+                  "end": "Miriswatta, Belummahara, Weliweriya, Delgoda, Kelani Viharaya"
+                },
+                {
+                  "route_number": "228/177",
+                  "start": "Isurupaya(SLTB-Oaice Time)",
+                  "end": "Miriswatta, Belummahara, Kaduwela, Malabe, Baththaramulla"
+                },
+                {
+                  "route_number": "228/1",
+                  "start": "Kaduwela",
+                  "end": "Miriswatta, Belummahara, Weliweriya, Delgoda, Biyagama"
+                },
+                {
+                  "route_number": "231",
+                  "start": "Kirindiwela",
+                  "end": "Yakkala, Radawana"
+                },
+                {
+                  "route_number": "244",
+                  "start": "Negombo/Raddolugama"
+                },
+                {
+                  "route_number": "245",
+                  "start": "Negombo"
+                },
+                {
+                  "route_number": "270"
+                },
+                {
+                  "route_number": "276",
+                  "start": "Kandana",
+                  "end": "Kirindivita Junction, Ganemulla, Bulugahagoda, Bollatha, Polpitimukalana, Vawa",
+                  "via": "15.6Km",
+                  "distance": "https://www.google.lk/maps/dir/Gampaha+Bus+Station,+A33,+Gampaha/Kandana+B"
+                },
+                {
+                  "route_number": "328",
+                  "start": "Ragama",
+                  "end": "Ganemulla"
+                },
+                {
+                  "route_number": "333",
+                  "start": "Pahala Yagoda"
+                },
+                {
+                  "route_number": "376",
+                  "start": "Kandana / Ja-Ela",
+                  "end": "Batuwatta"
+                },
+                {
+                  "route_number": "818",
+                  "start": "Kadawatha"
+                },
+                {
+                  "route_number": "979",
+                  "start": "Ragama"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Negombo",
+          "subsections": [
+            {
+              "name": "Negombo",
+              "routes": [
+                {
+                  "route_number": "1/245",
+                  "start": "Kandy / Kegalle",
+                  "end": "Minuwangoda / Veyangoda / Nittambuwa"
+                },
+                {
+                  "route_number": "3",
+                  "start": "Katharagama"
+                },
+                {
+                  "route_number": "2",
+                  "start": "Matara(special)/Ambalangoda"
+                },
+                {
+                  "route_number": "7",
+                  "start": "Kalpitiya"
+                },
+                {
+                  "route_number": "3/245",
+                  "start": "Avissawella",
+                  "end": "Minuwangoda / Veyangoda / Nittambuwa / Attanagalla / Amithirigala"
+                },
+                {
+                  "route_number": "7",
+                  "start": "Kalpitiya"
+                },
+                {
+                  "route_number": "34",
+                  "start": "Kurunegala/Giriulla"
+                },
+                {
+                  "route_number": "55",
+                  "start": "Nuwaragala"
+                },
+                {
+                  "route_number": "92",
+                  "start": "Kuliyapitiya"
+                },
+                {
+                  "route_number": "98",
+                  "start": "Balangoda",
+                  "end": "Ja-Ela, Colombo Central, Kaduwela, Avissawella, Balangoda"
+                },
+                {
+                  "route_number": "240",
+                  "start": "Colombo",
+                  "end": "Pettah - Peliyagoda - Wattala - Kandana - Ja-Ela - Seeduwa - Katunayaka - Negombo"
+                },
+                {
+                  "route_number": "240 E-03",
+                  "start": "240 E-03}}",
+                  "end": "Colombo/Moratuwa",
+                  "via": "[[E03 expressway (Sri Lanka)",
+                  "distance": "{{Expressway code (Sri Lanka)",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "242",
+                  "start": "Mirigama",
+                  "end": "Divulapitiya, Marandagahamula, Dunagaha, Miriswattha, Kadirana, Y Junction,"
+                },
+                {
+                  "route_number": "244",
+                  "start": "Gampaha"
+                },
+                {
+                  "route_number": "245",
+                  "start": "Minuwangoda / Veyangoda / Gampaha / Bolawalana"
+                },
+                {
+                  "route_number": "246",
+                  "start": "Minuwangoda",
+                  "end": "Kimbulapitiya - Dagonna - Katuwellegama - Aluthepola - Nilpanagoda"
+                },
+                {
+                  "route_number": "250",
+                  "start": "Madampalla"
+                },
+                {
+                  "route_number": "251",
+                  "start": "Mirigama / Katana"
+                },
+                {
+                  "route_number": "273",
+                  "start": "Ja-Ela",
+                  "end": "Ja-Ela - Delathura - Pamunugama - Kepungoda - Dungalpitiya - Thalahena -"
+                },
+                {
+                  "route_number": "797",
+                  "start": "Kochchikade"
+                },
+                {
+                  "route_number": "904",
+                  "start": "Chilaw"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Minuwangoda{{anchor|Minuwangoda}}",
+          "subsections": [
+            {
+              "name": "Minuwangoda{{anchor|Minuwangoda}}",
+              "routes": [
+                {
+                  "route_number": "245",
+                  "start": "Negombo",
+                  "end": "Andiambalama"
+                },
+                {
+                  "route_number": "246",
+                  "start": "Negombo",
+                  "end": "Nilpanagoda - Aluthepola - Katuwellegama - Dagonna - Kimbulapitiya"
+                },
+                {
+                  "route_number": "265",
+                  "start": "Colombo",
+                  "end": "Ekala - Ja-Ela - Wattala - Peliyagoda"
+                },
+                {
+                  "route_number": "265 E-03",
+                  "start": "265 E-03}}",
+                  "end": "Colombo",
+                  "via": "Ekala - Ja-Ela - [[E03 expressway (Sri Lanka)",
+                  "distance": "{{Expressway code (Sri Lanka)",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "265/1",
+                  "start": "Divulapitiya",
+                  "end": "Nilpanagoda - Galkanda - Ballapana - Horagasmulla"
+                },
+                {
+                  "route_number": "268",
+                  "start": "Badalgama",
+                  "end": "1) Nilpanagoda - Aluthepola - Dunagaha - Marandagahamula - Hunumulla -"
+                },
+                {
+                  "route_number": "904",
+                  "start": "Katunayake",
+                  "end": "Yagodamulla - Hinatiyana - Madawala - Maduwa - Walana"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Katunayake / Airport{{anchor|Airport}}",
+          "subsections": [
+            {
+              "name": "Katunayake / Airport{{anchor|Airport}}",
+              "routes": [
+                {
+                  "route_number": "5",
+                  "start": "Kurunagala",
+                  "end": "Minuwangoda"
+                },
+                {
+                  "route_number": "187",
+                  "start": "Colombo",
+                  "end": "Seeduwa, Ja-Ela, Kandana, Wattala, Kandy Rd (Peliyagoda) and Ingurukade Junc. and"
+                },
+                {
+                  "route_number": "187 E-03",
+                  "start": "187 E-03}}",
+                  "end": "Colombo",
+                  "via": "[[E03 expressway (Sri Lanka)",
+                  "distance": "{{Expressway code (Sri Lanka)",
+                  "map_link": ""
+                },
+                {
+                  "route_number": "240/3",
+                  "start": "Negombo",
+                  "end": "Kurana"
+                },
+                {
+                  "route_number": "245/1",
+                  "start": "Veyangoda",
+                  "end": "1) Kovinna - Minuwangoda"
+                },
+                {
+                  "route_number": "245 - 1",
+                  "start": "Kandy",
+                  "end": "Minuwangoda - Nittabuwa"
+                },
+                {
+                  "route_number": "270",
+                  "start": "Kovinna - Minuwangoda"
+                },
+                {
+                  "route_number": "788",
+                  "start": "Raddolugama"
+                },
+                {
+                  "route_number": "904",
+                  "start": "Minuwangoda",
+                  "end": "Walana - Madawala"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Ragama",
+          "subsections": [
+            {
+              "name": "Ragama",
+              "routes": [
+                {
+                  "route_number": "215",
+                  "start": "Kiribathgoda",
+                  "end": "Thewatte, Galwala Jnc., Delpe Jnc., Kurukulawa and Mahara Junc."
+                },
+                {
+                  "route_number": "222",
+                  "start": "Kadawatha",
+                  "end": "Delpe Junc. and Smack Junc.",
+                  "via": "6 km",
+                  "distance": "goo.gl/maps/VaA5tTojfdL2"
+                },
+                {
+                  "route_number": "222/1",
+                  "start": "Kadawatha",
+                  "end": "Neligama 1st mile post"
+                },
+                {
+                  "route_number": "262",
+                  "start": "Pettah",
+                  "end": "Mahabage, Wattala and Peliyagoda"
+                },
+                {
+                  "route_number": "262 /1",
+                  "start": "Dambuwa"
+                },
+                {
+                  "route_number": "264",
+                  "start": "Kandana / Ja-Ela",
+                  "end": "Peralanda"
+                },
+                {
+                  "route_number": "271",
+                  "start": "Kandana / Ja-Ela",
+                  "end": "Walpola",
+                  "via": "7.5Km",
+                  "distance": "https://www.google.lk/maps/dir/7.0302769,79.9215916/Kandana+Bus+Station,+A3,+J"
+                },
+                {
+                  "route_number": "325",
+                  "start": "Kadawatha",
+                  "end": "Thewatthe, Welipillewa"
+                },
+                {
+                  "route_number": "325 /1",
+                  "start": "Welipillewa",
+                  "end": "Thewatte"
+                },
+                {
+                  "route_number": "326",
+                  "start": "Kadawatha",
+                  "end": "Thewatte, Galwala Jnc., Surigama,"
+                },
+                {
+                  "route_number": "327",
+                  "start": "Kadawatha",
+                  "end": "Thewatte, Wihara Mawatha, Nugawela, Pokuna, Welipillewa"
+                },
+                {
+                  "route_number": "327 /1",
+                  "start": "Kadawatha"
+                },
+                {
+                  "route_number": "328",
+                  "start": "Gampaha",
+                  "end": "Batuwatte"
+                },
+                {
+                  "route_number": "338",
+                  "start": "Hendala",
+                  "end": "Mahabage, Kelawarapitiya"
+                },
+                {
+                  "route_number": "376",
+                  "start": "Kandana / Ja-Ela",
+                  "end": "Batuwatta and Bollatha",
+                  "via": "10.3Km",
+                  "distance": "https://www.google.lk/maps/dir/7.0302978,79.9215875/Kandana+Bus+Station,+A3,+J"
+                },
+                {
+                  "route_number": "815",
+                  "start": "Kadawatha"
+                },
+                {
+                  "route_number": "900",
+                  "start": "Wattala",
+                  "end": "Kurukulawa,Dalupitiya,Enderamulla, Hunupitiya"
+                },
+                {
+                  "route_number": "900/1",
+                  "start": "Kiribathgoda",
+                  "end": "Delpe Junc., Pahalawatte, Kirimetiyagara and Mahara Junc."
+                },
+                {
+                  "route_number": "900/2",
+                  "start": "Wattala",
+                  "end": "Horape"
+                },
+                {
+                  "route_number": "900/3",
+                  "start": "Kiribathgoda",
+                  "end": "Horape, Enderamulla and Kiribatgoda Hospital"
+                },
+                {
+                  "route_number": "979",
+                  "start": "Gampaha",
+                  "end": "Batuwatte, Ganemulla"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Mirigama",
+          "subsections": [
+            {
+              "name": "Mirigama",
+              "routes": [
+                {
+                  "route_number": "196",
+                  "start": "Weweldeniya"
+                },
+                {
+                  "route_number": "242",
+                  "start": "1)Negombo",
+                  "end": "1)Banduragoda-Divulapitiya-Marandagahamula-Dunagaha-Miriswattha-Kadirana-Y"
+                },
+                {
+                  "route_number": "251",
+                  "start": "Negombo"
+                },
+                {
+                  "route_number": "429",
+                  "start": "Warakapola"
+                },
+                {
+                  "route_number": "499",
+                  "start": "Alawwa",
+                  "end": "Wilwatta-Kandalama-Abepussa Farm-Thalwatta-Agbowa-Mapitiya"
+                },
+                {
+                  "route_number": "999",
+                  "start": "Giriulla",
+                  "end": "Maladeniya road"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Ganemulla",
+          "subsections": [
+            {
+              "name": "Ganemulla",
+              "routes": [
+                {
+                  "route_number": "214",
+                  "start": "Weliweriya / Gampaha"
+                },
+                {
+                  "route_number": "223",
+                  "start": "Kadawatha",
+                  "end": "7.6 km",
+                  "via": "goo.gl/maps/HUe7MLosNgN2"
+                },
+                {
+                  "route_number": "266",
+                  "start": "Ja-Ela",
+                  "end": "Weligampitiya",
+                  "via": "9.9Km",
+                  "distance": "https://www.google.lk/maps/dir/7.0783386,79.8904462/7.0697931,79.9615122/@7.08"
+                },
+                {
+                  "route_number": "278",
+                  "start": "Ja-Ela",
+                  "end": "Thibbatugoda, Niwandama, Maeliya"
+                },
+                {
+                  "route_number": "343",
+                  "start": "Gampaha"
+                },
+                {
+                  "route_number": "376",
+                  "start": "Kandana"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Wattala",
+          "subsections": [
+            {
+              "name": "Wattala",
+              "routes": [
+                {
+                  "route_number": "104",
+                  "start": "Wattala",
+                  "end": "Bambalapitiya"
+                },
+                {
+                  "route_number": "NO/LIMITED SERVICES PRESENTLY"
+                },
+                {
+                  "route_number": "107",
+                  "start": "Elakanda",
+                  "end": "Fort",
+                  "via": "Nayakakanda, Hendala Junc., Negombo Rd., Peliyagoda, Thota Langa, Stadium,"
+                },
+                {
+                  "route_number": "260",
+                  "start": "Hendala",
+                  "end": "Colombo",
+                  "via": "Elakanda, Hekitta, Negombo Rd, Peliyagoda, Thota langa and Central Rd."
+                },
+                {
+                  "route_number": "338",
+                  "start": "Hendala",
+                  "end": "Ragama",
+                  "via": "Kelawarapitiya, Mahabage"
+                },
+                {
+                  "route_number": "900",
+                  "start": "Wattala",
+                  "end": "Ragama",
+                  "via": "Kurukulawa"
+                },
+                {
+                  "route_number": "900/2",
+                  "start": "Wattala",
+                  "end": "Ragama",
+                  "via": "Pinnameda"
+                },
+                {
+                  "route_number": "983",
+                  "start": "Wattala",
+                  "end": "Kiribathgoda",
+                  "via": "Hunupitiya - Padiliyatuduwa Rd - Eriyawetiya Junc."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Ja-Ela",
+          "subsections": [
+            {
+              "name": "Ja-Ela",
+              "routes": [
+                {
+                  "route_number": "187",
+                  "start": "Fort",
+                  "end": "Kandana, Wattala, Kandy Rd. (Peliyagoda), Ingurukade Junc. and Maradana"
+                },
+                {
+                  "route_number": "187/400",
+                  "start": "Wadduwa,Moratuwa,Ratmalana, Dehiwala, Bambalapitiya, Pettah, Thotalanga,"
+                },
+                {
+                  "route_number": "201",
+                  "start": "Gampaha(Private)/Nittambuwa([[Sri Lanka Transport Board",
+                  "end": "SLTB]])",
+                  "via": "Ekala,Gampaha,Yakkala"
+                },
+                {
+                  "route_number": "201/5",
+                  "start": "Kandy/Kegalle",
+                  "end": "Time based service service along the Gampaha-Nittambuwa route"
+                },
+                {
+                  "route_number": "3-201",
+                  "start": "Avissawella",
+                  "end": "Seasonal service"
+                },
+                {
+                  "route_number": "264",
+                  "start": "Ragama",
+                  "end": "Peralanda"
+                },
+                {
+                  "route_number": "266",
+                  "start": "Ganemulla",
+                  "end": "Weligampitiya"
+                },
+                {
+                  "route_number": "267/1",
+                  "start": "Raddolugama",
+                  "end": "Ekala,Raja Mawatha"
+                },
+                {
+                  "route_number": "273",
+                  "start": "Negombo"
+                },
+                {
+                  "route_number": "278",
+                  "start": "Ganemulla",
+                  "end": "Thibbatugoda, Niwandama, Maeliya"
+                },
+                {
+                  "route_number": "376",
+                  "start": "Ragama",
+                  "end": "Batuwatte"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kandana",
+          "subsections": [
+            {
+              "name": "Kandana",
+              "routes": [
+                {
+                  "route_number": "264",
+                  "start": "Ragama",
+                  "end": "Peralanda"
+                },
+                {
+                  "route_number": "271",
+                  "start": "Ragama",
+                  "end": "Walpola"
+                },
+                {
+                  "route_number": "276",
+                  "start": "Gampaha",
+                  "end": "Hapugoda, Vawa Handiya(Walpola), Polpitimukalana, Bollatha, Bulugahagoda,"
+                },
+                {
+                  "route_number": "361",
+                  "start": "Ragama",
+                  "end": "Batuwatta"
+                },
+                {
+                  "route_number": "276",
+                  "start": "Ganemulla"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Nittambuwa",
+          "subsections": [
+            {
+              "name": "Nittambuwa",
+              "routes": [
+                {
+                  "route_number": "17/1",
+                  "start": "Panadura",
+                  "end": "(201/2 route) Gampaha,(228/1 route) Kaduwela, Battaramulla,(163 route) Dehiwela,",
+                  "via": "70 km",
+                  "distance": "goo.gl/maps/SrXTQezDooP2"
+                },
+                {
+                  "route_number": "180",
+                  "start": "Pettah",
+                  "end": "Thihariya, Yakkala, Miriswaththa, Balummahara, Kirillawala, Kadawatha, Kiribathgoda,",
+                  "via": "40 km",
+                  "distance": "goo.gl/maps/oTJCymY94Bp"
+                },
+                {
+                  "route_number": "185",
+                  "start": "Kiridiwela",
+                  "end": "Ruggahavila"
+                },
+                {
+                  "route_number": "201",
+                  "start": "Ja-Ela (SLTB)",
+                  "end": "Yakkala, Gampaha,Ekala"
+                },
+                {
+                  "route_number": "201/2",
+                  "start": "Gampaha",
+                  "end": "Yakkala",
+                  "via": "15 km",
+                  "distance": "goo.gl/maps/AhU9GoVyTwF2"
+                },
+                {
+                  "route_number": "221",
+                  "start": "Giriulla",
+                  "end": "Pasyala, Kaleliya, Mirigama"
+                },
+                {
+                  "route_number": "348",
+                  "start": "Ruwanwella"
+                },
+                {
+                  "route_number": "670",
+                  "start": "Warakapola",
+                  "end": "Nittambuwa - Pasyala - Weweldeniya - Warakapola"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kadawatha",
+          "subsections": [
+            {
+              "name": "Kadawatha",
+              "routes": [
+                {
+                  "route_number": "154",
+                  "start": "Bambalapitiya(SLTB)",
+                  "end": "Kiribathgoda, New Kelani Bridge, Dematagoda, Borella",
+                  "via": "18.6 km",
+                  "distance": "goo.gl/maps/mt3YM2fkkdP2"
+                },
+                {
+                  "route_number": "138",
+                  "start": "Fort",
+                  "end": "Kiribathgoda, Peliyagoda",
+                  "via": "16.4 km",
+                  "distance": "goo.gl/maps/GbUcn5n6VY72"
+                },
+                {
+                  "route_number": "193",
+                  "start": "Kiribathgoda, Peliyagoda, Dematagoda, Nalanda College - Punchi Borella - Carey",
+                  "end": "17 km",
+                  "via": "goo.gl/maps/EHGQb7xXnqH2"
+                },
+                {
+                  "route_number": "216",
+                  "start": "Delgoda",
+                  "end": "Eldeniya"
+                },
+                {
+                  "route_number": "222",
+                  "start": "Ragama",
+                  "end": "Smak Junction, Delpe Junction",
+                  "via": "6 km",
+                  "distance": "goo.gl/maps/VaA5tTojfdL2"
+                },
+                {
+                  "route_number": "222 /1",
+                  "start": "Ragama"
+                },
+                {
+                  "route_number": "223",
+                  "start": "Ganemulla",
+                  "end": "7.6 km",
+                  "via": "goo.gl/maps/HUe7MLosNgN2"
+                },
+                {
+                  "route_number": "261",
+                  "start": "Pettah",
+                  "end": "Mahara Junction, Dalupitiya, Enderamulla, Hunupitiya, Wattala, Peliyagoda, Thota"
+                },
+                {
+                  "route_number": "325",
+                  "start": "Ragama",
+                  "end": "Ganemulla Rd, Welipillawa, Galwala Jnc., Thewatte"
+                },
+                {
+                  "route_number": "326",
+                  "start": "Ragama",
+                  "end": "Soorigama"
+                },
+                {
+                  "route_number": "327",
+                  "start": "Ragama",
+                  "end": "Welipillewa, Pokuna, Nugawela, Wihara Mawatha, Thewatte"
+                },
+                {
+                  "route_number": "327 /1",
+                  "start": "Ragama"
+                },
+                {
+                  "route_number": "583",
+                  "start": "Mawaramandiya"
+                },
+                {
+                  "route_number": "815",
+                  "start": "Ragama"
+                },
+                {
+                  "route_number": "818",
+                  "start": "Gampaha",
+                  "end": "Ganemulla"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kiribathgoda",
+          "subsections": [
+            {
+              "name": "Kiribathgoda",
+              "routes": [
+                {
+                  "route_number": "154",
+                  "start": "Angulana",
+                  "end": "Peliyagoda - Dematagoda - Borella - BMICH - Thummulla - Bambalapitiya - Galle Rd",
+                  "via": "26 km",
+                  "distance": "goo.gl/maps/ivEWdxsRgzG2"
+                },
+                {
+                  "route_number": "154 /1",
+                  "start": "Gampaha",
+                  "end": "Mahara Junc. - Kadawatha"
+                },
+                {
+                  "route_number": "199 /4",
+                  "start": "Kelani Viharaya",
+                  "end": "Galpoththa Junction, Pamunuwila, EtaHeraliya Gahamula Junc",
+                  "via": "6 km",
+                  "distance": "goo.gl/maps/rMP9CAd4Ytw"
+                },
+                {
+                  "route_number": "215",
+                  "start": "Ragama",
+                  "end": "Mahara Jnc., Kurukulawa, Delpe Jnc., Mahara Prison Rd, Galwala Junc., Thewatte"
+                },
+                {
+                  "route_number": "230",
+                  "start": "Pettah",
+                  "end": "Makola, Sapugaskanda, Gonawala, Kelani Viharaya, 4th Mile Post, Peliyagoda, Divulgas",
+                  "via": "18.5 km",
+                  "distance": "From Pettah"
+                },
+                {
+                  "route_number": "235 /1",
+                  "start": "Kelani Viharaya",
+                  "end": "Galpoththa, Pamunuwila"
+                },
+                {
+                  "route_number": "236",
+                  "start": "Mabima",
+                  "end": "Makola and Sapugaskanda"
+                },
+                {
+                  "route_number": "343 /1",
+                  "start": "Mawaramandiya",
+                  "end": "Makola and Galwala Junc."
+                },
+                {
+                  "route_number": "380",
+                  "start": "Kaduwela",
+                  "end": "Makola, Galwala Jnc., Power House Jnc., Siyambalape and Bandarawatthe",
+                  "via": "13 km",
+                  "distance": "goo.gl/maps/3DSVvPUbPU52"
+                },
+                {
+                  "route_number": "900/1",
+                  "start": "Ragama",
+                  "end": "Mahara Jnc., Kirimetiyagaraya, Pahalawatte, Delpe Jnc."
+                },
+                {
+                  "route_number": "900/3",
+                  "start": "Ragama",
+                  "end": "Hospital Rd, Padiliyathuduwa, Enderamulla, Pinnameda, Horape Station Rd."
+                },
+                {
+                  "route_number": "983",
+                  "start": "Wattala",
+                  "end": "Eriyawetiya, Padiliyathuduwa Rd, Hunupitiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Kirindiwela",
+          "subsections": [
+            {
+              "name": "Kirindiwela",
+              "routes": [
+                {
+                  "route_number": "182",
+                  "start": "1)Hanwella",
+                  "end": "1)Pugoda and Kapugoda"
+                },
+                {
+                  "route_number": "185",
+                  "start": "Veyangoda",
+                  "end": "Walgammulla, Ruggahawila, Wathupitiwala and Nittambuwa"
+                },
+                {
+                  "route_number": "202",
+                  "start": "Gampaha",
+                  "end": "Radawana, Henegama, Weliweriya, Belummahara, Miriswaththa",
+                  "via": "22 km",
+                  "distance": "goo.gl/maps/mT2iwxDjGWG2"
+                },
+                {
+                  "route_number": "205",
+                  "start": "Gampaha",
+                  "end": "Wathurugama, Miriswaththa"
+                },
+                {
+                  "route_number": "225",
+                  "start": "Pettah",
+                  "end": "Delgoda, Kelani Viharaya",
+                  "via": "45 km",
+                  "distance": "From Pettah"
+                },
+                {
+                  "route_number": "225 /1",
+                  "start": "Delgoda"
+                },
+                {
+                  "route_number": "231",
+                  "start": "Pettah",
+                  "end": "Radawana, Yakkala, Miriswaththa, Balummahara, Kirillawala, Kadawatha,",
+                  "via": "47 km",
+                  "distance": "goo.gl/maps/mnU6Yku2Yj82"
+                },
+                {
+                  "route_number": "231 /1",
+                  "start": "Gampaha",
+                  "end": "Radawana and Yakkala"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Veyangoda",
+          "subsections": [
+            {
+              "name": "Veyangoda",
+              "routes": [
+                {
+                  "route_number": "182",
+                  "start": "Hanwella"
+                },
+                {
+                  "route_number": "182/1",
+                  "start": "Ranpokunagama",
+                  "end": "Nittambuwa",
+                  "via": "8 km",
+                  "distance": "goo.gl/maps/UgvndcWotXL2"
+                },
+                {
+                  "route_number": "185",
+                  "start": "Kirindiwela",
+                  "end": "Nittambuwa, Wathupitiwala, Ruggahawila and Walgammulla",
+                  "via": "18 km"
+                },
+                {
+                  "route_number": "185/1",
+                  "start": "Nelligahamula"
+                },
+                {
+                  "route_number": "185/2",
+                  "start": "Ruggahavila",
+                  "end": "Nittambuwa and Wathupitiwala hospital",
+                  "via": "10.4 km",
+                  "distance": "goo.gl/maps/aNsq9ZvMbyz"
+                },
+                {
+                  "route_number": "185/4",
+                  "start": "Ogodapola",
+                  "end": "Nittambuwa, Thihariya, Waarana, Koshena and Gorakadeniya",
+                  "via": "16 km",
+                  "distance": "goo.gl/maps/4WQHWFyQLyz"
+                },
+                {
+                  "route_number": "185/5",
+                  "start": "Wathurugama"
+                },
+                {
+                  "route_number": "189",
+                  "start": "Pasyala",
+                  "end": "Nittambuwa, Wathupitiwala, Attanagalla, Haggalla and Ellakkala",
+                  "via": "18 km",
+                  "distance": "goo.gl/maps/vvvaFScjzCF2"
+                },
+                {
+                  "route_number": "191",
+                  "start": "Mallehewa",
+                  "end": "Kottala and Kumbaloluwa",
+                  "via": "8.5 km",
+                  "distance": "goo.gl/maps/bcDkVCfNXeP2"
+                },
+                {
+                  "route_number": "206",
+                  "start": "Gampaha"
+                },
+                {
+                  "route_number": "243",
+                  "start": "Divulapitiya",
+                  "end": "Naiwala and Ballapana"
+                },
+                {
+                  "route_number": "245",
+                  "start": "Negombo",
+                  "end": "Naiwala/Minuwangoda"
+                },
+                {
+                  "route_number": "245/1",
+                  "start": "Katunayake Airport",
+                  "end": "Naiwala/Minuwangoda"
+                },
+                {
+                  "route_number": "272",
+                  "start": "Galapitamada",
+                  "end": "Nittambuwa, Wathupitiwala, Attanagalla, Athaudakanda and Dunumala",
+                  "via": "26 km",
+                  "distance": "goo.gl/maps/UnHiNowGPnt"
+                },
+                {
+                  "route_number": "292",
+                  "start": "Ruggahavila",
+                  "end": "Nittambuwa and Thihariya",
+                  "via": "15 km",
+                  "distance": "goo.gl/maps/pWG368tRrVK2"
+                },
+                {
+                  "route_number": "885",
+                  "start": "Meerigama"
+                },
+                {
+                  "route_number": "980",
+                  "start": "Keenawala"
+                },
+                {
+                  "route_number": "985",
+                  "start": "Banduragoda",
+                  "end": "Muddaragama"
+                },
+                {
+                  "route_number": "986",
+                  "start": "Maligathenna"
+                },
+                {
+                  "route_number": "987",
+                  "start": "Algama",
+                  "end": "Nittambuwa, Wathupitiwala, Attanagalla and Haggalla",
+                  "via": "18 km",
+                  "distance": "goo.gl/maps/f8QHGkqzwkF2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Divulapitiya",
+          "subsections": [
+            {
+              "name": "Divulapitiya",
+              "routes": [
+                {
+                  "route_number": "05/171",
+                  "start": "Battaramulla",
+                  "end": "Minuwangoda,Ekala,Ja-Ela,Wattala,Armour Street, Borella Junction, Rajagiriya"
+                },
+                {
+                  "route_number": "211",
+                  "start": "Gampaha",
+                  "end": "Udugampola and Naiwala"
+                },
+                {
+                  "route_number": "242",
+                  "start": "1)Meerigama",
+                  "end": "1)Banduragoda, Gurullagama and Rendapola junction"
+                },
+                {
+                  "route_number": "243",
+                  "start": "Veyangoda",
+                  "end": "Ballapana and Naiwala"
+                },
+                {
+                  "route_number": "250/3",
+                  "start": "Madampella"
+                },
+                {
+                  "route_number": "265/1",
+                  "start": "Minuwangoda",
+                  "end": "Horagasmulla, Ballapana, Galkanda and Nilpanagoda"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Pugoda",
+          "subsections": [
+            {
+              "name": "Pugoda",
+              "routes": [
+                {
+                  "route_number": "182",
+                  "start": "Hanwella",
+                  "end": "Kapugoda"
+                },
+                {
+                  "route_number": "207",
+                  "start": "Gampaha",
+                  "end": "Giridara Junc., Dompe, Dekatana, Delgoda, Weliweriya and Belummahara",
+                  "via": "31 km",
+                  "distance": "goo.gl/maps/yran1Zw9xuR2"
+                },
+                {
+                  "route_number": "224",
+                  "start": "Pettah",
+                  "end": "Giridara Junc., Dompe, Dekatana, Delgoda, Siyambalape, Bandarawatte, Kelani",
+                  "via": "41 km",
+                  "distance": "goo.gl/maps/Rw9BD5aKmC12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Delgoda",
+          "subsections": []
+        },
+        {
+          "section_name": "Kelaniya",
+          "subsections": []
+        },
+        {
+          "section_name": "Other",
+          "subsections": [
+            {
+              "name": "Other",
+              "routes": [
+                {
+                  "route_number": "226",
+                  "start": "Dekatana",
+                  "end": "Pettah",
+                  "via": "Karambugas Jnc., Malwana, Biyagama, Kelani Viaharaya, 4th Mile Post, Peliyagoda"
+                },
+                {
+                  "route_number": "226/1",
+                  "start": "Malwana",
+                  "end": "Pettah",
+                  "via": "Biyagama, Kelani Viaharaya, 4th Mile Post, Peliyagoda"
+                },
+                {
+                  "route_number": "227",
+                  "start": "Henegama",
+                  "end": "Pettah",
+                  "via": "Biyagama, Kelani Viaharaya, 4th Mile Post, Peliyagoda"
+                },
+                {
+                  "route_number": "228",
+                  "start": "Weliweriya",
+                  "end": "Pettah",
+                  "via": "Delgoda, Siyambalape, Biyagama, Kelani Viharaya, 4th Mile Post, Peliyagoda"
+                },
+                {
+                  "route_number": "356",
+                  "start": "Fort",
+                  "end": "BEPZ, Siyambalape, Sapugaskanda, Makola, Kiribathgoda, Peliyagoda",
+                  "via": "24 km",
+                  "distance": "goo.gl/maps/UgMYFyEyysE2"
+                },
+                {
+                  "route_number": "343",
+                  "start": "Mawaramandiya",
+                  "end": "Fort",
+                  "via": "Makola, Kiribathgoda, Peliyagoda",
+                  "distance": "18.5 km",
+                  "map_link": "goo.gl/maps/Ktv6yFmLDzy"
+                },
+                {
+                  "route_number": "514",
+                  "start": "Weliweriya",
+                  "end": "Fort",
+                  "via": "Kirillawala, Kadawatha, Kiribatgoda, Peliyagoda",
+                  "distance": "26.5 km",
+                  "map_link": "goo.gl/maps/3HbpTf3VX9K2"
+                },
+                {
+                  "route_number": "274",
+                  "start": "Bopitiya",
+                  "end": "Colombo",
+                  "via": "Nugape Junction, Dikowita, Elakanda, Hekittha, Wattala, Peliyagoda, Thota Langa and"
+                },
+                {
+                  "route_number": "275",
+                  "start": "Bopitiya",
+                  "end": "Colombo",
+                  "via": "Uswetakeiyawa, Dikowita, Elakanda,Hendala Junction, Wattala, Peliyagoda, Thota"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "total_route_count": 675
+}
