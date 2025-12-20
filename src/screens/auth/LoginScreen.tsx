@@ -48,7 +48,7 @@ export const LoginScreen = ({ navigation }: any) => {
     >
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
 
-     {/* Minimal Header – only theme button on the right */}
+      {/* Minimal Header - only theme button on the right */}
       <View style={styles.header}>
         {/* Invisible spacer so the button stays perfectly on the right */}
         <View style={{ width: 56 }} />
@@ -137,7 +137,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  
+
   // New Header with Theme Button
   header: {
     flexDirection: 'row',
