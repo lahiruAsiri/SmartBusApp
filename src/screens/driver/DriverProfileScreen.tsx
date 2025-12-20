@@ -5,7 +5,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { ViolationHistory } from '../policeman/PolicemanHomeScreen';
 
-export const DriverProfileScreen = ({ navigation }: any) => { 
+export const DriverProfileScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
   const { userData } = useAuth();
 
@@ -17,9 +17,9 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const totalViolations = myViolations.length;
   const totalTrips = 30; // Can be dynamic later
   const riskScore = totalViolations === 0 ? 0 : Math.min(100, Math.round((totalViolations / totalTrips) * 100));
-  
+
   const lastViolation = myViolations[0];
-  const daysSinceLast = lastViolation 
+  const daysSinceLast = lastViolation
     ? Math.floor((Date.now() - new Date(lastViolation.timestamp).getTime()) / (1000 * 60 * 60 * 24))
     : 30;
 
@@ -32,7 +32,7 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const getRiskMessage = () => {
     if (riskScore < 30) return 'Excellent Safe Driver!';
     if (riskScore < 70) return 'Good, but can improve';
-    return 'High Risk — Please drive carefully';
+    return 'High Risk - Please drive carefully';
   };
 
   return (
@@ -117,10 +117,10 @@ export const DriverProfileScreen = ({ navigation }: any) => {
         {/* Safety Tips */}
         <View style={[styles.tipsCard, { backgroundColor: colors.card }]}>
           <Text style={styles.tipsTitle}>Safety Tips</Text>
-          <Text style={styles.tip}>• Maintain speed below 50 km/h in urban areas</Text>
-          <Text style={styles.tip}>• Avoid sudden acceleration and harsh braking</Text>
-          <Text style={styles.tip}>• Keep safe distance from other vehicles</Text>
-          <Text style={styles.tip}>• Stay alert and avoid distractions</Text>
+          <Text style={styles.tip}>* Maintain speed below 50 km/h in urban areas</Text>
+          <Text style={styles.tip}>* Avoid sudden acceleration and harsh braking</Text>
+          <Text style={styles.tip}>* Keep safe distance from other vehicles</Text>
+          <Text style={styles.tip}>* Stay alert and avoid distractions</Text>
         </View>
       </View>
     </ScrollView>
