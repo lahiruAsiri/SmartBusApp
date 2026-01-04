@@ -44,6 +44,8 @@ export const subscribeToAddresses = (userId: string, onUpdate: (addresses: Saved
 export const addAddress = async (userId: string, address: Omit<SavedAddress, 'id'>) => {
     try {
         const addressesRef = collection(db, 'users', userId, 'addresses');
+        // console.log(`[addressService] Saving address to path: users/${userId}/addresses`);
+        // console.log(`[addressService] Data:`, address);
         await addDoc(addressesRef, {
             ...address,
             createdAt: serverTimestamp()
