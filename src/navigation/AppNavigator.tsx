@@ -30,46 +30,17 @@ import { COLORS } from '../constants/colors';
 const Stack = createStackNavigator();
 
 export const AppNavigator = () => {
-  const { user, userData, loading } = useAuth();
-  const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
+  const { user, userData, loading, onboardingCompleted } = useAuth();
 
-  useEffect(() => {
-    const checkOnboarding = async () => {
-      console.log('AppNavigator: Checking onboarding...');
-      try {
-        const completed = await getBooleanItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
-        console.log('AppNavigator: Onboarding status:', completed);
-        setOnboardingCompleted(completed ?? false); // Fallback to false if null
-      } catch (err) {
-        console.error('AppNavigator: Onboarding check failed:', err);
-        setOnboardingCompleted(false);
-      }
-    };
-    checkOnboarding();
-  }, []);
+  // Log state for debugging
+  console.log('AppNavigator: Rendering state - loading:', loading, 'onboarding:', onboardingCompleted, 'user:', !!user);
 
-  console.log('AppNavigator: Rendering state - loading:', loading, 'onboarding:', onboardingCompleted, 'user:', !!user, 'userData:', !!userData);
-
-  if (loading || onboardingCompleted === null) {
+  if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
     );
-  }
-
-  if (user && !userData) {
-    // If loading is finished but we still have no userData, it usually means a permission error
-    // or the user document doesn't exist. We allow them to go to Login to re-authenticate or fix it.
-    if (!loading) {
-      console.log('AppNavigator: User authenticated but no userData found. Falling back to Login.');
-    } else {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        </View>
-      );
-    }
   }
 
   return (
