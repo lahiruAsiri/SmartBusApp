@@ -17,6 +17,8 @@ import { BusViolationDetailsScreen } from '@/screens/policeman/BusViolationDetai
 import { DriverProfileScreen } from '@/screens/driver/DriverProfileScreen';
 import { TripResultScreen } from '../screens/user/TripResultScreen';
 import { TripMapScreen } from '../screens/user/TripMapScreen';
+import { SavedAddressesScreen } from '../screens/user/SavedAddressesScreen';
+import { AddAddressMapScreen } from '../screens/user/AddAddressMapScreen';
 
 
 import { useAuth } from '../contexts/AuthContext';
@@ -97,6 +99,8 @@ export const AppNavigator = () => {
             <Stack.Screen name="BusDetails" component={BusDetailsScreen} />
             <Stack.Screen name="TripResult" component={TripResultScreen} />
             <Stack.Screen name="TripMap" component={TripMapScreen} />
+            <Stack.Screen name="SavedAddresses" component={SavedAddressesScreen} />
+            <Stack.Screen name="AddAddressMap" component={AddAddressMapScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
