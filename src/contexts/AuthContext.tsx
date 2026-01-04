@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import {
   createUserWithEmailAndPassword,
@@ -23,6 +25,8 @@ interface AuthContextType {
   signUp: (email: string, password: string, displayName: string, role: 'user' | 'policeman' | 'driver') => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  onboardingCompleted: boolean;
+  completeOnboarding: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -33,10 +37,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
 
   useEffect(() => {
+    // Check onboarding status on mount
+    const checkOnboarding = async () => {
+      try {
+        const completed = await AsyncStorage.getItem('@onboarding_completed');
+        setOnboardingCompleted(completed === 'true');
+      } catch (e) {
+        console.error('Failed to load onboarding status');
+      }
+    };
+    checkOnboarding();
+
     console.log('AuthContext: Setting up auth listener...');
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      // ... (existing logic) ...
       console.log('AuthContext: onAuthStateChanged triggered - user:', !!firebaseUser);
       setUser(firebaseUser);
 
@@ -75,6 +92,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return unsubscribe;
   }, []);
+
+  const completeOnboarding = async () => {
+    await AsyncStorage.setItem('@onboarding_completed', 'true');
+    setOnboardingCompleted(true);
+  };
 
   const signUp = async (
     email: string,
@@ -116,7 +138,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, userData, loading, signUp, signIn, logout }}>
+    <AuthContext.Provider value={{ user, userData, loading, signUp, signIn, logout, onboardingCompleted, completeOnboarding }}>
       {children}
     </AuthContext.Provider>
   );
