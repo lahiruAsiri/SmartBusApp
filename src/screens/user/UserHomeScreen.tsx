@@ -25,6 +25,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { Alert } from 'react-native';
 import { subscribeToAllBuses, getNearbyBuses, Bus } from '../../services/busService';
 import { getCurrentLocation, UserLocation } from '../../services/locationService';
+import { BusRouteOptimizer, JourneyResult } from '../../services/BusRouteOptimizer';
 
 const { width } = Dimensions.get('window');
 
@@ -46,22 +47,11 @@ export const UserHomeScreen = ({ navigation }: any) => {
   const [miniMapRegion, setMiniMapRegion] = useState(MAP_CONFIG.initialRegion);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Bus[]>([]);
+  const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [journeyResult, setJourneyResult] = useState<JourneyResult | null>(null);
 
-  const handleSearch = (text: string) => {
-    setSearchQuery(text);
-    if (text.trim() === '') {
-      setSearchResults([]);
-      return;
-    }
 
-    const query = text.toLowerCase();
-    const filtered = buses.filter(bus =>
-      bus.routeNumber.toLowerCase().includes(query) ||
-      bus.destination.toLowerCase().includes(query) ||
-      bus.from.toLowerCase().includes(query)
-    );
-    setSearchResults(filtered);
-  };
 
   // Fetch user location on mount
   useEffect(() => {
@@ -203,59 +193,93 @@ export const UserHomeScreen = ({ navigation }: any) => {
           </Text>
         </View>
 
+
         {/* Search Bar */}
         <View style={[styles.searchContainer, { backgroundColor: colors.card }]}>
           <View style={styles.searchBarInner}>
             <Ionicons name="search" size={22} color={colors.textLight} />
             <TextInput
               style={[styles.searchInput, { color: colors.text }]}
-              placeholder="Enter destination or bus number..."
+              placeholder="Where do you want to go?"
               placeholderTextColor={colors.textLight + '80'}
               value={searchQuery}
-              onChangeText={handleSearch}
+              onChangeText={(text) => {
+                setSearchQuery(text);
+                if (text.length > 2) {
+                  const matches = BusRouteOptimizer.getInstance().searchLocations(text);
+                  setSearchSuggestions(matches);
+                  setShowResults(false);
+                } else {
+                  setSearchSuggestions([]);
+                }
+              }}
             />
             {searchQuery !== '' && (
-              <TouchableOpacity onPress={() => { setSearchQuery(''); setSearchResults([]); Keyboard.dismiss(); }}>
+              <TouchableOpacity onPress={() => {
+                setSearchQuery('');
+                setSearchSuggestions([]);
+                setJourneyResult(null);
+                setShowResults(false);
+                Keyboard.dismiss();
+              }}>
                 <Ionicons name="close-circle" size={20} color={colors.textLight} />
               </TouchableOpacity>
             )}
           </View>
 
-          {/* Search Results */}
-          {searchQuery !== '' ? (
+          {/* Search Suggestions (Autocomplete) */}
+          {searchSuggestions.length > 0 && !showResults && (
             <View style={styles.searchResultsList}>
-              {searchResults.length > 0 ? (
-                searchResults.map((bus) => (
-                  <TouchableOpacity
-                    key={bus.id}
-                    style={[styles.searchResultItem, { borderTopColor: colors.border }]}
-                    onPress={() => {
-                      const { lastUpdated, ...serializableBus } = bus;
-                      navigation.navigate('BusDetails', { bus: serializableBus });
+              {searchSuggestions.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[styles.searchResultItem, { borderTopColor: colors.border }]}
+                  onPress={() => {
+                    setSearchQuery(item);
+                    setSearchSuggestions([]);
+                    Keyboard.dismiss();
+
+                    // Perform the route search
+                    if (userLocation) {
+                      const result = BusRouteOptimizer.getInstance().findTransferRoute(
+                        userLocation.latitude,
+                        userLocation.longitude,
+                        item
+                      );
+
+                      if (result) {
+                        navigation.navigate('TripResult', {
+                          journey: result,
+                          userLocation: userLocation
+                        });
+                      } else {
+                        Alert.alert('No Routes', 'No suitable bus routes found for this destination.');
+                      }
                       setSearchQuery('');
-                      setSearchResults([]);
-                    }}
-                  >
-                    <View style={[styles.resultIcon, { backgroundColor: colors.primary + '15' }]}>
-                      <Ionicons name="bus" size={20} color={colors.primary} />
-                    </View>
-                    <View style={styles.resultInfo}>
-                      <View style={styles.resultHeader}>
-                        <Text style={[styles.resultRoute, { color: colors.primary }]}>{bus.routeNumber}</Text>
-                        <Text style={[styles.resultDestination, { color: colors.text }]}>{bus.destination}</Text>
-                      </View>
-                      <Text style={[styles.resultFrom, { color: colors.textLight }]}>from {bus.from}</Text>
-                    </View>
-                    <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
-                  </TouchableOpacity>
-                ))
-              ) : (
-                <View style={styles.noResults}>
-                  <Text style={[styles.noResultsText, { color: colors.textLight }]}>No buses found for "{searchQuery}"</Text>
-                </View>
-              )}
+                      setSearchSuggestions([]);
+                      setShowResults(false);
+                    } else {
+                      Alert.alert('Location Missing', 'Current location is needed to find items.');
+                    }
+                  }}
+                >
+                  <Ionicons name="location-outline" size={20} color={colors.textLight} />
+                  <Text style={[styles.suggestionText, { color: colors.text }]}>{item}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
-          ) : null}
+          )}
+
+          {/* Search Results (Route Journey) */}
+
+
+          {showResults && !journeyResult && (
+            <View style={styles.noResults}>
+              <Text style={[styles.noResultsText, { color: colors.textLight }]}>
+                No suitable routes found.
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Mini Map Section */}
@@ -566,9 +590,6 @@ export const UserHomeScreen = ({ navigation }: any) => {
               navigation.navigate('Map');
             }}
           />
-          <MenuItem icon="star-outline" label="Favorites" colors={colors} />
-          <MenuItem icon="time-outline" label="Trip History" colors={colors} />
-          <MenuItem icon="ticket-outline" label="My Tickets" colors={colors} />
           <MenuItem icon="notifications-outline" label="Notifications" colors={colors} />
           <MenuItem
             icon="settings-outline"
@@ -795,6 +816,96 @@ const styles = StyleSheet.create({
   miniMap: {
     height: 180,
     width: '100%',
+  },
+  suggestionText: {
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  resultCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  resultHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  busRouteBadgeSmall: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    marginRight: 8,
+  },
+  busRouteNumberSmall: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  timelineContainer: {
+    borderLeftWidth: 2,
+    borderLeftColor: '#E2E8F0',
+    marginLeft: 10,
+    paddingLeft: 20,
+    paddingVertical: 5,
+  },
+  timelineItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  timelineText: {
+    marginLeft: 10,
+    fontSize: 14,
+  },
+  resultTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  stepContainer: {
+    flexDirection: 'row',
+    marginBottom: 16,
+  },
+  stepBadge: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+    marginTop: 2,
+  },
+  stepBadgeText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  stepContent: {
+    flex: 1,
+  },
+  stepTitle: {
+    fontWeight: '600',
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  stepDesc: {
+    fontSize: 13,
+    marginBottom: 2,
+  },
+  alertBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
+  },
+  alertText: {
+    marginLeft: 8,
+    fontSize: 13,
+    flex: 1,
   },
   mapMarker: {
     width: 28,
