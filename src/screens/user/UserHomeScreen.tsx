@@ -722,9 +722,9 @@ export const UserHomeScreen = ({ navigation }: any) => {
           <Text style={[styles.navLabelActive, { color: colors.primary }]}>Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="ticket-outline" size={24} color={colors.textLight} />
-          <Text style={[styles.navLabel, { color: colors.textLight }]}>Tickets</Text>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Chat')}>
+          <Ionicons name="chatbubble-ellipses-outline" size={24} color={colors.textLight} />
+          <Text style={[styles.navLabel, { color: colors.textLight }]}>Chat</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Map')}>
