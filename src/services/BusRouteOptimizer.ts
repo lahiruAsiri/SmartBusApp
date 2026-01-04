@@ -254,4 +254,33 @@ export class BusRouteOptimizer {
             reason: 'Closest direct stop is > 1000m away, and no suitable feeder bus found.'
         };
     }
+    public findRouteToCoordinate(userLat: number, userLon: number, destLat: number, destLon: number): JourneyResult | null {
+        // 1. Find the closest known bus stop to the destination coordinates
+        let bestStop: BusStop | null = null;
+        let minDestDist = Infinity;
+
+        // Iterate through all routes/stops to find the one closest to (destLat, destLon)
+        // Optimization: We could spatially index this, but for now linear scan of ~200 stops is fine.
+        for (const routeData of this.routeData) {
+            if (!routeData.stops) continue;
+            for (const stop of routeData.stops) {
+                const dist = this.haversineDistance(destLat, destLon, stop.latitude, stop.longitude);
+                if (dist < minDestDist) {
+                    minDestDist = dist;
+                    bestStop = stop;
+                }
+            }
+        }
+
+        if (!bestStop) {
+            console.log('No closest stop found for destination coordinates');
+            return null;
+        }
+
+        // 2. Use that stop's name to find the route from user
+        console.log(`Closest stop to saved address is: ${bestStop.location_name} (${Math.round(minDestDist)}m away)`);
+
+        // Use findTransferRoute with the identified stop name
+        return this.findTransferRoute(userLat, userLon, bestStop.location_name);
+    }
 }
