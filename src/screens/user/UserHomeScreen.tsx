@@ -27,12 +27,9 @@ import { subscribeToAllBuses, getNearbyBuses, Bus } from '../../services/busServ
 import { getCurrentLocation, UserLocation } from '../../services/locationService';
 import { BusRouteOptimizer, JourneyResult } from '../../services/BusRouteOptimizer';
 
-const { width } = Dimensions.get('window');
+import { SavedAddress, subscribeToAddresses } from '../../services/addressService';
 
-const SAVED_LOCATIONS = [
-  { id: '1', name: 'Home', route: '71', from: 'Negombo', arrivalTime: '7 min' },
-  { id: '2', name: 'Office', route: '138', from: 'Town Hall', arrivalTime: '15 min' },
-];
+const { width } = Dimensions.get('window');
 
 export const UserHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
@@ -50,7 +47,16 @@ export const UserHomeScreen = ({ navigation }: any) => {
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [journeyResult, setJourneyResult] = useState<JourneyResult | null>(null);
+  const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
 
+  // Subscribe to saved addresses
+  useEffect(() => {
+    if (!userData) return;
+    const unsubscribe = subscribeToAddresses(userData.uid, (data) => {
+      setSavedAddresses(data.filter(addr => addr.isFavorite)); // Only show favorites
+    });
+    return () => unsubscribe();
+  }, [userData]);
 
 
   // Fetch user location on mount
@@ -148,9 +154,63 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return 'Good Morning,';
+    if (hour < 18) return 'Good Afternoon,';
+    return 'Good Evening,';
+  };
+
+  const handleAddressClick = (address: SavedAddress) => {
+    if (!userLocation) {
+      Alert.alert('Location Required', 'Current location is needed to find a route.');
+      return;
+    }
+
+    // Calculate route from User -> Address
+    // We can pass the address location as the destination coordinates
+    // Since our optimizer primarily works with "Names" for now (destination string),
+    // we might need to find the closest stop to this address first?
+    // Or passing the address label if it matches a known location?
+
+    // Actually, BusRouteOptimizer.findTransferRoute takes a destination string (name).
+    // If the saved address is "Home" but the bus stop is "Malabe", we need to know "Malabe".
+    // However, the optimizer also has methods to find closest stop to a lat/lon?
+    // Let's check BusRouteOptimizer methods.
+    // It has `findTransferRoute(lat, lon, destName)`.
+    // If we don't have a destName that matches the bus schedule, it might fail.
+
+    // Workaround: We can't easily reverse geocode to a "Bus Stop Name" securely without an API.
+    // But we can try to find the closest stop to the SAVED ADDRESS using the optimizer's data (if we exposed it).
+    // Or simply pass the saved address label and hope it matches? No, "Home" won't match.
+
+    // Ideally, when saving an address, we should pick the closest bus stop? 
+    // User request says: "serch that user adress nerest bus stop using our bus data"
+
+    // So here, we should:
+    // 1. Find the closest bus stop to the Saved Address.
+    // 2. Use that Bus Stop Name as the destination for `findTransferRoute`.
+
+    const savedLat = address.location.latitude;
+    const savedLon = address.location.longitude;
+
+    // We need a helper in BusRouteOptimizer to "findClosestStopName(lat, lon)".
+    // I'll assume I can add that or it exists? I'll check.
+    // If not, I'll add it.
+
+    const bestRoute = BusRouteOptimizer.getInstance().findRouteToCoordinate(
+      userLocation.latitude,
+      userLocation.longitude,
+      savedLat,
+      savedLon
+    );
+
+    if (bestRoute) {
+      navigation.navigate('TripResult', {
+        journey: bestRoute,
+        userLocation: userLocation
+      });
+    } else {
+      Alert.alert('No Route', 'Could not find a suitable bus route to this location.');
+    }
   };
 
   return (
@@ -445,15 +505,16 @@ export const UserHomeScreen = ({ navigation }: any) => {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={[styles.sectionTitle, { color: colors.text }]}>Your addresses</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SavedAddresses')}>
               <Text style={[styles.showAllText, { color: colors.primary }]}>Manage</Text>
             </TouchableOpacity>
           </View>
 
-          {SAVED_LOCATIONS.map((loc) => (
+          {savedAddresses.map((addr) => (
             <TouchableOpacity
-              key={loc.id}
+              key={addr.id}
               style={[styles.addressCard, { backgroundColor: colors.card }]}
+              onPress={() => handleAddressClick(addr)}
             >
               <View
                 style={[
@@ -462,29 +523,37 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 ]}
               >
                 <Ionicons
-                  name={loc.name === 'Home' ? 'home-outline' : 'briefcase-outline'}
+                  name={addr.icon as any || 'location-outline'}
                   size={22}
-                  color={colors.textLight}
+                  color={colors.primary}
                 />
               </View>
 
               <View style={styles.addressInfo}>
                 <View style={styles.addressNameRow}>
-                  <Text style={[styles.addressName, { color: colors.text }]}>{loc.name}</Text>
+                  <Text style={[styles.addressName, { color: colors.text }]}>{addr.label}</Text>
                   <View style={[styles.routeSmallBadge, { backgroundColor: colors.primary }]}>
-                    <Text style={styles.routeSmallText}>{loc.route}</Text>
+                    <Text style={styles.routeSmallText}>GO</Text>
                   </View>
                 </View>
                 <Text style={[styles.addressFrom, { color: colors.textLight }]}>
-                  from {loc.from}
+                  Tap to find route
                 </Text>
               </View>
 
-              <Text style={[styles.addressTime, { color: colors.text }]}>
-                in {loc.arrivalTime}
-              </Text>
+              <View style={{ justifyContent: 'center' }}>
+                <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
+              </View>
             </TouchableOpacity>
           ))}
+          {savedAddresses.length === 0 && (
+            <View style={{ padding: 20, alignItems: 'center' }}>
+              <Text style={{ color: colors.textLight }}>No saved favorites yet.</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('SavedAddresses')}>
+                <Text style={{ color: colors.primary, marginTop: 10 }}>Add Address</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         {/* Nearby Buses Section */}
@@ -591,6 +660,15 @@ export const UserHomeScreen = ({ navigation }: any) => {
             }}
           />
           <MenuItem icon="notifications-outline" label="Notifications" colors={colors} />
+          <MenuItem
+            icon="location-outline"
+            label="Saved Addresses"
+            colors={colors}
+            onPress={() => {
+              toggleSidebar();
+              navigation.navigate('SavedAddresses');
+            }}
+          />
           <MenuItem
             icon="settings-outline"
             label="Settings"
