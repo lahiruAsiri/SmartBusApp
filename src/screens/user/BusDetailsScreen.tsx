@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -47,6 +48,32 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   const totalSeats = 45;
   const occupied = Math.round((busData.occupancy / 100) * totalSeats);
   const available = totalSeats - occupied;
+
+  const handleRequestStop = async () => {
+    try {
+      const response = await fetch(
+        'https://smart-bus-f38e0-default-rtdb.firebaseio.com/.json',
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            buzzer_state: 1,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        Alert.alert('Success', 'Stop request sent successfully!');
+      } else {
+        Alert.alert('Error', 'Failed to send stop request.');
+      }
+    } catch (error) {
+      console.error('Error requesting stop:', error);
+      Alert.alert('Error', 'An error occurred while requesting stop.');
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -281,10 +308,11 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                 borderColor: colors.primary,
               },
             ]}
+            onPress={handleRequestStop}
           >
-            <Ionicons name="notifications-outline" size={20} color={colors.primary} />
+            <Ionicons name="hand-right-outline" size={20} color={colors.primary} />
             <Text style={[styles.secondaryBtnText, { color: colors.primary }]}>
-              Set Alert
+              Request Stop
             </Text>
           </TouchableOpacity>
         </View>
