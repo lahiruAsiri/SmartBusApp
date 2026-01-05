@@ -2711,59 +2711,166 @@
                 },
                 {
                   "route_number": "177",
-                  "start": "Kollupitiya",
-                  "end": "Kaduwela",
+                  "start": "Kaduwela",
+                  "end": "Kollupitiya",
                   "intermediate_locations": [
-                    "Kollupitiya",
-                    "Borella",
-                    "Rajagiriya",
+                    "Kaduwela",
+                    "Kaduwela Town",
+                    "Kothalawala Temple",
+                    "Kothalawala School",
+                    "Kothalawala",
+                    "Seewalee Mawatha",
+                    "Gemunupura",
+                    "SLIIT Campus",
+                    "Sudarshana Mawatha",
+                    "CINEC Campus",
+                    "Malabe Junction",
+                    "Thalahena Junction",
+                    "Kotte-Bope Road",
+                    "Koswatta",
+                    "Talangama Depot",
+                    "Ganahena",
+                    "Kanatta Road",
                     "Battaramulla",
-                    "Malabe",
-                    "Kaduwela"
+                    "Sathsiripaya",
+                    "Parliament Junction",
+                    "Ethul Kotte",
+                    "HSBC Rajagiriya",
+                    "Rajagiriya",
+                    "Castle Street",
+                    "House Of Fashion",
+                    "Viharamahadevi Park",
+                    "Public Library",
+                    "Liberty Plaza",
+                    "Kollupitiya"
                   ],
                   "last_updated": "2025-12-26T05:15:27.190738",
                   "bus_stops": [
                     {
-                      "combined_code": "6JRXWR6X+CM Kollupitiya",
-                      "global_code": "6JRXWR6X+CM",
-                      "location_name": "Kollupitiya",
-                      "latitude": 6.9110625,
-                      "longitude": 79.8491875
-                    },
-                    {
-                      "combined_code": "6JRXWV7H+X5 Borella",
-                      "global_code": "6JRXWV7H+X5",
-                      "location_name": "Borella",
-                      "latitude": 6.914937500000001,
-                      "longitude": 79.8779375
-                    },
-                    {
-                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
-                      "global_code": "6JRXWV6V+2Q",
-                      "location_name": "Rajagiriya",
-                      "latitude": 6.9100625,
-                      "longitude": 79.8944375
-                    },
-                    {
-                      "combined_code": "6JRXWW28+QX Battaramulla",
-                      "global_code": "6JRXWW28+QX",
-                      "location_name": "Battaramulla",
-                      "latitude": 6.9019375,
-                      "longitude": 79.91743749999999
-                    },
-                    {
-                      "combined_code": "6JRXWX34+82 Malabe",
-                      "global_code": "6JRXWX34+82",
-                      "location_name": "Malabe",
-                      "latitude": 6.903312499999999,
-                      "longitude": 79.9550625
-                    },
-                    {
-                      "combined_code": "6JRXWXPM+H7 Kaduwela",
-                      "global_code": "6JRXWXPM+H7",
+                      "combined_code": "WXPM+H7 Kaduwela",
+                      "global_code": "WXPM+H7",
                       "location_name": "Kaduwela",
                       "latitude": 6.9364375,
                       "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "WXPM+4M Kaduwela",
+                      "global_code": "WXPM+4M",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9353125,
+                      "longitude": 79.9841875
+                    },
+                    {
+                      "combined_code": "WXJM+X2 Kaduwela",
+                      "global_code": "WXJM+X2",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9324375,
+                      "longitude": 79.9825625
+                    },
+                    {
+                      "combined_code": "WXJM+32 Kaduwela",
+                      "global_code": "WXJM+32",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9301875,
+                      "longitude": 79.9825625
+                    },
+                    {
+                      "combined_code": "WXCG+G3 Kaduwela",
+                      "global_code": "WXCG+G3",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9213125,
+                      "longitude": 79.9751875
+                    },
+                    {
+                      "combined_code": "WX8F+WF Malabe",
+                      "global_code": "WX8F+WF",
+                      "location_name": "Malabe",
+                      "latitude": 6.9173125,
+                      "longitude": 79.9736875
+                    },
+                    {
+                      "combined_code": "WX8C+CX Malabe",
+                      "global_code": "WX8C+CX",
+                      "location_name": "Malabe",
+                      "latitude": 6.9160625,
+                      "longitude": 79.9724375
+                    },
+                    {
+                      "combined_code": "WX7C+RV Malabe",
+                      "global_code": "WX7C+RV",
+                      "location_name": "Malabe",
+                      "latitude": 6.9145625,
+                      "longitude": 79.9721875
+                    },
+                    {
+                      "combined_code": "WX6C+2H Malabe",
+                      "global_code": "WX6C+2H",
+                      "location_name": "Malabe",
+                      "latitude": 6.9100625,
+                      "longitude": 79.9714375
+                    },
+                    {
+                      "combined_code": "WX34+H3 Malabe",
+                      "global_code": "WX34+H3",
+                      "location_name": "Malabe",
+                      "latitude": 6.9039375,
+                      "longitude": 79.9551875
+                    },
+                    {
+                      "combined_code": "WW4X+C2 Malabe",
+                      "global_code": "WW4X+C2",
+                      "location_name": "Malabe",
+                      "latitude": 6.9060625,
+                      "longitude": 79.9475625
+                    },
+                    {
+                      "combined_code": "WW4J+WR Battaramulla",
+                      "global_code": "WW4J+WR",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9073125,
+                      "longitude": 79.9320625
+                    },
+                    {
+                      "combined_code": "WW3F+JG Battaramulla",
+                      "global_code": "WW3F+JG",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9040625,
+                      "longitude": 79.9238125
+                    },
+                    {
+                      "combined_code": "WW34+9R Sri Jayawardenepura Kotte",
+                      "global_code": "WW34+9R",
+                      "location_name": "Sri Jayawardenepura Kotte",
+                      "latitude": 6.9034375,
+                      "longitude": 79.9070625
+                    },
+                    {
+                      "combined_code": "WV6H+FR Colombo",
+                      "global_code": "WV6H+FR",
+                      "location_name": "Colombo",
+                      "latitude": 6.9111875,
+                      "longitude": 79.8795625
+                    },
+                    {
+                      "combined_code": "WV66+JQ Colombo",
+                      "global_code": "WV66+JQ",
+                      "location_name": "Colombo",
+                      "latitude": 6.9115625,
+                      "longitude": 79.8619375
+                    },
+                    {
+                      "combined_code": "WV65+MH Colombo",
+                      "global_code": "WV65+MH",
+                      "location_name": "Colombo",
+                      "latitude": 6.9116875,
+                      "longitude": 79.8589375
+                    },
+                    {
+                      "combined_code": "WV52+XW Colombo",
+                      "global_code": "WV52+XW",
+                      "location_name": "Colombo",
+                      "latitude": 6.9099375,
+                      "longitude": 79.8523125
                     }
                   ]
                 },
