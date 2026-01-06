@@ -22,7 +22,7 @@ import { DummyDriverViolations } from '../../data/dummyViolations';  // YOUR DUM
 
 export const DriverHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
-  const { colors, isDark } = useTheme();
+  const { colors, isDark, toggleTheme } = useTheme();
 
   // Driver Operations
   const [isShiftActive, setIsShiftActive] = useState(false);
@@ -41,6 +41,23 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   const daysSafe = lastViolation 
     ? Math.floor((Date.now() - new Date(lastViolation.timestamp).getTime()) / (1000 * 60 * 60 * 24))
     : 30;
+
+  // EARNINGS DATA (Dummy)
+  const todayEarnings = 2450;
+  const earningsTarget = 3000;
+  const tripsToday = 12;
+  const avgEarningsPerTrip = Math.round(todayEarnings / tripsToday);
+  const earningsProgress = Math.round((todayEarnings / earningsTarget) * 100);
+
+  // WEATHER DATA (Dummy)
+  const weatherAlert = {
+    hasAlert: true,
+    condition: 'Heavy Rain',
+    route: 'Homagama → Pettah',
+    warnings: ['Flooding risk: Baseline Road', 'Traffic delays expected'],
+    delayMinutes: 15,
+    alternative: 'Route via A1 Highway'
+  };
 
   // Pulse Animation
   useEffect(() => {
@@ -100,34 +117,72 @@ export const DriverHomeScreen = ({ navigation }: any) => {
             Welcome, {userData?.displayName}
           </Text>
         </View>
-        <TouchableOpacity onPress={handleLogout} style={[styles.logoutButton, { backgroundColor: colors.background }]}>
-          <Ionicons name="log-out-outline" size={20} color="#EF4444" />
-        </TouchableOpacity>
+        <View style={styles.headerButtons}>
+          <TouchableOpacity onPress={toggleTheme} style={[styles.themeButton, { backgroundColor: colors.background }]}>
+            <Ionicons name={isDark ? 'sunny' : 'moon'} size={20} color={isDark ? '#F59E0B' : '#6B7280'} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleLogout} style={[styles.logoutButton, { backgroundColor: colors.background }]}>
+            <Ionicons name="log-out-outline" size={20} color="#EF4444" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
+
+        {/* Status Card */}
+        <View style={[styles.statusCard, { backgroundColor: isShiftActive ? '#22C55E15' : colors.card }]}>
+          <View style={styles.statusHeader}>
+            <View style={styles.statusTextContainer}>
+              <Text style={[styles.statusLabel, { color: colors.textLight }]}>Current Status</Text>
+              <View style={styles.statusValueContainer}>
+                <View style={[styles.statusDot, { backgroundColor: isShiftActive ? '#22C55E' : colors.textLight }]} />
+                <Text style={[styles.statusValue, { color: isShiftActive ? '#22C55E' : colors.text }]}>
+                  {isShiftActive ? 'ONLINE' : 'OFFLINE'}
+                </Text>
+              </View>
+            </View>
+            <Switch value={isShiftActive} onValueChange={toggleShift} />
+          </View>
+          
+          {isShiftActive && (
+            <View style={styles.broadcastingContainer}>
+              <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]} />
+              <Text style={[styles.broadcastingText, { color: '#22C55E' }]}>
+                Broadcasting live location...
+              </Text>
+            </View>
+          )}
+        </View>
+
         
         {/* Performance Summary Card — USING YOUR DUMMY DATA */}
         <TouchableOpacity 
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
         >
-          <Text style={styles.perfTitle}>My Performance Summary</Text>
-          <Text style={[styles.riskScore, { color: riskScore < 50 ? '#22C55E' : '#EF4444' }]}>
-            {riskScore}
-          </Text>
-          <Text style={styles.scoreLabel}>Risk Score</Text>
-          <View style={styles.statsRow}>
-            <View style={styles.statBox}>
-              <Text style={styles.statBig}>{totalViolations}</Text>
-              <Text style={styles.statSmall}>Violations</Text>
+          <View style={styles.perfHeader}>
+            <Text style={styles.perfTitle}>📊 Performance</Text>
+            <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
+          </View>
+          <View style={styles.perfContent}>
+            <View style={styles.riskScoreContainer}>
+              <Text style={[styles.riskScore, { color: riskScore < 50 ? '#22C55E' : '#EF4444' }]}>
+                {riskScore}
+              </Text>
+              <Text style={styles.scoreLabel}>Risk Score</Text>
             </View>
-            <View style={styles.statBox}>
-              <Text style={styles.statBig}>{daysSafe}</Text>
-              <Text style={styles.statSmall}>Days Safe</Text>
+            <View style={styles.perfDivider} />
+            <View style={styles.perfStats}>
+              <View style={styles.perfStatItem}>
+                <Text style={styles.perfStatValue}>{totalViolations}</Text>
+                <Text style={styles.perfStatLabel}>Violations</Text>
+              </View>
+              <View style={styles.perfStatItem}>
+                <Text style={styles.perfStatValue}>{daysSafe}</Text>
+                <Text style={styles.perfStatLabel}>Days Safe</Text>
+              </View>
             </View>
           </View>
-          <Text style={styles.viewAll}>Tap to view full history →</Text>
         </TouchableOpacity>
 
         {/* Rewards Highlight Card */}
@@ -161,31 +216,106 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           </View>
         </TouchableOpacity>
 
-        {/* Status Card */}
-        <View style={[styles.statusCard, { backgroundColor: isShiftActive ? '#22C55E15' : colors.card }]}>
-          <View style={styles.statusHeader}>
-            <View style={styles.statusTextContainer}>
-              <Text style={[styles.statusLabel, { color: colors.textLight }]}>Current Status</Text>
-              <View style={styles.statusValueContainer}>
-                <View style={[styles.statusDot, { backgroundColor: isShiftActive ? '#22C55E' : colors.textLight }]} />
-                <Text style={[styles.statusValue, { color: isShiftActive ? '#22C55E' : colors.text }]}>
-                  {isShiftActive ? 'ONLINE' : 'OFFLINE'}
-                </Text>
-              </View>
+        {/* Daily Earnings Tracker */}
+        <View style={[styles.earningsCard, { backgroundColor: colors.card }]}>
+          <View style={styles.earningsHeader}>
+            <View>
+              <Text style={[styles.earningsTitle, { color: colors.text }]}>💰 Today's Earnings</Text>
+              <Text style={styles.earningsAmount}>LKR {todayEarnings.toLocaleString()}</Text>
             </View>
-            <Switch value={isShiftActive} onValueChange={toggleShift} />
+            <View style={styles.earningsTarget}>
+              <Text style={styles.targetLabel}>Target</Text>
+              <Text style={styles.targetAmount}>LKR {earningsTarget.toLocaleString()}</Text>
+            </View>
           </View>
-          
-          {isShiftActive && (
-            <View style={styles.broadcastingContainer}>
-              <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]} />
-              <Text style={[styles.broadcastingText, { color: '#22C55E' }]}>
-                Broadcasting live location...
-              </Text>
+          <View style={styles.progressBarContainer}>
+            <View style={styles.progressBarTrack}>
+              <View style={[styles.progressBarFill, { width: `${earningsProgress}%`, backgroundColor: earningsProgress >= 100 ? '#22C55E' : '#F59E0B' }]} />
             </View>
-          )}
+            <Text style={styles.progressText}>{earningsProgress}% of target</Text>
+          </View>
+          <View style={styles.earningsStats}>
+            <View style={styles.earningStat}>
+              <Text style={styles.earningStatValue}>{tripsToday}</Text>
+              <Text style={styles.earningStatLabel}>Trips</Text>
+            </View>
+            <View style={styles.earningStatDivider} />
+            <View style={styles.earningStat}>
+              <Text style={styles.earningStatValue}>LKR {avgEarningsPerTrip}</Text>
+              <Text style={styles.earningStatLabel}>Avg/Trip</Text>
+            </View>
+          </View>
         </View>
 
+        {/* Emergency Contacts */}
+        <View style={[styles.emergencyCard, { backgroundColor: '#EF444410' }]}>
+          <Text style={styles.emergencyTitle}>🚨 Emergency Contacts</Text>
+          <View style={styles.emergencyButtons}>
+            <TouchableOpacity 
+              style={[styles.emergencyButton, { backgroundColor: '#EF4444' }]}
+              onPress={() => Alert.alert('Calling Police', 'Dialing 119...')}
+            >
+              <Ionicons name="shield" size={24} color="#FFF" />
+              <Text style={styles.emergencyButtonText}>Police</Text>
+              <Text style={styles.emergencyButtonNumber}>119</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.emergencyButton, { backgroundColor: '#DC2626' }]}
+              onPress={() => Alert.alert('Calling Ambulance', 'Dialing 1990...')}
+            >
+              <Ionicons name="medical" size={24} color="#FFF" />
+              <Text style={styles.emergencyButtonText}>Ambulance</Text>
+              <Text style={styles.emergencyButtonNumber}>1990</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.emergencyButton, { backgroundColor: '#F59E0B' }]}
+              onPress={() => Alert.alert('Calling Supervisor', 'Dialing supervisor...')}
+            >
+              <Ionicons name="call" size={24} color="#FFF" />
+              <Text style={styles.emergencyButtonText}>Supervisor</Text>
+              <Text style={styles.emergencyButtonNumber}>077-XXX</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity 
+            style={styles.sosButton}
+            onPress={() => Alert.alert('SOS Alert', 'Emergency alert sent to all contacts!')}
+          >
+            <Ionicons name="warning" size={20} color="#FFF" />
+            <Text style={styles.sosButtonText}>🆘 SOS ALERT</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Weather & Route Alerts */}
+        {weatherAlert.hasAlert && (
+          <View style={[styles.weatherCard, { backgroundColor: '#FEF3C7' }]}>
+            <View style={styles.weatherHeader}>
+              <Ionicons name="rainy" size={24} color="#92400E" />
+              <Text style={styles.weatherTitle}>🌦️ Weather Alert</Text>
+            </View>
+            <Text style={styles.weatherCondition}>{weatherAlert.condition} on your route</Text>
+            <Text style={styles.weatherRoute}>{weatherAlert.route}</Text>
+            <View style={styles.weatherWarnings}>
+              {weatherAlert.warnings.map((warning, index) => (
+                <View key={index} style={styles.warningItem}>
+                  <Ionicons name="alert-circle" size={16} color="#D97706" />
+                  <Text style={styles.warningText}>{warning}</Text>
+                </View>
+              ))}
+            </View>
+            <View style={styles.weatherFooter}>
+              <View style={styles.delayInfo}>
+                <Ionicons name="time" size={18} color="#92400E" />
+                <Text style={styles.delayText}>+{weatherAlert.delayMinutes} mins delay expected</Text>
+              </View>
+              <TouchableOpacity style={styles.alternativeButton}>
+                <Ionicons name="navigate" size={16} color="#0066CC" />
+                <Text style={styles.alternativeText}>{weatherAlert.alternative}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        
         {/* Route Configuration */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>Route Details</Text>
@@ -303,17 +433,23 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 60, paddingHorizontal: 20, paddingBottom: 20, borderBottomLeftRadius: 24, borderBottomRightRadius: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 5 },
   headerTitle: { fontSize: 24, fontWeight: '800' },
   headerSubtitle: { fontSize: 14, fontWeight: '500', marginTop: 4 },
+  headerButtons: { flexDirection: 'row', gap: 10 },
+  themeButton: { padding: 10, borderRadius: 12 },
   logoutButton: { padding: 10, borderRadius: 12 },
   scrollContent: { padding: 20, paddingBottom: 40 },
-  performanceCard: { borderRadius: 20, padding: 28, alignItems: 'center', elevation: 8, marginBottom: 24 },
-  perfTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 16 },
-  riskScore: { fontSize: 72, fontWeight: 'bold' },
-  scoreLabel: { fontSize: 16, marginBottom: 20 },
-  statsRow: { flexDirection: 'row', gap: 40 },
-  statBox: { alignItems: 'center' },
-  statBig: { fontSize: 36, fontWeight: 'bold' },
-  statSmall: { fontSize: 14, color: '#666' },
-  viewAll: { marginTop: 20, fontSize: 16, color: '#0066CC', fontWeight: '600' },
+  // Performance Card Styles - Compact Design
+  performanceCard: { borderRadius: 16, padding: 16, marginBottom: 16, elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 6 },
+  perfHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  perfTitle: { fontSize: 16, fontWeight: '700' },
+  perfContent: { flexDirection: 'row', alignItems: 'center' },
+  riskScoreContainer: { alignItems: 'center', paddingRight: 16 },
+  riskScore: { fontSize: 36, fontWeight: 'bold' },
+  scoreLabel: { fontSize: 11, color: '#666', marginTop: 4 },
+  perfDivider: { width: 1, height: 50, backgroundColor: '#E5E7EB', marginRight: 16 },
+  perfStats: { flex: 1, flexDirection: 'row', gap: 20 },
+  perfStatItem: { flex: 1, alignItems: 'center' },
+  perfStatValue: { fontSize: 24, fontWeight: 'bold' },
+  perfStatLabel: { fontSize: 11, color: '#666', marginTop: 4 },
   statusCard: { borderRadius: 20, padding: 20, marginBottom: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 3 },
   statusHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   statusTextContainer: {},
@@ -347,4 +483,44 @@ const styles = StyleSheet.create({
   rewardStat: { flex: 1, alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 12, padding: 12 },
   rewardStatValue: { fontSize: 16, fontWeight: 'bold', color: '#FFF', marginTop: 6 },
   rewardStatLabel: { fontSize: 10, color: '#FFF', opacity: 0.9, marginTop: 2 },
+  // Earnings Card Styles
+  earningsCard: { borderRadius: 20, padding: 20, marginBottom: 24, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 8 },
+  earningsHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
+  earningsTitle: { fontSize: 16, fontWeight: '700', marginBottom: 8 },
+  earningsAmount: { fontSize: 32, fontWeight: 'bold', color: '#22C55E' },
+  earningsTarget: { alignItems: 'flex-end' },
+  targetLabel: { fontSize: 11, color: '#666', marginBottom: 4 },
+  targetAmount: { fontSize: 16, fontWeight: '600', color: '#666' },
+  progressBarContainer: { marginBottom: 16 },
+  progressBarTrack: { height: 8, backgroundColor: '#E5E7EB', borderRadius: 4, overflow: 'hidden' },
+  progressBarFill: { height: '100%', borderRadius: 4 },
+  progressText: { fontSize: 12, color: '#666', marginTop: 6, textAlign: 'right' },
+  earningsStats: { flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E5E7EB', paddingTop: 16 },
+  earningStat: { flex: 1, alignItems: 'center' },
+  earningStatValue: { fontSize: 18, fontWeight: 'bold' },
+  earningStatLabel: { fontSize: 12, color: '#666', marginTop: 4 },
+  earningStatDivider: { width: 1, backgroundColor: '#E5E7EB', marginHorizontal: 20 },
+  // Emergency Contacts Styles
+  emergencyCard: { borderRadius: 20, padding: 20, marginBottom: 24, borderWidth: 2, borderColor: '#EF4444' },
+  emergencyTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 16, color: '#EF4444' },
+  emergencyButtons: { flexDirection: 'row', gap: 10, marginBottom: 12 },
+  emergencyButton: { flex: 1, padding: 16, borderRadius: 12, alignItems: 'center', elevation: 3 },
+  emergencyButtonText: { fontSize: 12, fontWeight: '700', color: '#FFF', marginTop: 8 },
+  emergencyButtonNumber: { fontSize: 16, fontWeight: 'bold', color: '#FFF', marginTop: 4 },
+  sosButton: { backgroundColor: '#DC2626', padding: 16, borderRadius: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, elevation: 4 },
+  sosButtonText: { fontSize: 16, fontWeight: 'bold', color: '#FFF' },
+  // Weather Alert Styles
+  weatherCard: { borderRadius: 20, padding: 20, marginBottom: 24, borderWidth: 2, borderColor: '#F59E0B' },
+  weatherHeader: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 },
+  weatherTitle: { fontSize: 18, fontWeight: 'bold', color: '#92400E' },
+  weatherCondition: { fontSize: 16, fontWeight: '600', color: '#92400E', marginBottom: 4 },
+  weatherRoute: { fontSize: 14, color: '#78350F', marginBottom: 16 },
+  weatherWarnings: { marginBottom: 16 },
+  warningItem: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8, backgroundColor: '#FDE68A', padding: 10, borderRadius: 8 },
+  warningText: { fontSize: 13, color: '#78350F', flex: 1 },
+  weatherFooter: { borderTopWidth: 1, borderTopColor: '#FDE68A', paddingTop: 16 },
+  delayInfo: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 12 },
+  delayText: { fontSize: 14, fontWeight: '600', color: '#92400E' },
+  alternativeButton: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#FFF', padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#0066CC' },
+  alternativeText: { fontSize: 13, fontWeight: '600', color: '#0066CC' },
 });
