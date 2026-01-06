@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -47,6 +48,32 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   const totalSeats = 45;
   const occupied = Math.round((busData.occupancy / 100) * totalSeats);
   const available = totalSeats - occupied;
+
+  const handleRequestStop = async () => {
+    try {
+      const response = await fetch(
+        'https://smart-bus-f38e0-default-rtdb.firebaseio.com/.json',
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            buzzer_state: 1,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        Alert.alert('Success', 'Stop request sent successfully!');
+      } else {
+        Alert.alert('Error', 'Failed to send stop request.');
+      }
+    } catch (error) {
+      console.error('Error requesting stop:', error);
+      Alert.alert('Error', 'An error occurred while requesting stop.');
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -96,6 +123,78 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
               <Text style={[styles.statusValue, { color: colors.text }]}>
                 {busData.status}
               </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Occupancy Section */}
+        <View style={styles.section}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 12 }}>
+            <MaterialCommunityIcons name="robot" size={20} color="#A855F7" />
+            <Text style={[styles.sectionTitle, { color: "#A855F7", marginBottom: 0, marginHorizontal: 6 }]}>
+              AI Insights (Research Beta)
+            </Text>
+          </View>
+
+          <View style={{
+            marginHorizontal: 16,
+            marginBottom: 20,
+            padding: 16,
+            borderRadius: 16,
+            backgroundColor: colors.card,
+            borderWidth: 1,
+            borderColor: isDark ? 'rgba(168, 85, 247, 0.3)' : 'rgba(168, 85, 247, 0.2)',
+            shadowColor: "#A855F7",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 4
+          }}>
+            {/* ETA Prediction */}
+            <View style={{ flexDirection: 'row', marginBottom: 16 }}>
+              <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: isDark ? 'rgba(168, 85, 247, 0.2)' : '#F3E8FF', alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
+                <Ionicons name="time" size={20} color="#A855F7" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 12, color: colors.textLight }}>Predictive ETA (LSTM Model)</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'baseline', marginVertical: 2 }}>
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: colors.text }}>{busData.arrivalTime}</Text>
+                  <Text style={{ fontSize: 12, color: '#EF4444', marginLeft: 8, fontWeight: '600' }}>(+4m delay likely)</Text>
+                </View>
+                <Text style={{ fontSize: 11, color: colors.textLight }}>
+                  Reason: Heavy traffic detected on Malabe Rd.
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 8, paddingVertical: 4, backgroundColor: isDark ? 'rgba(168, 85, 247, 0.2)' : '#F3E8FF', borderRadius: 8, height: 24 }}>
+                <Text style={{ fontSize: 10, color: '#A855F7', fontWeight: 'bold' }}>92% Conf.</Text>
+              </View>
+            </View>
+
+            <View style={{ height: 1, backgroundColor: colors.border, marginBottom: 16 }} />
+
+            {/* Crowd Forecast */}
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: isDark ? 'rgba(245, 158, 11, 0.2)' : '#FEF3C7', alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
+                <MaterialCommunityIcons name="chart-bell-curve" size={20} color="#F59E0B" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 12, color: colors.textLight }}>Crowd Forecast (Next 30m)</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.text, marginVertical: 2 }}>Rising to 90%</Text>
+                <Text style={{ fontSize: 11, color: '#22C55E', fontWeight: '600' }}>
+                  Recommendation: Board now.
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 30 }}>
+                {[40, 60, 85, 90, 70].map((h, i) => (
+                  <View key={i} style={{
+                    width: 6,
+                    height: h / 3,
+                    backgroundColor: h > 80 ? '#EF4444' : '#22C55E',
+                    borderRadius: 3,
+                    marginHorizontal: 2
+                  }} />
+                ))}
+              </View>
             </View>
           </View>
         </View>
@@ -281,10 +380,11 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                 borderColor: colors.primary,
               },
             ]}
+            onPress={handleRequestStop}
           >
-            <Ionicons name="notifications-outline" size={20} color={colors.primary} />
+            <Ionicons name="hand-right-outline" size={20} color={colors.primary} />
             <Text style={[styles.secondaryBtnText, { color: colors.primary }]}>
-              Set Alert
+              Request Stop
             </Text>
           </TouchableOpacity>
         </View>

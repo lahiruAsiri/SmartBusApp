@@ -1,0 +1,4388 @@
+{
+  "document_title": "List of bus routes in Colombo - Sri Lanka",
+  "source": "Wikipedia",
+  "description": "Comprehensive list of bus routes operating in and around Colombo, Western Province, Sri Lanka",
+  "districts": [
+    {
+      "district_name": "Colombo District",
+      "sections": [
+        {
+          "section_name": "Colombo Metropolitan Routes",
+          "subsections": [
+            {
+              "name": "Colombo Metropolitan Routes",
+              "routes": [
+                {
+                  "route_number": "336",
+                  "start": "Kottawa",
+                  "end": "Malabe/Neville Fernando Teaching Hospital (NFTH)",
+                  "intermediate_locations": [
+                    "Malabe",
+                    "Arangala",
+                    "Hokandara",
+                    "Vidyala Juntion",
+                    "Kottawa"
+                  ],
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-26T04:36:05.965457",
+                  "bus_stops": [
+                    {
+                      "combined_code": "WX34+57 Malabe",
+                      "global_code": "WX34+57",
+                      "location_name": "Malabe",
+                      "latitude": 6.902937499999999,
+                      "longitude": 79.9556875
+                    },
+                    {
+                      "combined_code": "VXX5+3F Malabe",
+                      "global_code": "VXX5+3F",
+                      "location_name": "Malabe",
+                      "latitude": 6.8976875,
+                      "longitude": 79.9586875
+                    },
+                    {
+                      "combined_code": "VXW5+HR Malabe",
+                      "global_code": "VXW5+HR",
+                      "location_name": "Malabe",
+                      "latitude": 6.896437499999999,
+                      "longitude": 79.95956249999999
+                    },
+                    {
+                      "combined_code": "VXR7+8V Malabe",
+                      "global_code": "VXR7+8V",
+                      "location_name": "Malabe",
+                      "latitude": 6.8908125,
+                      "longitude": 79.9646875
+                    },
+                    {
+                      "combined_code": "VXP6+MR Malabe",
+                      "global_code": "VXP6+MR",
+                      "location_name": "Malabe",
+                      "latitude": 6.8866875,
+                      "longitude": 79.9620625
+                    },
+                    {
+                      "combined_code": "VXJ5+9X Hokandara",
+                      "global_code": "VXJ5+9X",
+                      "location_name": "Hokandara",
+                      "latitude": 6.8809375,
+                      "longitude": 79.9599375
+                    },
+                    {
+                      "combined_code": "VX95+W6 Hokandara",
+                      "global_code": "VX95+W6",
+                      "location_name": "Hokandara",
+                      "latitude": 6.8698125,
+                      "longitude": 79.9580625
+                    },
+                    {
+                      "combined_code": "VX85+QM Pannipitiya",
+                      "global_code": "VX85+QM",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8669375,
+                      "longitude": 79.9591875
+                    },
+                    {
+                      "combined_code": "VX86+9P Pannipitiya",
+                      "global_code": "VX86+9P",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.865937499999999,
+                      "longitude": 79.9618125
+                    },
+                    {
+                      "combined_code": "VX58+R7 Pannipitiya",
+                      "global_code": "VX58+R7",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8595625,
+                      "longitude": 79.96568750000002
+                    },
+                    {
+                      "combined_code": "VX59+W2 Pannipitiya",
+                      "global_code": "VX59+W2",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.859812499999999,
+                      "longitude": 79.9675625
+                    },
+                    {
+                      "combined_code": "VX59+4P Pannipitiya",
+                      "global_code": "VX59+4P",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8578125,
+                      "longitude": 79.9693125
+                    },
+                    {
+                      "combined_code": "VX29+WC Pannipitiya",
+                      "global_code": "VX29+WC",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8523125,
+                      "longitude": 79.96856249999999
+                    },
+                    {
+                      "combined_code": "RXWC+48 Pannipitiya",
+                      "global_code": "RXWC+48",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.845312499999999,
+                      "longitude": 79.9708125
+                    },
+                    {
+                      "combined_code": "RXV8+GR Pannipitiya",
+                      "global_code": "RXV8+GR",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.843812499999999,
+                      "longitude": 79.9670625
+                    },
+                    {
+                      "combined_code": "RXR7+VX Pannipitiya",
+                      "global_code": "RXR7+VX",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8421875,
+                      "longitude": 79.96493749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "993",
+                  "intermediate_locations": [
+                    "Malabe",
+                    "Arangala",
+                    "Hokandara",
+                    "Pannipitiya",
+                    "Maharagama"
+                  ],
+                  "start": "Malabe",
+                  "end": "Maharagama - Old Road - Pannipitiya Nursing Home (Moraketiya) - Moragahakanda -",
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-25T11:18:27.563945",
+                  "bus_stops": [
+                    {
+                      "combined_code": "WX34+82 Malabe",
+                      "global_code": "WX34+82",
+                      "location_name": "Malabe",
+                      "latitude": 6.903312499999999,
+                      "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "WX34+57 Malabe",
+                      "global_code": "WX34+57",
+                      "location_name": "Malabe",
+                      "latitude": 6.902937499999999,
+                      "longitude": 79.9556875
+                    },
+                    {
+                      "combined_code": "VXX5+V3 Malabe",
+                      "global_code": "VXX5+V3",
+                      "location_name": "Malabe",
+                      "latitude": 6.899687500000001,
+                      "longitude": 79.95768749999999
+                    },
+                    {
+                      "combined_code": "VXX5+3F Malabe",
+                      "global_code": "VXX5+3F",
+                      "location_name": "Malabe",
+                      "latitude": 6.8976875,
+                      "longitude": 79.9586875
+                    },
+                    {
+                      "combined_code": "VXW5+HR Malabe",
+                      "global_code": "VXW5+HR",
+                      "location_name": "Malabe",
+                      "latitude": 6.896437499999999,
+                      "longitude": 79.95956249999999
+                    },
+                    {
+                      "combined_code": "VXW6+28 Malabe",
+                      "global_code": "VXW6+28",
+                      "location_name": "Malabe",
+                      "latitude": 6.895062500000001,
+                      "longitude": 79.9608125
+                    },
+                    {
+                      "combined_code": "VXR7+8V Malabe",
+                      "global_code": "VXR7+8V",
+                      "location_name": "Malabe",
+                      "latitude": 6.8908125,
+                      "longitude": 79.9646875
+                    },
+                    {
+                      "combined_code": "VXP6+MR Malabe",
+                      "global_code": "VXP6+MR",
+                      "location_name": "Malabe",
+                      "latitude": 6.8866875,
+                      "longitude": 79.9620625
+                    },
+                    {
+                      "combined_code": "VX95+W6 Hokandara",
+                      "global_code": "VX95+W6",
+                      "location_name": "Hokandara",
+                      "latitude": 6.8698125,
+                      "longitude": 79.9580625
+                    },
+                    {
+                      "combined_code": "VX85+QM Pannipitiya",
+                      "global_code": "VX85+QM",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8669375,
+                      "longitude": 79.9591875
+                    },
+                    {
+                      "combined_code": "VX85+HR Pannipitiya",
+                      "global_code": "VX85+HR",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8664375,
+                      "longitude": 79.95956249999999
+                    },
+                    {
+                      "combined_code": "VX65+C5 Pannipitiya",
+                      "global_code": "VX65+C5",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8610625,
+                      "longitude": 79.9579375
+                    },
+                    {
+                      "combined_code": "VX54+FF Pannipitiya",
+                      "global_code": "VX54+FF",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.858687499999999,
+                      "longitude": 79.9561875
+                    },
+                    {
+                      "combined_code": "VX33+JR Pannipitiya",
+                      "global_code": "VX33+JR",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8540625,
+                      "longitude": 79.9545625
+                    },
+                    {
+                      "combined_code": "RWWX+MV Pannipitiya",
+                      "global_code": "RWWX+MV",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8466875,
+                      "longitude": 79.9496875
+                    },
+                    {
+                      "combined_code": "RWWV+39 Pannipitiya",
+                      "global_code": "RWWV+39",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8451875,
+                      "longitude": 79.9434375
+                    },
+                    {
+                      "combined_code": "RWVM+R7 Maharagama",
+                      "global_code": "RWVM+R7",
+                      "location_name": "Maharagama",
+                      "latitude": 6.844562499999999,
+                      "longitude": 79.9331875
+                    },
+                    {
+                      "combined_code": "RWVJ+W9 Maharagama",
+                      "global_code": "RWVJ+W9",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8448125,
+                      "longitude": 79.9309375
+                    },
+                    {
+                      "combined_code": "RWVJ+W9 Maharagama",
+                      "global_code": "RWVJ+W9",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8448125,
+                      "longitude": 79.9309375
+                    },
+                    {
+                      "combined_code": "RWXG+74 Maharagama",
+                      "global_code": "RWXG+74",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8481875,
+                      "longitude": 79.92531249999999
+                    },
+                    {
+                      "combined_code": "RWXF+MJ Maharagama",
+                      "global_code": "RWXF+MJ",
+                      "location_name": "Maharagama",
+                      "latitude": 6.849187499999999,
+                      "longitude": 79.9240625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "100",
+                  "start": "Pettah, Colombo",
+                  "end": "Panadura",
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-25T11:29:57.002127",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Fort",
+                    "Galle Face",
+                    "Kollupitiya",
+                    "Bambalapitiya",
+                    "Wellawatta",
+                    "Dehiwala",
+                    "Mount Lavinia",
+                    "Ratmalana",
+                    "Moratuwa",
+                    "Panadura"
+                  ],
+                  "bus_stops": [
+                    {
+                      "combined_code": "WRMX+PM Colombo",
+                      "global_code": "WRMX+PM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9343125,
+                      "longitude": 79.8491875
+                    },
+                    {
+                      "combined_code": "WRMW+CM Colombo",
+                      "global_code": "WRMW+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9335625,
+                      "longitude": 79.8466875
+                    },
+                    {
+                      "combined_code": "WRJW+J4 Colombo",
+                      "global_code": "WRJW+J4",
+                      "location_name": "Colombo",
+                      "latitude": 6.9315625,
+                      "longitude": 79.84531249999999
+                    },
+                    {
+                      "combined_code": "WRHV+V3 Colombo",
+                      "global_code": "WRHV+V3",
+                      "location_name": "Colombo",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8426875
+                    },
+                    {
+                      "combined_code": "WRCW+RF Colombo",
+                      "global_code": "WRCW+RF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9220625,
+                      "longitude": 79.8461875
+                    },
+                    {
+                      "combined_code": "WRCW+2P Colombo",
+                      "global_code": "WRCW+2P",
+                      "location_name": "Colombo",
+                      "latitude": 6.920062499999999,
+                      "longitude": 79.8468125
+                    },
+                    {
+                      "combined_code": "WR7X+8J Colombo",
+                      "global_code": "WR7X+8J",
+                      "location_name": "Colombo",
+                      "latitude": 6.913312500000001,
+                      "longitude": 79.8490625
+                    },
+                    {
+                      "combined_code": "WV62+Q8 Colombo",
+                      "global_code": "WV62+Q8",
+                      "location_name": "Colombo",
+                      "latitude": 6.911937500000001,
+                      "longitude": 79.85081249999999
+                    },
+                    {
+                      "combined_code": "WV52+XW Colombo",
+                      "global_code": "WV52+XW",
+                      "location_name": "Colombo",
+                      "latitude": 6.9099375,
+                      "longitude": 79.85231250000001
+                    },
+                    {
+                      "combined_code": "WV43+7F Colombo",
+                      "global_code": "WV43+7F",
+                      "location_name": "Colombo",
+                      "latitude": 6.905687500000001,
+                      "longitude": 79.85368749999999
+                    },
+                    {
+                      "combined_code": "VVX4+9C Colombo",
+                      "global_code": "VVX4+9C",
+                      "location_name": "Colombo",
+                      "latitude": 6.8984375,
+                      "longitude": 79.8560625
+                    },
+                    {
+                      "combined_code": "VVV4+MX Colombo",
+                      "global_code": "VVV4+MX",
+                      "location_name": "Colombo",
+                      "latitude": 6.894187499999999,
+                      "longitude": 79.8574375
+                    },
+                    {
+                      "combined_code": "VVR5+J8 Colombo",
+                      "global_code": "VVR5+J8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8915625,
+                      "longitude": 79.8583125
+                    },
+                    {
+                      "combined_code": "VVR5+J8 Colombo",
+                      "global_code": "VVR5+J8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8915625,
+                      "longitude": 79.8583125
+                    },
+                    {
+                      "combined_code": "VVP5+JX Colombo",
+                      "global_code": "VVP5+JX",
+                      "location_name": "Colombo",
+                      "latitude": 6.886562499999999,
+                      "longitude": 79.8599375
+                    },
+                    {
+                      "combined_code": "VVM6+P7 Colombo",
+                      "global_code": "VVM6+P7",
+                      "location_name": "Colombo",
+                      "latitude": 6.884312500000001,
+                      "longitude": 79.8606875
+                    },
+                    {
+                      "combined_code": "VVJ6+HM Colombo",
+                      "global_code": "VVJ6+HM",
+                      "location_name": "Colombo",
+                      "latitude": 6.8814375,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "VVJ6+CM Colombo",
+                      "global_code": "VVJ6+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.8810625,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "VVH6+G2 Colombo",
+                      "global_code": "VVH6+G2",
+                      "location_name": "Colombo",
+                      "latitude": 6.8788125,
+                      "longitude": 79.8600625
+                    },
+                    {
+                      "combined_code": "VVG6+R6 Colombo",
+                      "global_code": "VVG6+R6",
+                      "location_name": "Colombo",
+                      "latitude": 6.8770625,
+                      "longitude": 79.8605625
+                    },
+                    {
+                      "combined_code": "VVG6+H8 Colombo",
+                      "global_code": "VVG6+H8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8764375,
+                      "longitude": 79.8608125
+                    },
+                    {
+                      "combined_code": "VVF6+4P Colombo",
+                      "global_code": "VVF6+4P",
+                      "location_name": "Colombo",
+                      "latitude": 6.872812499999999,
+                      "longitude": 79.8618125
+                    },
+                    {
+                      "combined_code": "VV96+MX Colombo",
+                      "global_code": "VV96+MX",
+                      "location_name": "Colombo",
+                      "latitude": 6.8691875,
+                      "longitude": 79.8624375
+                    },
+                    {
+                      "combined_code": "VV87+V4 Colombo",
+                      "global_code": "VV87+V4",
+                      "location_name": "Colombo",
+                      "latitude": 6.8671875,
+                      "longitude": 79.86281249999999
+                    },
+                    {
+                      "combined_code": "VV87+28 Colombo",
+                      "global_code": "VV87+28",
+                      "location_name": "Colombo",
+                      "latitude": 6.8650625,
+                      "longitude": 79.86331249999999
+                    },
+                    {
+                      "combined_code": "VV77+HC Colombo",
+                      "global_code": "VV77+HC",
+                      "location_name": "Colombo",
+                      "latitude": 6.8639375,
+                      "longitude": 79.8635625
+                    },
+                    {
+                      "combined_code": "VV48+W2 Dehiwala-Mount Lavinia",
+                      "global_code": "VV48+W2",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8573125,
+                      "longitude": 79.8650625
+                    },
+                    {
+                      "combined_code": "VV28+5C Dehiwala-Mount Lavinia",
+                      "global_code": "VV28+5C",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "RVX8+GC Dehiwala-Mount Lavinia",
+                      "global_code": "RVX8+GC",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.848812499999999,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "RVR8+QR Dehiwala-Mount Lavinia",
+                      "global_code": "RVR8+QR",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.841937499999999,
+                      "longitude": 79.8670625
+                    },
+                    {
+                      "combined_code": "RVR8+8W Dehiwala-Mount Lavinia",
+                      "global_code": "RVR8+8W",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.840812499999999,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "RVQ9+42 Dehiwala-Mount Lavinia",
+                      "global_code": "RVQ9+42",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8378125,
+                      "longitude": 79.86756249999999
+                    },
+                    {
+                      "combined_code": "RVQ9+42 Dehiwala-Mount Lavinia",
+                      "global_code": "RVQ9+42",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8378125,
+                      "longitude": 79.86756249999999
+                    },
+                    {
+                      "combined_code": "RVM8+4X Dehiwala-Mount Lavinia",
+                      "global_code": "RVM8+4X",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.832812499999999,
+                      "longitude": 79.8674375
+                    },
+                    {
+                      "combined_code": "RVH9+2J Dehiwala-Mount Lavinia",
+                      "global_code": "RVH9+2J",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8275625,
+                      "longitude": 79.8690625
+                    },
+                    {
+                      "combined_code": "RVG9+7W Dehiwala-Mount Lavinia",
+                      "global_code": "RVG9+7W",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8256875,
+                      "longitude": 79.8698125
+                    },
+                    {
+                      "combined_code": "RV8H+73 Dehiwala-Mount Lavinia",
+                      "global_code": "RV8H+73",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8156875,
+                      "longitude": 79.8776875
+                    },
+                    {
+                      "combined_code": "QVGM+X7 Moratuwa",
+                      "global_code": "QVGM+X7",
+                      "location_name": "Moratuwa",
+                      "latitude": 6.7774375,
+                      "longitude": 79.88318749999999
+                    },
+                    {
+                      "combined_code": "QV8V+CR Panadura",
+                      "global_code": "QV8V+CR",
+                      "location_name": "Panadura",
+                      "latitude": 6.766062499999999,
+                      "longitude": 79.89456249999999
+                    },
+                    {
+                      "combined_code": "QV7W+2J Panadura",
+                      "global_code": "QV7W+2J",
+                      "location_name": "Panadura",
+                      "latitude": 6.7625625,
+                      "longitude": 79.8965625
+                    },
+                    {
+                      "combined_code": "QV5X+H7 Panadura",
+                      "global_code": "QV5X+H7",
+                      "location_name": "Panadura",
+                      "latitude": 6.758937500000001,
+                      "longitude": 79.89818749999999
+                    },
+                    {
+                      "combined_code": "QW22+64 Panadura",
+                      "global_code": "QW22+64",
+                      "location_name": "Panadura",
+                      "latitude": 6.7505625,
+                      "longitude": 79.90031250000001
+                    },
+                    {
+                      "combined_code": "PWH4+F3 Panadura",
+                      "global_code": "PWH4+F3",
+                      "location_name": "Panadura",
+                      "latitude": 6.728687499999999,
+                      "longitude": 79.9051875
+                    },
+                    {
+                      "combined_code": "PW75+J3 Panadura",
+                      "global_code": "PW75+J3",
+                      "location_name": "Panadura",
+                      "latitude": 6.7140625,
+                      "longitude": 79.9076875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "101",
+                  "start": "Pettah, Colombo",
+                  "end": "Moratuwa",
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-25T11:32:16.314696",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Fort",
+                    "Galle Face",
+                    "Kollupitiya",
+                    "Bambalapitiya",
+                    "Wellawatta",
+                    "Dehiwala",
+                    "Mount Lavinia",
+                    "Ratmalana",
+                    "Moratuwa"
+                  ],
+                  "bus_stops": [
+                    {
+                      "combined_code": "WRMX+PM Colombo",
+                      "global_code": "WRMX+PM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9343125,
+                      "longitude": 79.8491875
+                    },
+                    {
+                      "combined_code": "WRMW+CM Colombo",
+                      "global_code": "WRMW+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9335625,
+                      "longitude": 79.8466875
+                    },
+                    {
+                      "combined_code": "WRJW+J4 Colombo",
+                      "global_code": "WRJW+J4",
+                      "location_name": "Colombo",
+                      "latitude": 6.9315625,
+                      "longitude": 79.84531249999999
+                    },
+                    {
+                      "combined_code": "WRHV+V3 Colombo",
+                      "global_code": "WRHV+V3",
+                      "location_name": "Colombo",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8426875
+                    },
+                    {
+                      "combined_code": "WRCW+RF Colombo",
+                      "global_code": "WRCW+RF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9220625,
+                      "longitude": 79.8461875
+                    },
+                    {
+                      "combined_code": "WRCW+2P Colombo",
+                      "global_code": "WRCW+2P",
+                      "location_name": "Colombo",
+                      "latitude": 6.920062499999999,
+                      "longitude": 79.8468125
+                    },
+                    {
+                      "combined_code": "WR7X+8J Colombo",
+                      "global_code": "WR7X+8J",
+                      "location_name": "Colombo",
+                      "latitude": 6.913312500000001,
+                      "longitude": 79.8490625
+                    },
+                    {
+                      "combined_code": "WV62+Q8 Colombo",
+                      "global_code": "WV62+Q8",
+                      "location_name": "Colombo",
+                      "latitude": 6.911937500000001,
+                      "longitude": 79.85081249999999
+                    },
+                    {
+                      "combined_code": "WV52+XW Colombo",
+                      "global_code": "WV52+XW",
+                      "location_name": "Colombo",
+                      "latitude": 6.9099375,
+                      "longitude": 79.85231250000001
+                    },
+                    {
+                      "combined_code": "WV43+7F Colombo",
+                      "global_code": "WV43+7F",
+                      "location_name": "Colombo",
+                      "latitude": 6.905687500000001,
+                      "longitude": 79.85368749999999
+                    },
+                    {
+                      "combined_code": "VVX4+9C Colombo",
+                      "global_code": "VVX4+9C",
+                      "location_name": "Colombo",
+                      "latitude": 6.8984375,
+                      "longitude": 79.8560625
+                    },
+                    {
+                      "combined_code": "VVV4+MX Colombo",
+                      "global_code": "VVV4+MX",
+                      "location_name": "Colombo",
+                      "latitude": 6.894187499999999,
+                      "longitude": 79.8574375
+                    },
+                    {
+                      "combined_code": "VVR5+J8 Colombo",
+                      "global_code": "VVR5+J8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8915625,
+                      "longitude": 79.8583125
+                    },
+                    {
+                      "combined_code": "VVR5+J8 Colombo",
+                      "global_code": "VVR5+J8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8915625,
+                      "longitude": 79.8583125
+                    },
+                    {
+                      "combined_code": "VVP5+JX Colombo",
+                      "global_code": "VVP5+JX",
+                      "location_name": "Colombo",
+                      "latitude": 6.886562499999999,
+                      "longitude": 79.8599375
+                    },
+                    {
+                      "combined_code": "VVM6+P7 Colombo",
+                      "global_code": "VVM6+P7",
+                      "location_name": "Colombo",
+                      "latitude": 6.884312500000001,
+                      "longitude": 79.8606875
+                    },
+                    {
+                      "combined_code": "VVJ6+HM Colombo",
+                      "global_code": "VVJ6+HM",
+                      "location_name": "Colombo",
+                      "latitude": 6.8814375,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "VVJ6+CM Colombo",
+                      "global_code": "VVJ6+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.8810625,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "VVH6+G2 Colombo",
+                      "global_code": "VVH6+G2",
+                      "location_name": "Colombo",
+                      "latitude": 6.8788125,
+                      "longitude": 79.8600625
+                    },
+                    {
+                      "combined_code": "VVG6+R6 Colombo",
+                      "global_code": "VVG6+R6",
+                      "location_name": "Colombo",
+                      "latitude": 6.8770625,
+                      "longitude": 79.8605625
+                    },
+                    {
+                      "combined_code": "VVG6+H8 Colombo",
+                      "global_code": "VVG6+H8",
+                      "location_name": "Colombo",
+                      "latitude": 6.8764375,
+                      "longitude": 79.8608125
+                    },
+                    {
+                      "combined_code": "VVF6+4P Colombo",
+                      "global_code": "VVF6+4P",
+                      "location_name": "Colombo",
+                      "latitude": 6.872812499999999,
+                      "longitude": 79.8618125
+                    },
+                    {
+                      "combined_code": "VV96+MX Colombo",
+                      "global_code": "VV96+MX",
+                      "location_name": "Colombo",
+                      "latitude": 6.8691875,
+                      "longitude": 79.8624375
+                    },
+                    {
+                      "combined_code": "VV87+V4 Colombo",
+                      "global_code": "VV87+V4",
+                      "location_name": "Colombo",
+                      "latitude": 6.8671875,
+                      "longitude": 79.86281249999999
+                    },
+                    {
+                      "combined_code": "VV87+28 Colombo",
+                      "global_code": "VV87+28",
+                      "location_name": "Colombo",
+                      "latitude": 6.8650625,
+                      "longitude": 79.86331249999999
+                    },
+                    {
+                      "combined_code": "VV77+HC Colombo",
+                      "global_code": "VV77+HC",
+                      "location_name": "Colombo",
+                      "latitude": 6.8639375,
+                      "longitude": 79.8635625
+                    },
+                    {
+                      "combined_code": "VV48+W2 Dehiwala-Mount Lavinia",
+                      "global_code": "VV48+W2",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8573125,
+                      "longitude": 79.8650625
+                    },
+                    {
+                      "combined_code": "VV28+5C Dehiwala-Mount Lavinia",
+                      "global_code": "VV28+5C",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "RVX8+GC Dehiwala-Mount Lavinia",
+                      "global_code": "RVX8+GC",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.848812499999999,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "RVR8+QR Dehiwala-Mount Lavinia",
+                      "global_code": "RVR8+QR",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.841937499999999,
+                      "longitude": 79.8670625
+                    },
+                    {
+                      "combined_code": "RVR8+8W Dehiwala-Mount Lavinia",
+                      "global_code": "RVR8+8W",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.840812499999999,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "RVQ9+42 Dehiwala-Mount Lavinia",
+                      "global_code": "RVQ9+42",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8378125,
+                      "longitude": 79.86756249999999
+                    },
+                    {
+                      "combined_code": "RVQ9+42 Dehiwala-Mount Lavinia",
+                      "global_code": "RVQ9+42",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8378125,
+                      "longitude": 79.86756249999999
+                    },
+                    {
+                      "combined_code": "RVM8+4X Dehiwala-Mount Lavinia",
+                      "global_code": "RVM8+4X",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.832812499999999,
+                      "longitude": 79.8674375
+                    },
+                    {
+                      "combined_code": "RVH9+2J Dehiwala-Mount Lavinia",
+                      "global_code": "RVH9+2J",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8275625,
+                      "longitude": 79.8690625
+                    },
+                    {
+                      "combined_code": "RVG9+7W Dehiwala-Mount Lavinia",
+                      "global_code": "RVG9+7W",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8256875,
+                      "longitude": 79.8698125
+                    },
+                    {
+                      "combined_code": "RV8H+73 Dehiwala-Mount Lavinia",
+                      "global_code": "RV8H+73",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8156875,
+                      "longitude": 79.8776875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "103",
+                  "start": "Fort (Colombo)",
+                  "end": "Narahenpita / Borella",
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-25T11:39:46.659920",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Maradana",
+                    "Borella",
+                    "Narahenpita"
+                  ],
+                  "bus_stops": [
+                    {
+                      "combined_code": "WVM3+X5 Colombo",
+                      "global_code": "WVM3+X5",
+                      "location_name": "Colombo",
+                      "latitude": 6.9349375,
+                      "longitude": 79.8529375
+                    },
+                    {
+                      "combined_code": "WVM4+FG Colombo",
+                      "global_code": "WVM4+FG",
+                      "location_name": "Colombo",
+                      "latitude": 6.9336875,
+                      "longitude": 79.8563125
+                    },
+                    {
+                      "combined_code": "WVM8+J3 Colombo",
+                      "global_code": "WVM8+J3",
+                      "location_name": "Colombo",
+                      "latitude": 6.9340625,
+                      "longitude": 79.86518749999999
+                    },
+                    {
+                      "combined_code": "WVH7+QV Colombo",
+                      "global_code": "WVH7+QV",
+                      "location_name": "Colombo",
+                      "latitude": 6.9294375,
+                      "longitude": 79.8646875
+                    },
+                    {
+                      "combined_code": "WVH8+43 Colombo",
+                      "global_code": "WVH8+43",
+                      "location_name": "Colombo",
+                      "latitude": 6.9278125,
+                      "longitude": 79.86518749999999
+                    },
+                    {
+                      "combined_code": "WVF9+HF Colombo",
+                      "global_code": "WVF9+HF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9239375,
+                      "longitude": 79.8686875
+                    },
+                    {
+                      "combined_code": "WVCC+P8 Colombo",
+                      "global_code": "WVCC+P8",
+                      "location_name": "Colombo",
+                      "latitude": 6.9218125,
+                      "longitude": 79.8708125
+                    },
+                    {
+                      "combined_code": "WV9F+4V Colombo",
+                      "global_code": "WV9F+4V",
+                      "location_name": "Colombo",
+                      "latitude": 6.917812499999999,
+                      "longitude": 79.8746875
+                    },
+                    {
+                      "combined_code": "WV7H+P2 Colombo",
+                      "global_code": "WV7H+P2",
+                      "location_name": "Colombo",
+                      "latitude": 6.914312499999999,
+                      "longitude": 79.8775625
+                    },
+                    {
+                      "combined_code": "WV6H+52 Colombo",
+                      "global_code": "WV6H+52",
+                      "location_name": "Colombo",
+                      "latitude": 6.9104375,
+                      "longitude": 79.8775625
+                    },
+                    {
+                      "combined_code": "WV4G+WX Colombo",
+                      "global_code": "WV4G+WX",
+                      "location_name": "Colombo",
+                      "latitude": 6.907312500000001,
+                      "longitude": 79.8774375
+                    },
+                    {
+                      "combined_code": "WV3G+4W Colombo",
+                      "global_code": "WV3G+4W",
+                      "location_name": "Colombo",
+                      "latitude": 6.9028125,
+                      "longitude": 79.8773125
+                    },
+                    {
+                      "combined_code": "WV2G+9W Colombo",
+                      "global_code": "WV2G+9W",
+                      "location_name": "Colombo",
+                      "latitude": 6.9009375,
+                      "longitude": 79.8773125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "120",
+                  "start": "Pettah",
+                  "end": "Piliyandala / Kesbewa / Horana",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Town Hall",
+                    "Borella",
+                    "Nugegoda",
+                    "Kohuwala",
+                    "Piliyandala",
+                    "Kesbewa",
+                    "Horana"
+                  ],
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-26T04:40:19.299863",
+                  "bus_stops": [
+                    {
+                      "combined_code": "WVM4+FG Colombo",
+                      "global_code": "WVM4+FG",
+                      "location_name": "Colombo",
+                      "latitude": 6.9336875,
+                      "longitude": 79.8563125
+                    },
+                    {
+                      "combined_code": "WRMW+CM Colombo",
+                      "global_code": "WRMW+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9335625,
+                      "longitude": 79.8466875
+                    },
+                    {
+                      "combined_code": "WVG6+VH Colombo",
+                      "global_code": "WVG6+VH",
+                      "location_name": "Colombo",
+                      "latitude": 6.9271875,
+                      "longitude": 79.8614375
+                    },
+                    {
+                      "combined_code": "WVF6+6R Colombo",
+                      "global_code": "WVF6+6R",
+                      "location_name": "Colombo",
+                      "latitude": 6.923062499999999,
+                      "longitude": 79.8620625
+                    },
+                    {
+                      "combined_code": "WV96+HM Colombo",
+                      "global_code": "WV96+HM",
+                      "location_name": "Colombo",
+                      "latitude": 6.918937499999999,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "WV87+JX Colombo",
+                      "global_code": "WV87+JX",
+                      "location_name": "Colombo",
+                      "latitude": 6.9165625,
+                      "longitude": 79.8649375
+                    },
+                    {
+                      "combined_code": "WV67+XX Colombo",
+                      "global_code": "WV67+XX",
+                      "location_name": "Colombo",
+                      "latitude": 6.912437499999999,
+                      "longitude": 79.8649375
+                    },
+                    {
+                      "combined_code": "WV57+RF Colombo",
+                      "global_code": "WV57+RF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9095625,
+                      "longitude": 79.8636875
+                    },
+                    {
+                      "combined_code": "WV47+FF Colombo",
+                      "global_code": "WV47+FF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9061875,
+                      "longitude": 79.8636875
+                    },
+                    {
+                      "combined_code": "VVX6+G7 Colombo",
+                      "global_code": "VVX6+G7",
+                      "location_name": "Colombo",
+                      "latitude": 6.8988125,
+                      "longitude": 79.8606875
+                    },
+                    {
+                      "combined_code": "VVW6+87 Colombo",
+                      "global_code": "VVW6+87",
+                      "location_name": "Colombo",
+                      "latitude": 6.8958125,
+                      "longitude": 79.8606875
+                    },
+                    {
+                      "combined_code": "VVQ7+MJ Colombo",
+                      "global_code": "VVQ7+MJ",
+                      "location_name": "Colombo",
+                      "latitude": 6.889187499999999,
+                      "longitude": 79.8640625
+                    },
+                    {
+                      "combined_code": "VVHF+46 Colombo",
+                      "global_code": "VVHF+46",
+                      "location_name": "Colombo",
+                      "latitude": 6.8778125,
+                      "longitude": 79.8730625
+                    },
+                    {
+                      "combined_code": "VVFF+H4 Colombo",
+                      "global_code": "VVFF+H4",
+                      "location_name": "Colombo",
+                      "latitude": 6.873937499999999,
+                      "longitude": 79.8728125
+                    },
+                    {
+                      "combined_code": "VV9M+89 Dehiwala-Mount Lavinia",
+                      "global_code": "VV9M+89",
+                      "location_name": "Dehiwala-Mount Lavinia",
+                      "latitude": 6.8683125,
+                      "longitude": 79.8834375
+                    },
+                    {
+                      "combined_code": "VV6Q+VC Nugegoda",
+                      "global_code": "VV6Q+VC",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8621875,
+                      "longitude": 79.88856249999999
+                    },
+                    {
+                      "combined_code": "VV4R+C8 Nugegoda",
+                      "global_code": "VV4R+C8",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.856062499999999,
+                      "longitude": 79.8908125
+                    },
+                    {
+                      "combined_code": "RVXX+48 Boralesgamuwa",
+                      "global_code": "RVXX+48",
+                      "location_name": "Boralesgamuwa",
+                      "latitude": 6.8478125,
+                      "longitude": 79.8983125
+                    },
+                    {
+                      "combined_code": "RWM4+3P Boralesgamuwa",
+                      "global_code": "RWM4+3P",
+                      "location_name": "Boralesgamuwa",
+                      "latitude": 6.8326875,
+                      "longitude": 79.90681250000002
+                    },
+                    {
+                      "combined_code": "RWC8+M8 Piliyandala",
+                      "global_code": "RWC8+M8",
+                      "location_name": "Piliyandala",
+                      "latitude": 6.8216875,
+                      "longitude": 79.9158125
+                    },
+                    {
+                      "combined_code": "RW7C+52 Piliyandala",
+                      "global_code": "RW7C+52",
+                      "location_name": "Piliyandala",
+                      "latitude": 6.812937499999999,
+                      "longitude": 79.9200625
+                    },
+                    {
+                      "combined_code": "RW2F+99 Piliyandala",
+                      "global_code": "RW2F+99",
+                      "location_name": "Piliyandala",
+                      "latitude": 6.8009375,
+                      "longitude": 79.92343749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138",
+                  "start": "Pettah",
+                  "end": "1)Maharagama / Kottawa / Homagama",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Homagama"
+                  ],
+                  "data_entry_complete": true,
+                  "coordinates_added": false,
+                  "last_updated": "2025-12-26T04:47:16.799058",
+                  "bus_stops": [
+                    {
+                      "combined_code": "WVM2+H2 Colombo",
+                      "global_code": "WVM2+H2",
+                      "location_name": "Colombo",
+                      "latitude": 6.9339375,
+                      "longitude": 79.8500625
+                    },
+                    {
+                      "combined_code": "WRMW+CM Colombo",
+                      "global_code": "WRMW+CM",
+                      "location_name": "Colombo",
+                      "latitude": 6.9335625,
+                      "longitude": 79.8466875
+                    },
+                    {
+                      "combined_code": "WRJX+23 Colombo",
+                      "global_code": "WRJX+23",
+                      "location_name": "Colombo",
+                      "latitude": 6.9300625,
+                      "longitude": 79.84768749999999
+                    },
+                    {
+                      "combined_code": "WVG2+PG Colombo",
+                      "global_code": "WVG2+PG",
+                      "location_name": "Colombo",
+                      "latitude": 6.9268125,
+                      "longitude": 79.85131249999999
+                    },
+                    {
+                      "combined_code": "WVF3+28 Colombo",
+                      "global_code": "WVF3+28",
+                      "location_name": "Colombo",
+                      "latitude": 6.922562500000001,
+                      "longitude": 79.8533125
+                    },
+                    {
+                      "combined_code": "WV95+VR Colombo",
+                      "global_code": "WV95+VR",
+                      "location_name": "Colombo",
+                      "latitude": 6.919687499999999,
+                      "longitude": 79.8595625
+                    },
+                    {
+                      "combined_code": "WV97+72 Colombo",
+                      "global_code": "WV97+72",
+                      "location_name": "Colombo",
+                      "latitude": 6.918187499999999,
+                      "longitude": 79.8625625
+                    },
+                    {
+                      "combined_code": "WV87+J7 Colombo",
+                      "global_code": "WV87+J7",
+                      "location_name": "Colombo",
+                      "latitude": 6.9165625,
+                      "longitude": 79.86318750000001
+                    },
+                    {
+                      "combined_code": "WV75+JF Colombo",
+                      "global_code": "WV75+JF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9140625,
+                      "longitude": 79.8586875
+                    },
+                    {
+                      "combined_code": "WV57+RF Colombo",
+                      "global_code": "WV57+RF",
+                      "location_name": "Colombo",
+                      "latitude": 6.9095625,
+                      "longitude": 79.8636875
+                    },
+                    {
+                      "combined_code": "WV36+3W Colombo",
+                      "global_code": "WV36+3W",
+                      "location_name": "Colombo",
+                      "latitude": 6.902687500000001,
+                      "longitude": 79.8623125
+                    },
+                    {
+                      "combined_code": "VVV6+PM Colombo",
+                      "global_code": "VVV6+PM",
+                      "location_name": "Colombo",
+                      "latitude": 6.8943125,
+                      "longitude": 79.8616875
+                    },
+                    {
+                      "combined_code": "VVM9+Q3 Colombo",
+                      "global_code": "VVM9+Q3",
+                      "location_name": "Colombo",
+                      "latitude": 6.8844375,
+                      "longitude": 79.86768750000002
+                    },
+                    {
+                      "combined_code": "VVHH+4F Colombo",
+                      "global_code": "VVHH+4F",
+                      "location_name": "Colombo",
+                      "latitude": 6.8778125,
+                      "longitude": 79.8786875
+                    },
+                    {
+                      "combined_code": "VVFJ+FQ Colombo",
+                      "global_code": "VVFJ+FQ",
+                      "location_name": "Colombo",
+                      "latitude": 6.8736875,
+                      "longitude": 79.88193749999999
+                    },
+                    {
+                      "combined_code": "VVCM+VG Colombo",
+                      "global_code": "VVCM+VG",
+                      "location_name": "Colombo",
+                      "latitude": 6.8721875,
+                      "longitude": 79.88381249999999
+                    },
+                    {
+                      "combined_code": "VV9R+M2 Nugegoda",
+                      "global_code": "VV9R+M2",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8691875,
+                      "longitude": 79.8900625
+                    },
+                    {
+                      "combined_code": "VV8V+P9 Nugegoda",
+                      "global_code": "VV8V+P9",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8668125,
+                      "longitude": 79.89343749999999
+                    },
+                    {
+                      "combined_code": "VW63+JR Nugegoda",
+                      "global_code": "VW63+JR",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8615625,
+                      "longitude": 79.90456250000001
+                    },
+                    {
+                      "combined_code": "RWVM+XV Maharagama",
+                      "global_code": "RWVM+XV",
+                      "location_name": "Maharagama",
+                      "latitude": 6.844937499999999,
+                      "longitude": 79.9346875
+                    },
+                    {
+                      "combined_code": "RXR7+V2 Pannipitiya",
+                      "global_code": "RXR7+V2",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8421875,
+                      "longitude": 79.96256249999999
+                    },
+                    {
+                      "combined_code": "RXQR+WP Homagama",
+                      "global_code": "RXQR+WP",
+                      "location_name": "Homagama",
+                      "latitude": 6.8398125,
+                      "longitude": 79.9918125
+                    },
+                    {
+                      "combined_code": "R2R3+HV Homagama",
+                      "global_code": "R2R3+HV",
+                      "location_name": "Homagama",
+                      "latitude": 6.8414375,
+                      "longitude": 80.0046875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/1",
+                  "start": "Fort",
+                  "end": "Kirillawala",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Homagama",
+                    "Kirillawala"
+                  ],
+                  "last_updated": "2025-12-26T05:14:32.791093",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6MR2R2R2+GR Homagama",
+                      "global_code": "6MR2R2R2+GR",
+                      "location_name": "Homagama",
+                      "latitude": 6.8413125,
+                      "longitude": 80.0020625
+                    },
+                    {
+                      "combined_code": "6JVX2XMR+VF Kirillawala",
+                      "global_code": "6JVX2XMR+VF",
+                      "location_name": "Kirillawala",
+                      "latitude": 7.0346875,
+                      "longitude": 79.9911875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/2",
+                  "start": "Pettah",
+                  "end": "Mattegoda",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Mattegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:14:35.377314",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXRX6G+H5 Mattegoda",
+                      "global_code": "6JRXRX6G+H5",
+                      "location_name": "Mattegoda",
+                      "latitude": 6.811437499999999,
+                      "longitude": 79.9754375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/3",
+                  "start": "Pettah",
+                  "end": "Rukmalgama",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Rukmalgama"
+                  ],
+                  "last_updated": "2025-12-26T05:14:37.789567",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXVX4P+R7 Rukmalgama",
+                      "global_code": "6JRXVX4P+R7",
+                      "location_name": "Rukmalgama",
+                      "latitude": 6.8570625,
+                      "longitude": 79.9856875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/4",
+                  "start": "Pettah",
+                  "end": "Athurugiriya",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Athurugiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:14:40.214832",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/6",
+                  "start": "Pettah",
+                  "end": "Elakanda",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Elakanda"
+                  ],
+                  "last_updated": "2025-12-26T05:14:42.577223",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JVX3VGR+X8 Elakanda",
+                      "global_code": "6JVX3VGR+X8",
+                      "location_name": "Elakanda",
+                      "latitude": 7.077437499999999,
+                      "longitude": 79.8908125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "140",
+                  "start": "Kollupitiya",
+                  "end": "Wellampitiya",
+                  "intermediate_locations": [
+                    "Kollupitiya",
+                    "Town Hall",
+                    "Borella",
+                    "Rajagiriya",
+                    "Wellampitiya"
+                  ],
+                  "last_updated": "2025-12-26T05:14:45.666995",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWR6X+CM Kollupitiya",
+                      "global_code": "6JRXWR6X+CM",
+                      "location_name": "Kollupitiya",
+                      "latitude": 6.9110625,
+                      "longitude": 79.8491875
+                    },
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6MR275R7+P6 Wellampitiya",
+                      "global_code": "6MR275R7+P6",
+                      "location_name": "Wellampitiya",
+                      "latitude": 6.2918125,
+                      "longitude": 80.1630625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "141",
+                  "start": "Wellawatta",
+                  "end": "Narahenpita",
+                  "intermediate_locations": [
+                    "Wellawatta",
+                    "Narahenpita"
+                  ],
+                  "last_updated": "2025-12-26T05:14:46.944706",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVVF6+4P Wellawatta",
+                      "global_code": "6JRXVVF6+4P",
+                      "location_name": "Wellawatta",
+                      "latitude": 6.872812499999999,
+                      "longitude": 79.8618125
+                    },
+                    {
+                      "combined_code": "6JRXVVRG+PR Narahenpita",
+                      "global_code": "6JRXVVRG+PR",
+                      "location_name": "Narahenpita",
+                      "latitude": 6.891812499999999,
+                      "longitude": 79.8770625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "143",
+                  "start": "Pettah / Kaduwela",
+                  "end": "Kaduwela / Hanwella",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Kaduwela",
+                    "Hanwella"
+                  ],
+                  "last_updated": "2025-12-26T05:14:48.560113",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWXPM+H7 Kaduwela",
+                      "global_code": "6JRXWXPM+H7",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9364375,
+                      "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "6MR2W35J+GC Hanwella",
+                      "global_code": "6MR2W35J+GC",
+                      "location_name": "Hanwella",
+                      "latitude": 6.908812500000001,
+                      "longitude": 80.08106250000002
+                    }
+                  ]
+                },
+                {
+                  "route_number": "144",
+                  "start": "Fort",
+                  "end": "Rajagiriya",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Town Hall",
+                    "Borella",
+                    "Rajagiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:14:49.700783",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "145",
+                  "start": "Seemamalakaya",
+                  "end": "Mattakkuliya",
+                  "intermediate_locations": [
+                    "Seemamalakaya",
+                    "Town Hall",
+                    "Borella",
+                    "Mattakkuliya"
+                  ],
+                  "last_updated": "2025-12-26T05:14:51.592232",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV84+V6 Seemamalakaya",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXXVFH+38 Mattakkuliya",
+                      "global_code": "6JRXXVFH+38",
+                      "location_name": "Mattakkuliya",
+                      "latitude": 6.972687499999999,
+                      "longitude": 79.87831249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "148",
+                  "start": "Pettah / Hanwella",
+                  "end": "Labugama",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Hanwella",
+                    "Labugama"
+                  ],
+                  "last_updated": "2025-12-26T05:14:52.720947",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6MR2W35J+GC Hanwella",
+                      "global_code": "6MR2W35J+GC",
+                      "location_name": "Hanwella",
+                      "latitude": 6.908812500000001,
+                      "longitude": 80.08106250000002
+                    },
+                    {
+                      "combined_code": "6MR268CM+Q6 Labugama",
+                      "global_code": "6MR268CM+Q6",
+                      "location_name": "Labugama",
+                      "latitude": 6.2219375,
+                      "longitude": 80.3330625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "150",
+                  "start": "Kelanimulla",
+                  "end": "Seemamalakaya",
+                  "intermediate_locations": [
+                    "Seemamalakaya",
+                    "Town Hall",
+                    "Borella",
+                    "Kelanimulla"
+                  ],
+                  "last_updated": "2025-12-26T05:14:54.240993",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV84+V6 Seemamalakaya",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXXWC8+PP Kelanimulla",
+                      "global_code": "6JRXXWC8+PP",
+                      "location_name": "Kelanimulla",
+                      "latitude": 6.9718125,
+                      "longitude": 79.91681249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "151",
+                  "start": "Pettah",
+                  "end": "Ambatale",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Borella",
+                    "Ambatale"
+                  ],
+                  "last_updated": "2025-12-26T05:14:55.564208",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWVM4+X3 Ambatale",
+                      "global_code": "6JRXWVM4+X3",
+                      "location_name": "Ambatale",
+                      "latitude": 6.9349375,
+                      "longitude": 79.8551875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "152",
+                  "start": "Pettah",
+                  "end": "Gothatuwa (IDH) / Foreign Employment zone.",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Kotahena",
+                    "Grandpass",
+                    "Gothatuwa"
+                  ],
+                  "last_updated": "2025-12-26T05:14:57.849027",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVX6+5F Kotahena",
+                      "global_code": "6JRXWVX6+5F",
+                      "location_name": "Kotahena",
+                      "latitude": 6.9479375,
+                      "longitude": 79.8611875
+                    },
+                    {
+                      "combined_code": "6JRXWVM4+X3 Grandpass",
+                      "global_code": "6JRXWVM4+X3",
+                      "location_name": "Grandpass",
+                      "latitude": 6.9349375,
+                      "longitude": 79.8551875
+                    },
+                    {
+                      "combined_code": "6JRXWWH4+V8 Gothatuwa",
+                      "global_code": "6JRXWWH4+V8",
+                      "location_name": "Gothatuwa",
+                      "latitude": 6.9296875,
+                      "longitude": 79.9058125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "153",
+                  "start": "Borella",
+                  "end": "Sri J'pura Hospital (Nawarohala)",
+                  "intermediate_locations": [
+                    "Borella",
+                    "Rajagiriya",
+                    "Thalawathugoda",
+                    "Jayawardenapura Hospital"
+                  ],
+                  "last_updated": "2025-12-26T05:14:59.739260",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXVWGP+M3 Thalawathugoda",
+                      "global_code": "6JRXVWGP+M3",
+                      "location_name": "Thalawathugoda",
+                      "latitude": 6.876687500000001,
+                      "longitude": 79.9351875
+                    },
+                    {
+                      "combined_code": "6JRXVW8H+85 Jayawardenapura Hospital",
+                      "error": "Geocoding failed"
+                    }
+                  ]
+                },
+                {
+                  "route_number": "154",
+                  "start": "Angulana / Bambalapitiya (SLTB)",
+                  "end": "Peliyagoda - University of Kelaniya - New Kelani Bridge - Orugodawatte - Dematagoda -",
+                  "intermediate_locations": [
+                    "Angulana",
+                    "Bambalapitiya",
+                    "Borella",
+                    "Peliyagoda",
+                    "Kiribathgoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:02.608209",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXRV2Q+H3 Angulana",
+                      "global_code": "6JRXRV2Q+H3",
+                      "location_name": "Angulana",
+                      "latitude": 6.8014375,
+                      "longitude": 79.8876875
+                    },
+                    {
+                      "combined_code": "6JRXVVV4+86 Bambalapitiya",
+                      "global_code": "6JRXVVV4+86",
+                      "location_name": "Bambalapitiya",
+                      "latitude": 6.8933125,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXXW39+6M Peliyagoda",
+                      "global_code": "6JRXXW39+6M",
+                      "location_name": "Peliyagoda",
+                      "latitude": 6.953062500000001,
+                      "longitude": 79.91918749999999
+                    },
+                    {
+                      "combined_code": "6JRXXWHJ+M3 Kiribathgoda",
+                      "global_code": "6JRXXWHJ+M3",
+                      "location_name": "Kiribathgoda",
+                      "latitude": 6.9791875,
+                      "longitude": 79.9301875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "155",
+                  "start": "Mattakkuliya",
+                  "end": "Soysapura / Mt. Lavinia(SLTB)",
+                  "intermediate_locations": [
+                    "Mattakkuliya",
+                    "Kotahena",
+                    "Pettah",
+                    "Bambalapitiya",
+                    "Wellawatta",
+                    "Mt. Lavinia",
+                    "Soysapura"
+                  ],
+                  "last_updated": "2025-12-26T05:15:05.314883",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXVFH+38 Mattakkuliya",
+                      "global_code": "6JRXXVFH+38",
+                      "location_name": "Mattakkuliya",
+                      "latitude": 6.972687499999999,
+                      "longitude": 79.87831249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVX6+5F Kotahena",
+                      "global_code": "6JRXWVX6+5F",
+                      "location_name": "Kotahena",
+                      "latitude": 6.9479375,
+                      "longitude": 79.8611875
+                    },
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVV4+86 Bambalapitiya",
+                      "global_code": "6JRXVVV4+86",
+                      "location_name": "Bambalapitiya",
+                      "latitude": 6.8933125,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVF6+4P Wellawatta",
+                      "global_code": "6JRXVVF6+4P",
+                      "location_name": "Wellawatta",
+                      "latitude": 6.872812499999999,
+                      "longitude": 79.8618125
+                    },
+                    {
+                      "combined_code": "6JRXRVM8+5W Mt. Lavinia",
+                      "global_code": "6JRXRVM8+5W",
+                      "location_name": "Mt. Lavinia",
+                      "latitude": 6.8329375,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "6JRXRV3J+7Q Soysapura",
+                      "global_code": "6JRXRV3J+7Q",
+                      "location_name": "Soysapura",
+                      "latitude": 6.8031875,
+                      "longitude": 79.88193749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "162",
+                  "start": "Pettah / Piliyandala",
+                  "end": "Bandaragama",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Piliyandala",
+                    "Bandaragama"
+                  ],
+                  "last_updated": "2025-12-26T05:15:06.907783",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXRW2F+C9 Piliyandala",
+                      "global_code": "6JRXRW2F+C9",
+                      "location_name": "Piliyandala",
+                      "latitude": 6.8010625,
+                      "longitude": 79.92343749999999
+                    },
+                    {
+                      "combined_code": "6JRXPX7Q+HM Bandaragama",
+                      "global_code": "6JRXPX7Q+HM",
+                      "location_name": "Bandaragama",
+                      "latitude": 6.7139375,
+                      "longitude": 79.9891875
+                    }
+                  ]
+                },
+                {
+                  "route_number": "164",
+                  "start": "Town Hall",
+                  "end": "Salmal Uyana",
+                  "intermediate_locations": [
+                    "Town Hall",
+                    "Borella",
+                    "Rajagiriya",
+                    "Salmal Uyana"
+                  ],
+                  "last_updated": "2025-12-26T05:15:08.443592",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXWXF2+3M Salmal Uyana",
+                      "global_code": "6JRXWXF2+3M",
+                      "location_name": "Salmal Uyana",
+                      "latitude": 6.9226875,
+                      "longitude": 79.95168749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "166",
+                  "start": "Slave Island",
+                  "end": "Angoda",
+                  "intermediate_locations": [
+                    "Slave Island",
+                    "Town Hall",
+                    "Borella",
+                    "Angoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:10.430094",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWRFX+CV Slave Island",
+                      "global_code": "6JRXWRFX+CV",
+                      "location_name": "Slave Island",
+                      "latitude": 6.9235625,
+                      "longitude": 79.8496875
+                    },
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWWF7+2G Angoda",
+                      "global_code": "6JRXWWF7+2G",
+                      "location_name": "Angoda",
+                      "latitude": 6.922562500000001,
+                      "longitude": 79.91381249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "167",
+                  "start": "Thotalanga",
+                  "end": "Dehiwela - Wellawatta - Bambalapitiya - Bauddhaloka Mawatha - University of",
+                  "intermediate_locations": [
+                    "Thotalanga",
+                    "Borella",
+                    "Dehiwala"
+                  ],
+                  "last_updated": "2025-12-26T05:15:12.070340",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXV5G+89 Thotalanga",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "168",
+                  "start": "Kotahena",
+                  "end": "Nugegoda",
+                  "intermediate_locations": [
+                    "Kotahena",
+                    "Borella",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:12.944291",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVX6+5F Kotahena",
+                      "global_code": "6JRXWVX6+5F",
+                      "location_name": "Kotahena",
+                      "latitude": 6.9479375,
+                      "longitude": 79.8611875
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "170",
+                  "start": "Pettah",
+                  "end": "Athurugiriya",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Borella",
+                    "Battaramulla",
+                    "Malabe",
+                    "Athurugiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:15.048856",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6JRXWX34+82 Malabe",
+                      "global_code": "6JRXWX34+82",
+                      "location_name": "Malabe",
+                      "latitude": 6.903312499999999,
+                      "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    }
+                  ]
+                },
+                {
+                  "route_number": "170/2",
+                  "start": "Pettah",
+                  "end": "Millenium City (Athurugiriya)",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Borella",
+                    "Battaramulla",
+                    "Malabe",
+                    "Athurugiriya",
+                    "Millenium City"
+                  ],
+                  "last_updated": "2025-12-26T05:15:17.165944",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6JRXWX34+82 Malabe",
+                      "global_code": "6JRXWX34+82",
+                      "location_name": "Malabe",
+                      "latitude": 6.903312499999999,
+                      "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    },
+                    {
+                      "combined_code": "6JVX4W85+RR Millenium City",
+                      "global_code": "6JVX4W85+RR",
+                      "location_name": "Millenium City",
+                      "latitude": 7.117062499999999,
+                      "longitude": 79.90956249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "171",
+                  "start": "Fort",
+                  "end": "Pelawatta",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Borella",
+                    "Battaramulla",
+                    "Pelawatta"
+                  ],
+                  "last_updated": "2025-12-26T05:15:18.664630",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6MR2C638+VQ Pelawatta",
+                      "global_code": "6MR2C638+VQ",
+                      "location_name": "Pelawatta",
+                      "latitude": 6.4046875,
+                      "longitude": 80.2169375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "172",
+                  "start": "Borella",
+                  "end": "Moragasmulla",
+                  "intermediate_locations": [
+                    "Borella",
+                    "Rajagiriya",
+                    "Moragasmulla"
+                  ],
+                  "last_updated": "2025-12-26T05:15:19.961799",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXWVCW+9J Moragasmulla",
+                      "global_code": "6JRXWVCW+9J",
+                      "location_name": "Moragasmulla",
+                      "latitude": 6.920937500000001,
+                      "longitude": 79.8965625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "173",
+                  "start": "Thotalanga",
+                  "end": "Nugegoda",
+                  "intermediate_locations": [
+                    "Thotalanga",
+                    "Borella",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:20.825688",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXV5G+89 Thotalanga",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "174",
+                  "start": "Kottawa",
+                  "end": "Borella",
+                  "intermediate_locations": [
+                    "Borella",
+                    "Battaramulla",
+                    "Pannipitiya",
+                    "Kottawa"
+                  ],
+                  "last_updated": "2025-12-26T05:15:22.365667",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6JRXRWWX+MV Pannipitiya",
+                      "global_code": "6JRXRWWX+MV",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8466875,
+                      "longitude": 79.9496875
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "175",
+                  "start": "Kollupitiya",
+                  "end": "Kohilawatta",
+                  "intermediate_locations": [
+                    "Kollupitiya",
+                    "Rajagiriya",
+                    "Kohilawatta"
+                  ],
+                  "last_updated": "2025-12-26T05:15:23.492088",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWR6X+CM Kollupitiya",
+                      "global_code": "6JRXWR6X+CM",
+                      "location_name": "Kollupitiya",
+                      "latitude": 6.9110625,
+                      "longitude": 79.8491875
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXWWW7+95 Kohilawatta",
+                      "global_code": "6JRXWWW7+95",
+                      "location_name": "Kohilawatta",
+                      "latitude": 6.945937499999999,
+                      "longitude": 79.9129375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "176",
+                  "start": "Hettiyawatta",
+                  "end": "Nugegoda / Karagampitiya / Dehiwala(SLTB)",
+                  "intermediate_locations": [
+                    "Hettiyawatta",
+                    "Borella",
+                    "Nugegoda",
+                    "Karagampitiya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:25.480210",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXV24+4R Hettiyawatta",
+                      "global_code": "6JRXXV24+4R",
+                      "location_name": "Hettiyawatta",
+                      "latitude": 6.9503125,
+                      "longitude": 79.8570625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVV2C+5F Karagampitiya",
+                      "global_code": "6JRXVV2C+5F",
+                      "location_name": "Karagampitiya",
+                      "latitude": 6.8504375,
+                      "longitude": 79.87118749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "177",
+                  "start": "Kaduwela",
+                  "end": "Kollupitiya",
+                  "intermediate_locations": [
+                    "Kaduwela",
+                    "Kaduwela Town",
+                    "Kothalawala Temple",
+                    "Kothalawala School",
+                    "Kothalawala",
+                    "Seewalee Mawatha",
+                    "Gemunupura",
+                    "SLIIT Campus",
+                    "Sudarshana Mawatha",
+                    "CINEC Campus",
+                    "Malabe Junction",
+                    "Thalahena Junction",
+                    "Kotte-Bope Road",
+                    "Koswatta",
+                    "Talangama Depot",
+                    "Ganahena",
+                    "Kanatta Road",
+                    "Battaramulla",
+                    "Sathsiripaya",
+                    "Parliament Junction",
+                    "Ethul Kotte",
+                    "HSBC Rajagiriya",
+                    "Rajagiriya",
+                    "Castle Street",
+                    "House Of Fashion",
+                    "Viharamahadevi Park",
+                    "Public Library",
+                    "Liberty Plaza",
+                    "Kollupitiya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:27.190738",
+                  "bus_stops": [
+                    {
+                      "combined_code": "WXPM+H7 Kaduwela",
+                      "global_code": "WXPM+H7",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9364375,
+                      "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "WXPM+4M Kaduwela",
+                      "global_code": "WXPM+4M",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9353125,
+                      "longitude": 79.9841875
+                    },
+                    {
+                      "combined_code": "WXJM+X2 Kaduwela",
+                      "global_code": "WXJM+X2",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9324375,
+                      "longitude": 79.9825625
+                    },
+                    {
+                      "combined_code": "WXJM+32 Kaduwela",
+                      "global_code": "WXJM+32",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9301875,
+                      "longitude": 79.9825625
+                    },
+                    {
+                      "combined_code": "WXCG+G3 Kaduwela",
+                      "global_code": "WXCG+G3",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9213125,
+                      "longitude": 79.9751875
+                    },
+                    {
+                      "combined_code": "WX8F+WF Malabe",
+                      "global_code": "WX8F+WF",
+                      "location_name": "Malabe",
+                      "latitude": 6.9173125,
+                      "longitude": 79.9736875
+                    },
+                    {
+                      "combined_code": "WX8C+CX Malabe",
+                      "global_code": "WX8C+CX",
+                      "location_name": "Malabe",
+                      "latitude": 6.9160625,
+                      "longitude": 79.9724375
+                    },
+                    {
+                      "combined_code": "WX7C+RV Malabe",
+                      "global_code": "WX7C+RV",
+                      "location_name": "Malabe",
+                      "latitude": 6.9145625,
+                      "longitude": 79.9721875
+                    },
+                    {
+                      "combined_code": "WX6C+2H Malabe",
+                      "global_code": "WX6C+2H",
+                      "location_name": "Malabe",
+                      "latitude": 6.9100625,
+                      "longitude": 79.9714375
+                    },
+                    {
+                      "combined_code": "WX34+H3 Malabe",
+                      "global_code": "WX34+H3",
+                      "location_name": "Malabe",
+                      "latitude": 6.9039375,
+                      "longitude": 79.9551875
+                    },
+                    {
+                      "combined_code": "WW4X+C2 Malabe",
+                      "global_code": "WW4X+C2",
+                      "location_name": "Malabe",
+                      "latitude": 6.9060625,
+                      "longitude": 79.9475625
+                    },
+                    {
+                      "combined_code": "WW4J+WR Battaramulla",
+                      "global_code": "WW4J+WR",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9073125,
+                      "longitude": 79.9320625
+                    },
+                    {
+                      "combined_code": "WW3F+JG Battaramulla",
+                      "global_code": "WW3F+JG",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9040625,
+                      "longitude": 79.9238125
+                    },
+                    {
+                      "combined_code": "WW34+9R Sri Jayawardenepura Kotte",
+                      "global_code": "WW34+9R",
+                      "location_name": "Sri Jayawardenepura Kotte",
+                      "latitude": 6.9034375,
+                      "longitude": 79.9070625
+                    },
+                    {
+                      "combined_code": "WV6H+FR Colombo",
+                      "global_code": "WV6H+FR",
+                      "location_name": "Colombo",
+                      "latitude": 6.9111875,
+                      "longitude": 79.8795625
+                    },
+                    {
+                      "combined_code": "WV66+JQ Colombo",
+                      "global_code": "WV66+JQ",
+                      "location_name": "Colombo",
+                      "latitude": 6.9115625,
+                      "longitude": 79.8619375
+                    },
+                    {
+                      "combined_code": "WV65+MH Colombo",
+                      "global_code": "WV65+MH",
+                      "location_name": "Colombo",
+                      "latitude": 6.9116875,
+                      "longitude": 79.8589375
+                    },
+                    {
+                      "combined_code": "WV52+XW Colombo",
+                      "global_code": "WV52+XW",
+                      "location_name": "Colombo",
+                      "latitude": 6.9099375,
+                      "longitude": 79.8523125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "177/3",
+                  "start": "Kollupitiya",
+                  "end": "Kuruwita",
+                  "intermediate_locations": [
+                    "Kollupitiya",
+                    "Borella",
+                    "Rajagiriya",
+                    "Battaramulla",
+                    "Malabe",
+                    "Kaduwela",
+                    "Kuruwita"
+                  ],
+                  "last_updated": "2025-12-26T05:15:29.633208",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWR6X+CM Kollupitiya",
+                      "global_code": "6JRXWR6X+CM",
+                      "location_name": "Kollupitiya",
+                      "latitude": 6.9110625,
+                      "longitude": 79.8491875
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6JRXWX34+82 Malabe",
+                      "global_code": "6JRXWX34+82",
+                      "location_name": "Malabe",
+                      "latitude": 6.903312499999999,
+                      "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "6JRXWXPM+H7 Kaduwela",
+                      "global_code": "6JRXWXPM+H7",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9364375,
+                      "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "6MR2Q9G8+8X Kuruwita",
+                      "global_code": "6MR2Q9G8+8X",
+                      "location_name": "Kuruwita",
+                      "latitude": 6.775812500000001,
+                      "longitude": 80.3674375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "178",
+                  "start": "Narahenpita",
+                  "end": "Mattakkuliya",
+                  "intermediate_locations": [
+                    "Narahenpita",
+                    "Borella",
+                    "Mattakkuliya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:30.801535",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVVRG+PR Narahenpita",
+                      "global_code": "6JRXVVRG+PR",
+                      "location_name": "Narahenpita",
+                      "latitude": 6.891812499999999,
+                      "longitude": 79.8770625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXXVFH+38 Mattakkuliya",
+                      "global_code": "6JRXXVFH+38",
+                      "location_name": "Mattakkuliya",
+                      "latitude": 6.972687499999999,
+                      "longitude": 79.87831249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "179",
+                  "start": "Bambalapitiya",
+                  "end": "Battaramulla",
+                  "intermediate_locations": [
+                    "Bambalapitiya",
+                    "Borella",
+                    "Battaramulla"
+                  ],
+                  "last_updated": "2025-12-26T05:15:31.656729",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVVV4+86 Bambalapitiya",
+                      "global_code": "6JRXVVV4+86",
+                      "location_name": "Bambalapitiya",
+                      "latitude": 6.8933125,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "180",
+                  "start": "Pettah",
+                  "end": "Nittambuwa",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Kelaniya",
+                    "Kiribathgoda",
+                    "Nittambuwa"
+                  ],
+                  "last_updated": "2025-12-26T05:15:33.552486",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXXW39+8M Kelaniya",
+                      "global_code": "6JRXXW39+8M",
+                      "location_name": "Kelaniya",
+                      "latitude": 6.9533125,
+                      "longitude": 79.91918749999999
+                    },
+                    {
+                      "combined_code": "6JRXXWHJ+M3 Kiribathgoda",
+                      "global_code": "6JRXXWHJ+M3",
+                      "location_name": "Kiribathgoda",
+                      "latitude": 6.9791875,
+                      "longitude": 79.9301875
+                    },
+                    {
+                      "combined_code": "6MV243RW+VC Nittambuwa",
+                      "global_code": "6MV243RW+VC",
+                      "location_name": "Nittambuwa",
+                      "latitude": 7.142187499999999,
+                      "longitude": 80.0960625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "184",
+                  "start": "Colombo",
+                  "end": "Ranpokunugama",
+                  "intermediate_locations": [
+                    "Colombo",
+                    "Ja-Ela",
+                    "Ranpokunugama"
+                  ],
+                  "last_updated": "2025-12-26T05:15:35.803182",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+X3 Colombo",
+                      "global_code": "6JRXWVM4+X3",
+                      "location_name": "Colombo",
+                      "latitude": 6.9349375,
+                      "longitude": 79.8551875
+                    },
+                    {
+                      "combined_code": "6JVX3VHR+85 Ja-Ela",
+                      "global_code": "6JVX3VHR+85",
+                      "location_name": "Ja-Ela",
+                      "latitude": 7.0783125,
+                      "longitude": 79.89043749999999
+                    },
+                    {
+                      "combined_code": "6MV244J4+49 Ranpokunugama",
+                      "global_code": "6MV244J4+49",
+                      "location_name": "Ranpokunugama",
+                      "latitude": 7.1303125,
+                      "longitude": 80.1059375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "186",
+                  "start": "Borella",
+                  "end": "Jayawadanagama",
+                  "intermediate_locations": [
+                    "Borella",
+                    "Rajagiriya",
+                    "Jayawadanagama"
+                  ],
+                  "last_updated": "2025-12-26T05:15:37.086738",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWV6V+2Q Rajagiriya",
+                      "global_code": "6JRXWV6V+2Q",
+                      "location_name": "Rajagiriya",
+                      "latitude": 6.9100625,
+                      "longitude": 79.8944375
+                    },
+                    {
+                      "combined_code": "6JRXVWQR+24 Jayawadanagama",
+                      "global_code": "6JRXVWQR+24",
+                      "location_name": "Jayawadanagama",
+                      "latitude": 6.8875625,
+                      "longitude": 79.94031249999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "187",
+                  "start": "Fort",
+                  "end": "Katunayake / Ja-Ela",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Pettah",
+                    "Wattala",
+                    "Ja-Ela",
+                    "Katunayake"
+                  ],
+                  "last_updated": "2025-12-26T05:15:39.803289",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXXVQV+M7 Wattala",
+                      "global_code": "6JRXXVQV+M7",
+                      "location_name": "Wattala",
+                      "latitude": 6.9891875,
+                      "longitude": 79.8931875
+                    },
+                    {
+                      "combined_code": "6JVX3VHR+85 Ja-Ela",
+                      "global_code": "6JVX3VHR+85",
+                      "location_name": "Ja-Ela",
+                      "latitude": 7.0783125,
+                      "longitude": 79.89043749999999
+                    },
+                    {
+                      "combined_code": "6JVX5V8M+7P Katunayake",
+                      "global_code": "6JVX5V8M+7P",
+                      "location_name": "Katunayake",
+                      "latitude": 7.1656875,
+                      "longitude": 79.8843125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "188",
+                  "start": "Pettah(SLTB) Fort(Private)",
+                  "end": "Raddolugama",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Wattala",
+                    "Ja-Ela",
+                    "Raddolugama"
+                  ],
+                  "last_updated": "2025-12-26T05:15:41.383234",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXXVQV+M7 Wattala",
+                      "global_code": "6JRXXVQV+M7",
+                      "location_name": "Wattala",
+                      "latitude": 6.9891875,
+                      "longitude": 79.8931875
+                    },
+                    {
+                      "combined_code": "6JVX3VHR+85 Ja-Ela",
+                      "global_code": "6JVX3VHR+85",
+                      "location_name": "Ja-Ela",
+                      "latitude": 7.0783125,
+                      "longitude": 79.89043749999999
+                    },
+                    {
+                      "combined_code": "6JVX4WQ2+F4 Raddolugama",
+                      "global_code": "6JVX4WQ2+F4",
+                      "location_name": "Raddolugama",
+                      "latitude": 7.1386875,
+                      "longitude": 79.90031250000001
+                    }
+                  ]
+                },
+                {
+                  "route_number": "190",
+                  "start": "Colombo",
+                  "end": "Meegoda",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Borella",
+                    "Battaramulla",
+                    "Malabe",
+                    "Godagama",
+                    "Meegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:43.698401",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    },
+                    {
+                      "combined_code": "6JRXWX34+82 Malabe",
+                      "global_code": "6JRXWX34+82",
+                      "location_name": "Malabe",
+                      "latitude": 6.903312499999999,
+                      "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "6MR2V22M+H4 Godagama",
+                      "global_code": "6MR2V22M+H4",
+                      "location_name": "Godagama",
+                      "latitude": 6.851437499999999,
+                      "longitude": 80.03281249999999
+                    },
+                    {
+                      "combined_code": "6MR2V22J+RX Meegoda",
+                      "global_code": "6MR2V22J+RX",
+                      "location_name": "Meegoda",
+                      "latitude": 6.8520625,
+                      "longitude": 80.0324375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "193",
+                  "start": "Town Hall",
+                  "end": "Kadawatha",
+                  "intermediate_locations": [
+                    "Town Hall",
+                    "Borella",
+                    "Kadawatha"
+                  ],
+                  "last_updated": "2025-12-26T05:15:45.259772",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWV87+P6 Town Hall",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JVX2X43+3V Kadawatha",
+                      "global_code": "6JVX2X43+3V",
+                      "location_name": "Kadawatha",
+                      "latitude": 7.0051875,
+                      "longitude": 79.95468749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "226",
+                  "start": "Pettah",
+                  "end": "Dekatana",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Biyagama",
+                    "Dekatana"
+                  ],
+                  "last_updated": "2025-12-26T05:15:46.682123",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWXPM+H7 Biyagama",
+                      "global_code": "6JRXWXPM+H7",
+                      "location_name": "Biyagama",
+                      "latitude": 6.9364375,
+                      "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "6MR2X29V+X4 Dekatana",
+                      "global_code": "6MR2X29V+X4",
+                      "location_name": "Dekatana",
+                      "latitude": 6.9699375,
+                      "longitude": 80.0428125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "343",
+                  "start": "Fort",
+                  "end": "Mawaramandiya",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Kaduwela",
+                    "Mawaramandiya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:47.904462",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWXPM+H7 Kaduwela",
+                      "global_code": "6JRXWXPM+H7",
+                      "location_name": "Kaduwela",
+                      "latitude": 6.9364375,
+                      "longitude": 79.9831875
+                    },
+                    {
+                      "combined_code": "6JRXXXPG+R7 Mawaramandiya",
+                      "global_code": "6JRXXXPG+R7",
+                      "location_name": "Mawaramandiya",
+                      "latitude": 6.9870625,
+                      "longitude": 79.97568749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "356",
+                  "start": "Fort",
+                  "end": "Karabugas Handiya",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Kelaniya",
+                    "Karabugas Handiya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:49.130629",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXXW39+8M Kelaniya",
+                      "global_code": "6JRXXW39+8M",
+                      "location_name": "Kelaniya",
+                      "latitude": 6.9533125,
+                      "longitude": 79.91918749999999
+                    },
+                    {
+                      "combined_code": "6MR2X258+8H Karabugas Handiya",
+                      "error": "Geocoding failed"
+                    }
+                  ]
+                },
+                {
+                  "route_number": "435",
+                  "start": "Colombo",
+                  "end": "Pelawatta",
+                  "intermediate_locations": [
+                    "Colombo",
+                    "Pelawatta"
+                  ],
+                  "last_updated": "2025-12-26T05:15:49.704314",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+X3 Colombo",
+                      "global_code": "6JRXWVM4+X3",
+                      "location_name": "Colombo",
+                      "latitude": 6.9349375,
+                      "longitude": 79.8551875
+                    },
+                    {
+                      "combined_code": "6MR2C638+VQ Pelawatta",
+                      "global_code": "6MR2C638+VQ",
+                      "location_name": "Pelawatta",
+                      "latitude": 6.4046875,
+                      "longitude": 80.2169375
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Dehiwala",
+          "subsections": [
+            {
+              "name": "Dehiwala",
+              "routes": [
+                {
+                  "route_number": "118/156",
+                  "start": "Dehiwala",
+                  "end": "Beddagana",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Karagampitiya",
+                    "Nugegoda",
+                    "Beddagana"
+                  ],
+                  "last_updated": "2025-12-26T05:15:51.464991",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVV2C+5F Karagampitiya",
+                      "global_code": "6JRXVV2C+5F",
+                      "location_name": "Karagampitiya",
+                      "latitude": 6.8504375,
+                      "longitude": 79.87118749999999
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVWM5+V3 Beddagana",
+                      "error": "Geocoding failed"
+                    }
+                  ]
+                },
+                {
+                  "route_number": "119",
+                  "start": "Dehiwala",
+                  "end": "Maharagama",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Nugegoda",
+                    "Maharagama"
+                  ],
+                  "last_updated": "2025-12-26T05:15:52.622114",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "132",
+                  "start": "Karagampitiya",
+                  "end": "Mawaramandiya",
+                  "intermediate_locations": [
+                    "Karagampitiya",
+                    "Dehiwala",
+                    "Nugegoda",
+                    "Mawaramandiya"
+                  ],
+                  "last_updated": "2025-12-26T05:15:53.740360",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV2C+5F Karagampitiya",
+                      "global_code": "6JRXVV2C+5F",
+                      "location_name": "Karagampitiya",
+                      "latitude": 6.8504375,
+                      "longitude": 79.87118749999999
+                    },
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXXXPG+R7 Mawaramandiya",
+                      "global_code": "6JRXXXPG+R7",
+                      "location_name": "Mawaramandiya",
+                      "latitude": 6.9870625,
+                      "longitude": 79.97568749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "139/1",
+                  "start": "Kalubowila Hospital",
+                  "end": "Piliyandala",
+                  "intermediate_locations": [
+                    "Kalubowila",
+                    "Kohuwala",
+                    "Piliyandala"
+                  ],
+                  "last_updated": "2025-12-26T05:15:55.369834",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV8G+MF Kalubowila",
+                      "global_code": "6JRXVV8G+MF",
+                      "location_name": "Kalubowila",
+                      "latitude": 6.866687499999999,
+                      "longitude": 79.8761875
+                    },
+                    {
+                      "combined_code": "6JRXVV9M+98 Kohuwala",
+                      "global_code": "6JRXVV9M+98",
+                      "location_name": "Kohuwala",
+                      "latitude": 6.8684375,
+                      "longitude": 79.8833125
+                    },
+                    {
+                      "combined_code": "6JRXRW2F+C9 Piliyandala",
+                      "global_code": "6JRXRW2F+C9",
+                      "location_name": "Piliyandala",
+                      "latitude": 6.8010625,
+                      "longitude": 79.92343749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "147",
+                  "start": "Mt. Lavinia",
+                  "end": "Bakery Junction",
+                  "intermediate_locations": [
+                    "Mt. Lavinia",
+                    "Ratmalana",
+                    "Bakery Junction"
+                  ],
+                  "last_updated": "2025-12-26T05:15:57.148762",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXRVM8+5W Mt. Lavinia",
+                      "global_code": "6JRXRVM8+5W",
+                      "location_name": "Mt. Lavinia",
+                      "latitude": 6.8329375,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "6JRXRVG9+V6 Ratmalana",
+                      "global_code": "6JRXRVG9+V6",
+                      "location_name": "Ratmalana",
+                      "latitude": 6.8271875,
+                      "longitude": 79.8680625
+                    },
+                    {
+                      "combined_code": "6JRXWWGP+F9 Bakery Junction",
+                      "global_code": "6JRXWWGP+F9",
+                      "location_name": "Bakery Junction",
+                      "latitude": 8.5018028,
+                      "longitude": 76.9550342
+                    }
+                  ]
+                },
+                {
+                  "route_number": "156",
+                  "start": "Dehiwala",
+                  "end": "Nugegoda",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:15:57.718884",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "163",
+                  "start": "Dehiwala",
+                  "end": "Battaramulla",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Nugegoda",
+                    "Battaramulla"
+                  ],
+                  "last_updated": "2025-12-26T05:15:58.577259",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "167",
+                  "start": "Dehiwala",
+                  "end": "Thotalanga",
+                  "intermediate_locations": [
+                    "Thotalanga",
+                    "Borella",
+                    "Dehiwala"
+                  ],
+                  "last_updated": "2025-12-26T05:15:59.427368",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXV5G+89 Thotalanga",
+                      "error": "Geocoding failed"
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "198",
+                  "start": "Mt. Lavinia",
+                  "end": "Battaramulla",
+                  "intermediate_locations": [
+                    "Mt. Lavinia",
+                    "Nugegoda",
+                    "Battaramulla"
+                  ],
+                  "last_updated": "2025-12-26T05:16:00.277290",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXRVM8+5W Mt. Lavinia",
+                      "global_code": "6JRXRVM8+5W",
+                      "location_name": "Mt. Lavinia",
+                      "latitude": 6.8329375,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXWW28+QX Battaramulla",
+                      "global_code": "6JRXWW28+QX",
+                      "location_name": "Battaramulla",
+                      "latitude": 6.9019375,
+                      "longitude": 79.91743749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "255",
+                  "start": "Mt. Lavinia",
+                  "end": "Kottawa",
+                  "intermediate_locations": [
+                    "Mt. Lavinia",
+                    "Kottawa"
+                  ],
+                  "last_updated": "2025-12-26T05:16:01.057953",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXRVM8+5W Mt. Lavinia",
+                      "global_code": "6JRXRVM8+5W",
+                      "location_name": "Mt. Lavinia",
+                      "latitude": 6.8329375,
+                      "longitude": 79.8673125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "313",
+                  "start": "Kalubowila",
+                  "end": "Homagama",
+                  "intermediate_locations": [
+                    "Kalubowila",
+                    "Nugegoda",
+                    "Borella",
+                    "Homagama"
+                  ],
+                  "last_updated": "2025-12-26T05:16:02.478346",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV8G+MF Kalubowila",
+                      "global_code": "6JRXVV8G+MF",
+                      "location_name": "Kalubowila",
+                      "latitude": 6.866687499999999,
+                      "longitude": 79.8761875
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6MR2R2R2+GR Homagama",
+                      "global_code": "6MR2R2R2+GR",
+                      "location_name": "Homagama",
+                      "latitude": 6.8413125,
+                      "longitude": 80.0020625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "981",
+                  "start": "Dehiwala",
+                  "end": "Attidiya",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Attidiya"
+                  ],
+                  "last_updated": "2025-12-26T05:16:03.432944",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXRVQM+VW Attidiya",
+                      "global_code": "6JRXRVQM+VW",
+                      "location_name": "Attidiya",
+                      "latitude": 6.839687499999999,
+                      "longitude": 79.8848125
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Nugegoda",
+          "subsections": [
+            {
+              "name": "Nugegoda",
+              "routes": [
+                {
+                  "route_number": "113",
+                  "start": "Udahamulla / Jubilee Post",
+                  "end": "Fort",
+                  "intermediate_locations": [
+                    "Fort",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Udahamulla"
+                  ],
+                  "last_updated": "2025-12-26T05:16:05.551832",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Fort",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Fort",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW86+2Q Udahamulla",
+                      "global_code": "6JRXVW86+2Q",
+                      "location_name": "Udahamulla",
+                      "latitude": 6.8650625,
+                      "longitude": 79.9119375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "114",
+                  "start": "Pitakotte",
+                  "end": "Pettah",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Bambalapitiya",
+                    "Nugegoda",
+                    "Pitakotte"
+                  ],
+                  "last_updated": "2025-12-26T05:16:07.309360",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVV4+86 Bambalapitiya",
+                      "global_code": "6JRXVVV4+86",
+                      "location_name": "Bambalapitiya",
+                      "latitude": 6.8933125,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVWP2+3Q Pitakotte",
+                      "global_code": "6JRXVWP2+3Q",
+                      "location_name": "Pitakotte",
+                      "latitude": 6.8851875,
+                      "longitude": 79.9019375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "115",
+                  "start": "Pitakotte / Nugegoda",
+                  "end": "Pettah",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Bambalapitiya",
+                    "Nugegoda",
+                    "Pitakotte"
+                  ],
+                  "last_updated": "2025-12-26T05:16:08.454980",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVV4+86 Bambalapitiya",
+                      "global_code": "6JRXVVV4+86",
+                      "location_name": "Bambalapitiya",
+                      "latitude": 6.8933125,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVWP2+3Q Pitakotte",
+                      "global_code": "6JRXVWP2+3Q",
+                      "location_name": "Pitakotte",
+                      "latitude": 6.8851875,
+                      "longitude": 79.9019375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "117",
+                  "start": "Nugegoda",
+                  "end": "Ratmalana",
+                  "intermediate_locations": [
+                    "Nugegoda",
+                    "Ratmalana"
+                  ],
+                  "last_updated": "2025-12-26T05:16:09.025373",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXRVG9+V6 Ratmalana",
+                      "global_code": "6JRXRVG9+V6",
+                      "location_name": "Ratmalana",
+                      "latitude": 6.8271875,
+                      "longitude": 79.8680625
+                    }
+                  ]
+                },
+                {
+                  "route_number": "119",
+                  "start": "Nugegoda",
+                  "end": "Maharagama",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Nugegoda",
+                    "Maharagama"
+                  ],
+                  "last_updated": "2025-12-26T05:16:09.886471",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "135",
+                  "start": "Kohuwala",
+                  "end": "Kelaniya",
+                  "intermediate_locations": [
+                    "Kelaniya",
+                    "Kiribathgoda",
+                    "Kohuwala"
+                  ],
+                  "last_updated": "2025-12-26T05:16:10.992060",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXW39+8M Kelaniya",
+                      "global_code": "6JRXXW39+8M",
+                      "location_name": "Kelaniya",
+                      "latitude": 6.9533125,
+                      "longitude": 79.91918749999999
+                    },
+                    {
+                      "combined_code": "6JRXXWHJ+M3 Kiribathgoda",
+                      "global_code": "6JRXXWHJ+M3",
+                      "location_name": "Kiribathgoda",
+                      "latitude": 6.9791875,
+                      "longitude": 79.9301875
+                    },
+                    {
+                      "combined_code": "6JRXVV9M+98 Kohuwala",
+                      "global_code": "6JRXVV9M+98",
+                      "location_name": "Kohuwala",
+                      "latitude": 6.8684375,
+                      "longitude": 79.8833125
+                    }
+                  ]
+                },
+                {
+                  "route_number": "156",
+                  "start": "Nugegoda",
+                  "end": "Dehiwala",
+                  "intermediate_locations": [
+                    "Dehiwala",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:16:11.565700",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVV28+5C Dehiwala",
+                      "global_code": "6JRXVV28+5C",
+                      "location_name": "Dehiwala",
+                      "latitude": 6.8504375,
+                      "longitude": 79.8660625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "168",
+                  "start": "Nugegoda",
+                  "end": "Kotahena",
+                  "intermediate_locations": [
+                    "Kotahena",
+                    "Borella",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:16:12.673323",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVX6+5F Kotahena",
+                      "global_code": "6JRXWVX6+5F",
+                      "location_name": "Kotahena",
+                      "latitude": 6.9479375,
+                      "longitude": 79.8611875
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "176",
+                  "start": "Nugegoda",
+                  "end": "Hettiyawaththa",
+                  "intermediate_locations": [
+                    "Hettiyawatta",
+                    "Borella",
+                    "Nugegoda",
+                    "Karagampitiya"
+                  ],
+                  "last_updated": "2025-12-26T05:16:13.820896",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXXV24+4R Hettiyawatta",
+                      "global_code": "6JRXXV24+4R",
+                      "location_name": "Hettiyawatta",
+                      "latitude": 6.9503125,
+                      "longitude": 79.8570625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVV2C+5F Karagampitiya",
+                      "global_code": "6JRXVV2C+5F",
+                      "location_name": "Karagampitiya",
+                      "latitude": 6.8504375,
+                      "longitude": 79.87118749999999
+                    }
+                  ]
+                },
+                {
+                  "route_number": "183",
+                  "start": "Panadura",
+                  "end": "Nugegoda",
+                  "intermediate_locations": [
+                    "Panadura",
+                    "Ratmalana",
+                    "Nugegoda"
+                  ],
+                  "last_updated": "2025-12-26T05:16:15.109603",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXPW65+M2 Panadura",
+                      "global_code": "6JRXPW65+M2",
+                      "location_name": "Panadura",
+                      "latitude": 6.7116875,
+                      "longitude": 79.9075625
+                    },
+                    {
+                      "combined_code": "6JRXRVG9+V6 Ratmalana",
+                      "global_code": "6JRXRVG9+V6",
+                      "location_name": "Ratmalana",
+                      "latitude": 6.8271875,
+                      "longitude": 79.8680625
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    }
+                  ]
+                },
+                {
+                  "route_number": "992",
+                  "start": "Nugegoda",
+                  "end": "Athurugiriya",
+                  "intermediate_locations": [
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Athurugiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:16:16.517158",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_name": "Athurugiriya",
+          "subsections": [
+            {
+              "name": "Athurugiriya",
+              "routes": [
+                {
+                  "route_number": "123",
+                  "start": "Maharagama",
+                  "end": "Athurugiriya - Old junction - Walgama - Rukmalgama - Kottawa - Pannipitiya -",
+                  "intermediate_locations": [
+                    "Maharagama",
+                    "Pannipitiya",
+                    "Kottawa",
+                    "Rukmalgama",
+                    "Athurugiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:16:18.290430",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRWWX+MV Pannipitiya",
+                      "global_code": "6JRXRWWX+MV",
+                      "location_name": "Pannipitiya",
+                      "latitude": 6.8466875,
+                      "longitude": 79.9496875
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXVX4P+R7 Rukmalgama",
+                      "global_code": "6JRXVX4P+R7",
+                      "location_name": "Rukmalgama",
+                      "latitude": 6.8570625,
+                      "longitude": 79.9856875
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    }
+                  ]
+                },
+                {
+                  "route_number": "138/4",
+                  "start": "Pettah",
+                  "end": "Athurugiriya - Old junction - Walgama - Rukmalgama - Kottawa - (then follows 138",
+                  "intermediate_locations": [
+                    "Pettah",
+                    "Maradana",
+                    "Borella",
+                    "Nugegoda",
+                    "Maharagama",
+                    "Kottawa",
+                    "Athurugiriya"
+                  ],
+                  "last_updated": "2025-12-26T05:16:20.296105",
+                  "bus_stops": [
+                    {
+                      "combined_code": "6JRXWVM4+F6 Pettah",
+                      "global_code": "6JRXWVM4+F6",
+                      "location_name": "Pettah",
+                      "latitude": 6.9336875,
+                      "longitude": 79.85556249999999
+                    },
+                    {
+                      "combined_code": "6JRXWVH7+V6 Maradana",
+                      "global_code": "6JRXWVH7+V6",
+                      "location_name": "Maradana",
+                      "latitude": 6.9296875,
+                      "longitude": 79.8630625
+                    },
+                    {
+                      "combined_code": "6JRXWV7H+X5 Borella",
+                      "global_code": "6JRXWV7H+X5",
+                      "location_name": "Borella",
+                      "latitude": 6.914937500000001,
+                      "longitude": 79.8779375
+                    },
+                    {
+                      "combined_code": "6JRXVVFR+3Q Nugegoda",
+                      "global_code": "6JRXVVFR+3Q",
+                      "location_name": "Nugegoda",
+                      "latitude": 6.8726875,
+                      "longitude": 79.8919375
+                    },
+                    {
+                      "combined_code": "6JRXVW28+MW Maharagama",
+                      "global_code": "6JRXVW28+MW",
+                      "location_name": "Maharagama",
+                      "latitude": 6.8516875,
+                      "longitude": 79.9173125
+                    },
+                    {
+                      "combined_code": "6JRXRXR7+GJ Kottawa",
+                      "global_code": "6JRXRXR7+GJ",
+                      "location_name": "Kottawa",
+                      "latitude": 6.8413125,
+                      "longitude": 79.9640625
+                    },
+                    {
+                      "combined_code": "6JRXVXGQ+XV Athurugiriya",
+                      "global_code": "6JRXVXGQ+XV",
+                      "location_name": "Athurugiriya",
+                      "latitude": 6.8774375,
+                      "longitude": 79.98968750000002
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

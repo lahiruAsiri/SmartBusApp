@@ -9,7 +9,10 @@ import {
   Switch,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
+import { STORAGE_KEYS } from '../../constants/config';
 
 export const SettingsScreen = ({ navigation }: any) => {
   const { theme, isDark, colors, setTheme, toggleTheme } = useTheme();
@@ -18,20 +21,20 @@ export const SettingsScreen = ({ navigation }: any) => {
     <TouchableOpacity
       style={[
         styles.themeOption,
-        { 
+        {
           backgroundColor: theme === value ? colors.primary + '20' : colors.card,
           borderColor: theme === value ? colors.primary : colors.border,
         }
       ]}
       onPress={() => setTheme(value)}
     >
-      <Ionicons 
-        name={icon as any} 
-        size={24} 
-        color={theme === value ? colors.primary : colors.textLight} 
+      <Ionicons
+        name={icon as any}
+        size={24}
+        color={theme === value ? colors.primary : colors.textLight}
       />
       <Text style={[
-        styles.themeOptionText, 
+        styles.themeOptionText,
         { color: theme === value ? colors.primary : colors.text }
       ]}>
         {label}
@@ -57,15 +60,15 @@ export const SettingsScreen = ({ navigation }: any) => {
         {/* Appearance Section */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textLight }]}>APPEARANCE</Text>
-          
+
           <View style={[styles.card, { backgroundColor: colors.card }]}>
             {/* Quick Toggle */}
             <View style={styles.settingRow}>
               <View style={styles.settingLeft}>
-                <Ionicons 
-                  name={isDark ? "moon" : "sunny"} 
-                  size={22} 
-                  color={colors.primary} 
+                <Ionicons
+                  name={isDark ? "moon" : "sunny"}
+                  size={22}
+                  color={colors.primary}
                 />
                 <Text style={[styles.settingLabel, { color: colors.text }]}>
                   Dark Mode
@@ -96,23 +99,23 @@ export const SettingsScreen = ({ navigation }: any) => {
         {/* Other Settings */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textLight }]}>NOTIFICATIONS</Text>
-          
+
           <View style={[styles.card, { backgroundColor: colors.card }]}>
-            <SettingToggle 
-              icon="notifications-outline" 
-              label="Push Notifications" 
+            <SettingToggle
+              icon="notifications-outline"
+              label="Push Notifications"
               colors={colors}
             />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <SettingToggle 
-              icon="bus-outline" 
-              label="Bus Arrival Alerts" 
+            <SettingToggle
+              icon="bus-outline"
+              label="Bus Arrival Alerts"
               colors={colors}
             />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <SettingToggle 
-              icon="alert-circle-outline" 
-              label="Crowded Bus Alerts" 
+            <SettingToggle
+              icon="alert-circle-outline"
+              label="Crowded Bus Alerts"
               colors={colors}
             />
           </View>
@@ -121,13 +124,45 @@ export const SettingsScreen = ({ navigation }: any) => {
         {/* About Section */}
         <View style={[styles.section, { marginBottom: 40 }]}>
           <Text style={[styles.sectionTitle, { color: colors.textLight }]}>ABOUT</Text>
-          
+
           <View style={[styles.card, { backgroundColor: colors.card }]}>
             <SettingRow icon="information-circle-outline" label="App Version" value="1.0.0" colors={colors} />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             <SettingRow icon="document-text-outline" label="Terms of Service" colors={colors} hasArrow />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             <SettingRow icon="shield-checkmark-outline" label="Privacy Policy" colors={colors} hasArrow />
+          </View>
+        </View>
+
+        {/* Development Section (Temporary) */}
+        <View style={[styles.section, { marginBottom: 40 }]}>
+          <Text style={[styles.sectionTitle, { color: colors.textLight }]}>DEVELOPMENT</Text>
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            <TouchableOpacity
+              style={styles.settingRow}
+              onPress={async () => {
+                Alert.alert(
+                  'Reset Onboarding',
+                  'Are you sure? This will reset the onboarding flag and you will see the intro screens again on next restart.',
+                  [
+                    { text: 'Cancel', style: 'cancel' },
+                    {
+                      text: 'Reset',
+                      style: 'destructive',
+                      onPress: async () => {
+                        await AsyncStorage.removeItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
+                        Alert.alert('Success', 'Onboarding reset. Please restart the app.');
+                      }
+                    }
+                  ]
+                );
+              }}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="code-slash-outline" size={22} color={colors.primary} />
+                <Text style={[styles.settingLabel, { color: colors.text }]}>Reset Onboarding</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
