@@ -1,3 +1,6 @@
+// src/screens/driver/DriverHomeScreen.tsx
+// FINAL VERSION — PERFORMANCE SUMMARY FROM dummyViolations.ts
+
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -15,7 +18,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
-import { ViolationHistory } from '../policeman/PolicemanHomeScreen';
+import { DummyDriverViolations } from '../../data/dummyViolations';  // YOUR DUMMY FILE
 
 export const DriverHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
@@ -29,12 +32,15 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   const [occupancy, setOccupancy] = useState<'Low' | 'Medium' | 'High'>('Low');
   const [pulseAnim] = useState(new Animated.Value(1));
 
-  // Performance Calculation
-  const myViolations = ViolationHistory.filter(v => v.busId === userData?.uid || v.busId === 'NA-1234');
-  const totalViolations = myViolations.length;
+  // PERFORMANCE FROM YOUR DUMMY DATA
+  const myViolations = DummyDriverViolations;
+  const totalViolations = myViolations.length;  // 5
   const totalTrips = 30;
-  const riskScore = totalViolations === 0 ? 0 : Math.min(100, Math.round((totalViolations / totalTrips) * 100));
-  const daysSafe = myViolations.length === 0 ? 30 : Math.floor((Date.now() - new Date(myViolations[0]?.timestamp || Date.now()).getTime()) / 86400000);
+  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));  // 17
+  const lastViolation = myViolations[0];
+  const daysSafe = lastViolation 
+    ? Math.floor((Date.now() - new Date(lastViolation.timestamp).getTime()) / (1000 * 60 * 60 * 24))
+    : 30;
 
   // Pulse Animation
   useEffect(() => {
@@ -85,7 +91,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-
+      
       {/* Header */}
       <View style={[styles.header, { backgroundColor: colors.card }]}>
         <View>
@@ -100,9 +106,9 @@ export const DriverHomeScreen = ({ navigation }: any) => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-
-        {/* Performance Summary Card */}
-        <TouchableOpacity
+        
+        {/* Performance Summary Card — USING YOUR DUMMY DATA */}
+        <TouchableOpacity 
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
         >
@@ -121,7 +127,38 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.statSmall}>Days Safe</Text>
             </View>
           </View>
-          <Text style={styles.viewAll}>Tap to view full history -&gt;</Text>
+          <Text style={styles.viewAll}>Tap to view full history →</Text>
+        </TouchableOpacity>
+
+        {/* Rewards Highlight Card */}
+        <TouchableOpacity 
+          style={[styles.rewardsCard, { backgroundColor: '#F59E0B' }]}
+          onPress={() => navigation.navigate('DriverRewards')}
+        >
+          <View style={styles.rewardsHeader}>
+            <View>
+              <Text style={styles.rewardsTitle}>🏆 Your Rewards</Text>
+              <Text style={styles.rewardsTier}>Gold Tier Driver</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={24} color="#FFF" />
+          </View>
+          <View style={styles.rewardsStats}>
+            <View style={styles.rewardStat}>
+              <Ionicons name="star" size={20} color="#FFF" />
+              <Text style={styles.rewardStatValue}>2,500</Text>
+              <Text style={styles.rewardStatLabel}>Points</Text>
+            </View>
+            <View style={styles.rewardStat}>
+              <Ionicons name="flame" size={20} color="#FFF" />
+              <Text style={styles.rewardStatValue}>15</Text>
+              <Text style={styles.rewardStatLabel}>Day Streak</Text>
+            </View>
+            <View style={styles.rewardStat}>
+              <Ionicons name="cash" size={20} color="#FFF" />
+              <Text style={styles.rewardStatValue}>LKR 3,000</Text>
+              <Text style={styles.rewardStatLabel}>This Month</Text>
+            </View>
+          </View>
         </TouchableOpacity>
 
         {/* Status Card */}
@@ -138,7 +175,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
             </View>
             <Switch value={isShiftActive} onValueChange={toggleShift} />
           </View>
-
+          
           {isShiftActive && (
             <View style={styles.broadcastingContainer}>
               <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]} />
@@ -207,7 +244,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <View style={[styles.card, { backgroundColor: colors.card, padding: 15 }]}>
                 <View style={styles.occupancyButtons}>
                   {(['Low', 'Medium', 'High'] as const).map(level => (
-                    <TouchableOpacity
+                    <TouchableOpacity 
                       key={level}
                       style={[styles.occButton, occupancy === level && { backgroundColor: getOccupancyColor(level), borderColor: getOccupancyColor(level) }]}
                       onPress={() => setOccupancy(level)}
@@ -302,4 +339,12 @@ const styles = StyleSheet.create({
   actionButton: { flex: 1, padding: 16, borderRadius: 16, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 8, elevation: 2 },
   actionIcon: { width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center', marginBottom: 8 },
   actionText: { fontSize: 12, fontWeight: '600', textAlign: 'center' },
+  rewardsCard: { borderRadius: 20, padding: 20, marginBottom: 24, elevation: 8, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 10 },
+  rewardsHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+  rewardsTitle: { fontSize: 20, fontWeight: 'bold', color: '#FFF' },
+  rewardsTier: { fontSize: 14, color: '#FFF', opacity: 0.9, marginTop: 4 },
+  rewardsStats: { flexDirection: 'row', justifyContent: 'space-between', gap: 10 },
+  rewardStat: { flex: 1, alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 12, padding: 12 },
+  rewardStatValue: { fontSize: 16, fontWeight: 'bold', color: '#FFF', marginTop: 6 },
+  rewardStatLabel: { fontSize: 10, color: '#FFF', opacity: 0.9, marginTop: 2 },
 });
