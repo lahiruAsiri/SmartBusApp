@@ -41,7 +41,7 @@ export const addViolation = (newViolation: any) => {
 };
 
 export const PolicemanHomeScreen = ({ navigation }: any) => {
-  const { colors } = useTheme();
+  const { colors, toggleTheme, isDark } = useTheme();
   const { userData, logout } = useAuth();
   
   // States
@@ -153,6 +153,19 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
             </Text>
           </View>
         </View>
+
+        {/* Theme Toggle Button */}
+        <TouchableOpacity 
+          style={styles.themeToggleBtn}
+          onPress={toggleTheme}
+          activeOpacity={0.7}
+        >
+          <Ionicons 
+            name={isDark ? "sunny" : "moon"} 
+            size={24} 
+            color="#FFF" 
+          />
+        </TouchableOpacity>
 
         <View style={styles.badgeContainer}>
           <View style={styles.policeBadge}>
@@ -271,6 +284,15 @@ const styles = StyleSheet.create({
   officerName: { fontSize: 22, fontWeight: 'bold', color: '#FFF' },
   dutyToggleContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 12, gap: 10 },
   dutyText: { fontSize: 13, fontWeight: '800' },
+  themeToggleBtn: { 
+    width: 44, 
+    height: 44, 
+    borderRadius: 22, 
+    backgroundColor: 'rgba(255,255,255,0.2)', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
   badgeContainer: { alignItems: 'center' },
   policeBadge: { width: 50, height: 50, borderRadius: 25, backgroundColor: 'rgba(255,255,255,0.2)', justifyContent: 'center', alignItems: 'center' },
   badgeText: { color: '#FFF', fontSize: 9, marginTop: 5, textAlign: 'center', fontWeight: 'bold' },
