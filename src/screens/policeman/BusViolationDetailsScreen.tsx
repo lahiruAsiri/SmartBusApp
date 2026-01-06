@@ -1,6 +1,4 @@
 // src/screens/policeman/BusViolationDetailsScreen.tsx
-// POLICE CAN SEE FULL BUS DETAILS + VIOLATION LOCATION
-
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,7 +6,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 
 export const BusViolationDetailsScreen = ({ route, navigation }: any) => {
   const { colors } = useTheme();
-  const { violation } = route.params; // Passed from PolicemanAlertsScreen
+  const { violation } = route.params;
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -21,7 +19,6 @@ export const BusViolationDetailsScreen = ({ route, navigation }: any) => {
       </View>
 
       <ScrollView style={styles.content}>
-        {/* Bus Info Card */}
         <View style={[styles.card, { backgroundColor: colors.card }]}>
           <Text style={styles.busId}>{violation.busId}</Text>
           <Text style={styles.route}>Route {violation.routeNumber}</Text>
@@ -38,23 +35,17 @@ export const BusViolationDetailsScreen = ({ route, navigation }: any) => {
 
           <View style={styles.locationRow}>
             <Ionicons name="location-sharp" size={20} color="#666" />
-            <Text style={styles.locationText}>
-              Violation Location:
-            </Text>
+            <Text style={styles.locationText}>Violation Location:</Text>
           </View>
-          <Text style={styles.coords}>
-            Lat: {violation.location.latitude.toFixed(6)}
-          </Text>
-          <Text style={styles.coords}>
-            Lng: {violation.location.longitude.toFixed(6)}
-          </Text>
+          {/* FIXED: Consistent use of latitude and longitude */}
+          <Text style={styles.coords}>Lat: {violation.location.latitude.toFixed(6)}</Text>
+          <Text style={styles.coords}>Lng: {violation.location.longitude.toFixed(6)}</Text>
 
           <Text style={styles.timestamp}>
-            Detected: {violation.timestamp.toLocaleString()}
+            Detected: {new Date(violation.timestamp).toLocaleString()}
           </Text>
         </View>
 
-        {/* Action Buttons */}
         <View style={styles.actions}>
           <TouchableOpacity
             style={[styles.actionBtn, { backgroundColor: colors.primary }]}
@@ -65,6 +56,14 @@ export const BusViolationDetailsScreen = ({ route, navigation }: any) => {
           >
             <Ionicons name="map" size={24} color="#FFF" />
             <Text style={styles.btnText}>View on Map</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[styles.actionBtn, { backgroundColor: '#0066CC' }]}
+            onPress={() => navigation.navigate('DriverProfileForPolice', { busId: violation.busId })}
+          >
+            <Ionicons name="person" size={24} color="#FFF" />
+            <Text style={styles.btnText}>View Driver Profile</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.actionBtn, { backgroundColor: '#FF3B30' }]}>

@@ -16,7 +16,7 @@ import { MAP_CONFIG, getInitialMapRegion } from '../../constants/config';
 import { subscribeToAllBuses, Bus } from '../../services/busService';
 import { useAuth } from '../../contexts/AuthContext';
 
-export const MapScreen = ({ navigation }: any) => {
+export const MapScreen = ({ navigation, route }: any) => {
   const { colors, isDark } = useTheme();
   const { userData } = useAuth();
   const mapRef = useRef<MapView>(null);
@@ -27,7 +27,9 @@ export const MapScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState(true);
   const [locationLoading, setLocationLoading] = useState(true);
 
-  // Load user location on mount
+  const violationLocation = route.params?.violationLocation;
+  const violationTitle = route.params?.title || 'Live Bus Tracking';
+
   useEffect(() => {
     const loadUserLocation = async () => {
       setLocationLoading(true);
@@ -36,14 +38,25 @@ export const MapScreen = ({ navigation }: any) => {
       setLocationLoading(false);
 
       // Animate map to user location
-      if (mapRef.current) {
+      if (mapRef.current && !violationLocation) {
         mapRef.current.animateToRegion(region, 1000);
       }
     };
     loadUserLocation();
   }, []);
 
-  // Subscribe to buses
+  useEffect(() => {
+    if (violationLocation && mapRef.current) {
+      const region = {
+        latitude: violationLocation.latitude,
+        longitude: violationLocation.longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      };
+      mapRef.current.animateToRegion(region, 1500);
+    }
+  }, [violationLocation]);
+
   useEffect(() => {
     if (!userData) return;
 
@@ -53,10 +66,8 @@ export const MapScreen = ({ navigation }: any) => {
         setLoading(false);
       },
       (error) => {
-        if (userData) {
-          console.error('Error loading buses:', error);
-          setLoading(false);
-        }
+        console.error('Error loading buses:', error);
+        setLoading(false);
       }
     );
 
@@ -127,21 +138,28 @@ export const MapScreen = ({ navigation }: any) => {
             </View>
           </Marker>
         ))}
-      </MapView>
 
+        {violationLocation && (
+          <Marker coordinate={violationLocation}>
+            <View style={styles.violationMarker}>
+              <Ionicons name="warning" size={32} color="#FFF" />
+            </View>
+            <Text style={styles.violationLabel}>Violation Location</Text>
+          </Marker>
+        )}
+      </MapView>
       {/* Header */}
       <View style={[styles.header, { backgroundColor: colors.card }]}>
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>
-          Live Bus Tracking
+          {violationTitle}
         </Text>
         <TouchableOpacity style={styles.filterBtn}>
           <Ionicons name="filter" size={22} color={colors.text} />
         </TouchableOpacity>
       </View>
-
       {/* Legend */}
       <View style={[styles.legend, { backgroundColor: colors.card }]}>
         <View style={styles.legendItem}>
@@ -183,7 +201,6 @@ export const MapScreen = ({ navigation }: any) => {
             {selectedBus && (
               <>
                 <View style={[styles.modalHandle, { backgroundColor: colors.border }]} />
-
                 <View style={styles.modalHeader}>
                   <View
                     style={[
@@ -263,198 +280,39 @@ export const MapScreen = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  header: {
-    position: 'absolute',
-    top: 50,
-    left: 16,
-    right: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 14,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 8,
-    zIndex: 10,
-  },
-  backBtn: {
-    padding: 4,
-  },
-  headerTitle: {
-    flex: 1,
-    fontSize: 17,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  filterBtn: {
-    padding: 4,
-  },
-  legend: {
-    position: 'absolute',
-    top: 120,
-    right: 16,
-    padding: 12,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 6,
-    zIndex: 10,
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  legendDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 8,
-  },
-  legendText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  locationBtn: {
-    position: 'absolute',
-    bottom: 30,
-    right: 16,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 8,
-    zIndex: 10,
-  },
-  marker: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 20,
-    borderWidth: 3,
-    borderColor: '#FFF',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  markerText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#FFF',
-    marginLeft: 4,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  modalOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalContent: {
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    padding: 20,
-    paddingBottom: 40,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 20,
-  },
-  modalHandle: {
-    width: 40,
-    height: 4,
-    borderRadius: 2,
-    alignSelf: 'center',
-    marginBottom: 20,
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalBadge: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalRouteNumber: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#FFF',
-  },
-  modalInfo: {
-    flex: 1,
-    marginLeft: 14,
-  },
-  modalDestination: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  modalFrom: {
-    fontSize: 14,
-    marginTop: 2,
-  },
-  modalStats: {
-    flexDirection: 'row',
-    borderRadius: 14,
-    padding: 16,
-    marginBottom: 20,
-  },
-  statItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 16,
-    fontWeight: '700',
-    marginTop: 6,
-  },
-  statLabel: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  statDivider: {
-    width: 1,
-    height: 40,
-  },
-  detailsBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 16,
-    borderRadius: 14,
-  },
+  container: { flex: 1 },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  loadingText: { marginTop: 16, fontSize: 16 },
+  map: { ...StyleSheet.absoluteFillObject },
+  header: { position: 'absolute', top: 50, left: 16, right: 16, flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.15, shadowRadius: 10, elevation: 8, zIndex: 10 },
+  backBtn: { padding: 4 },
+  headerTitle: { flex: 1, fontSize: 17, fontWeight: '700', textAlign: 'center' },
+  filterBtn: { padding: 4 },
+  legend: { position: 'absolute', top: 120, right: 16, padding: 12, borderRadius: 12, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.15, shadowRadius: 8, elevation: 6, zIndex: 10 },
+  legendItem: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
+  legendDot: { width: 12, height: 12, borderRadius: 6, marginRight: 8 },
+  legendText: { fontSize: 12, fontWeight: '500' },
+  locationBtn: { position: 'absolute', bottom: 30, right: 16, width: 50, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 8, zIndex: 10 },
+  marker: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20, borderWidth: 3, borderColor: '#FFF', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 5 },
+  markerText: { fontSize: 12, fontWeight: '700', color: '#FFF', marginLeft: 4 },
+  violationMarker: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#EF4444', alignItems: 'center', justifyContent: 'center', borderWidth: 4, borderColor: '#FFF', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.4, shadowRadius: 8, elevation: 12 },
+  violationLabel: { marginTop: 8, fontSize: 14, fontWeight: 'bold', color: '#EF4444', backgroundColor: '#FFF', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20 },
+  modalContainer: { flex: 1, justifyContent: 'flex-end' },
+  modalOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.5)' },
+  modalContent: { borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 20, paddingBottom: 40, shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.15, shadowRadius: 12, elevation: 20 },
+  modalHandle: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 20 },
+  modalHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
+  modalBadge: { width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
+  modalRouteNumber: { fontSize: 20, fontWeight: '800', color: '#FFF' },
+  modalInfo: { flex: 1, marginLeft: 14 },
+  modalDestination: { fontSize: 20, fontWeight: '700' },
+  modalFrom: { fontSize: 14, marginTop: 2 },
+  modalStats: { flexDirection: 'row', borderRadius: 14, padding: 16, marginBottom: 20 },
+  statItem: { flex: 1, alignItems: 'center' },
+  statValue: { fontSize: 16, fontWeight: '700', marginTop: 6 },
+  statLabel: { fontSize: 12, marginTop: 2 },
+  statDivider: { width: 1, height: 40 },
+  detailsBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 16, borderRadius: 14 },
   detailsBtnText: {
     fontSize: 16,
     fontWeight: '700',
