@@ -16,6 +16,7 @@ import { SettingsScreen } from '../screens/user/SettingsScreen';
 import { BusViolationDetailsScreen } from '@/screens/policeman/BusViolationDetailsScreen';
 import { DriverProfileScreen } from '@/screens/driver/DriverProfileScreen';
 import { DriverProfileForPoliceScreen } from '@/screens/policeman/DriverProfileForPoliceScreen';
+import { InvestigationNoteScreen } from '@/screens/policeman/InvestigationNoteScreen';
 import { DriverRewardsScreen } from '@/screens/driver/DriverRewardsScreen';
 import { DriverAchievementsScreen } from '@/screens/driver/DriverAchievementsScreen';
 import { DriverLeaderboardScreen } from '@/screens/driver/DriverLeaderboardScreen';
@@ -25,6 +26,7 @@ import { TripMapScreen } from '../screens/user/TripMapScreen';
 import { SavedAddressesScreen } from '../screens/user/SavedAddressesScreen';
 import { AddAddressMapScreen } from '../screens/user/AddAddressMapScreen';
 import { ChatScreen } from '../screens/user/ChatScreen';
+import { IoTMockScreen } from '../screens/user/IoTMockScreen';
 
 
 import { useAuth } from '../contexts/AuthContext';
@@ -65,6 +67,7 @@ export const AppNavigator = () => {
             <Stack.Screen name="PolicemanAlerts" component={PolicemanAlertsScreen} />
             <Stack.Screen name="BusViolationDetails" component={BusViolationDetailsScreen} />
             <Stack.Screen name="DriverProfileForPolice" component={DriverProfileForPoliceScreen} />
+            <Stack.Screen name="InvestigationNote" component={InvestigationNoteScreen} />
           </>
         ) : userData?.role === 'driver' ? (
           <>
@@ -86,6 +89,7 @@ export const AppNavigator = () => {
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="IoTMock" component={IoTMockScreen} />
           </>
         )}
       </Stack.Navigator>

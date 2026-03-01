@@ -26,6 +26,8 @@ export interface Bus {
   };
   lastUpdated: Date;
   isActive: boolean;
+  passengerCount?: number;
+  weather?: string;
 }
 
 // Calculate distance between two coordinates (Haversine formula)
@@ -87,6 +89,8 @@ export const subscribeToAllBuses = (
           location: data.location,
           lastUpdated: data.lastUpdated?.toDate() || new Date(),
           isActive: data.isActive,
+          passengerCount: data.passengerCount,
+          weather: data.weather,
         } as Bus;
       });
       callback(buses);
@@ -151,6 +155,8 @@ export const subscribeToBus = (
         location: data.location,
         lastUpdated: data.lastUpdated?.toDate() || new Date(),
         isActive: data.isActive,
+        passengerCount: data.passengerCount,
+        weather: data.weather,
       };
       callback(bus);
     } else {

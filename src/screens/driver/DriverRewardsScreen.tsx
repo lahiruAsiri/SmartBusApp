@@ -19,6 +19,8 @@ import {
   getDriverRewardData,
   getAvailableRewards,
   redeemReward,
+  predictDriverTier,
+  RLPrediction,
   DriverRewardData,
   RewardItem,
 } from '../../services/rewardService';
@@ -35,6 +37,7 @@ export const DriverRewardsScreen = ({ navigation }: any) => {
   const [driverData, setDriverData] = useState<DriverRewardData | null>(null);
   const [availableRewards, setAvailableRewards] = useState<RewardItem[]>([]);
   const [redeeming, setRedeeming] = useState<string | null>(null);
+  const [fuzzyResult, setFuzzyResult] = useState<RLPrediction | null>(null);
 
   useEffect(() => {
     loadData();
@@ -48,6 +51,15 @@ export const DriverRewardsScreen = ({ navigation }: any) => {
       ]);
       setDriverData(driver);
       setAvailableRewards(rewards);
+
+      // ── Call Fuzzy Logic Model ──────────────────────────────
+      const fuzzy = await predictDriverTier(
+        driver.totalViolations,   // violations count
+        driver.currentStreak,     // safe driving days streak
+        0                         // avg speed over (from IoT device — 0 until real data)
+      );
+      setFuzzyResult(fuzzy);
+
     } catch (error) {
       console.error('Error loading reward data:', error);
       Alert.alert('Error', 'Failed to load rewards data');
@@ -115,22 +127,37 @@ export const DriverRewardsScreen = ({ navigation }: any) => {
       </View>
 
       <View style={styles.content}>
-        {/* Current Tier Card */}
+        {/* Current Tier Card — powered by Fuzzy Logic Model */}
         <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <Text style={styles.sectionTitle}>Current Tier</Text>
-          <TierBadge tier={driverData.currentTier} size="large" />
+          <View style={styles.tierCardHeader}>
+            <Text style={styles.sectionTitle}>Current Tier</Text>
+            <View style={styles.modelBadge}>
+              <Ionicons name="hardware-chip" size={12} color="#8B5CF6" />
+              <Text style={styles.modelBadgeText}>RL Model</Text>
+            </View>
+          </View>
+          <TierBadge tier={fuzzyResult?.tier ?? driverData.currentTier} size="large" />
           
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{driverData.safetyScore}</Text>
+              <Text style={styles.statValue}>
+                {fuzzyResult?.safety_score ?? driverData.safetyScore}
+              </Text>
               <Text style={styles.statLabel}>Safety Score</Text>
             </View>
             <View style={styles.divider} />
             <View style={styles.statItem}>
               <Text style={[styles.statValue, { color: '#22C55E' }]}>
-                {formatCurrency(driverData.currentMonthBonus)}
+                {formatCurrency(fuzzyResult?.monthly_bonus ?? driverData.currentMonthBonus)}
               </Text>
               <Text style={styles.statLabel}>Monthly Bonus</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.statItem}>
+              <Text style={[styles.statValue, { color: '#8B5CF6' }]}>
+                +{fuzzyResult?.points_earned ?? 0}
+              </Text>
+              <Text style={styles.statLabel}>Points/Month</Text>
             </View>
           </View>
         </View>
@@ -395,5 +422,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     marginTop: 8,
+  },
+  tierCardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 0,
+  },
+  modelBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#F3E8FF',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  modelBadgeText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#8B5CF6',
   },
 });

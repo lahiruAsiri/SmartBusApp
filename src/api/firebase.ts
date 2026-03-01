@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
+import { getStorage } from 'firebase/storage';
 import { FIREBASE_CONFIG } from '../constants/config';
 
 // Initialize Firebase App
@@ -15,5 +16,8 @@ export const db = getFirestore(app);
 
 // Initialize Realtime Database
 export const database = getDatabase(app);
+
+// Initialize Cloud Storage
+export const storage = getStorage(app);
 
 export default app;
