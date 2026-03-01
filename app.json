@@ -28,6 +28,7 @@
       },
       "package": "com.yourcompany.smartbusapp",
       "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
