@@ -33,7 +33,14 @@ export const syncIoTDataToFirestore = () => {
     // The history object keys are auto-generated Push IDs, but Object.values maintains insertion order generally,
     // or we can sort them based on the timestamp string.
     const historyArray: any[] = Object.values(history);
-    historyArray.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+    
+    // safe string sorting instead of date math which breaks on the Hermes engine with "YYYY-MM-DD HH:mm:ss"
+    historyArray.sort((a, b) => {
+      const tsA = a.timestamp || "";
+      const tsB = b.timestamp || "";
+      return tsA.localeCompare(tsB);
+    });
+    
     const latestHistory = historyArray[historyArray.length - 1];
     const passengerCount = latestHistory?.count || 0;
 

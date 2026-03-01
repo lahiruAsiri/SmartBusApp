@@ -25,19 +25,19 @@ const onboardingData: OnboardingItem[] = [
     id: '1',
     title: 'Welcome to Smart Bus',
     description: 'Your intelligent transport companion for easy and efficient travel',
-    image: require('../../../assets/onboarding/welcome.png')
+    image: require('../../../assets/onboarding/welcome.jpg')
   },
   {
     id: '2',
     title: 'Find Your Routes',
     description: 'Get personalized route suggestions based on your destination',
-    image: require('../../../assets/onboarding/routes.png')
+    image: require('../../../assets/onboarding/routes.jpg')
   },
   {
     id: '3',
     title: 'Track Buses Live',
     description: 'See real-time bus locations and never miss your ride',
-    image: require('../../../assets/onboarding/tracking.png')
+    image: require('../../../assets/onboarding/tracking.jpg')
   },
 ];
 
