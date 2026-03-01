@@ -243,6 +243,19 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
               </View>
             </View>
           </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.toolItem} 
+            onPress={() => navigation.navigate('InvestigationNote')}
+          >
+            <View style={styles.toolLeft}>
+              <Ionicons name="document-text" size={28} color="#8B5CF6" />
+              <View>
+                <Text style={styles.toolTitle}>Investigation Note</Text>
+                <Text style={styles.toolDesc}>Log a physical fine ticket issued on-site</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Quick Actions */}
@@ -261,9 +274,12 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
               <Ionicons name="radio" size={28} color={colors.primary} />
               <Text style={styles.actionText}>Radio HQ</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionBtn} onPress={() => handleQuickAction('Report')}>
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => navigation.navigate('InvestigationNote')}
+            >
               <Ionicons name="document-text" size={28} color={colors.primary} />
-              <Text style={styles.actionText}>Daily Log</Text>
+              <Text style={styles.actionText}>Invest. Note</Text>
             </TouchableOpacity>
           </View>
         </View>

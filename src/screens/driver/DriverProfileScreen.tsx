@@ -92,16 +92,18 @@ export const DriverProfileScreen = ({ navigation }: any) => {
 
       <View style={styles.content}>
         {/* Profile Card */}
-        <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <View style={styles.avatar}><Text style={styles.avatarText}>R</Text></View>
-          <Text style={styles.driverName}>Ridma</Text>
+        <View style={[styles.card, styles.profileCard, { backgroundColor: colors.card }]}>
+          <View style={[styles.avatar, { borderColor: colors.card, backgroundColor: colors.primary }]}>
+            <Text style={styles.avatarText}>R</Text>
+          </View>
+          <Text style={[styles.driverName, { color: colors.text }]}>Ridma</Text>
           <Text style={styles.busId}>Bus ID: Bus_01</Text>
         </View>
 
         {/* Risk Score Card */}
         <View style={[styles.card, { backgroundColor: colors.card, alignItems: 'center' }]}>
-          <Text style={styles.sectionTitle}>Safety Risk Score</Text>
-          <View style={[styles.scoreCircle, { borderColor: getRiskColor() }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Safety Risk Score</Text>
+          <View style={[styles.scoreCircle, { borderColor: getRiskColor(), backgroundColor: `${getRiskColor()}15` }]}>
             <Text style={[styles.scoreValue, { color: getRiskColor() }]}>{riskScore}</Text>
           </View>
           <Text style={[styles.riskMessage, { color: getRiskColor() }]}>{getRiskMessage()}</Text>
@@ -115,8 +117,10 @@ export const DriverProfileScreen = ({ navigation }: any) => {
             { label: 'Harsh Brake', count: brakingCount, icon: 'remove-circle', color: '#8B5CF6' }
           ].map((item, i) => (
             <View key={i} style={[styles.countBox, { backgroundColor: colors.card }]}>
-              <Ionicons name={item.icon as any} size={24} color={item.color} />
-              <Text style={styles.countNumber}>{item.count}</Text>
+              <View style={[styles.iconContainer, { backgroundColor: `${item.color}15` }]}>
+                <Ionicons name={item.icon as any} size={24} color={item.color} />
+              </View>
+              <Text style={[styles.countNumber, { color: colors.text }]}>{item.count}</Text>
               <Text style={styles.countLabel}>{item.label}</Text>
             </View>
           ))}
@@ -124,23 +128,36 @@ export const DriverProfileScreen = ({ navigation }: any) => {
 
         {/* Date Selector */}
         <TouchableOpacity style={[styles.dateCard, { backgroundColor: colors.card }]} onPress={() => setShowPicker(true)}>
-          <Ionicons name="calendar" size={24} color={colors.primary} />
-          <Text style={styles.dateText}>{selectedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</Text>
-          <Ionicons name="chevron-down" size={20} color="#666" />
+          <View style={[styles.iconContainer, { backgroundColor: `${colors.primary}15`, marginRight: 15 }]}>
+            <Ionicons name="calendar" size={20} color={colors.primary} />
+          </View>
+          <Text style={[styles.dateText, { color: colors.text }]}>
+            {selectedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </Text>
+          <Ionicons name="chevron-down" size={20} color="#9ca3af" />
         </TouchableOpacity>
 
         {showPicker && <DateTimePicker value={selectedDate} mode="date" onChange={onDateChange} />}
 
         {/* Daily Log List */}
-        <View style={[styles.section, { backgroundColor: colors.card }]}>
-          <Text style={styles.sectionTitle}>Daily Log</Text>
+        <View style={[styles.card, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Daily Log</Text>
           {violationsOnDate.length === 0 ? (
             <Text style={styles.emptyText}>No violations on this date. Keep it up!</Text>
           ) : (
             violationsOnDate.map((v) => (
               <View key={v.id} style={styles.violationItem}>
-                <Text style={styles.violationTitle}>{getViolationTitle(v)}</Text>
-                <Text style={styles.violationTime}>{v.timestamp.toLocaleTimeString()}</Text>
+                <View style={styles.violationIconContainer}>
+                   <Ionicons 
+                      name={v.type === 'SPEEDING' ? 'speedometer' : v.type === 'HARSH_ACCEL' ? 'trending-up' : 'remove-circle'} 
+                      size={20} 
+                      color="#FF3B30" 
+                    />
+                </View>
+                <View style={styles.violationInfo}>
+                  <Text style={[styles.violationTitle, { color: colors.text }]}>{getViolationTitle(v)}</Text>
+                  <Text style={styles.violationTime}>{v.timestamp.toLocaleTimeString()}</Text>
+                </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Map', { violationLocation: { latitude: v.lat, longitude: v.lng }, title: v.type })}>
                   <Text style={{ color: colors.primary, marginTop: 4 }}>View on Map →</Text>
                 </TouchableOpacity>
@@ -150,8 +167,11 @@ export const DriverProfileScreen = ({ navigation }: any) => {
         </View>
 
         {/* Safety Tips Card */}
-        <View style={[styles.section, { backgroundColor: colors.card, marginTop: 20 }]}>
-          <Text style={styles.sectionTitle}>Safety Tips</Text>
+        <View style={[styles.card, { backgroundColor: colors.card }]}>
+          <View style={styles.tipsHeader}>
+            <Ionicons name="bulb" size={24} color="#F59E0B" />
+            <Text style={[styles.sectionTitle, { color: colors.text, marginBottom: 0, marginLeft: 8 }]}>Safety Tips</Text>
+          </View>
           <Text style={styles.tipText}>• Maintain a steady speed under 60km/h in urban areas.</Text>
           <Text style={styles.tipText}>• Avoid sudden lane changes to minimize harsh acceleration.</Text>
           <Text style={styles.tipText}>• Start braking early to prevent harsh braking alerts.</Text>
@@ -164,29 +184,33 @@ export const DriverProfileScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   loader: { flex: 1, justifyContent: 'center' },
-  header: { padding: 30, paddingTop: 50, alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
-  subtitle: { fontSize: 14, color: '#FFF', opacity: 0.8 },
-  content: { padding: 15 },
-  card: { padding: 20, borderRadius: 15, marginBottom: 15, elevation: 2 },
-  avatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: '#0066CC', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' },
-  avatarText: { fontSize: 24, color: '#FFF', fontWeight: 'bold' },
-  driverName: { fontSize: 20, fontWeight: 'bold', marginTop: 10, textAlign: 'center' },
-  busId: { fontSize: 14, color: '#666', textAlign: 'center' },
-  scoreCircle: { width: 100, height: 100, borderRadius: 50, borderWidth: 6, justifyContent: 'center', alignItems: 'center', marginVertical: 15 },
-  scoreValue: { fontSize: 32, fontWeight: 'bold' },
-  riskMessage: { fontSize: 16, fontWeight: 'bold' },
-  countsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
-  countBox: { flex: 1, alignItems: 'center', padding: 15, borderRadius: 12, marginHorizontal: 4, elevation: 2 },
-  countNumber: { fontSize: 20, fontWeight: 'bold', marginTop: 5 },
-  countLabel: { fontSize: 10, color: '#666', textAlign: 'center' },
-  dateCard: { flexDirection: 'row', alignItems: 'center', padding: 15, borderRadius: 12, marginBottom: 15 },
-  dateText: { fontSize: 16, fontWeight: '600', flex: 1, marginLeft: 10 },
-  section: { borderRadius: 15, padding: 20 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-  violationItem: { paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#EEE' },
-  violationTitle: { fontSize: 15, fontWeight: '600' },
-  violationTime: { fontSize: 12, color: '#64748b' },
-  emptyText: { textAlign: 'center', color: '#666', paddingVertical: 20 },
-  tipText: { fontSize: 14, color: '#444', marginVertical: 4, lineHeight: 20 }
+  header: { padding: 30, paddingTop: 60, paddingBottom: 60, alignItems: 'center', borderBottomLeftRadius: 30, borderBottomRightRadius: 30 },
+  title: { fontSize: 28, fontWeight: '800', color: '#FFF', letterSpacing: 0.5 },
+  subtitle: { fontSize: 14, color: '#FFF', opacity: 0.9, marginTop: 5, letterSpacing: 0.5 },
+  content: { padding: 20, paddingTop: 10 },
+  card: { padding: 24, borderRadius: 24, marginBottom: 20, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10 },
+  profileCard: { marginTop: -40, paddingTop: 50, alignItems: 'center' },
+  avatar: { width: 80, height: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', position: 'absolute', top: -40, borderWidth: 4 },
+  avatarText: { fontSize: 32, color: '#FFF', fontWeight: 'bold' },
+  driverName: { fontSize: 24, fontWeight: 'bold', marginTop: 5, textAlign: 'center' },
+  busId: { fontSize: 14, color: '#64748b', textAlign: 'center', marginTop: 4, fontWeight: '500' },
+  scoreCircle: { width: 120, height: 120, borderRadius: 60, borderWidth: 8, justifyContent: 'center', alignItems: 'center', marginVertical: 20 },
+  scoreValue: { fontSize: 38, fontWeight: '900' },
+  riskMessage: { fontSize: 18, fontWeight: '700' },
+  countsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
+  countBox: { flex: 1, alignItems: 'center', padding: 16, borderRadius: 20, marginHorizontal: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
+  iconContainer: { width: 44, height: 44, borderRadius: 22, justifyContent: 'center', alignItems: 'center', marginBottom: 8 },
+  countNumber: { fontSize: 22, fontWeight: '800', marginTop: 4 },
+  countLabel: { fontSize: 11, color: '#64748b', textAlign: 'center', marginTop: 2, fontWeight: '600' },
+  dateCard: { flexDirection: 'row', alignItems: 'center', padding: 16, borderRadius: 20, marginBottom: 20, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
+  dateText: { fontSize: 16, fontWeight: '700', flex: 1 },
+  sectionTitle: { fontSize: 18, fontWeight: '800', marginBottom: 15 },
+  violationItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
+  violationIconContainer: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#FEF2F2', justifyContent: 'center', alignItems: 'center', marginRight: 15 },
+  violationInfo: { flex: 1 },
+  violationTitle: { fontSize: 16, fontWeight: '700', marginBottom: 4 },
+  violationTime: { fontSize: 13, color: '#94a3b8', fontWeight: '500' },
+  emptyText: { textAlign: 'center', color: '#94a3b8', paddingVertical: 20, fontSize: 15, fontWeight: '500' },
+  tipsHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
+  tipText: { fontSize: 15, color: '#475569', marginVertical: 6, lineHeight: 22, fontWeight: '500' }
 });

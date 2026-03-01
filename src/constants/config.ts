@@ -15,6 +15,7 @@ export const FIREBASE_CONFIG = firebaseConfig as {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
+  databaseURL?: string;
 };
 
 // Default fallback location (Negombo, Sri Lanka)

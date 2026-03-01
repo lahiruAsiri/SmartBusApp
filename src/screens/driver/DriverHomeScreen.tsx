@@ -18,7 +18,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
-import { DummyDriverViolations } from '../../data/dummyViolations';  // YOUR DUMMY FILE
+import { getDriverRewardData, predictDriverTier, DriverRewardData, RLPrediction } from '../../services/rewardService';
 
 export const DriverHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
@@ -32,15 +32,39 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   const [occupancy, setOccupancy] = useState<'Low' | 'Medium' | 'High'>('Low');
   const [pulseAnim] = useState(new Animated.Value(1));
 
-  // PERFORMANCE FROM YOUR DUMMY DATA
-  const myViolations = DummyDriverViolations;
-  const totalViolations = myViolations.length;  // 5
-  const totalTrips = 30;
-  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));  // 17
-  const lastViolation = myViolations[0];
-  const daysSafe = lastViolation 
-    ? Math.floor((Date.now() - new Date(lastViolation.timestamp).getTime()) / (1000 * 60 * 60 * 24))
-    : 30;
+  // Live Data State
+  const [driverData, setDriverData] = useState<DriverRewardData | null>(null);
+  const [rlResult, setRlResult] = useState<RLPrediction | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch real data on mount
+  useEffect(() => {
+    const loadRealData = async () => {
+      try {
+        const data = await getDriverRewardData();
+        setDriverData(data);
+        
+        const prediction = await predictDriverTier(
+          data.totalViolations, 
+          data.currentStreak, 
+          0 // avg speed over placeholder
+        );
+        setRlResult(prediction);
+      } catch (error) {
+        console.error("Failed to load dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadRealData();
+  }, []);
+
+  // PERFORMANCE CALCULATIONS (from Live Data)
+  const totalViolations = driverData?.totalViolations ?? 0;
+  const totalTrips = 30; // Static baseline trips
+  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));
+  const daysSafe = driverData?.currentStreak ?? 0;
+  const currentTier = rlResult?.tier ?? 'Standard';
 
   // EARNINGS DATA (Dummy)
   const todayEarnings = 2450;
@@ -187,13 +211,15 @@ export const DriverHomeScreen = ({ navigation }: any) => {
 
         {/* Rewards Highlight Card */}
         <TouchableOpacity 
-          style={[styles.rewardsCard, { backgroundColor: '#F59E0B' }]}
+          style={[styles.rewardsCard, { backgroundColor: '#8B5CF6' }]}
           onPress={() => navigation.navigate('DriverRewards')}
         >
           <View style={styles.rewardsHeader}>
             <View>
               <Text style={styles.rewardsTitle}>🏆 Your Rewards</Text>
-              <Text style={styles.rewardsTier}>Gold Tier Driver</Text>
+              <Text style={styles.rewardsTier}>
+                {loading ? 'Loading...' : `${currentTier} Tier Driver`}
+              </Text>
             </View>
             <Ionicons name="chevron-forward" size={24} color="#FFF" />
           </View>

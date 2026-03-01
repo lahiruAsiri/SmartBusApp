@@ -45,8 +45,8 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
     return 'Crowded';
   };
 
-  const totalSeats = 45;
-  const occupied = Math.round((busData.occupancy / 100) * totalSeats);
+  const totalSeats = busData.totalSeats || 52;
+  const occupied = busData.passengerCount !== undefined ? busData.passengerCount : Math.round((busData.occupancy / 100) * totalSeats);
   const available = totalSeats - occupied;
 
   const handleRequestStop = async () => {
@@ -325,6 +325,20 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                 </Text>
                 <Text style={[styles.journeyValue, { color: colors.text }]}>
                   {busData.arrivalTime}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.journeyLine, { backgroundColor: colors.border }]} />
+            <View style={styles.journeyItem}>
+              <View style={[styles.journeyIconWrap, { backgroundColor: '#E0F2FE' }]}>
+                <Ionicons name="partly-sunny" size={20} color="#0EA5E9" />
+              </View>
+              <View style={styles.journeyInfo}>
+                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
+                  Current Weather
+                </Text>
+                <Text style={[styles.journeyValue, { color: colors.text }]}>
+                  {busData.weather || 'Fetching...'}
                 </Text>
               </View>
             </View>
