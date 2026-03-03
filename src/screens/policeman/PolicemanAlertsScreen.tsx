@@ -14,7 +14,7 @@ export const PolicemanAlertsScreen = ({ navigation }: any) => {
       routeNumber: ['138', '177', '100', '154'][Math.floor(Math.random() * 4)],
       speed: 62 + Math.floor(Math.random() * 28),
       location: { latitude: 6.9271 + (Math.random() - 0.5) * 0.1, longitude: 79.8612 + (Math.random() - 0.5) * 0.15 },
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
     };
     addViolation(newViolation);
     setViolations([...ViolationHistory]);

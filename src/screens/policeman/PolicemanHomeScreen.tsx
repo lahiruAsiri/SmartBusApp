@@ -29,7 +29,7 @@ Notifications.setNotificationHandler({
 
 // Shared Data Structure
 export let ViolationHistory = [
-  { id: '1', busId: 'NA-1234', routeNumber: '138', speed: 72, location: { latitude: 6.9271, longitude: 79.8612 }, timestamp: new Date() },
+  { id: '1', busId: 'NA-1234', routeNumber: '138', speed: 72, location: { latitude: 6.9271, longitude: 79.8612 }, timestamp: new Date().toISOString() },
 ];
 
 export const addViolation = (newViolation: any) => {
@@ -81,7 +81,7 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
           routeNumber: '138',
           speed: randomSpeed,
           location: { latitude: 6.9271, longitude: 79.8612 },
-          timestamp: new Date(),
+          timestamp: new Date().toISOString(),
         };
 
         addViolation(newEntry);
@@ -251,8 +251,21 @@ export const PolicemanHomeScreen = ({ navigation }: any) => {
             <View style={styles.toolLeft}>
               <Ionicons name="document-text" size={28} color="#8B5CF6" />
               <View>
-                <Text style={styles.toolTitle}>Investigation Note</Text>
+                <Text style={styles.toolTitle}>Submit New Note</Text>
                 <Text style={styles.toolDesc}>Log a physical fine ticket issued on-site</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.toolItem} 
+            onPress={() => navigation.navigate('MyInvestigationNotes')}
+          >
+            <View style={styles.toolLeft}>
+              <Ionicons name="folder-open" size={28} color="#0EA5E9" />
+              <View>
+                <Text style={styles.toolTitle}>My Notes Archive</Text>
+                <Text style={styles.toolDesc}>View investigation notes you've issued</Text>
               </View>
             </View>
           </TouchableOpacity>
