@@ -52,11 +52,11 @@ export const DriverRewardsScreen = ({ navigation }: any) => {
       setDriverData(driver);
       setAvailableRewards(rewards);
 
-      // ── Call Fuzzy Logic Model ──────────────────────────────
+      // ── Call RL Model with real raw violation counts ─────────────────────
       const fuzzy = await predictDriverTier(
-        driver.totalViolations,   // violations count
-        driver.currentStreak,     // safe driving days streak
-        0                         // avg speed over (from IoT device — 0 until real data)
+        driver.rawSpeeding   ?? 0,   // speeding events (each = 1 violation)
+        driver.rawHarshAccel ?? 0,   // harsh accel events (10 = 1 violation)
+        driver.rawSuddenBrake ?? 0   // sudden brake events (10 = 1 violation)
       );
       setFuzzyResult(fuzzy);
 
