@@ -45,9 +45,9 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         setDriverData(data);
         
         const prediction = await predictDriverTier(
-          data.totalViolations, 
-          data.currentStreak, 
-          0 // avg speed over placeholder
+          data.rawSpeeding    ?? 0,   // speeding events (each = 1 violation)
+          data.rawHarshAccel  ?? 0,   // harsh accel events (10 = 1 violation)
+          data.rawSuddenBrake ?? 0    // sudden brake events (10 = 1 violation)
         );
         setRlResult(prediction);
       } catch (error) {
@@ -61,10 +61,13 @@ export const DriverHomeScreen = ({ navigation }: any) => {
 
   // PERFORMANCE CALCULATIONS (from Live Data)
   const totalViolations = driverData?.totalViolations ?? 0;
-  const totalTrips = 30; // Static baseline trips
-  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));
   const daysSafe = driverData?.currentStreak ?? 0;
+  
+  // Real values from RL Model
+  const safetyScore = rlResult?.safety_score ?? Math.max(0, 100 - (totalViolations * 12));
   const currentTier = rlResult?.tier ?? 'Standard';
+  const pointsEarned = rlResult?.points_earned ?? driverData?.totalPoints ?? 0;
+  const monthlyBonus = rlResult?.monthly_bonus ?? driverData?.currentMonthBonus ?? 0;
 
   // EARNINGS DATA (Dummy)
   const todayEarnings = 2450;
@@ -179,7 +182,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         </View>
 
         
-        {/* Performance Summary Card — USING YOUR DUMMY DATA */}
+        {/* Performance Summary Card  */}
         <TouchableOpacity 
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
@@ -190,10 +193,10 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           </View>
           <View style={styles.perfContent}>
             <View style={styles.riskScoreContainer}>
-              <Text style={[styles.riskScore, { color: riskScore < 50 ? '#22C55E' : '#EF4444' }]}>
-                {riskScore}
+              <Text style={[styles.riskScore, { color: safetyScore >= 60 ? '#22C55E' : '#EF4444' }]}>
+                {safetyScore}
               </Text>
-              <Text style={styles.scoreLabel}>Risk Score</Text>
+              <Text style={styles.scoreLabel}>Safety Score</Text>
             </View>
             <View style={styles.perfDivider} />
             <View style={styles.perfStats}>
@@ -226,24 +229,24 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           <View style={styles.rewardsStats}>
             <View style={styles.rewardStat}>
               <Ionicons name="star" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>2,500</Text>
-              <Text style={styles.rewardStatLabel}>Points</Text>
+              <Text style={styles.rewardStatValue}>{pointsEarned}</Text>
+              <Text style={styles.rewardStatLabel}>Points Earned</Text>
             </View>
             <View style={styles.rewardStat}>
               <Ionicons name="flame" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>15</Text>
+              <Text style={styles.rewardStatValue}>{daysSafe}</Text>
               <Text style={styles.rewardStatLabel}>Day Streak</Text>
             </View>
             <View style={styles.rewardStat}>
               <Ionicons name="cash" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>LKR 3,000</Text>
+              <Text style={styles.rewardStatValue}>LKR {monthlyBonus.toLocaleString()}</Text>
               <Text style={styles.rewardStatLabel}>This Month</Text>
             </View>
           </View>
         </TouchableOpacity>
 
         {/* Daily Earnings Tracker */}
-        <View style={[styles.earningsCard, { backgroundColor: colors.card }]}>
+        {/* <View style={[styles.earningsCard, { backgroundColor: colors.card }]}>
           <View style={styles.earningsHeader}>
             <View>
               <Text style={[styles.earningsTitle, { color: colors.text }]}>💰 Today's Earnings</Text>
@@ -271,7 +274,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.earningStatLabel}>Avg/Trip</Text>
             </View>
           </View>
-        </View>
+        </View> */}
 
         {/* Emergency Contacts */}
         <View style={[styles.emergencyCard, { backgroundColor: '#EF444410' }]}>
