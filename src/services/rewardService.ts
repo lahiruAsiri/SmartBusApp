@@ -9,8 +9,7 @@ import { ref, get } from 'firebase/database';
 
 // ─── RL API Config ──────────────────────────────────────────────────────────
 // On physical device: change to your PC's local IP (run `ipconfig`)
-// e.g. 'http://192.168.1.10:5000'
-const RL_API_URL = 'http://192.168.43.194:5001';
+const RL_API_URL = 'http://10.66.50.148:5001';
 
 export interface RLPrediction {
   safety_score:  number;
@@ -22,43 +21,41 @@ export interface RLPrediction {
   q_values:      Record<string, number>;   // tier → raw Q-value
   state: {
     violation_bucket: number;
-    safe_day_bucket:  number;
-    speed_bucket:     number;
   };
 }
 
 // ─── Predict tier (inference) ──────────────────────────────────────────────
 export const predictDriverTier = async (
-  violations:    number,
-  safeDays:      number,
-  avgSpeedOver:  number,
+  speeding:    number,
+  harshAccel:  number,
+  suddenBrake: number,
 ): Promise<RLPrediction> => {
   try {
     const res = await fetch(`${RL_API_URL}/predict-tier`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ violations, safe_days: safeDays, avg_speed_over: avgSpeedOver }),
+      body:    JSON.stringify({ speeding, harsh_accel: harshAccel, sudden_brake: suddenBrake }),
     });
     if (!res.ok) throw new Error(`RL API error: ${res.status}`);
     return await res.json() as RLPrediction;
   } catch (err) {
     console.warn('⚠️ RL API unreachable. Using fallback scoring.', err);
-    return _fallbackScoring(violations, safeDays, avgSpeedOver);
+    return _fallbackScoring(speeding, harshAccel, suddenBrake);
   }
 };
 
 // ─── Learn from a real IoT session (updates Q-table on server) ────────────
 export const learnFromSession = async (
-  prev: { violations: number; safeDays: number; speedOver: number },
-  curr: { violations: number; safeDays: number; speedOver: number },
+  prev: { speeding: number; harshAccel: number; suddenBrake: number },
+  curr: { speeding: number; harshAccel: number; suddenBrake: number },
 ): Promise<void> => {
   try {
     await fetch(`${RL_API_URL}/learn`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        prev_violations: prev.violations, prev_safe_days: prev.safeDays, prev_speed_over: prev.speedOver,
-        curr_violations: curr.violations, curr_safe_days: curr.safeDays, curr_speed_over: curr.speedOver,
+        prev_speeding: prev.speeding, prev_harsh_accel: prev.harshAccel, prev_sudden_brake: prev.suddenBrake,
+        curr_speeding: curr.speeding, curr_harsh_accel: curr.harshAccel, curr_sudden_brake: curr.suddenBrake,
       }),
     });
   } catch (err) {
@@ -68,11 +65,12 @@ export const learnFromSession = async (
 
 // ─── Fallback rule-based scoring (when API is down) ───────────────────────
 const _fallbackScoring = (
-  violations: number, safeDays: number, avgSpeedOver: number,
+  speeding: number, harshAccel: number, suddenBrake: number,
 ): RLPrediction => {
-  const score = Math.max(0, Math.min(100,
-    100 - violations * 12 + safeDays * 0.5 - avgSpeedOver * 0.6
-  ));
+  // Same formula as Python model for consistency
+  const weighted = speeding + (harshAccel / 10.0) + (suddenBrake / 10.0);
+  const score = Math.max(0, Math.min(100, 100 - weighted * 5));
+
   let tier: TierType;
   let points_earned: number;
   let monthly_bonus: number;
@@ -86,7 +84,7 @@ const _fallbackScoring = (
     points_earned, monthly_bonus,
     confidence: { Platinum: 0, Gold: 0, Silver: 0, Bronze: 0, Standard: 0, [tier]: 1 },
     q_values:   { Platinum: 0, Gold: 0, Silver: 0, Bronze: 0, Standard: 0 },
-    state:      { violation_bucket: 0, safe_day_bucket: 0, speed_bucket: 0 },
+    state:      { violation_bucket: 0 },
   };
 };
 
@@ -127,6 +125,10 @@ export interface DriverRewardData {
   lastViolationDate: string | null;
   achievements: Achievement[];
   rewardHistory: RewardHistory[];
+  // Raw IoT violation counts (for RL model)
+  rawSpeeding:    number;
+  rawHarshAccel:  number;
+  rawSuddenBrake: number;
 }
 
 export interface RewardHistory {
@@ -270,7 +272,11 @@ export const DUMMY_DRIVER_DATA: DriverRewardData = {
       description: 'Monthly Performance Bonus - Gold Tier',
       amount: 3000
     }
-  ]
+  ],
+  // Raw IoT violation count defaults
+  rawSpeeding:    0,
+  rawHarshAccel:  0,
+  rawSuddenBrake: 0,
 };
 
 // Dummy leaderboard data
@@ -451,7 +457,7 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
     const busViolationsRef = ref(database, 'Bus_01/violations');
     const snapshot = await get(busViolationsRef);
     
-    let totalViolations = 0;
+    let rawSpeeding = 0, rawAccel = 0, rawBrake = 0;
     let lastViolationDate: Date | null = null;
 
     if (snapshot.exists()) {
@@ -460,8 +466,15 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
         ...data[key],
         timestamp: new Date(data[key].dateTime.replace(' ', 'T')),
       }));
-      
-      totalViolations = violationsList.length;
+
+      // Calculate categorized violations
+      Object.keys(data).forEach((key) => {
+        const v = data[key];
+        const type = String(v.type).toLowerCase();
+        if (type.includes("speed")) rawSpeeding++;
+        else if (type.includes("accel")) rawAccel++;
+        else if (type.includes("brake") || type.includes("sudden")) rawBrake++;
+      });
 
       if (violationsList.length > 0) {
         // Sort to find the most recent violation
@@ -469,6 +482,10 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
         lastViolationDate = violationsList[0].timestamp;
       }
     }
+
+    const accelViolations = Math.floor(rawAccel / 5);
+    const brakeViolations = Math.floor(rawBrake / 5);
+    const totalViolations = rawSpeeding + accelViolations + brakeViolations;
 
     // 2. Calculate current safe streak (days since last violation)
     let safeDays = 0;
@@ -480,12 +497,35 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
       safeDays = 30; // If no violations exist, assume 30 safe days initially
     }
 
-    // 3. Return combined data (real stats + dummy info footprint)
+    // 3. Query the RL model API to get real predictions (pass raw counts)
+    let currentTier: TierType = 'Standard';
+    let safetyScore = Math.max(0, 100 - (rawSpeeding + Math.floor(rawAccel / 10) + Math.floor(rawBrake / 10)) * 5);
+    let totalPoints = 0;
+    let currentMonthBonus = 0;
+
+    try {
+      const prediction = await predictDriverTier(rawSpeeding, rawAccel, rawBrake);
+      currentTier = prediction.tier;
+      safetyScore = prediction.safety_score;
+      totalPoints = prediction.points_earned !== undefined ? Number(prediction.points_earned) : 0;
+      currentMonthBonus = prediction.monthly_bonus !== undefined ? Number(prediction.monthly_bonus) : 0;
+    } catch (e) {
+      console.warn("Failed to retrieve true RL predictions", e);
+    }
+
+    // 4. Return combined data (real stats + RL predictions)
     return {
       ...DUMMY_DRIVER_DATA,
       totalViolations: totalViolations,
       currentStreak: safeDays,
       lastViolationDate: lastViolationDate ? lastViolationDate.toISOString() : null,
+      currentTier,
+      safetyScore,
+      totalPoints,
+      currentMonthBonus,
+      rawSpeeding,
+      rawHarshAccel: rawAccel,
+      rawSuddenBrake: rawBrake,
     };
 
   } catch (error) {
