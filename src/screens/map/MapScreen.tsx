@@ -29,10 +29,40 @@ export const MapScreen = ({ navigation, route }: any) => {
   const [loading, setLoading] = useState(true);
 
   const violationLocation = route.params?.violationLocation;
-  const violationTitle = route.params?.title || 'Live Bus Tracking';
+  const initialSelectedBus = route.params?.selectedBus;
+  const violationTitle = route.params?.title || (initialSelectedBus ? `Tracking ${initialSelectedBus.routeNumber}` : 'Live Bus Tracking');
 
   useEffect(() => {
-    if (activeLocation && !violationLocation) {
+    // Priority 1: Violation Location
+    if (violationLocation && mapRef.current) {
+      const region = {
+        latitude: violationLocation.latitude,
+        longitude: violationLocation.longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      };
+      setMapRegion(region);
+      mapRef.current.animateToRegion(region, 1500);
+      return;
+    }
+
+    // Priority 2: Specifically Selected Bus (e.g. from BusDetails)
+    if (initialSelectedBus && mapRef.current) {
+      const region = {
+        latitude: initialSelectedBus.location.latitude,
+        longitude: initialSelectedBus.location.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
+      setMapRegion(region);
+      setSelectedBus(initialSelectedBus);
+      setShowModal(true);
+      mapRef.current.animateToRegion(region, 1000);
+      return;
+    }
+
+    // Priority 3: User Location / Manual Override
+    if (activeLocation) {
       const region = {
         ...activeLocation,
         latitudeDelta: 0.05,
@@ -43,19 +73,7 @@ export const MapScreen = ({ navigation, route }: any) => {
         mapRef.current.animateToRegion(region, 1000);
       }
     }
-  }, [activeLocation, !!violationLocation]);
-
-  useEffect(() => {
-    if (violationLocation && mapRef.current) {
-      const region = {
-        latitude: violationLocation.latitude,
-        longitude: violationLocation.longitude,
-        latitudeDelta: 0.005,
-        longitudeDelta: 0.005,
-      };
-      mapRef.current.animateToRegion(region, 1500);
-    }
-  }, [violationLocation]);
+  }, [activeLocation, violationLocation, initialSelectedBus]);
 
   useEffect(() => {
     if (!userData) return;
