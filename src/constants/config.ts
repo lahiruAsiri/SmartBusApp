@@ -29,7 +29,7 @@ const DEFAULT_LOCATION = {
 export const getInitialMapRegion = async () => {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    
+
     if (status !== 'granted') {
       console.log('Location permission not granted, using default location');
       return DEFAULT_LOCATION;
@@ -58,21 +58,28 @@ export const getInitialMapRegion = async () => {
 export const MAP_CONFIG = {
   initialRegion: DEFAULT_LOCATION,
   defaultLocation: DEFAULT_LOCATION,
-  
+
   // OPTION 1: Carto CDN (Best for production - No restrictions)
   osmTileUrl: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
-  
+
   // OPTION 2: Alternative tile servers (uncomment to use)
   // osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',  // Original (blocked on some Android)
   // osmTileUrl: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',  // Humanitarian style
   // osmTileUrl: 'https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png',  // Wikimedia tiles
-  
+
   // Tile subdomains for load balancing
   tileSubdomains: ['a', 'b', 'c'],
-  
+
   // User agent for OSM compliance
   userAgent: 'SmartBusApp/1.0 (lahiru@example.com)',  // Replace with your email
 };
+
+// URL for the local Python ML Backend
+// Mobile devices cannot connect to 'localhost', they need the computer's local network IP.
+const hostUri = Constants.expoConfig?.hostUri;
+const localIp = hostUri ? hostUri.split(':')[0] : '192.168.43.158'; // Dynamically get IP or fallback to current IP
+
+export const ML_API_URL = `http://${localIp}:5001/api`;
 
 export const STORAGE_KEYS = {
   ONBOARDING_COMPLETED: '@onboarding_completed',
