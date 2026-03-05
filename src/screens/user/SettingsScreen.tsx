@@ -12,10 +12,12 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useLocation } from '../../contexts/LocationContext';
 import { STORAGE_KEYS } from '../../constants/config';
 
 export const SettingsScreen = ({ navigation }: any) => {
   const { theme, isDark, colors, setTheme, toggleTheme } = useTheme();
+  const { isManualMode, setIsManualMode, refreshGPS, manualLocation } = useLocation();
 
   const ThemeOption = ({ label, value, icon }: { label: string; value: 'light' | 'dark' | 'system'; icon: string }) => (
     <TouchableOpacity
@@ -94,6 +96,69 @@ export const SettingsScreen = ({ navigation }: any) => {
               <ThemeOption label="System" value="system" icon="phone-portrait-outline" />
             </View>
           </View>
+        </View>
+
+        {/* Location Section */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: colors.textLight }]}>LOCATION</Text>
+
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            <View style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                <Ionicons
+                  name="navigate-outline"
+                  size={22}
+                  color={colors.primary}
+                />
+                <Text style={[styles.settingLabel, { color: colors.text }]}>
+                  Manual Location Mode
+                </Text>
+              </View>
+              <Switch
+                value={isManualMode}
+                onValueChange={setIsManualMode}
+                trackColor={{ false: colors.border, true: colors.primary + '50' }}
+                thumbColor={isManualMode ? colors.primary : '#f4f3f4'}
+              />
+            </View>
+
+            <View style={[styles.divider, { backgroundColor: colors.border }]} />
+
+            <TouchableOpacity
+              style={styles.settingRow}
+              onPress={() => navigation.navigate('LocationPicker')}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="map-outline" size={22} color={colors.primary} />
+                <Text style={[styles.settingLabel, { color: colors.text }]}>Pick Location on Map</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
+            </TouchableOpacity>
+
+            {isManualMode && (
+              <>
+                <View style={[styles.divider, { backgroundColor: colors.border }]} />
+                <TouchableOpacity
+                  style={styles.settingRow}
+                  onPress={async () => {
+                    await setIsManualMode(false);
+                    await refreshGPS();
+                    Alert.alert('Success', 'Location reset to phone GPS.');
+                  }}
+                >
+                  <View style={styles.settingLeft}>
+                    <Ionicons name="refresh-outline" size={22} color="#EF4444" />
+                    <Text style={[styles.settingLabel, { color: '#EF4444' }]}>Reset to My Location</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+          <Text style={[styles.subLabel, { color: colors.textLight, marginTop: 8 }]}>
+            {isManualMode
+              ? "App is using your custom selected location."
+              : "App is using your phone's real-time GPS location."}
+          </Text>
         </View>
 
         {/* Other Settings */}
