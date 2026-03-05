@@ -679,16 +679,6 @@ export const UserHomeScreen = ({ navigation }: any) => {
             }}
           />
 
-          {/* TEMPORARY IoT TEST SCREEN */}
-          <MenuItem
-            icon="hardware-chip-outline"
-            label="[Temp] IoT Simulator"
-            colors={colors}
-            onPress={() => {
-              toggleSidebar();
-              navigation.navigate('IoTMock');
-            }}
-          />
 
           <View style={[styles.menuDivider, { backgroundColor: colors.border }]} />
 
