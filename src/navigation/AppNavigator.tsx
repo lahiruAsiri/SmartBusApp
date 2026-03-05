@@ -26,7 +26,6 @@ import { TripMapScreen } from '../screens/user/TripMapScreen';
 import { SavedAddressesScreen } from '../screens/user/SavedAddressesScreen';
 import { AddAddressMapScreen } from '../screens/user/AddAddressMapScreen';
 import { ChatScreen } from '../screens/user/ChatScreen';
-import { IoTMockScreen } from '../screens/user/IoTMockScreen';
 
 
 import { useAuth } from '../contexts/AuthContext';
@@ -89,7 +88,6 @@ export const AppNavigator = () => {
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
-            <Stack.Screen name="IoTMock" component={IoTMockScreen} />
           </>
         )}
       </Stack.Navigator>
