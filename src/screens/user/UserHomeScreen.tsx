@@ -1,8 +1,3 @@
-// ============================================
-// COMPLETE USER HOME SCREEN WITH DARK MODE
-// ============================================
-
-// File: src/screens/user/UserHomeScreen.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
@@ -22,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { getInitialMapRegion, MAP_CONFIG } from '../../constants/config';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useLocation } from '../../contexts/LocationContext';
 import { Alert } from 'react-native';
 import { subscribeToAllBuses, getNearbyBuses, Bus } from '../../services/busService';
 import { getCurrentLocation, UserLocation } from '../../services/locationService';
@@ -34,13 +30,12 @@ const { width } = Dimensions.get('window');
 export const UserHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
   const { isDark, colors, toggleTheme } = useTheme();
+  const { location: userLocation, loading: locationLoading } = useLocation();
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const sidebarAnim = useRef(new Animated.Value(-width * 0.8)).current;
   const overlayAnim = useRef(new Animated.Value(0)).current;
   const [buses, setBuses] = useState<Bus[]>([]);
   const [nearbyBuses, setNearbyBuses] = useState<Bus[]>([]);
-  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
-  const [loading, setLoading] = useState(true);
   const [miniMapRegion, setMiniMapRegion] = useState(MAP_CONFIG.initialRegion);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Bus[]>([]);
@@ -59,24 +54,8 @@ export const UserHomeScreen = ({ navigation }: any) => {
   }, [userData]);
 
 
-  // Fetch user location on mount
-  useEffect(() => {
-    const fetchLocation = async () => {
-      const location = await getCurrentLocation();
-      if (location) {
-        setUserLocation(location);
-      } else {
-        Alert.alert(
-          'Location Required',
-          'Please enable location services to see nearby buses.',
-          [{ text: 'OK' }]
-        );
-        // Use default location (Negombo)
-        setUserLocation({ latitude: 7.2906, longitude: 79.8570 });
-      }
-    };
-    fetchLocation();
-  }, []);
+  // Local loading state for buses
+  const [loading, setLoading] = useState(true);
 
   // Subscribe to nearby buses based on user location
   useEffect(() => {
@@ -116,14 +95,16 @@ export const UserHomeScreen = ({ navigation }: any) => {
     return () => unsubscribe();
   }, [!!userData]);
 
-  // Load user location for mini map
+  // Sync mini-map region when location changes
   useEffect(() => {
-    const loadLocation = async () => {
-      const region = await getInitialMapRegion();
-      setMiniMapRegion(region);
-    };
-    loadLocation();
-  }, []);
+    if (userLocation) {
+      setMiniMapRegion({
+        ...userLocation,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      });
+    }
+  }, [userLocation]);
 
   const toggleSidebar = () => {
     const toValue = sidebarVisible ? -width * 0.8 : 0;
