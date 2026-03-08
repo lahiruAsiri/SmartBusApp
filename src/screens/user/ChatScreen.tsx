@@ -32,8 +32,8 @@ interface Message {
 }
 
 const SUGGESTIONS = [
-    "Predict ETA for 177",
-    "Will 177 be crowded tmrw 9am?",
+    "Predict ETA for 400/4",
+    "Will 400/4 be crowded tmrw 9am?",
     "Find bus to Malabe",
 ];
 
