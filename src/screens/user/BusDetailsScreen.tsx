@@ -41,6 +41,12 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   useEffect(() => {
     // Fetch AI predictions when screen mounts
     const fetchAIPredictions = async () => {
+      // Only fetch if it's the supported route
+      if (busData.routeNumber !== '400/4') {
+        setIsAiLoading(false);
+        return;
+      }
+
       try {
         setIsAiLoading(true);
         // 1. Fetch ETA Prediction
@@ -84,7 +90,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
     };
 
     fetchAIPredictions();
-  }, [busData.id]);
+  }, [busData.id, busData.routeNumber]);
 
   const getOccupancyColor = (occ: number) => {
     if (occ < 50) return '#22C55E';
@@ -203,7 +209,13 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
             shadowRadius: 8,
             elevation: 4
           }}>
-            {isAiLoading ? (
+            {busData.routeNumber !== '400/4' ? (
+              <View style={{ padding: 8 }}>
+                <Text style={{ color: colors.textLight, textAlign: 'center', fontSize: 13, lineHeight: 20 }}>
+                  Predictive ETAs and Crowd Forecasting are currently only available for route 400/4, as our internal Machine Learning models strictly rely on that specific route's IoT telemetry dataset for accurate forecasting.
+                </Text>
+              </View>
+            ) : isAiLoading ? (
               <Text style={{ color: colors.textLight, textAlign: 'center', marginVertical: 20 }}>Gathering AI Insights...</Text>
             ) : (
               <>
