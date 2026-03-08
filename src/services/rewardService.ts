@@ -7,9 +7,9 @@ import { TierType } from '../utils/rewardCalculations';
 import { database } from '../api/firebase';
 import { ref, get } from 'firebase/database';
 
-// ─── RL API Config ──────────────────────────────────────────────────────────
-// On physical device: change to your PC's local IP (run `ipconfig`)
-const RL_API_URL = 'http://10.66.50.148:5001';
+// On physical device: set EXPO_PUBLIC_RL_API_URL in your .env file to your ngrok URL
+// e.g. EXPO_PUBLIC_RL_API_URL=https://a1b2-xxxx.ngrok-free.app
+const RL_API_URL = process.env.EXPO_PUBLIC_RL_API_URL ?? 'http://localhost:5001';
 
 export interface RLPrediction {
   safety_score:  number;
