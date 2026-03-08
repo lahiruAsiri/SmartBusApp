@@ -1,10 +1,12 @@
+```python
 import time
 import re
 import pandas as pd
 import joblib
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil import parser as date_parser
 import subprocess
 import os
 
@@ -190,6 +192,38 @@ def predict_eta():
         })
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+
+def extract_time(text):
+    """
+    Attempts to extract a datetime object from natural language.
+    Returns (datetime_obj, is_custom)
+    """
+    now = datetime.now()
+    try:
+        # Basic relative keywords
+        test_text = text.lower()
+        base_date = now
+        
+        if 'tomorrow' in test_text:
+            base_date = now + timedelta(days=1)
+        elif 'day after tomorrow' in test_text:
+            base_date = now + timedelta(days=2)
+            
+        # Try to find a time pattern (e.g. 9am, 15:30)
+        # We use fuzzy parsing but keep the date from our base_date
+        parsed_dt = date_parser.parse(text, default=base_date, fuzzy=True)
+        
+        # If the parsed time is in the past and no relative keyword was used, 
+        # it might just be a time for today that already passed? 
+        # But usually users asking "9am" at 10am mean tomorrow.
+        if parsed_dt < now and 'tomorrow' not in test_text and 'day after' not in test_text:
+             # If it's a specific time today that already passed, default to tomorrow
+             if (now - parsed_dt).total_seconds() > 60: 
+                parsed_dt = parsed_dt + timedelta(days=1)
+                
+        return parsed_dt, True
+    except:
+        return now, False
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
