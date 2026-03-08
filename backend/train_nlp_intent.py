@@ -12,46 +12,17 @@ def ensure_model_dir():
     if not os.path.exists(MODEL_DIR):
         os.makedirs(MODEL_DIR)
 
-# Synthetic Training Data for Intents
-# In a real app, this would be a much larger dataset of user queries.
-TRAINING_DATA = [
-    # CROWD
-    ("Will the bus be crowded?", "predict_crowd"),
-    ("Is route 177 full right now?", "predict_crowd"),
-    ("How many people are on the bus?", "predict_crowd"),
-    ("Will 177 be crowded tmrw 9am?", "predict_crowd"),
-    ("Can I get a seat on the next bus?", "predict_crowd"),
-    ("Is it packed at 5pm?", "predict_crowd"),
-    ("What is the crowd level?", "predict_crowd"),
-    
-    # ETA / TIME
-    ("Predict ETA for 177", "predict_eta"),
-    ("When is the next bus arriving?", "predict_eta"),
-    ("How long until route 177 reaches me?", "predict_eta"),
-    ("Is the bus delayed?", "predict_eta"),
-    ("What time will the bus arrive at Malabe?", "predict_eta"),
-    ("Show me the ETA", "predict_eta"),
-    ("How many minutes left?", "predict_eta"),
-    
-    # ROUTE / FIND
-    ("Find bus to Malabe", "find_route"),
-    ("Which bus goes to Kaduwela?", "find_route"),
-    ("I need to go to Colombo", "find_route"),
-    ("How do I get to the hospital?", "find_route"),
-    ("Show me directions to Malabe", "find_route"),
-    
-    # GREETING / GENERAL
-    ("Hello", "greeting"),
-    ("Hi there", "greeting"),
-    ("Who are you?", "greeting"),
-    ("Help me", "greeting"),
-    ("Good morning", "greeting"),
-    ("Sup", "greeting")
-]
+DATASET_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'dataset', 'nlp_dataset.csv'))
 
 def train_nlp_model():
-    print("Training NLP Intent Classifier...")
-    df = pd.DataFrame(TRAINING_DATA, columns=['text', 'intent'])
+    print(f"Training NLP Intent Classifier from {DATASET_PATH}...")
+    
+    if not os.path.exists(DATASET_PATH):
+        print(f"ERROR: Dataset not found at {DATASET_PATH}")
+        return
+        
+    df = pd.read_csv(DATASET_PATH)
+    df = df.dropna() # Safety check for empty rows
     
     X = df['text']
     y = df['intent']
