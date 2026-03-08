@@ -8,6 +8,7 @@ import os
 DATA_FILE = 'data/eta_training_data.csv'
 MODEL_DIR = 'models'
 MODEL_PATH = os.path.join(MODEL_DIR, 'eta_xgboost_model.pkl')
+FEATURES_PATH = os.path.join(MODEL_DIR, 'eta_features.pkl')
 
 def ensure_model_dir():
     if not os.path.exists(MODEL_DIR):
@@ -25,35 +26,38 @@ def train_eta_model():
     df = df.dropna(subset=['delay_seconds', 'distance_meters', 'speed'])
 
     # Features (X)
-    # We use current state + context to predict the error (delay) of the generic physics formula
-    features = [
-        'lat', 'lng', 
+    raw_features = [
+        'route', 'lat', 'lng', 
         'speed', 
         'hour', 'day_of_week', 'is_weekend',
         'distance_meters', 'theoretical_time_seconds'
     ]
-    X = df[features]
+    X = df[raw_features]
     
     # Target (y) - The Delay (Residual)
     y = df['delay_seconds']
 
+    print("Encoding route feature...")
+    X = pd.get_dummies(X, columns=['route'], drop_first=False)
+    features_list = list(X.columns)
+
+    print("Splitting dataset into 80% Training and 20% Testing sets...")
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    print(f"Training XGBoost Regressor on {len(X_train)} distance/delay samples...")
+    print(f"Training XGBoost Regressor on {len(X_train)} training samples... (Testing on {len(X_test)} samples)")
     
-    # Initialize XGBoost Regressor
-    # Optimized for tabular data and small/medium datasets
     model = xgb.XGBRegressor(
         objective='reg:squarederror',
         n_estimators=150,
         learning_rate=0.1,
         max_depth=6,
-        random_state=42
+        random_state=42,
+        n_jobs=-1
     )
     
     model.fit(X_train, y_train)
 
-    print("Evaluating model...")
+    print("Evaluating model on 20% Testing set...")
     predictions = model.predict(X_test)
     mae = mean_absolute_error(y_test, predictions)
     r2 = r2_score(y_test, predictions)
@@ -64,9 +68,9 @@ def train_eta_model():
 
     ensure_model_dir()
     joblib.dump(model, MODEL_PATH)
-    # Also save feature names so API knows what to pass
-    joblib.dump(features, os.path.join(MODEL_DIR, 'eta_features.pkl'))
+    joblib.dump(features_list, FEATURES_PATH)
     print(f"Model saved successfully to {MODEL_PATH}")
+    print(f"Feature schema saved to {FEATURES_PATH}")
 
 if __name__ == "__main__":
     train_eta_model()
