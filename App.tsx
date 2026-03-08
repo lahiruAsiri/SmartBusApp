@@ -4,9 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/contexts/AuthContext';
 import { ThemeProvider } from './src/contexts/ThemeContext';
+import { LocationProvider } from './src/contexts/LocationContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
-import { registerForPushNotificationsAsync, setupGlobalNotificationListener } from './src/services/notificationService'; // Add this
-import { syncIoTDataToFirestore } from './src/services/dbSyncService';
+import { registerForPushNotificationsAsync, setupGlobalNotificationListener } from './src/services/notificationService';
+import { DataSyncManager } from './src/components/DataSyncManager';
 
 export default function App() {
   useEffect(() => {
@@ -14,23 +15,17 @@ export default function App() {
     registerForPushNotificationsAsync();
     // Setup global listeners (works on any screen)
     setupGlobalNotificationListener();
-
-    // Start Realtime Database -> Firestore + Weather Sync
-    const unsubscribeSync = syncIoTDataToFirestore();
-
-    return () => {
-      // Cleanup the realtime db listener when app unmounts
-      if (unsubscribeSync) {
-        unsubscribeSync();
-      }
-    };
   }, []);
 
   return (
     <SafeAreaProvider>
       <ThemeProvider>
         <AuthProvider>
-          <AppNavigator />
+          <LocationProvider>
+            <DataSyncManager>
+              <AppNavigator />
+            </DataSyncManager>
+          </LocationProvider>
           <StatusBar style="auto" />
         </AuthProvider>
       </ThemeProvider>

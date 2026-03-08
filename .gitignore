@@ -49,3 +49,9 @@ scripts/serviceAccountKey.json
 __pycache__/
 *.pyc
 *.pyo
+novelty_crowd_forecasting.md
+novelty_predictive_eta.md
+presentation_content copy.md
+presentation_content.md
+research_paper_novelty_components.md
+smartbus-23f62-default-rtdb-export.json

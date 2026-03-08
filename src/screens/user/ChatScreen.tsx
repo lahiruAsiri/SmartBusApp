@@ -16,7 +16,7 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { useTheme } from '../../contexts/ThemeContext';
-import { MAP_CONFIG } from '../../constants/config';
+import { MAP_CONFIG, ML_API_URL } from '../../constants/config';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
@@ -32,8 +32,8 @@ interface Message {
 }
 
 const SUGGESTIONS = [
-    "Predict ETA for 177",
-    "Will 177 be crowded tmrw 9am?",
+    "Predict ETA for 400/4",
+    "Will 400/4 be crowded tmrw 9am?",
     "Find bus to Malabe",
 ];
 
@@ -68,112 +68,41 @@ export const ChatScreen = ({ navigation }: any) => {
         setInputText('');
         setIsTyping(true);
 
-        // DEMO LOGIC FOR PRESENTATION
-        setTimeout(() => {
-            let botResponse: Message;
-            const lowerText = text.toLowerCase();
+        setIsTyping(true);
 
-            // Mock NLP: Check for time context
-            const isTomorrow = lowerText.includes('tomorrow') || lowerText.includes('tmrw');
-            const hasTime = lowerText.match(/(\d+)\s?(am|pm)/); // e.g., "9 am"
-            const timeContext = isTomorrow
-                ? `Tomorrow ${hasTime ? hasTime[0].toUpperCase() : 'Morning'}`
-                : (hasTime ? `Today ${hasTime[0].toUpperCase()}` : 'Now');
-
-            if (lowerText.includes('crowd') || lowerText.includes('full')) {
-                // Novelty 2: Advanced Crowd Forecasting Mock
-                // If asking for tomorrow/future
-                if (isTomorrow || hasTime) {
-                    botResponse = {
-                        id: (Date.now() + 1).toString(),
-                        text: `I've analyzed historical patterns for Route 177 for ${timeContext}.`,
-                        sender: 'bot',
-                        timestamp: new Date(),
-                        type: 'crowd_forecast',
-                        data: {
-                            route: '177',
-                            context: timeContext,
-                            isFuture: true,
-                            currentOccupancy: 95, // Predicted high for 9AM
-                            trend: 'Peak Hour',
-                            recommendation: 'Try the 8:45 AM bus (40% load) or 9:15 AM.',
-                            forecast: [
-                                { time: '8:30', level: 60 },
-                                { time: '9:00', level: 95 }, // The requested time
-                                { time: '9:30', level: 80 },
-                            ]
-                        }
+        // Fetch real response from ML backend
+        fetch(`${ML_API_URL}/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.message) {
+                    // Parse date string back to Date object
+                    const botMsg = {
+                        ...data.message,
+                        timestamp: new Date(data.message.timestamp)
                     };
+                    setMessages(prev => [...prev, botMsg]);
                 } else {
-                    // Current Status
-                    botResponse = {
-                        id: (Date.now() + 1).toString(),
-                        text: "Here is the real-time crowd forecast for Route 177:",
-                        sender: 'bot',
-                        timestamp: new Date(),
-                        type: 'crowd_forecast',
-                        data: {
-                            route: '177',
-                            context: 'Live Forecast',
-                            currentOccupancy: 85,
-                            trend: 'Increasing',
-                            recommendation: 'Wait 15 mins for lighter load.',
-                            forecast: [
-                                { time: 'Now', level: 85 },
-                                { time: '+15m', level: 40 },
-                                { time: '+30m', level: 65 },
-                            ]
-                        }
-                    };
+                    throw new Error("Invalid response format");
                 }
-            } else if (lowerText.includes('eta') || lowerText.includes('time') || lowerText.includes('reach')) {
-                // Novelty 1: Predictive ETA Mock
-                botResponse = {
-                    id: (Date.now() + 1).toString(),
-                    text: "Using our LSTM Deep Learning model, I've detected heavy traffic near Kaduwela.",
+            })
+            .catch(err => {
+                console.error("NLP Chat Error:", err);
+                // Fallback message
+                setMessages(prev => [...prev, {
+                    id: Date.now().toString(),
+                    text: "My AI servers are currently unreachable. Please try again later.",
                     sender: 'bot',
                     timestamp: new Date(),
-                    type: 'ai_prediction',
-                    data: {
-                        route: '177',
-                        standardEta: '5 mins',
-                        aiEta: '14 mins',
-                        confidence: '92%',
-                        reason: 'Rain + Heavy Traffic',
-                        delayRisk: 'High'
-                    }
-                };
-            } else if (lowerText.includes('malabe')) {
-                botResponse = {
-                    id: (Date.now() + 1).toString(),
-                    text: "I found a great option for you. Bus 177 goes to Malabe.",
-                    sender: 'bot',
-                    timestamp: new Date(),
-                    type: 'rich_response',
-                    data: {
-                        busRoute: '177',
-                        crowdLevel: 'High',
-                        seatsAvailable: false,
-                        locationName: 'Malabe Bus Stand',
-                        coordinates: {
-                            latitude: 6.9061,
-                            longitude: 79.9647,
-                        },
-                    },
-                };
-            } else {
-                botResponse = {
-                    id: (Date.now() + 1).toString(),
-                    text: "I can predict Crowd Levels and ETAs. Try asking 'Will 177 be crowded tmrw 9am?'",
-                    sender: 'bot',
-                    timestamp: new Date(),
-                    type: 'text',
-                };
-            }
-
-            setMessages((prev) => [...prev, botResponse]);
-            setIsTyping(false);
-        }, 1500);
+                    type: 'text'
+                }]);
+            })
+            .finally(() => {
+                setIsTyping(false);
+            });
     };
 
     useEffect(() => {

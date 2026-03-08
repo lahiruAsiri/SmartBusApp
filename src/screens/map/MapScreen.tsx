@@ -12,40 +12,28 @@ import {
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT, Region } from 'react-native-maps';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
-import { MAP_CONFIG, getInitialMapRegion } from '../../constants/config';
+import { MAP_CONFIG } from '../../constants/config';
 import { subscribeToAllBuses, Bus } from '../../services/busService';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLocation } from '../../contexts/LocationContext';
 
 export const MapScreen = ({ navigation, route }: any) => {
   const { colors, isDark } = useTheme();
   const { userData } = useAuth();
+  const { location: activeLocation, isManualMode, loading: locationLoading } = useLocation();
   const mapRef = useRef<MapView>(null);
   const [selectedBus, setSelectedBus] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
   const [buses, setBuses] = useState<Bus[]>([]);
   const [mapRegion, setMapRegion] = useState<Region>(MAP_CONFIG.initialRegion);
   const [loading, setLoading] = useState(true);
-  const [locationLoading, setLocationLoading] = useState(true);
 
   const violationLocation = route.params?.violationLocation;
-  const violationTitle = route.params?.title || 'Live Bus Tracking';
+  const initialSelectedBus = route.params?.selectedBus;
+  const violationTitle = route.params?.title || (initialSelectedBus ? `Tracking ${initialSelectedBus.routeNumber}` : 'Live Bus Tracking');
 
   useEffect(() => {
-    const loadUserLocation = async () => {
-      setLocationLoading(true);
-      const region = await getInitialMapRegion();
-      setMapRegion(region);
-      setLocationLoading(false);
-
-      // Animate map to user location
-      if (mapRef.current && !violationLocation) {
-        mapRef.current.animateToRegion(region, 1000);
-      }
-    };
-    loadUserLocation();
-  }, []);
-
-  useEffect(() => {
+    // Priority 1: Violation Location
     if (violationLocation && mapRef.current) {
       const region = {
         latitude: violationLocation.latitude,
@@ -53,9 +41,39 @@ export const MapScreen = ({ navigation, route }: any) => {
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
       };
+      setMapRegion(region);
       mapRef.current.animateToRegion(region, 1500);
+      return;
     }
-  }, [violationLocation]);
+
+    // Priority 2: Specifically Selected Bus (e.g. from BusDetails)
+    if (initialSelectedBus && mapRef.current) {
+      const region = {
+        latitude: initialSelectedBus.location.latitude,
+        longitude: initialSelectedBus.location.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
+      setMapRegion(region);
+      setSelectedBus(initialSelectedBus);
+      setShowModal(true);
+      mapRef.current.animateToRegion(region, 1000);
+      return;
+    }
+
+    // Priority 3: User Location / Manual Override
+    if (activeLocation) {
+      const region = {
+        ...activeLocation,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      };
+      setMapRegion(region);
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(region, 1000);
+      }
+    }
+  }, [activeLocation, violationLocation, initialSelectedBus]);
 
   useEffect(() => {
     if (!userData) return;
@@ -85,10 +103,13 @@ export const MapScreen = ({ navigation, route }: any) => {
     setShowModal(true);
   };
 
-  const handleMyLocation = async () => {
-    const region = await getInitialMapRegion();
-    if (mapRef.current) {
-      mapRef.current.animateToRegion(region, 1000);
+  const handleMyLocation = () => {
+    if (activeLocation && mapRef.current) {
+      mapRef.current.animateToRegion({
+        ...activeLocation,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }, 1000);
     }
   };
 
@@ -116,10 +137,18 @@ export const MapScreen = ({ navigation, route }: any) => {
         style={styles.map}
         provider={PROVIDER_DEFAULT}
         initialRegion={mapRegion}
-        showsUserLocation
+        showsUserLocation={!isManualMode}
         showsMyLocationButton={false}
       >
         <UrlTile urlTemplate={MAP_CONFIG.osmTileUrl} maximumZ={19} flipY={false} />
+
+        {isManualMode && activeLocation && (
+          <Marker coordinate={activeLocation} title="You (Set Location)">
+            <View style={styles.userMarker}>
+              <Ionicons name="person-circle" size={32} color={colors.primary} />
+            </View>
+          </Marker>
+        )}
 
         {buses.map((bus) => (
           <Marker
@@ -297,6 +326,19 @@ const styles = StyleSheet.create({
   markerText: { fontSize: 12, fontWeight: '700', color: '#FFF', marginLeft: 4 },
   violationMarker: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#EF4444', alignItems: 'center', justifyContent: 'center', borderWidth: 4, borderColor: '#FFF', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.4, shadowRadius: 8, elevation: 12 },
   violationLabel: { marginTop: 8, fontSize: 14, fontWeight: 'bold', color: '#EF4444', backgroundColor: '#FFF', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20 },
+  userMarker: {
+    backgroundColor: '#FFF',
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
   modalContainer: { flex: 1, justifyContent: 'flex-end' },
   modalOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.5)' },
   modalContent: { borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 20, paddingBottom: 40, shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.15, shadowRadius: 12, elevation: 20 },
