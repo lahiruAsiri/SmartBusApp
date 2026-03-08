@@ -7,8 +7,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getDriverRewardData, DriverRewardData } from '../../services/rewardService';
 
 // Firebase Realtime Database Imports
-import { database } from '../../api/firebase';
+import { database, db } from '../../api/firebase';
 import { ref, onValue } from 'firebase/database';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export const DriverProfileScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
@@ -19,6 +20,7 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [driverStats, setDriverStats] = useState<DriverRewardData | null>(null);
+  const [fineCount, setFineCount] = useState(0);
 
   useEffect(() => {
     // Points to the specific path for Bus_01 violations
@@ -26,6 +28,20 @@ export const DriverProfileScreen = ({ navigation }: any) => {
     
     // Also fetch the driver's RL safety score
     getDriverRewardData().then(setDriverStats).catch(console.error);
+
+    // Fetch fine count from investigation notes
+    const fetchFines = async () => {
+      if (!userData?.displayName) return;
+      try {
+        const notesRef = collection(db, 'investigation_notes');
+        const q = query(notesRef, where('driverName', '==', userData.displayName));
+        const snapshot = await getDocs(q);
+        setFineCount(snapshot.size);
+      } catch (error) {
+        console.error("Failed to fetch fines:", error);
+      }
+    };
+    fetchFines();
 
     const unsubscribe = onValue(busViolationsRef, (snapshot) => {
       const data = snapshot.val();
@@ -48,7 +64,7 @@ export const DriverProfileScreen = ({ navigation }: any) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [userData?.displayName]);
 
   // PERFORMANCE CALCULATIONS
   const speedingCount = driverViolations.filter(v => v.type === 'SPEEDING').length;
@@ -119,16 +135,24 @@ export const DriverProfileScreen = ({ navigation }: any) => {
           {[
             { label: 'Speeding', count: speedingCount, icon: 'speedometer', color: '#FF3B30' },
             { label: 'Harsh Accel', count: accelCount, icon: 'trending-up', color: '#F59E0B' },
-            { label: 'Harsh Brake', count: brakingCount, icon: 'remove-circle', color: '#8B5CF6' }
-          ].map((item, i) => (
-            <View key={i} style={[styles.countBox, { backgroundColor: colors.card }]}>
-              <View style={[styles.iconContainer, { backgroundColor: `${item.color}15` }]}>
-                <Ionicons name={item.icon as any} size={24} color={item.color} />
-              </View>
-              <Text style={[styles.countNumber, { color: colors.text }]}>{item.count}</Text>
-              <Text style={styles.countLabel}>{item.label}</Text>
-            </View>
-          ))}
+            { label: 'Harsh Brake', count: brakingCount, icon: 'remove-circle', color: '#8B5CF6' },
+            { label: 'Police Fines', count: fineCount, icon: 'document-text', color: '#EF4444', route: 'DriverFines' }
+          ].map((item, i) => {
+            const Wrapper: any = item.route ? TouchableOpacity : View;
+            return (
+              <Wrapper 
+                key={i} 
+                style={[styles.countBox, { backgroundColor: colors.card }]}
+                {...(item.route ? { onPress: () => navigation.navigate(item.route), activeOpacity: 0.7 } : {})}
+              >
+                <View style={[styles.iconContainer, { backgroundColor: `${item.color}15` }]}>
+                  <Ionicons name={item.icon as any} size={24} color={item.color} />
+                </View>
+                <Text style={[styles.countNumber, { color: colors.text }]}>{item.count}</Text>
+                <Text style={styles.countLabel}>{item.label}</Text>
+              </Wrapper>
+            );
+          })}
         </View>
 
         {/* Date Selector */}
@@ -202,8 +226,8 @@ const styles = StyleSheet.create({
   scoreCircle: { width: 120, height: 120, borderRadius: 60, borderWidth: 8, justifyContent: 'center', alignItems: 'center', marginVertical: 20 },
   scoreValue: { fontSize: 38, fontWeight: '900' },
   riskMessage: { fontSize: 18, fontWeight: '700' },
-  countsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
-  countBox: { flex: 1, alignItems: 'center', padding: 16, borderRadius: 20, marginHorizontal: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
+  countsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 20 },
+  countBox: { width: '48%', alignItems: 'center', padding: 16, borderRadius: 20, marginBottom: 12, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
   iconContainer: { width: 44, height: 44, borderRadius: 22, justifyContent: 'center', alignItems: 'center', marginBottom: 8 },
   countNumber: { fontSize: 22, fontWeight: '800', marginTop: 4 },
   countLabel: { fontSize: 11, color: '#64748b', textAlign: 'center', marginTop: 2, fontWeight: '600' },
