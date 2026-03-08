@@ -3,170 +3,173 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import os
+import argparse
 
-DB_EXPORT_PATH = '../smartbus-23f62-default-rtdb-export.json'
 OUTPUT_DIR = 'data'
 
 def ensure_output_dir():
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
 
-def load_data():
-    with open(DB_EXPORT_PATH, 'r') as f:
-        return json.load(f)
-
 def haversine_distance(lat1, lon1, lat2, lon2):
     """Calculate the great circle distance in kilometers between two points on the earth."""
-    # Radius of earth in kilometers.
     r = 6371
-    
-    # Convert decimal degrees to radians 
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
-    
-    # Haversine formula 
     dlon = lon2 - lon1 
     dlat = lat2 - lat1 
     a = np.sin(dlat/2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon/2)**2
     c = 2 * np.arcsin(np.sqrt(a)) 
-    
-    return c * r * 1000 # returns distance in meters
+    return c * r * 1000 # meters
 
-def process_crowd_data(data):
-    """
-    Extracts passenger 'history' data to train a Crowd Forecasting model.
-    Expected output columns: ['timestamp', 'hour', 'day_of_week', 'occupancy_count', 'occupancy_percent']
-    """
-    print("Processing Crowd Data...")
-    bus_data = data.get('Bus_01', {})
-    history = bus_data.get('history', {})
-    
+def process_crowd_data(file_path):
+    print(f"Processing Crowd Data from {file_path}...")
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+        
     records = []
-    # Assume a standard bus capacity for this dataset
     BUS_CAPACITY = 50 
     
-    for key, val in history.items():
+    for item in data:
         try:
-            ts_str = val.get('timestamp')
-            count = val.get('count', 0)
+            ts_str = item.get('timestamp')
+            count = item.get('crowd', 0)
+            route = item.get('route', 'Unknown')
             
-            # Parse timestamp (e.g., "2026-03-01 09:05:10")
-            dt = datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
+            # The new format timestamp looks like "2026-03-01T09:04:53+05:30"
+            # We'll parse it ignoring the timezone for simplicity in modeling, or handle it carefully.
+            # Easiest is to use fromisoformat
+            dt = datetime.fromisoformat(ts_str)
             
             records.append({
-                'timestamp': dt,
+                'timestamp': dt.replace(tzinfo=None), # Remove tz for easier pandas handling
+                'route': route,
                 'hour': dt.hour,
                 'minute': dt.minute,
-                'day_of_week': dt.weekday(), # 0=Monday, 6=Sunday
+                'day_of_week': dt.weekday(),
                 'is_weekend': 1 if dt.weekday() >= 5 else 0,
                 'occupancy_count': count,
                 'occupancy_percent': min(100, (count / BUS_CAPACITY) * 100)
             })
         except Exception as e:
-            print(f"Skipping record {key} due to error: {e}")
+            print(f"Skipping record due to error: {e}")
             
-    df = pd.DataFrame(records)
-    if not df.empty:
-        df = df.sort_values('timestamp')
+    df_new = pd.DataFrame(records)
+    if not df_new.empty:
         output_file = os.path.join(OUTPUT_DIR, 'crowd_training_data.csv')
-        df.to_csv(output_file, index=False)
-        print(f"Saved {len(df)} crowd records to {output_file}")
+        
+        # Incremental Merge Logic
+        if os.path.exists(output_file):
+            df_existing = pd.read_csv(output_file, parse_dates=['timestamp'])
+            df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+            # Drop exact duplicates just in case the same file is processed twice
+            df_combined = df_combined.drop_duplicates(subset=['timestamp', 'route'])
+            df_combined = df_combined.sort_values(['route', 'timestamp'])
+        else:
+            df_combined = df_new.sort_values(['route', 'timestamp'])
+            
+        df_combined.to_csv(output_file, index=False)
+        print(f"Saved/Merged. Total dataset now has {len(df_combined)} crowd records in {output_file}")
+        return df_combined
     else:
-        print("Warning: No crowd history data found.")
-    
-    return df
+        print("Warning: No crowd data found in file.")
+        return pd.DataFrame()
 
-def process_eta_data(data):
-    """
-    Extracts 'location_history' to train an ETA (Predictive Delay) model.
-    Expected output columns: ['timestamp', 'lat', 'lng', 'speed', 'hour', 'day_of_week', 'distance_to_next']
-    """
-    print("Processing ETA Data...")
-    bus_data = data.get('Bus_01', {})
-    loc_history = bus_data.get('location_history', {})
-    
+def process_eta_data(file_path):
+    print(f"Processing ETA Data from {file_path}...")
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+        
     records = []
     
-    for key, val in loc_history.items():
+    for item in data:
         try:
-            ts_str = val.get('timestamp')
-            lat = val.get('lat')
-            lng = val.get('lng')
-            speed = val.get('speed', 0.0)
+            ts_str = item.get('timestamp')
+            route = item.get('route', 'Unknown')
+            loc = item.get('location', {})
+            lat = loc.get('lat')
+            lng = loc.get('lng')
+            speed = item.get('speed', 0.0)
             
-            dt = datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
+            dt = datetime.fromisoformat(ts_str)
             
-            records.append({
-                'id': key,
-                'timestamp': dt,
-                'lat': lat,
-                'lng': lng,
-                'speed': speed,
-                'hour': dt.hour,
-                'day_of_week': dt.weekday(),
-                'is_weekend': 1 if dt.weekday() >= 5 else 0,
-            })
+            if lat is not None and lng is not None:
+                records.append({
+                    'timestamp': dt.replace(tzinfo=None),
+                    'route': route,
+                    'lat': lat,
+                    'lng': lng,
+                    'speed': speed,
+                    'hour': dt.hour,
+                    'day_of_week': dt.weekday(),
+                    'is_weekend': 1 if dt.weekday() >= 5 else 0,
+                })
         except Exception as e:
-            print(f"Skipping loc record {key} due to error: {e}")
+            pass # Skip bad records quietly
             
-    df = pd.DataFrame(records)
-    if df.empty:
-        print("Warning: No location history data found.")
-        return df
+    df_new = pd.DataFrame(records)
+    if df_new.empty:
+        print("Warning: No location data found in file.")
+        return pd.DataFrame()
         
-    df = df.sort_values('timestamp').reset_index(drop=True)
-    
-    # ---------------- Feature Engineering ----------------
-    # To predict ETA, we need to show the model how long it took to travel X distance in Y context.
-    # We will compute the 'delay' to the next 5 pings as a training target.
+    # We must sort and group by route before calculating distance/time
+    df_new = df_new.sort_values(['route', 'timestamp']).reset_index(drop=True)
     
     print("Engineering ETA Features...")
-    # Calculate distance and time to a future point (e.g., 5 steps ahead to represent 'next stop')
     STEPS_AHEAD = 5
     
-    # Shift to get future coordinates and timestamps
-    df['future_lat'] = df['lat'].shift(-STEPS_AHEAD)
-    df['future_lng'] = df['lng'].shift(-STEPS_AHEAD)
-    df['future_timestamp'] = df['timestamp'].shift(-STEPS_AHEAD)
+    # Calculate future points *per route* to avoid predicting ETA from Route A to Route B's location
+    df_new['future_lat'] = df_new.groupby('route')['lat'].shift(-STEPS_AHEAD)
+    df_new['future_lng'] = df_new.groupby('route')['lng'].shift(-STEPS_AHEAD)
+    df_new['future_timestamp'] = df_new.groupby('route')['timestamp'].shift(-STEPS_AHEAD)
     
-    # Drop rows at the end that don't have a future point
-    df = df.dropna(subset=['future_lat'])
+    df_new = df_new.dropna(subset=['future_lat'])
     
-    # Calculate target variables
-    # 1. Actual Time Taken (seconds)
-    df['actual_time_seconds'] = (df['future_timestamp'] - df['timestamp']).dt.total_seconds()
+    df_new['actual_time_seconds'] = (df_new['future_timestamp'] - df_new['timestamp']).dt.total_seconds()
     
-    # 2. Distance to cover (meters)
-    # Using vectorized haversine calculation
     distances = []
-    for i, row in df.iterrows():
+    for i, row in df_new.iterrows():
         dist = haversine_distance(row['lat'], row['lng'], row['future_lat'], row['future_lng'])
         distances.append(dist)
-    df['distance_meters'] = distances
+    df_new['distance_meters'] = distances
     
-    # 3. Theoretical Time (Physics formula)
-    # Assuming standard max speed limit if current speed is 0
-    # Speeds are likely in km/h. Convert to m/s: x * (1000/3600)
-    avg_trip_speed_ms = 30 * (1000/3600) # 30 km/h average
+    avg_trip_speed_ms = 30 * (1000/3600)
+    safe_speed_ms = np.maximum(df_new['speed'] * (1000/3600), 5.0 * (1000/3600)) 
     
-    # Avoid division by zero by using max(speed, minimal_speed)
-    safe_speed_ms = np.maximum(df['speed'] * (1000/3600), 5.0 * (1000/3600)) # At least 5km/h
+    df_new['theoretical_time_seconds'] = df_new['distance_meters'] / safe_speed_ms
+    df_new['delay_seconds'] = df_new['actual_time_seconds'] - df_new['theoretical_time_seconds']
     
-    df['theoretical_time_seconds'] = df['distance_meters'] / safe_speed_ms
-    
-    # 4. Target Residual (Delay)
-    # The XGBoost model will try to predict THIS value based on location/time
-    # Actual = Theoretical + Delay  =>  Delay = Actual - Theoretical
-    df['delay_seconds'] = df['actual_time_seconds'] - df['theoretical_time_seconds']
+    # We only need specific columns for training
+    features_to_save = [
+        'timestamp', 'route', 'lat', 'lng', 'speed', 
+        'hour', 'day_of_week', 'is_weekend',
+        'distance_meters', 'theoretical_time_seconds', 'delay_seconds'
+    ]
+    df_new = df_new[features_to_save]
     
     output_file = os.path.join(OUTPUT_DIR, 'eta_training_data.csv')
-    df.to_csv(output_file, index=False)
-    print(f"Saved {len(df)} ETA training records to {output_file}")
     
-    return df
+    if os.path.exists(output_file):
+        df_existing = pd.read_csv(output_file, parse_dates=['timestamp'])
+        df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+        # Drop duplicates based on timestamp and route
+        df_combined = df_combined.drop_duplicates(subset=['timestamp', 'route'])
+        df_combined = df_combined.sort_values(['route', 'timestamp'])
+    else:
+        df_combined = df_new.sort_values(['route', 'timestamp'])
+        
+    df_combined.to_csv(output_file, index=False)
+    print(f"Saved/Merged. Total dataset now has {len(df_combined)} ETA records in {output_file}")
+    
+    return df_combined
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Process daily bus JSON files into training CSV datasets (Incremental Append)")
+    parser.add_argument('--file', type=str, required=True, help='Path to the JSON file to process')
+    args = parser.parse_args()
+    
     ensure_output_dir()
-    db_data = load_data()
-    process_crowd_data(db_data)
-    process_eta_data(db_data)
+    print(f"Starting incremental processing for: {args.file}")
+    process_crowd_data(args.file)
+    process_eta_data(args.file)
     print("Data processing complete.")
+
