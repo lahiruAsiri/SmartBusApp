@@ -13,6 +13,98 @@
               "name": "Colombo Metropolitan Routes",
               "routes": [
                 {
+                  "route_number": "400/4",
+                  "start": "Kaluthara",
+                  "end": "Aluthgama",
+                  "intermediate_locations": [
+                    "Kaluthara",
+                    "Kaluthara North",
+                    "Katukurunda Junction",
+                    "Payagala",
+                    "Maggona",
+                    "Beruwala",
+                    "Kaluwamodara",
+                    "Moragolla",
+                    "Bentota",
+                    "Aluthgama"
+                  ],
+                  "data_entry_complete": false,
+                  "coordinates_added": false,
+                  "last_updated": "2026-03-08T00:00:00.000000",
+                  "bus_stops": [
+                    {
+                      "combined_code": "HXM6+R7 Kalutara",
+                      "global_code": "HXM6+R7",
+                      "location_name": "Kalutara",
+                      "latitude": 6.584563,
+                      "longitude": 79.960687
+                    },
+                    {
+                      "combined_code": "HXG7+R7 Kalutara",
+                      "global_code": "HXG7+R7",
+                      "location_name": "Kalutara",
+                      "latitude": 6.577063,
+                      "longitude": 79.963188
+                    },
+                    {
+                      "combined_code": "HXG7+7C Kalutara",
+                      "global_code": "HXG7+7C",
+                      "location_name": "Kalutara",
+                      "latitude": 6.575687,
+                      "longitude": 79.963562
+                    },
+                    {
+                      "combined_code": "HX98+WC Kalutara",
+                      "global_code": "HX98+WC",
+                      "location_name": "Wettumakada",
+                      "latitude": 6.569812,
+                      "longitude": 79.966062
+                    },
+                    {
+                      "combined_code": "GXQG+P3 Katukurunda",
+                      "global_code": "GXQG+P3",
+                      "location_name": "Katukurunda",
+                      "latitude": 6.539312,
+                      "longitude": 79.975188
+                    },
+                    {
+                      "combined_code": "GXCH+FR Maggona",
+                      "global_code": "GXCH+FR",
+                      "location_name": "Maggona",
+                      "latitude": 6.521187,
+                      "longitude": 79.979563
+                    },
+                    {
+                      "combined_code": "GX3J+XC Maggona",
+                      "global_code": "GX3J+XC",
+                      "location_name": "Maggona",
+                      "latitude": 6.504938,
+                      "longitude": 79.981062
+                    },
+                    {
+                      "combined_code": "FXGM+V5 Beruwala",
+                      "global_code": "FXGM+V5",
+                      "location_name": "Beruwala",
+                      "latitude": 6.477187,
+                      "longitude": 79.982938
+                    },
+                    {
+                      "combined_code": "CXWR+54 Moragolla",
+                      "global_code": "CXWR+54",
+                      "location_name": "Moragolla",
+                      "latitude": 6.445438,
+                      "longitude": 79.990313
+                    },
+                    {
+                      "combined_code": "CXJX+VC Aluthgama",
+                      "global_code": "CXJX+VC",
+                      "location_name": "Aluthgama",
+                      "latitude": 6.432187,
+                      "longitude": 79.998563
+                    }
+                  ]
+                },
+                {
                   "route_number": "336",
                   "start": "Kottawa",
                   "end": "Malabe/Neville Fernando Teaching Hospital (NFTH)",
@@ -2757,6 +2849,13 @@
                       "location_name": "Malabe",
                       "latitude": 6.903312499999999,
                       "longitude": 79.9550625
+                    },
+                    {
+                      "combined_code": "WX8C+5X Malabe",
+                      "global_code": "WX8C+5X",
+                      "location_name": "SLIIT Bus Stop",
+                      "latitude": 6.915437,
+                      "longitude": 79.972437
                     },
                     {
                       "combined_code": "6JRXWXPM+H7 Kaduwela",
