@@ -41,12 +41,6 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
   useEffect(() => {
     // Fetch AI predictions when screen mounts
     const fetchAIPredictions = async () => {
-      // Only fetch if it's the supported route
-      if (busData.routeNumber !== '400/4') {
-        setIsAiLoading(false);
-        return;
-      }
-
       try {
         setIsAiLoading(true);
         // 1. Fetch ETA Prediction
@@ -54,6 +48,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            route: busData.routeNumber,
             lat: busData.latitude || 6.9,
             lng: busData.longitude || 79.8,
             speed: busData.speed || 15.0,
@@ -73,6 +68,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            route: busData.routeNumber,
             hour: new Date().getHours() + 1, // predict for next hour
             minute: 0,
             day_of_week: new Date().getDay(),
@@ -209,13 +205,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
             shadowRadius: 8,
             elevation: 4
           }}>
-            {busData.routeNumber !== '400/4' ? (
-              <View style={{ padding: 8 }}>
-                <Text style={{ color: colors.textLight, textAlign: 'center', fontSize: 13, lineHeight: 20 }}>
-                  Predictive ETAs and Crowd Forecasting are currently only available for route 400/4, as our internal Machine Learning models strictly rely on that specific route's IoT telemetry dataset for accurate forecasting.
-                </Text>
-              </View>
-            ) : isAiLoading ? (
+            {isAiLoading ? (
               <Text style={{ color: colors.textLight, textAlign: 'center', marginVertical: 20 }}>Gathering AI Insights...</Text>
             ) : (
               <>
