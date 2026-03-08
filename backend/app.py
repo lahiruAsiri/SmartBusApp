@@ -1,4 +1,5 @@
 import time
+import re
 import pandas as pd
 import joblib
 from flask import Flask, request, jsonify
@@ -116,13 +117,23 @@ def chat():
     
     print(f"User: '{text}' -> Intent: {intent} (Conf: {confidence:.2f})")
     
-    # 2. Route to appropriate ML model and construct Rich UI response
+    # 2. Extract Route Number
+    route_match = re.search(r'\b(\d+(?:/\d+)?)\b', text)
+    requested_route = route_match.group(1) if route_match else None
+    
+    # 3. Route to appropriate ML model and construct Rich UI response
     response_msg = {
         'id': str(time.time()),
         'sender': 'bot',
         'timestamp': datetime.now().isoformat()
     }
     
+    # Enforce dataset limitation constraint for ML predictions
+    if requested_route and requested_route != '400/4' and intent in ['predict_crowd', 'predict_eta']:
+        response_msg['type'] = 'text'
+        response_msg['text'] = f"I'm sorry, my Machine Learning models are currently only trained on telemetry data for route 400/4. I cannot provide predictive insights for route {requested_route} yet."
+        return jsonify({'success': True, 'message': response_msg})
+        
     now = datetime.now()
     
     if intent == 'predict_crowd':
@@ -132,7 +143,7 @@ def chat():
         response_msg['type'] = 'crowd_forecast'
         response_msg['text'] = f"Based on our Random Forest model, here is the crowd forecast using IoT truth data:"
         response_msg['data'] = {
-            'route': '177',
+            'route': requested_route or '400/4',
             'context': 'Next Hour',
             'currentOccupancy': round(pred),
             'trend': 'Stable',
@@ -151,10 +162,10 @@ def chat():
         response_msg['type'] = 'ai_prediction'
         response_msg['text'] = "Using our XGBoost engine trained on bus telemetry, I've calculated the predictive ETA."
         response_msg['data'] = {
-            'route': '177',
+            'route': requested_route or '400/4',
             'standardEta': f"{int(theoretical//60)} mins",
             'aiEta': f"{int(pred_sec//60)} mins",
-            'confidence': f"{min(98, max(85, int(confidence * 100)))}%", # Mock confidence based on NLP + model
+            'confidence': f"{min(98, max(85, int(confidence * 100)))}%",
             'reason': 'Traffic dynamically predicted',
             'delayRisk': 'High' if (pred_sec - theoretical) > 120 else 'Low'
         }
@@ -163,7 +174,7 @@ def chat():
         response_msg['type'] = 'rich_response'
         response_msg['text'] = "I found a great option for you."
         response_msg['data'] = {
-            'busRoute': '177',
+            'busRoute': requested_route or '400/4',
             'crowdLevel': 'Medium',
             'seatsAvailable': True,
             'locationName': 'Malabe Bus Stand',
@@ -175,7 +186,7 @@ def chat():
         
     else: # Greeting
         response_msg['type'] = 'text'
-        response_msg['text'] = "Hello! I am your AI assistant. I can predict bus ETAs and Crowd levels using Machine Learning. Try asking 'When is the next bus?' or 'Will it be crowded?'"
+        response_msg['text'] = "Hello! I am your AI assistant. I can predict bus ETAs and Crowd levels using Machine Learning. Try asking 'When is the next 400/4 bus?' or 'Will it be crowded?'"
         
     return jsonify({'success': True, 'message': response_msg})
 
