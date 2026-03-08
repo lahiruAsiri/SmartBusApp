@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../api/firebase';
@@ -117,6 +118,26 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
     setSubmitting(true);
     
     try {
+      // 1. Fetch Location
+      let locationLog = null;
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status === 'granted') {
+          const loc = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.Balanced,
+          });
+          locationLog = {
+            latitude: loc.coords.latitude,
+            longitude: loc.coords.longitude,
+            timestamp: loc.timestamp,
+          };
+        } else {
+          Alert.alert('Location Permission Denied', 'The investigation note will be submitted without location data.');
+        }
+      } catch (locError) {
+        console.warn("Failed to fetch location:", locError);
+      }
+
       // Create a base64 string to store directly in Firestore
       // This bypasses Firebase Storage requirements
       const imageUrl = `data:image/jpeg;base64,${ticketImageBase64}`;
@@ -129,6 +150,7 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
         ticketImageUrl: imageUrl,
         officerId: userData?.uid || 'unknown_officer',
         officerName: userData?.displayName || 'Police Officer',
+        location: locationLog,
         status: 'investigating',
         createdAt: serverTimestamp(),
       };

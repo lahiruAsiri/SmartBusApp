@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { getDriverRewardData, DriverRewardData } from '../../services/rewardService';
 
 // Firebase Realtime Database Imports
 import { database } from '../../api/firebase';
@@ -17,11 +18,15 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const [driverViolations, setDriverViolations] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+  const [driverStats, setDriverStats] = useState<DriverRewardData | null>(null);
 
   useEffect(() => {
     // Points to the specific path for Bus_01 violations
     const busViolationsRef = ref(database, 'Bus_01/violations');
     
+    // Also fetch the driver's RL safety score
+    getDriverRewardData().then(setDriverStats).catch(console.error);
+
     const unsubscribe = onValue(busViolationsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -51,19 +56,19 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const brakingCount = driverViolations.filter(v => v.type === 'HARSH_BRAKE').length;
 
   const totalViolations = driverViolations.length;
-  const totalTrips = 30; // Static baseline
-  // Risk Score: Higher violations = Higher risk
-  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));
+  // Use the RL Safety Score, defaulting to 100 if loading fails. Wait, Safety Score is out of 100 where higher is safer.
+  // The UI previously calculated Risk Score where higher meant Danger. Let's flip it or rename the UI to Safety Score.
+  const safetyScore = driverStats?.safetyScore ?? 100;
 
   const violationsOnDate = driverViolations.filter(v => 
     v.timestamp.toDateString() === selectedDate.toDateString()
   );
 
   // UI HELPERS
-  const getRiskColor = () => riskScore < 30 ? '#22C55E' : riskScore < 70 ? '#F59E0B' : '#EF4444';
+  const getRiskColor = () => safetyScore >= 70 ? '#22C55E' : safetyScore >= 40 ? '#F59E0B' : '#EF4444';
   const getRiskMessage = () => {
-    if (riskScore < 30) return 'Excellent Safe Driver!';
-    if (riskScore < 70) return 'Caution: Improving required';
+    if (safetyScore >= 70) return 'Excellent Safe Driver!';
+    if (safetyScore >= 40) return 'Caution: Improving required';
     return 'High Risk: Drive carefully';
   };
 
@@ -100,11 +105,11 @@ export const DriverProfileScreen = ({ navigation }: any) => {
           <Text style={styles.busId}>Bus ID: Bus_01</Text>
         </View>
 
-        {/* Risk Score Card */}
+        {/* Safety Score Card */}
         <View style={[styles.card, { backgroundColor: colors.card, alignItems: 'center' }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Safety Risk Score</Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>ML Safety Score</Text>
           <View style={[styles.scoreCircle, { borderColor: getRiskColor(), backgroundColor: `${getRiskColor()}15` }]}>
-            <Text style={[styles.scoreValue, { color: getRiskColor() }]}>{riskScore}</Text>
+            <Text style={[styles.scoreValue, { color: getRiskColor() }]}>{safetyScore}</Text>
           </View>
           <Text style={[styles.riskMessage, { color: getRiskColor() }]}>{getRiskMessage()}</Text>
         </View>

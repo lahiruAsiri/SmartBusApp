@@ -17,6 +17,7 @@ import { BusViolationDetailsScreen } from '@/screens/policeman/BusViolationDetai
 import { DriverProfileScreen } from '@/screens/driver/DriverProfileScreen';
 import { DriverProfileForPoliceScreen } from '@/screens/policeman/DriverProfileForPoliceScreen';
 import { InvestigationNoteScreen } from '@/screens/policeman/InvestigationNoteScreen';
+import { MyInvestigationNotesScreen } from '@/screens/policeman/MyInvestigationNotesScreen';
 import { DriverRewardsScreen } from '@/screens/driver/DriverRewardsScreen';
 import { DriverAchievementsScreen } from '@/screens/driver/DriverAchievementsScreen';
 import { DriverLeaderboardScreen } from '@/screens/driver/DriverLeaderboardScreen';
@@ -64,10 +65,12 @@ export const AppNavigator = () => {
           <>
             <Stack.Screen name="PolicemanHome" component={PolicemanHomeScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
+            <Stack.Screen name="BusDetails" component={BusDetailsScreen} />
             <Stack.Screen name="PolicemanAlerts" component={PolicemanAlertsScreen} />
             <Stack.Screen name="BusViolationDetails" component={BusViolationDetailsScreen} />
             <Stack.Screen name="DriverProfileForPolice" component={DriverProfileForPoliceScreen} />
             <Stack.Screen name="InvestigationNote" component={InvestigationNoteScreen} />
+            <Stack.Screen name="MyInvestigationNotes" component={MyInvestigationNotesScreen} />
           </>
         ) : userData?.role === 'driver' ? (
           <>
