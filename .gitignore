@@ -44,3 +44,8 @@ yarn-error.*
 .env.production
 
 scripts/serviceAccountKey.json
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
