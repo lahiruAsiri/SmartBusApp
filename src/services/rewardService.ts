@@ -35,6 +35,7 @@ export const predictDriverTier = async (
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ speeding, harsh_accel: harshAccel, sudden_brake: suddenBrake }),
+      signal:  AbortSignal.timeout(3000), // ← fail fast: 3 s max
     });
     if (!res.ok) throw new Error(`RL API error: ${res.status}`);
     return await res.json() as RLPrediction;
@@ -93,7 +94,8 @@ export interface Achievement {
   title: string;
   description: string;
   icon: string;
-  points: number;
+  points: number;      // currently earned points (may be scaled)
+  maxPoints?: number;  // maximum possible points (for display as earned/max)
   unlocked: boolean;
   unlockedDate?: string;
   progress?: number;
@@ -188,41 +190,34 @@ export const DUMMY_DRIVER_DATA: DriverRewardData = {
     {
       id: 'speed_champion',
       title: 'Speed Limit Champion',
-      description: 'No speeding violations for 1 month',
+      description: 'Keep speeding violations under 15',
       icon: 'speedometer',
       points: 200,
       unlocked: true,
-      unlockedDate: '2025-12-15'
+      progress: 0,
+      target: 15
     },
     {
       id: 'smooth_operator',
       title: 'Smooth Operator',
-      description: 'No harsh braking for 2 weeks',
+      description: 'Keep harsh braking violations under 10',
       icon: 'hand-left',
       points: 150,
       unlocked: false,
       progress: 8,
-      target: 14
+      target: 10
     },
     {
       id: 'acceleration_master',
       title: 'Acceleration Master',
-      description: 'No harsh acceleration for 1 month',
+      description: 'Keep harsh acceleration violations under 15',
       icon: 'flash',
       points: 150,
       unlocked: false,
       progress: 12,
-      target: 30
+      target: 15
     },
-    {
-      id: 'route_expert',
-      title: 'Route Expert',
-      description: 'Complete 100 trips on the same route',
-      icon: 'map',
-      points: 300,
-      unlocked: true,
-      unlockedDate: '2025-11-20'
-    },
+
     {
       id: 'early_bird',
       title: 'Early Bird',
@@ -450,6 +445,112 @@ export const DUMMY_AVAILABLE_REWARDS: RewardItem[] = [
   }
 ];
 
+// ─── Compute achievements from real violation data ────────────────────────────
+// Achievements that depend on Firebase data are evaluated live.
+// Shift-based achievements (Early Bird, Weekend Warrior) stay static
+// because we don't have shift-schedule data in Firebase.
+const computeAchievements = (
+  safeDays:    number,
+  rawSpeeding: number,
+  rawAccel:    number,
+  rawBrake:    number,
+  totalTrips:  number,
+): Achievement[] => {
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+  return [
+    // ── 1. Zero Violations Week ───────────────────────────────────────────
+    {
+      id:          'zero_violations_week',
+      title:       'Zero Violations Week',
+      description: 'Complete 7 days without any violations',
+      icon:        'checkmark-circle',
+      points:      100,
+      unlocked:    safeDays >= 7,
+      unlockedDate: safeDays >= 7 ? today : undefined,
+      progress:    Math.min(safeDays, 7),
+      target:      7,
+    },
+
+    // ── 2. 30-Day Perfect Record ──────────────────────────────────────────
+    {
+      id:          'perfect_month',
+      title:       '30-Day Perfect Record',
+      description: 'Complete 30 consecutive days without violations',
+      icon:        'trophy',
+      points:      500,
+      unlocked:    safeDays >= 30,
+      unlockedDate: safeDays >= 30 ? today : undefined,
+      progress:    Math.min(safeDays, 30),
+      target:      30,
+    },
+
+    // ── 3. Speed Limit Champion — locked when rawSpeeding >= 15 ────────────────
+    {
+      id:          'speed_champion',
+      title:       'Speed Limit Champion',
+      description: 'Keep speeding violations under 15',
+      icon:        'speedometer',
+      points:      Math.round(200 * Math.max(0, 15 - rawSpeeding) / 15),
+      maxPoints:   200,
+      unlocked:    rawSpeeding < 15,
+      progress:    Math.min(rawSpeeding, 15),
+      target:      15,
+    },
+
+    // ── 4. Smooth Operator — locked when rawBrake >= 10 ─────────────────────
+    {
+      id:          'smooth_operator',
+      title:       'Smooth Operator',
+      description: 'Keep harsh braking violations under 10',
+      icon:        'hand-left',
+      points:      Math.round(150 * Math.max(0, 10 - rawBrake) / 10),
+      maxPoints:   150,
+      unlocked:    rawBrake < 10,
+      progress:    Math.min(rawBrake, 10),
+      target:      10,
+    },
+
+    // ── 5. Acceleration Master — locked when rawAccel >= 15 ──────────────────
+    {
+      id:          'acceleration_master',
+      title:       'Acceleration Master',
+      description: 'Keep harsh acceleration violations under 15',
+      icon:        'flash',
+      points:      Math.round(150 * Math.max(0, 15 - rawAccel) / 15),
+      maxPoints:   150,
+      unlocked:    rawAccel < 15,
+      progress:    Math.min(rawAccel, 15),
+      target:      15,
+    },
+
+
+    // ── 7. Early Bird — static (no shift data in Firebase) ───────────────
+    {
+      id:          'early_bird',
+      title:       'Early Bird',
+      description: 'Complete 20 morning shifts (5 AM – 9 AM)',
+      icon:        'sunny',
+      points:      50,
+      unlocked:    false,
+      progress:    0,
+      target:      20,
+    },
+
+    // ── 8. Weekend Warrior — static (no shift data in Firebase) ─────────
+    {
+      id:          'weekend_warrior',
+      title:       'Weekend Warrior',
+      description: 'Work 10 consecutive weekends',
+      icon:        'calendar',
+      points:      100,
+      unlocked:    false,
+      progress:    0,
+      target:      10,
+    },
+  ];
+};
+
 // Service functions
 export const getDriverRewardData = async (): Promise<DriverRewardData> => {
   try {
@@ -483,19 +584,22 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
       }
     }
 
-    const accelViolations = Math.floor(rawAccel / 5);
-    const brakeViolations = Math.floor(rawBrake / 5);
-    const totalViolations = rawSpeeding + accelViolations + brakeViolations;
+    // Raw count of all violation events (not weighted — 8+5+2 = 15, not 9)
+    const totalViolations = rawSpeeding + rawAccel + rawBrake;
 
-    // 2. Calculate current safe streak (days since last violation)
-    let safeDays = 0;
+    // 2. Calendar streak (days since last violation) — used for UI display only
     const today = new Date();
+    let safeDays = 0; // display streak
     if (lastViolationDate) {
       const diffTime = Math.abs(today.getTime() - lastViolationDate.getTime());
       safeDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    } else {
-      safeDays = 30; // If no violations exist, assume 30 safe days initially
     }
+
+    // Achievement streak: consecutive ACTIVE DRIVING days with no violations.
+    // Firebase only stores violation events — clean driving days leave no record.
+    // Device was off between drives, so gap days are NOT clean driving days.
+    // Until a session/trip log is added to Firebase, this stays 0 when violations exist.
+    const achievementSafeDays = 0;
 
     // 3. Query the RL model API to get real predictions (pass raw counts)
     let currentTier: TierType = 'Standard';
@@ -513,11 +617,23 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
       console.warn("Failed to retrieve true RL predictions", e);
     }
 
-    // 4. Return combined data (real stats + RL predictions)
+    // 4. Compute achievements from real stats
+    // achievementSafeDays = 0: the device's last recorded state was a violation day (Mar 1).
+    // Off days afterward are NOT confirmed clean driving days.
+    const achievements = computeAchievements(
+      achievementSafeDays,          // 0 — no confirmed clean driving sessions
+      rawSpeeding,
+      rawAccel,
+      rawBrake,
+      DUMMY_DRIVER_DATA.totalTrips, // trips not yet in Firebase, use dummy
+    );
+
+    // 5. Return combined data (real stats + RL predictions + live achievements)
     return {
       ...DUMMY_DRIVER_DATA,
       totalViolations: totalViolations,
       currentStreak: safeDays,
+      longestStreak: Math.max(DUMMY_DRIVER_DATA.longestStreak, safeDays),
       lastViolationDate: lastViolationDate ? lastViolationDate.toISOString() : null,
       currentTier,
       safetyScore,
@@ -526,6 +642,7 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
       rawSpeeding,
       rawHarshAccel: rawAccel,
       rawSuddenBrake: rawBrake,
+      achievements,
     };
 
   } catch (error) {
@@ -535,10 +652,72 @@ export const getDriverRewardData = async (): Promise<DriverRewardData> => {
   }
 };
 
-export const getLeaderboard = (): Promise<LeaderboardEntry[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(DUMMY_LEADERBOARD), 500);
-  });
+export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
+  try {
+    // ── 1. Fetch real violations for Bus_01 from Firebase ─────────────────
+    const busViolationsRef = ref(database, 'Bus_01/violations');
+    const snapshot = await get(busViolationsRef);
+
+    let rawSpeeding = 0, rawAccel = 0, rawBrake = 0;
+    let lastViolationDate: Date | null = null;
+
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      Object.keys(data).forEach((key) => {
+        const v = data[key];
+        const type = String(v.type).toLowerCase();
+        if (type.includes('speed'))                      rawSpeeding++;
+        else if (type.includes('accel'))                 rawAccel++;
+        else if (type.includes('brake') || type.includes('sudden')) rawBrake++;
+      });
+
+      const violations = Object.values(data as Record<string, any>).map((v: any) => ({
+        timestamp: new Date((v.dateTime ?? '').replace(' ', 'T')),
+      }));
+      violations.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+      if (violations.length > 0) lastViolationDate = violations[0].timestamp;
+    }
+
+    // ── 2. Compute safety score via RL model (falls back in ≤3 s) ─────────
+    const prediction = await predictDriverTier(rawSpeeding, rawAccel, rawBrake);
+    const realSafetyScore = Math.round(prediction.safety_score);
+    const realTier        = prediction.tier;
+
+    // ── 3. Calculate safe-day streak ──────────────────────────────────────
+    let safeDays = 30;
+    if (lastViolationDate) {
+      const diffMs = Math.abs(new Date().getTime() - lastViolationDate.getTime());
+      safeDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    }
+
+    // ── 4. Build the real-driver entry (replacing the dummy placeholder) ──
+    const realEntry: LeaderboardEntry = {
+      rank:          0,          // will be set after sort
+      driverId:      'bus_01_real',
+      name:          'Ridma',
+      busId:         'Bus_01',
+      safetyScore:   realSafetyScore,
+      tier:          realTier,
+      streak:        safeDays,
+      isCurrentUser: true,
+    };
+
+    // ── 5. Merge: drop old dummy placeholder, add real entry ─────────────
+    const dummyWithoutPlaceholder = DUMMY_LEADERBOARD.filter(
+      (e) => !e.isCurrentUser
+    );
+    const merged = [...dummyWithoutPlaceholder, realEntry];
+
+    // ── 6. Sort by safety score ascending (lower score = fewer violations = better)
+    //      then reassign ranks 1…n
+    merged.sort((a, b) => a.safetyScore - b.safetyScore);
+    merged.forEach((entry, idx) => { entry.rank = idx + 1; });
+
+    return merged;
+  } catch (err) {
+    console.warn('getLeaderboard: falling back to dummy data', err);
+    return DUMMY_LEADERBOARD;
+  }
 };
 
 export const getAvailableRewards = (): Promise<RewardItem[]> => {
