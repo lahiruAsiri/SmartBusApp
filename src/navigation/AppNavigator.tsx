@@ -21,6 +21,7 @@ import { MyInvestigationNotesScreen } from '@/screens/policeman/MyInvestigationN
 import { DriverRewardsScreen } from '@/screens/driver/DriverRewardsScreen';
 import { DriverAchievementsScreen } from '@/screens/driver/DriverAchievementsScreen';
 import { DriverLeaderboardScreen } from '@/screens/driver/DriverLeaderboardScreen';
+import { DriverFinesScreen } from '@/screens/driver/DriverFinesScreen';
 
 import { TripResultScreen } from '../screens/user/TripResultScreen';
 import { TripMapScreen } from '../screens/user/TripMapScreen';
@@ -79,6 +80,7 @@ export const AppNavigator = () => {
             <Stack.Screen name="DriverRewards" component={DriverRewardsScreen} />
             <Stack.Screen name="DriverAchievements" component={DriverAchievementsScreen} />
             <Stack.Screen name="DriverLeaderboard" component={DriverLeaderboardScreen} />
+            <Stack.Screen name="DriverFines" component={DriverFinesScreen} />
             <Stack.Screen name="Map" component={MapScreen} />
           </>
         ) : (
