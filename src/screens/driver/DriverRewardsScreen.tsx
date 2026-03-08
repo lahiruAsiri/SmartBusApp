@@ -19,7 +19,6 @@ import {
   getDriverRewardData,
   getAvailableRewards,
   redeemReward,
-  predictDriverTier,
   RLPrediction,
   DriverRewardData,
   RewardItem,
@@ -52,13 +51,19 @@ export const DriverRewardsScreen = ({ navigation }: any) => {
       setDriverData(driver);
       setAvailableRewards(rewards);
 
-      // ── Call RL Model with real raw violation counts ─────────────────────
-      const fuzzy = await predictDriverTier(
-        driver.rawSpeeding   ?? 0,   // speeding events (each = 1 violation)
-        driver.rawHarshAccel ?? 0,   // harsh accel events (10 = 1 violation)
-        driver.rawSuddenBrake ?? 0   // sudden brake events (10 = 1 violation)
-      );
-      setFuzzyResult(fuzzy);
+      // ── RL result is already computed inside getDriverRewardData() ────────
+      // Reconstruct fuzzyResult from the fields already returned to avoid
+      // a second (slow) network call to the RL API.
+      setFuzzyResult({
+        safety_score:  driver.safetyScore,
+        tier:          driver.currentTier,
+        action_idx:    0,
+        points_earned: driver.totalPoints,
+        monthly_bonus: driver.currentMonthBonus,
+        confidence:    {},
+        q_values:      {},
+        state:         { violation_bucket: 0 },
+      } as RLPrediction);
 
     } catch (error) {
       console.error('Error loading reward data:', error);
