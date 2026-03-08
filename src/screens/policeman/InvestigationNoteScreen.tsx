@@ -1,5 +1,5 @@
 // src/screens/policeman/InvestigationNoteScreen.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import * as Location from 'expo-location';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../api/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 
 const VIOLATION_TYPES = [
   'Speeding',
@@ -41,10 +41,36 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
   const [busNumber, setBusNumber] = useState(initialBusId);
   const [driverName, setDriverName] = useState(initialDriverName);
   const [violationType, setViolationType] = useState('');
+  const [showDriverPicker, setShowDriverPicker] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [ticketImageUri, setTicketImageUri] = useState<string | null>(null);
   const [ticketImageBase64, setTicketImageBase64] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  // Driver data
+  const [drivers, setDrivers] = useState<any[]>([]);
+  const [loadingDrivers, setLoadingDrivers] = useState(true);
+
+  // Fetch drivers from Firestore
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, where('role', '==', 'driver'));
+        const querySnapshot = await getDocs(q);
+        const fetchedDrivers = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setDrivers(fetchedDrivers);
+      } catch (error) {
+        console.error("Failed to fetch drivers:", error);
+      } finally {
+        setLoadingDrivers(false);
+      }
+    };
+    fetchDrivers();
+  }, []);
 
   // ──────────────────────────────────────────
   // Image picker
@@ -103,7 +129,7 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
       return;
     }
     if (!driverName.trim()) {
-      Alert.alert('Required', 'Please enter the Driver Name.');
+      Alert.alert('Required', 'Please select a Driver Name.');
       return;
     }
     if (!violationType) {
@@ -204,6 +230,76 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
           </Text>
         </View>
 
+        {/* ── Driver Name ── */}
+        <View style={styles.fieldGroup}>
+          <Text style={[styles.label, { color: labelColor }]}>
+            Driver Name <Text style={styles.required}>*</Text>
+          </Text>
+          <TouchableOpacity
+            style={[styles.inputWrapper, { backgroundColor: inputBg, borderColor }]}
+            onPress={() => setShowDriverPicker(!showDriverPicker)}
+            activeOpacity={0.7}
+            disabled={loadingDrivers}
+          >
+            <Ionicons name="person" size={20} color={colors.primary} style={styles.inputIcon} />
+            {loadingDrivers ? (
+              <ActivityIndicator color={colors.primary} size="small" style={{ marginHorizontal: 10 }} />
+            ) : (
+              <Text style={[styles.input, { color: driverName ? colors.text : labelColor }]}>
+                {driverName || 'Select a driver...'}
+              </Text>
+            )}
+            <Ionicons
+              name={showDriverPicker ? 'chevron-up' : 'chevron-down'}
+              size={20}
+              color={labelColor}
+            />
+          </TouchableOpacity>
+
+          {showDriverPicker && !loadingDrivers && (
+            <View style={[styles.dropdownBox, { backgroundColor: colors.card, borderColor }]}>
+              {drivers.length === 0 ? (
+                <View style={[styles.dropdownItem, { justifyContent: 'center' }]}>
+                  <Text style={[styles.dropdownText, { color: labelColor, fontStyle: 'italic' }]}>
+                    No drivers found
+                  </Text>
+                </View>
+              ) : (
+                drivers.map((driver) => (
+                  <TouchableOpacity
+                    key={driver.id}
+                    style={[
+                      styles.dropdownItem,
+                      driverName === driver.displayName && { backgroundColor: colors.primary + '18' },
+                      { borderBottomColor: borderColor },
+                    ]}
+                    onPress={() => {
+                      setDriverName(driver.displayName);
+                      if (driver.busId && !busNumber) {
+                        setBusNumber(driver.busId); // Auto-fill bus number if available
+                      }
+                      setShowDriverPicker(false);
+                    }}
+                    activeOpacity={0.7}
+                  >
+                    <Text
+                      style={[
+                        styles.dropdownText,
+                        { color: driverName === driver.displayName ? colors.primary : colors.text },
+                      ]}
+                    >
+                      {driver.displayName} {driver.busId ? `(Bus: ${driver.busId})` : ''}
+                    </Text>
+                    {driverName === driver.displayName && (
+                      <Ionicons name="checkmark-circle" size={18} color={colors.primary} />
+                    )}
+                  </TouchableOpacity>
+                ))
+              )}
+            </View>
+          )}
+        </View>
+
         {/* ── Bus Number ── */}
         <View style={styles.fieldGroup}>
           <Text style={[styles.label, { color: labelColor }]}>
@@ -218,25 +314,6 @@ export const InvestigationNoteScreen = ({ route, navigation }: any) => {
               value={busNumber}
               onChangeText={setBusNumber}
               autoCapitalize="characters"
-              returnKeyType="next"
-            />
-          </View>
-        </View>
-
-        {/* ── Driver Name ── */}
-        <View style={styles.fieldGroup}>
-          <Text style={[styles.label, { color: labelColor }]}>
-            Driver Name <Text style={styles.required}>*</Text>
-          </Text>
-          <View style={[styles.inputWrapper, { backgroundColor: inputBg, borderColor }]}>
-            <Ionicons name="person" size={20} color={colors.primary} style={styles.inputIcon} />
-            <TextInput
-              style={[styles.input, { color: colors.text }]}
-              placeholder="Full name of the driver"
-              placeholderTextColor={labelColor}
-              value={driverName}
-              onChangeText={setDriverName}
-              autoCapitalize="words"
               returnKeyType="next"
             />
           </View>
