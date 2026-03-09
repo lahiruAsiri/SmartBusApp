@@ -1,5 +1,5 @@
 // File: src/screens/user/TripResultScreen.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -15,8 +15,19 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { JourneyResult } from '../../services/BusRouteOptimizer';
 import { MAP_CONFIG } from '../../constants/config';
 import { useAuth } from '../../contexts/AuthContext';
+import { Bus, subscribeToAllBuses } from '../../services/busService';
 
 const { width } = Dimensions.get('window');
+
+// Calculate distance for internal nearby tracking
+const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c * 1000; // Meters
+};
 
 export const TripResultScreen = ({ route, navigation }: any) => {
     const { journey, userLocation } = route.params as {
@@ -25,6 +36,9 @@ export const TripResultScreen = ({ route, navigation }: any) => {
     };
     const { colors, isDark } = useTheme();
     const mapRef = useRef<MapView>(null);
+    const [nearbyBuses, setNearbyBuses] = useState<Bus[]>([]);
+    const [selectedBus, setSelectedBus] = useState<Bus | null>(null);
+    const [isLoadingBuses, setIsLoadingBuses] = useState(true);
 
     useEffect(() => {
         // Fit map to markers
@@ -34,17 +48,6 @@ export const TripResultScreen = ({ route, navigation }: any) => {
                 { latitude: journey.route1.closestStop.latitude, longitude: journey.route1.closestStop.longitude },
             ];
 
-            if (journey.type === 'transfer' && journey.route2) {
-                // Add transfer stop 
-                // Note: We don't have exact coordinates for transfer stop unless we look it up, 
-                // but we have the MAIN route's closest stop which is where we get ON the second bus.
-                // Actually, for transfer:
-                // Route 1 (Feeder): User -> Closest Feeder Stop -> Dropoff (Transfer At)
-                // Route 2 (Main): Transfer At -> Main Bus Closest Stop -> Destination
-
-                // Ideally we would plot all these points. For now let's plot User -> Feeder Stop
-            }
-
             mapRef.current.fitToCoordinates(markers, {
                 edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                 animated: true,
@@ -52,13 +55,28 @@ export const TripResultScreen = ({ route, navigation }: any) => {
         }
     }, [journey]);
 
-    const getStepIcon = (type: 'walk' | 'bus' | 'transfer') => {
-        switch (type) {
-            case 'walk': return 'walk-outline';
-            case 'bus': return 'bus-outline';
-            case 'transfer': return 'swap-horizontal-outline';
-        }
-    };
+    // REAL-TIME BUS SUBSCRIPTION
+    useEffect(() => {
+        setIsLoadingBuses(true);
+        const unsubscribe = subscribeToAllBuses((buses) => {
+            // Filter buses for the specific route suggested
+            const routeBuses = buses.filter(b => b.routeNumber === journey.route1.routeNumber);
+
+            // Filter only those buses that are currently BEFORE the closest stop or nearby
+            // For simplicity in this demo, we pick the one closest to the user's start stop
+            const sorted = routeBuses.sort((a, b) => {
+                const distA = getDistance(a.location.latitude, a.location.longitude, journey.route1.closestStop.latitude, journey.route1.closestStop.longitude);
+                const distB = getDistance(b.location.latitude, b.location.longitude, journey.route1.closestStop.latitude, journey.route1.closestStop.longitude);
+                return distA - distB;
+            });
+
+            setNearbyBuses(sorted);
+            setSelectedBus(sorted[0] || null);
+            setIsLoadingBuses(false);
+        });
+
+        return () => unsubscribe();
+    }, [journey.route1.routeNumber]);
 
     const renderDirectRoute = () => {
         const { route1, type } = journey;
@@ -97,13 +115,6 @@ export const TripResultScreen = ({ route, navigation }: any) => {
                         <Text style={[styles.stepDesc, { color: colors.textLight }]}>
                             Towards: {route1.destinationMatch}
                         </Text>
-                        {type === 'direct_far' && (
-                            <View style={[styles.warningBox, { borderColor: '#FECACA', backgroundColor: '#FEF2F2' }]}>
-                                <Text style={{ color: '#DC2626', fontSize: 12 }}>
-                                    Warning: Stop is {'>'} 1km away.
-                                </Text>
-                            </View>
-                        )}
                     </View>
                 </View>
             </View>
@@ -203,7 +214,8 @@ export const TripResultScreen = ({ route, navigation }: any) => {
                 style={styles.mapContainer}
                 onPress={() => navigation.navigate('TripMap', {
                     journey,
-                    userLocation
+                    userLocation,
+                    suggestedBus: selectedBus
                 })}
             >
                 <MapView
@@ -281,19 +293,80 @@ export const TripResultScreen = ({ route, navigation }: any) => {
                     </View>
                 </View>
 
+                {/* REAL-TIME BUS INSIGHT CARD */}
                 <View style={styles.stepsContainer}>
-                    <Text style={[styles.sectionHeader, { color: colors.textLight }]}>ITINERARY</Text>
+                    <Text style={[styles.sectionHeader, { color: colors.textLight }]}>LIVE BUS INSIGHT</Text>
+
+                    {isLoadingBuses ? (
+                        <View style={[styles.busInsightCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                            <Text style={{ color: colors.textLight, fontStyle: 'italic' }}>Finding active buses on this route...</Text>
+                        </View>
+                    ) : selectedBus ? (
+                        <View style={[styles.busInsightCard, { backgroundColor: colors.card, borderColor: '#22C55E' }]}>
+                            <View style={styles.insightHeader}>
+                                <View style={[styles.busIconCircle, { backgroundColor: '#F0FDF4' }]}>
+                                    <MaterialCommunityIcons name="bus-clock" size={18} color="#22C55E" />
+                                </View>
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <Text style={[styles.busIdText, { color: colors.text }]}>Route {selectedBus.routeNumber}</Text>
+                                    <Text style={{ color: '#22C55E', fontSize: 11, fontWeight: '700' }}>ONLINE & MOVING</Text>
+                                </View>
+                                <View style={[styles.occupancyBadge, {
+                                    backgroundColor: selectedBus.occupancy > 80 ? '#FEF2F2' : (selectedBus.occupancy < 50 ? '#F0FDF4' : '#FFFBEB')
+                                }]}>
+                                    <Text style={{
+                                        color: selectedBus.occupancy > 80 ? '#EF4444' : (selectedBus.occupancy < 50 ? '#22C55E' : '#F59E0B'),
+                                        fontSize: 10, fontWeight: '800'
+                                    }}>
+                                        {selectedBus.occupancy}% Crowded
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={[styles.divider, { backgroundColor: colors.border }]} />
+                            <View style={styles.insightStats}>
+                                <View style={styles.statItem}>
+                                    <Text style={styles.statLabel}>Status</Text>
+                                    <Text style={[styles.statValue, { color: selectedBus.status === 'On time' ? '#22C55E' : '#F59E0B' }]}>
+                                        {selectedBus.status}
+                                    </Text>
+                                </View>
+                                <View style={styles.statItem}>
+                                    <Text style={styles.statLabel}>Next Stop</Text>
+                                    <Text style={[styles.statValue, { color: colors.text }]}>{journey.route1.closestStop.location_name}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    ) : (
+                        <View style={[styles.busInsightCard, { backgroundColor: colors.card, borderColor: '#EF4444' }]}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Ionicons name="alert-circle-outline" size={20} color="#EF4444" />
+                                <Text style={{ color: '#EF4444', marginLeft: 10, fontWeight: '600' }}>No active buses found on Route {journey.route1.routeNumber}</Text>
+                            </View>
+                            <Text style={{ color: colors.textLight, fontSize: 12, marginTop: 4 }}>This route might be offline or out of service hours.</Text>
+                        </View>
+                    )}
+
+                    <Text style={[styles.sectionHeader, { color: colors.textLight, marginTop: 24 }]}>ITINERARY</Text>
                     {journey.type === 'transfer' ? renderTransferRoute() : renderDirectRoute()}
                 </View>
 
                 {/* Footer Spacer */}
-                <View style={{ height: 100 }} />
+                <View style={{ height: 120 }} />
             </ScrollView>
 
             {/* Floating Action Button */}
             <View style={[styles.footer, { backgroundColor: colors.card, borderTopColor: colors.border }]}>
-                <TouchableOpacity style={[styles.startBtn, { backgroundColor: colors.primary }]}>
-                    <Text style={styles.startBtnText}>Start Journey</Text>
+                <TouchableOpacity
+                    style={[
+                        styles.startBtn,
+                        { backgroundColor: selectedBus ? colors.primary : colors.border }
+                    ]}
+                    disabled={!selectedBus}
+                    onPress={() => navigation.navigate('BusDetails', { bus: selectedBus })}
+                >
+                    <Text style={styles.startBtnText}>
+                        {selectedBus ? 'Start Journey' : 'Route Currently Unavailable'}
+                    </Text>
                     <Ionicons name="arrow-forward" size={20} color="#FFF" />
                 </TouchableOpacity>
             </View>
@@ -409,7 +482,58 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '700',
         letterSpacing: 1,
-        marginBottom: 20,
+        marginBottom: 16,
+    },
+    busInsightCard: {
+        padding: 16,
+        borderRadius: 16,
+        borderWidth: 1.5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2,
+    },
+    insightHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    busIconCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    busIdText: {
+        fontSize: 15,
+        fontWeight: '700',
+    },
+    occupancyBadge: {
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    divider: {
+        height: 1,
+        marginVertical: 12,
+    },
+    insightStats: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    statItem: {
+        flex: 1,
+    },
+    statLabel: {
+        fontSize: 10,
+        color: '#94A3B8',
+        fontWeight: '600',
+        marginBottom: 2,
+    },
+    statValue: {
+        fontSize: 13,
+        fontWeight: '700',
     },
     stepItem: {
         flexDirection: 'row',
@@ -461,12 +585,6 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
         fontSize: 12,
-    },
-    warningBox: {
-        marginTop: 8,
-        padding: 8,
-        borderRadius: 6,
-        borderWidth: 1,
     },
     footer: {
         position: 'absolute',
