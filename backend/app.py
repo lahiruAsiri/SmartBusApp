@@ -330,17 +330,19 @@ def chat():
             'reason': "Higher traffic expected" if pred_sec > theoretical * 1.2 else "Smooth traffic predicted"
         }
     elif intent == 'find_route':
-        response_msg['type'] = 'rich_response'
-        response_msg['text'] = "I found a great option for you."
+        # Try to find a destination name from a known list or common patterns
+        destinations = ['malabe', 'pettah', 'kaduwela', 'kollupitiya', 'panadura', 'maharagama', 'kottawa', 'battaramulla', 'slit', 'fort', 'homagama', 'nugegoda', 'borella']
+        found_dest = None
+        for d in destinations:
+            if d in text.lower():
+                found_dest = d.capitalize()
+                break
+        
+        response_msg['type'] = 'find_route'
+        response_msg['text'] = f"Let me find the best route to {found_dest if found_dest else 'your destination'} for you."
         response_msg['data'] = {
-            'busRoute': requested_route,
-            'crowdLevel': 'Medium',
-            'seatsAvailable': True,
-            'locationName': 'Malabe Bus Stand',
-            'coordinates': {
-                'latitude': 6.9061,
-                'longitude': 79.9647,
-            },
+            'destination': found_dest,
+            'busRoute': requested_route if requested_route != '400/4' else None,
         }
         
     else: 
