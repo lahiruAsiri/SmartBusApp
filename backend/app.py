@@ -1,4 +1,3 @@
-```python
 import time
 import re
 import pandas as pd
@@ -159,11 +158,17 @@ def predict_crowd():
         day = data.get('day_of_week', datetime.now().weekday())
         weekend = 1 if day >= 5 else 0
         
+        is_trained = crowd_features and f'route_{route}' in crowd_features
         pred = get_crowd_prediction(route, hour, minute, day, weekend)
+        
+        print(f"--- Crowd Prediction Request ---")
+        print(f"Route: {route} | Trained: {is_trained}")
+        print(f"Result: {pred:.2f}%")
         
         return jsonify({
             'success': True,
             'prediction': pred,
+            'is_trained': is_trained,
             'level': 'High' if pred > 70 else 'Medium' if pred > 40 else 'Low'
         })
     except Exception as e:
@@ -183,10 +188,16 @@ def predict_eta():
         distance = data.get('distance_meters', 2500)
         theoretical = data.get('theoretical_time_seconds', 300)
 
+        is_trained = eta_features and f'route_{route}' in eta_features
         pred_seconds = get_eta_prediction(route, lat, lng, speed, hour, day, weekend, distance, theoretical)
+        
+        print(f"--- ETA Prediction Request ---")
+        print(f"Route: {route} | Trained: {is_trained}")
+        print(f"Result: {pred_seconds:.2f}s")
         
         return jsonify({
             'success': True,
+            'is_trained': is_trained,
             'prediction_seconds': float(pred_seconds),
             'delay_seconds': float(pred_seconds - theoretical)
         })
@@ -199,25 +210,42 @@ def extract_time(text):
     Returns (datetime_obj, is_custom)
     """
     now = datetime.now()
+    test_text = text.lower()
+    
     try:
-        # Basic relative keywords
-        test_text = text.lower()
-        base_date = now
-        
+        # 1. Determine the base date (Today, Tomorrow, etc.)
+        days_offset = 0
         if 'tomorrow' in test_text:
-            base_date = now + timedelta(days=1)
+            days_offset = 1
         elif 'day after tomorrow' in test_text:
-            base_date = now + timedelta(days=2)
+            days_offset = 2
+        elif 'next week' in test_text:
+            days_offset = 7
             
-        # Try to find a time pattern (e.g. 9am, 15:30)
-        # We use fuzzy parsing but keep the date from our base_date
+        base_date = now + timedelta(days=days_offset)
+        
+        # 2. Parse the time from text
+        # We use a dummy default to see if dateparser actually found a date or just time
         parsed_dt = date_parser.parse(text, default=base_date, fuzzy=True)
         
-        # If the parsed time is in the past and no relative keyword was used, 
-        # it might just be a time for today that already passed? 
-        # But usually users asking "9am" at 10am mean tomorrow.
-        if parsed_dt < now and 'tomorrow' not in test_text and 'day after' not in test_text:
-             # If it's a specific time today that already passed, default to tomorrow
+        # 3. If no specific date was found in text (like "March 15th"), 
+        # ensure we use our calculated offset date but keep the parsed time
+        # Check if dateparser changed the year/month/day from the default
+        if (parsed_dt.year == base_date.year and 
+            parsed_dt.month == base_date.month and 
+            parsed_dt.day == base_date.day):
+            # No date override found in text, our offset is safe
+            pass
+        elif days_offset > 0:
+            # If we had a "tomorrow" keyword but dateparser found something else,
+            # we force the offset date unless it specifically found a different date
+            # Actually, most cases "tomorrow 9am" dateparser might return today 9am 
+            # if it doesn't support the keyword "tomorrow" internally.
+            # So we re-apply the base date components.
+            parsed_dt = parsed_dt.replace(year=base_date.year, month=base_date.month, day=base_date.day)
+
+        # 4. Handle "past time" logic: if I ask "9am" at 10am, I usually mean tomorrow
+        if parsed_dt < now and days_offset == 0:
              if (now - parsed_dt).total_seconds() > 60: 
                 parsed_dt = parsed_dt + timedelta(days=1)
                 
@@ -239,6 +267,16 @@ def chat():
     route_match = re.search(r'\b(\d+(?:/\d+)?)\b', text)
     requested_route = route_match.group(1) if route_match else '400/4' # Default
     
+    # NEW: Temporal Parsing (Strip route number first to avoid year-parsing bugs)
+    text_for_time = re.sub(r'\b' + re.escape(requested_route) + r'\b', '', text)
+    target_time, is_custom_time = extract_time(text_for_time)
+    
+    print(f"\n--- AI Chat Prediction Log ---")
+    print(f"Input Text: '{text}'")
+    print(f"Extracted Intent: {intent} ({confidence:.2f})")
+    print(f"Detected Route: {requested_route}")
+    print(f"Target Timestamp: {target_time.strftime('%Y-%m-%d %H:%M:%S')} (Custom: {is_custom_time})")
+    
     response_msg = {
         'id': str(time.time()),
         'sender': 'bot',
@@ -248,44 +286,49 @@ def chat():
     # Check if we have features for this route, if not, reject
     if crowd_features and f'route_{requested_route}' not in crowd_features and intent in ['predict_crowd', 'predict_eta']:
         response_msg['type'] = 'text'
-        response_msg['text'] = f"I'm sorry, I don't have enough training data for route {requested_route} yet."
+        response_msg['text'] = f"AI insights for route {requested_route} are currently being processed. Full predictive details for this route will be updated and available soon!"
+        print(f"Result: Friendly Redirect (No data for route)")
         return jsonify({'success': True, 'message': response_msg})
         
-    now = datetime.now()
-    
     if intent == 'predict_crowd':
-        pred = get_crowd_prediction(requested_route, now.hour + 1, now.minute, now.weekday(), 1 if now.weekday() >= 5 else 0)
+        is_weekend = 1 if target_time.weekday() >= 5 else 0
+        pred = get_crowd_prediction(requested_route, target_time.hour, target_time.minute, target_time.weekday(), is_weekend)
+        
+        print(f"Crowd Pred Params: Hour={target_time.hour}, Day={target_time.weekday()}, Weekend={is_weekend}")
+        print(f"Raw Prediction: {pred:.2f}%")
         
         response_msg['type'] = 'crowd_forecast'
-        response_msg['text'] = f"Based on our model, here is the crowd forecast using IoT truth data:"
+        response_msg['text'] = f"Here is the predicted passenger density for route {requested_route} on {target_time.strftime('%A')} at {target_time.strftime('%I:%M %p')}:"
         response_msg['data'] = {
             'route': requested_route,
-            'context': 'Next Hour',
+            'context': target_time.strftime('%a %H:%M'),
             'currentOccupancy': round(pred),
             'trend': 'Stable',
             'recommendation': 'Try avoiding peak times.' if pred > 60 else 'Good time to travel.',
             'forecast': [
-                {'time': 'Now', 'level': round(get_crowd_prediction(requested_route, now.hour, now.minute, now.weekday(), 1 if now.weekday() >= 5 else 0))},
-                {'time': '+1hr', 'level': round(pred)},
-                {'time': '+2hr', 'level': round(get_crowd_prediction(requested_route, (now.hour + 2)%24, now.minute, now.weekday(), 1 if now.weekday() >= 5 else 0))},
+                {'time': '-1hr', 'level': round(get_crowd_prediction(requested_route, (target_time.hour - 1)%24, target_time.minute, target_time.weekday(), is_weekend))},
+                {'time': 'Target', 'level': round(pred)},
+                {'time': '+1hr', 'level': round(get_crowd_prediction(requested_route, (target_time.hour + 1)%24, target_time.minute, target_time.weekday(), is_weekend))},
             ]
         }
         
     elif intent == 'predict_eta':
         theoretical = 450
-        pred_sec = get_eta_prediction(requested_route, 6.9, 79.8, 10.0, now.hour, now.weekday(), 1 if now.weekday()>=5 else 0, 3000, theoretical)
+        is_weekend = 1 if target_time.weekday() >= 5 else 0
+        pred_sec = get_eta_prediction(requested_route, 6.9, 79.8, 10.0, target_time.hour, target_time.weekday(), is_weekend, 3000, theoretical)
+        
+        print(f"ETA Pred Params: Hour={target_time.hour}, Day={target_time.weekday()}, Weekend={is_weekend}")
+        print(f"Raw Prediction: {pred_sec:.2f} seconds")
         
         response_msg['type'] = 'ai_prediction'
-        response_msg['text'] = "Using our ML engine trained on bus telemetry, I've calculated the predictive ETA."
+        response_msg['text'] = f"I've calculated the optimal arrival time for route {requested_route} at {target_time.strftime('%I:%M %p')} tomorrow." if target_time.day != datetime.now().day else f"I've calculated the optimal arrival time for route {requested_route} for right now."
         response_msg['data'] = {
             'route': requested_route,
             'standardEta': f"{int(theoretical//60)} mins",
             'aiEta': f"{int(pred_sec//60)} mins",
             'confidence': f"{min(98, max(85, int(confidence * 100)))}%",
-            'reason': 'Traffic dynamically predicted',
-            'delayRisk': 'High' if (pred_sec - theoretical) > 120 else 'Low'
+            'reason': "Higher traffic expected" if pred_sec > theoretical * 1.2 else "Smooth traffic predicted"
         }
-        
     elif intent == 'find_route':
         response_msg['type'] = 'rich_response'
         response_msg['text'] = "I found a great option for you."
