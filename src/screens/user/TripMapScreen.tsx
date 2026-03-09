@@ -1,5 +1,5 @@
 // File: src/screens/user/TripMapScreen.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -9,18 +9,31 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MapView, { Marker, Polyline, PROVIDER_DEFAULT, UrlTile } from 'react-native-maps';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { JourneyResult } from '../../services/BusRouteOptimizer';
 import { MAP_CONFIG } from '../../constants/config';
+import { Bus, subscribeToBus } from '../../services/busService';
 
 export const TripMapScreen = ({ route, navigation }: any) => {
-    const { journey, userLocation } = route.params as {
+    const { journey, userLocation, suggestedBus: initialBus } = route.params as {
         journey: JourneyResult;
-        userLocation: { latitude: number; longitude: number }
+        userLocation: { latitude: number; longitude: number };
+        suggestedBus?: Bus;
     };
     const { colors, isDark } = useTheme();
     const mapRef = useRef<MapView>(null);
+    const [liveBus, setLiveBus] = useState<Bus | null>(initialBus || null);
+
+    // Track the suggested bus in real-time if it exists
+    useEffect(() => {
+        if (initialBus?.id) {
+            const unsubscribe = subscribeToBus(initialBus.id, (bus) => {
+                if (bus) setLiveBus(bus);
+            });
+            return () => unsubscribe();
+        }
+    }, [initialBus?.id]);
 
     useEffect(() => {
         // Fit map to markers with padding
@@ -30,17 +43,16 @@ export const TripMapScreen = ({ route, navigation }: any) => {
                 { latitude: journey.route1.closestStop.latitude, longitude: journey.route1.closestStop.longitude },
             ];
 
-            // If transfer, add route2 endpoint or transfer point if possible
-            if (journey.type === 'transfer' && journey.route2) {
-                // Ideally we add more points to fit
+            if (liveBus) {
+                markers.push({ latitude: liveBus.location.latitude, longitude: liveBus.location.longitude });
             }
 
             mapRef.current.fitToCoordinates(markers, {
-                edgePadding: { top: 100, right: 50, bottom: 100, left: 50 },
+                edgePadding: { top: 120, right: 60, bottom: 180, left: 60 },
                 animated: true,
             });
         }
-    }, [journey]);
+    }, [journey, liveBus?.location]);
 
     return (
         <View style={styles.container}>
@@ -91,6 +103,23 @@ export const TripMapScreen = ({ route, navigation }: any) => {
                     strokeWidth={4}
                     lineDashPattern={[5, 5]}
                 />
+
+                {/* Live Bus Marker */}
+                {liveBus && (
+                    <Marker
+                        coordinate={{ latitude: liveBus.location.latitude, longitude: liveBus.location.longitude }}
+                        anchor={{ x: 0.5, y: 0.5 }}
+                    >
+                        <View style={styles.liveBusMarkerContainer}>
+                            <View style={[styles.liveBusCircle, { backgroundColor: '#22C55E' }]}>
+                                <MaterialCommunityIcons name="bus" size={20} color="#FFF" />
+                            </View>
+                            <View style={styles.busLabel}>
+                                <Text style={styles.busLabelText}>{liveBus.routeNumber}</Text>
+                            </View>
+                        </View>
+                    </Marker>
+                )}
             </MapView>
 
             {/* Header Overlay */}
@@ -102,7 +131,7 @@ export const TripMapScreen = ({ route, navigation }: any) => {
                     <Ionicons name="close" size={24} color={colors.text} />
                 </TouchableOpacity>
                 <View style={[styles.titleContainer, { backgroundColor: colors.card }]}>
-                    <Text style={[styles.titleText, { color: colors.text }]}>Trip Route</Text>
+                    <Text style={[styles.titleText, { color: colors.text }]}>Live Trip Tracker</Text>
                 </View>
                 <View style={{ width: 40 }} />
             </SafeAreaView>
@@ -115,13 +144,24 @@ export const TripMapScreen = ({ route, navigation }: any) => {
                     </View>
                     <Text style={[styles.infoText, { color: colors.text }]}>Start</Text>
                 </View>
-                <View style={{ width: 20 }} />
+                <View style={{ width: 15 }} />
                 <View style={styles.infoRow}>
                     <View style={[styles.stopMarkerSmall, { backgroundColor: colors.primary }]}>
                         <Ionicons name="bus" size={10} color="#FFF" />
                     </View>
-                    <Text style={[styles.infoText, { color: colors.text }]}>Bus Stop</Text>
+                    <Text style={[styles.infoText, { color: colors.text }]}>Stop</Text>
                 </View>
+                {liveBus && (
+                    <>
+                        <View style={{ width: 15 }} />
+                        <View style={styles.infoRow}>
+                            <View style={[styles.stopMarkerSmall, { backgroundColor: '#22C55E' }]}>
+                                <MaterialCommunityIcons name="bus" size={10} color="#FFF" />
+                            </View>
+                            <Text style={[styles.infoText, { color: colors.text }]}>Active Bus</Text>
+                        </View>
+                    </>
+                )}
             </View>
         </View>
     );
@@ -201,17 +241,49 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 2,
     },
+    liveBusMarkerContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    liveBusCircle: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#FFF',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+        elevation: 4,
+    },
+    busLabel: {
+        backgroundColor: '#FFF',
+        paddingHorizontal: 6,
+        paddingVertical: 1,
+        borderRadius: 4,
+        marginTop: -4,
+        borderWidth: 1,
+        borderColor: '#E2E8F0',
+    },
+    busLabelText: {
+        fontSize: 9,
+        fontWeight: '800',
+        color: '#1E293B',
+    },
     infoOverlay: {
         position: 'absolute',
-        bottom: 40,
+        bottom: 30,
         left: 20,
         right: 20,
-        padding: 16,
+        padding: 12,
         borderRadius: 16,
         flexDirection: 'row',
         justifyContent: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
         elevation: 4,
@@ -221,9 +293,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     infoText: {
-        marginLeft: 8,
+        marginLeft: 6,
         fontWeight: '600',
-        fontSize: 14,
+        fontSize: 12,
     },
     myLocationMarkerSmall: {
         width: 16,
@@ -249,3 +321,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
