@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   routeNumberLarge: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '800',
     color: '#FFF',
   },
