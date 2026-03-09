@@ -9,7 +9,7 @@ import {
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-import MapView, { Marker, UrlTile, PROVIDER_DEFAULT, Region } from 'react-native-maps';
+import MapView, { Marker, Circle, UrlTile, PROVIDER_DEFAULT, Region } from 'react-native-maps';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MAP_CONFIG } from '../../constants/config';
@@ -175,6 +175,17 @@ export const MapScreen = ({ navigation, route }: any) => {
             </View>
             <Text style={styles.violationLabel}>Violation Location</Text>
           </Marker>
+        )}
+
+        {/* 500m patrol radius — police officers only */}
+        {userData?.role === 'policeman' && activeLocation && (
+          <Circle
+            center={activeLocation}
+            radius={500}
+            strokeColor="rgba(220, 38, 38, 0.9)"
+            strokeWidth={2}
+            fillColor="rgba(220, 38, 38, 0.08)"
+          />
         )}
       </MapView>
       {/* Header */}
