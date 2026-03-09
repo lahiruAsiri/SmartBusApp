@@ -1,5 +1,5 @@
 // File: src/screens/user/ChatScreen.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     View,
     Text,
@@ -10,8 +10,8 @@ import {
     StatusBar,
     KeyboardAvoidingView,
     Platform,
-    Image,
     Dimensions,
+    ScrollView,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
@@ -21,7 +21,6 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const { width } = Dimensions.get('window');
 
-// Enhanced Message Interface for Research Demo
 interface Message {
     id: string;
     text: string;
@@ -32,9 +31,9 @@ interface Message {
 }
 
 const SUGGESTIONS = [
-    "Predict ETA for 138",
-    "Will 336 be crowded tmrw 9am?",
-    "Find bus to Malabe",
+    { label: "🚌 ETA for 400/4", query: "What is the ETA for 400/4?" },
+    { label: "👥 Crowds tmrw 9am", query: "Will 400/4 be crowded tomorrow 9am?" },
+    { label: "📍 Find bus to Malabe", query: "Find bus to Malabe" },
 ];
 
 export const ChatScreen = ({ navigation }: any) => {
@@ -43,7 +42,7 @@ export const ChatScreen = ({ navigation }: any) => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hello! I'm your Smart Bus Assistant powered by AI. Ask me about predictions or routes!",
+            text: "Hello! I'm your Smart Bus Assistant. Ask me about arrival times, passenger density, or bus routes.",
             sender: 'bot',
             timestamp: new Date(),
             type: 'text',
@@ -58,171 +57,236 @@ export const ChatScreen = ({ navigation }: any) => {
 
         const newUserMsg: Message = {
             id: Date.now().toString(),
-            text: text,
+            text,
             sender: 'user',
             timestamp: new Date(),
             type: 'text',
         };
 
-        setMessages((prev) => [...prev, newUserMsg]);
+        setMessages(prev => [...prev, newUserMsg]);
         setInputText('');
         setIsTyping(true);
 
-        setIsTyping(true);
-
-        // Fetch real response from ML backend
         fetch(`${ML_API_URL}/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: text })
+            body: JSON.stringify({ text }),
         })
-            .then(response => response.json())
+            .then(r => r.json())
             .then(data => {
                 if (data.success && data.message) {
-                    // Parse date string back to Date object
-                    const botMsg = {
-                        ...data.message,
-                        timestamp: new Date(data.message.timestamp)
-                    };
+                    const botMsg = { ...data.message, timestamp: new Date(data.message.timestamp) };
                     setMessages(prev => [...prev, botMsg]);
                 } else {
-                    throw new Error("Invalid response format");
+                    throw new Error("Invalid response");
                 }
             })
-            .catch(err => {
-                console.error("NLP Chat Error:", err);
-                // Fallback message
+            .catch(() => {
                 setMessages(prev => [...prev, {
                     id: Date.now().toString(),
-                    text: "My AI servers are currently unreachable. Please try again later.",
+                    text: "I'm having trouble connecting to the server. Please check your connection and try again.",
                     sender: 'bot',
                     timestamp: new Date(),
-                    type: 'text'
+                    type: 'text',
                 }]);
             })
             .finally(() => {
                 setIsTyping(false);
+                setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
             });
     };
 
-    useEffect(() => {
-        flatListRef.current?.scrollToEnd({ animated: true });
-    }, [messages, isTyping]);
+    // ── Helper to derive crowd color/label ──────────────────
+    const getCrowdColor = (level: number) => {
+        if (level >= 75) return '#EF4444';
+        if (level >= 45) return '#F59E0B';
+        return '#22C55E';
+    };
+    const getCrowdLabel = (level: number) => {
+        if (level >= 75) return 'Very Busy';
+        if (level >= 45) return 'Moderate';
+        return 'Quiet';
+    };
 
+    // ── Renders one message bubble ───────────────────────────
     const renderMessage = ({ item }: { item: Message }) => {
         const isUser = item.sender === 'user';
-
-        // Dynamic Styles based on Theme
-        const bubbleColor = isUser ? colors.primary : colors.card;
         const textColor = isUser ? '#FFF' : colors.text;
-        const subTextColor = isUser ? 'rgba(255,255,255,0.7)' : colors.textLight;
-        const cardBg = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'; // Subtle contrast
-        const borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+        const subTextColor = isUser ? 'rgba(255,255,255,0.75)' : colors.textLight;
 
         return (
-            <View style={[
-                styles.messageRow,
-                isUser ? styles.userRow : styles.botRow
-            ]}>
+            <View style={[styles.msgRow, isUser ? styles.userRow : styles.botRow]}>
                 {!isUser && (
-                    <View style={[styles.botAvatar, { backgroundColor: colors.primary }]}>
-                        <Ionicons name="sparkles" size={16} color="#FFF" />
+                    <View style={[styles.avatar, { backgroundColor: colors.primary }]}>
+                        <Ionicons name="bus" size={14} color="#FFF" />
                     </View>
                 )}
 
                 <View style={[
                     styles.bubble,
                     isUser
-                        ? { backgroundColor: colors.primary, borderBottomRightRadius: 2 }
-                        : { backgroundColor: colors.card, borderTopLeftRadius: 2, borderWidth: 1, borderColor: colors.border }
+                        ? { backgroundColor: colors.primary, borderBottomRightRadius: 4 }
+                        : { backgroundColor: colors.card, borderTopLeftRadius: 4, borderWidth: 1, borderColor: colors.border },
+                    { maxWidth: width * 0.82 }
                 ]}>
-                    <Text style={[styles.messageText, { color: textColor }]}>
-                        {item.text}
-                    </Text>
+                    <Text style={{ fontSize: 15, lineHeight: 22, color: textColor }}>{item.text}</Text>
 
-                    {/* ---------- NOVELTY 1: PREDICTIVE ETA CARD ---------- */}
+                    {/* ━━━ ETA CARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
                     {item.type === 'ai_prediction' && item.data && (
-                        <View style={[styles.aiCard, { backgroundColor: cardBg, borderColor: borderColor }]}>
-                            <View style={styles.aiHeader}>
-                                <MaterialCommunityIcons name="brain" size={16} color="#A855F7" />
-                                <Text style={styles.aiTitle}>AI Predictive ETA</Text>
+                        <View style={[styles.predCard, {
+                            backgroundColor: isDark ? 'rgba(99,102,241,0.12)' : '#EEF2FF',
+                            borderColor: isDark ? 'rgba(99,102,241,0.3)' : '#C7D2FE',
+                        }]}>
+                            {/* Header */}
+                            <View style={styles.cardHeader}>
+                                <View style={[styles.iconCircle, { backgroundColor: isDark ? 'rgba(99,102,241,0.2)' : '#E0E7FF' }]}>
+                                    <Ionicons name="time-outline" size={16} color="#6366F1" />
+                                </View>
+                                <View style={{ flex: 1, marginLeft: 8 }}>
+                                    <Text style={{ color: '#6366F1', fontWeight: '700', fontSize: 13 }}>
+                                        Arrival Estimate · Route {item.data.route}
+                                    </Text>
+                                    <Text style={{ color: colors.textLight, fontSize: 11 }}>Based on real-time traffic patterns</Text>
+                                </View>
+                                <View style={[styles.confBadge, { backgroundColor: isDark ? 'rgba(99,102,241,0.2)' : '#E0E7FF' }]}>
+                                    <Text style={{ color: '#6366F1', fontSize: 10, fontWeight: '700' }}>{item.data.confidence}</Text>
+                                </View>
                             </View>
 
+                            {/* ETA Comparison */}
                             <View style={styles.etaRow}>
-                                <View style={styles.etaItem}>
-                                    <Text style={[styles.etaLabel, { color: subTextColor }]}>Standard</Text>
-                                    <Text style={[styles.etaValue, { color: subTextColor, textDecorationLine: 'line-through' }]}>{item.data.standardEta}</Text>
+                                <View style={styles.etaBox}>
+                                    <Text style={{ color: colors.textLight, fontSize: 10, marginBottom: 2 }}>Scheduled</Text>
+                                    <Text style={{ color: colors.textLight, fontSize: 20, fontWeight: '700', textDecorationLine: 'line-through' }}>
+                                        {item.data.standardEta}
+                                    </Text>
                                 </View>
-                                <Ionicons name="arrow-forward" size={16} color={subTextColor} />
-                                <View style={styles.etaItem}>
-                                    <Text style={[styles.etaLabel, { color: '#A855F7' }]}>AI Forecast</Text>
-                                    <Text style={[styles.etaValue, { color: '#A855F7', fontWeight: 'bold' }]}>{item.data.aiEta}</Text>
+                                <View style={[styles.arrowCircle, { backgroundColor: isDark ? 'rgba(99,102,241,0.2)' : '#E0E7FF' }]}>
+                                    <Ionicons name="arrow-forward" size={16} color="#6366F1" />
+                                </View>
+                                <View style={styles.etaBox}>
+                                    <Text style={{ color: '#6366F1', fontSize: 10, marginBottom: 2 }}>Updated ETA</Text>
+                                    <Text style={{ color: '#6366F1', fontSize: 24, fontWeight: '800' }}>
+                                        {item.data.aiEta}
+                                    </Text>
                                 </View>
                             </View>
 
-                            <View style={[styles.warningBadge, { backgroundColor: isDark ? 'rgba(239, 68, 68, 0.2)' : '#FEF2F2' }]}>
-                                <Ionicons name="warning-outline" size={14} color="#EF4444" />
-                                <Text style={styles.warningText}>{item.data.reason}</Text>
+                            {/* Reason Banner */}
+                            <View style={[styles.reasonRow, {
+                                backgroundColor: item.data.reason.toLowerCase().includes('higher')
+                                    ? (isDark ? 'rgba(239,68,68,0.1)' : '#FEF2F2')
+                                    : (isDark ? 'rgba(34,197,94,0.1)' : '#F0FDF4'),
+                                borderLeftColor: item.data.reason.toLowerCase().includes('higher') ? '#EF4444' : '#22C55E',
+                            }]}>
+                                <Ionicons
+                                    name={item.data.reason.toLowerCase().includes('higher') ? 'warning-outline' : 'checkmark-circle-outline'}
+                                    size={14}
+                                    color={item.data.reason.toLowerCase().includes('higher') ? '#EF4444' : '#22C55E'}
+                                />
+                                <Text style={{
+                                    marginLeft: 6, fontSize: 12, fontWeight: '600',
+                                    color: item.data.reason.toLowerCase().includes('higher') ? '#EF4444' : '#22C55E',
+                                    flex: 1,
+                                }}>
+                                    {item.data.reason}
+                                </Text>
                             </View>
-                            <Text style={[styles.confText, { color: colors.textLight }]}>{item.data.confidence} Confidence Score</Text>
                         </View>
                     )}
 
-                    {/* ---------- NOVELTY 2: CROWD FORECAST CARD ---------- */}
-                    {item.type === 'crowd_forecast' && item.data && (
-                        <View style={[styles.aiCard, { backgroundColor: cardBg, borderColor: borderColor }]}>
-                            <View style={styles.aiHeader}>
-                                <MaterialCommunityIcons name="chart-bar" size={16} color="#F59E0B" />
-                                <Text style={[styles.aiTitle, { color: '#F59E0B' }]}>
-                                    {item.data.context} Forecast
-                                </Text>
-                            </View>
+                    {/* ━━━ CROWD CARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                    {item.type === 'crowd_forecast' && item.data && (() => {
+                        const occ = item.data.currentOccupancy;
+                        const crowdColor = getCrowdColor(occ);
+                        const crowdLabel = getCrowdLabel(occ);
 
-                            <View style={styles.forecastContainer}>
-                                {item.data.forecast.map((f: any, idx: number) => (
-                                    <View key={idx} style={styles.forecastBarCol}>
-                                        <View style={[styles.barCtx, { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }]}>
-                                            <View style={[
-                                                styles.barFill,
-                                                {
-                                                    height: `${f.level}%`,
-                                                    backgroundColor: f.level > 80 ? '#EF4444' : (f.level < 50 ? '#22C55E' : '#F59E0B')
-                                                }
-                                            ]} />
-                                        </View>
-                                        <Text style={[styles.barLabel, { color: subTextColor }]}>{f.time}</Text>
+                        return (
+                            <View style={[styles.predCard, {
+                                backgroundColor: isDark ? 'rgba(245,158,11,0.08)' : '#FFFBEB',
+                                borderColor: isDark ? 'rgba(245,158,11,0.3)' : '#FDE68A',
+                            }]}>
+                                {/* Header */}
+                                <View style={styles.cardHeader}>
+                                    <View style={[styles.iconCircle, { backgroundColor: isDark ? 'rgba(245,158,11,0.15)' : '#FEF3C7' }]}>
+                                        <MaterialCommunityIcons name="account-group" size={16} color="#F59E0B" />
                                     </View>
-                                ))}
+                                    <View style={{ flex: 1, marginLeft: 8 }}>
+                                        <Text style={{ color: '#D97706', fontWeight: '700', fontSize: 13 }}>
+                                            Passenger Density · Route {item.data.route}
+                                        </Text>
+                                        <Text style={{ color: colors.textLight, fontSize: 11 }}>{item.data.context}</Text>
+                                    </View>
+                                </View>
+
+                                {/* Big occupancy circle + mini bar chart */}
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+                                    {/* Circle gauge */}
+                                    <View style={[styles.gaugeCircle, { borderColor: crowdColor }]}>
+                                        <Text style={{ color: crowdColor, fontSize: 22, fontWeight: '800' }}>{occ}%</Text>
+                                        <Text style={{ color: crowdColor, fontSize: 9, fontWeight: '600' }}>{crowdLabel}</Text>
+                                    </View>
+
+                                    {/* Mini bar chart */}
+                                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-around', height: 60, marginLeft: 16 }}>
+                                        {item.data.forecast.map((f: any, i: number) => {
+                                            const fc = getCrowdColor(f.level);
+                                            const isTarget = f.time === 'Target';
+                                            return (
+                                                <View key={i} style={{ alignItems: 'center' }}>
+                                                    <Text style={{ fontSize: 9, color: colors.textLight, marginBottom: 3 }}>{f.level}%</Text>
+                                                    <View style={{
+                                                        width: isTarget ? 22 : 14,
+                                                        height: Math.max(8, (f.level / 100) * 44),
+                                                        backgroundColor: isTarget ? fc : `${fc}60`,
+                                                        borderRadius: 4,
+                                                        borderWidth: isTarget ? 1.5 : 0,
+                                                        borderColor: isTarget ? fc : 'transparent',
+                                                    }} />
+                                                    <Text style={{ fontSize: 9, color: colors.textLight, marginTop: 3 }}>{f.time}</Text>
+                                                </View>
+                                            );
+                                        })}
+                                    </View>
+                                </View>
+
+                                {/* Recommendation */}
+                                <View style={[styles.reasonRow, {
+                                    backgroundColor: crowdColor === '#EF4444'
+                                        ? (isDark ? 'rgba(239,68,68,0.1)' : '#FEF2F2')
+                                        : (isDark ? 'rgba(34,197,94,0.1)' : '#F0FDF4'),
+                                    borderLeftColor: crowdColor,
+                                }]}>
+                                    <Ionicons
+                                        name={occ >= 75 ? 'alert-circle-outline' : 'thumbs-up-outline'}
+                                        size={14}
+                                        color={crowdColor}
+                                    />
+                                    <Text style={{ marginLeft: 6, fontSize: 12, fontWeight: '600', color: crowdColor, flex: 1 }}>
+                                        {item.data.recommendation}
+                                    </Text>
+                                </View>
                             </View>
+                        );
+                    })()}
 
-                            <View style={[styles.recBox, { borderColor: '#22C55E' }]}>
-                                <Text style={{ color: '#22C55E', fontWeight: '600', fontSize: 12 }}>
-                                    AI Tip: {item.data.recommendation}
-                                </Text>
-                            </View>
-                        </View>
-                    )}
-
-
-                    {/* ---------- EXISTING RICH RESPONSE ---------- */}
+                    {/* ━━━ RICH RESPONSE (map) ━━━━━━━━━━━━━━━━━━━━━━━━━ */}
                     {item.type === 'rich_response' && item.data && (
-                        <View style={styles.richContent}>
-                            <View style={[styles.divider, { backgroundColor: isUser ? 'rgba(255,255,255,0.2)' : colors.border }]} />
-                            <View style={styles.busInfoRow}>
-                                <View style={[styles.busBadge, { backgroundColor: '#22C55E' }]}>
-                                    <Text style={styles.busBadgeText}>{item.data.busRoute}</Text>
+                        <View style={{ marginTop: 10 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                                <View style={[styles.iconCircle, { backgroundColor: '#22C55E' }]}>
+                                    <Text style={{ color: '#FFF', fontWeight: '800', fontSize: 11 }}>{item.data.busRoute}</Text>
                                 </View>
-                                <View style={{ marginLeft: 10 }}>
-                                    <Text style={[styles.infoLabel, { color: isUser ? '#FFF' : colors.textLight }]}>Crowd: <Text style={{ fontWeight: 'bold', color: item.data.crowdLevel === 'High' ? '#EF4444' : '#22C55E' }}>{item.data.crowdLevel}</Text></Text>
-                                    <Text style={[styles.infoLabel, { color: isUser ? '#FFF' : colors.textLight }]}>Seats: <Text style={{ fontWeight: 'bold' }}>{item.data.seatsAvailable ? 'Yes' : 'No'}</Text></Text>
+                                <View style={{ marginLeft: 8 }}>
+                                    <Text style={{ color: textColor, fontWeight: '600' }}>Route {item.data.busRoute}</Text>
+                                    <Text style={{ color: subTextColor, fontSize: 12 }}>Seats: {item.data.seatsAvailable ? 'Available' : 'Full'}</Text>
                                 </View>
                             </View>
-                            {/* Map Preview */}
                             {item.data.coordinates && (
-                                <View style={styles.mapContainer}>
+                                <View style={{ height: 130, borderRadius: 12, overflow: 'hidden' }}>
                                     <MapView
                                         provider={PROVIDER_DEFAULT}
-                                        style={styles.map}
+                                        style={StyleSheet.absoluteFillObject}
                                         initialRegion={{
                                             latitude: item.data.coordinates.latitude,
                                             longitude: item.data.coordinates.longitude,
@@ -240,10 +304,7 @@ export const ChatScreen = ({ navigation }: any) => {
                         </View>
                     )}
 
-                    <Text style={[
-                        styles.timestamp,
-                        { color: subTextColor }
-                    ]}>
+                    <Text style={{ fontSize: 10, marginTop: 6, alignSelf: 'flex-end', color: subTextColor }}>
                         {item.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </Text>
                 </View>
@@ -257,16 +318,16 @@ export const ChatScreen = ({ navigation }: any) => {
 
             {/* Header */}
             <View style={[styles.header, { borderBottomColor: colors.border }]}>
-                <View style={styles.headerTitleRow}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <View style={[styles.headerIcon, { backgroundColor: colors.primary }]}>
-                        <Ionicons name="sparkles" size={18} color="#FFF" />
+                        <Ionicons name="bus" size={18} color="#FFF" />
                     </View>
                     <View>
-                        <Text style={[styles.headerTitle, { color: colors.text }]}>Smart Bus Helper (AI)</Text>
-                        <Text style={[styles.headerSubtitle, { color: '#22C55E' }]}>Predictive Engine Active</Text>
+                        <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>Bus Assistant</Text>
+                        <Text style={{ fontSize: 12, color: '#22C55E', fontWeight: '600' }}>● Online</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeBtn}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 4 }}>
                     <Ionicons name="close" size={24} color={colors.text} />
                 </TouchableOpacity>
             </View>
@@ -277,65 +338,59 @@ export const ChatScreen = ({ navigation }: any) => {
                 data={messages}
                 renderItem={renderMessage}
                 keyExtractor={item => item.id}
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={{ padding: 16, paddingBottom: 8 }}
+                onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
                 ListFooterComponent={
                     isTyping ? (
-                        <View style={[styles.messageRow, styles.botRow]}>
-                            <View style={[styles.botAvatar, { backgroundColor: colors.primary }]}>
-                                <Ionicons name="sparkles" size={16} color="#FFF" />
+                        <View style={[styles.msgRow, styles.botRow]}>
+                            <View style={[styles.avatar, { backgroundColor: colors.primary }]}>
+                                <Ionicons name="bus" size={14} color="#FFF" />
                             </View>
-                            <View style={[styles.bubble, { backgroundColor: colors.card, borderTopLeftRadius: 2, paddingVertical: 12, borderWidth: 1, borderColor: colors.border }]}>
-                                <Text style={{ color: colors.textLight, fontStyle: 'italic', fontSize: 12 }}>AI is thinking...</Text>
+                            <View style={[styles.bubble, { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }]}>
+                                <Text style={{ color: colors.textLight, fontStyle: 'italic', fontSize: 13 }}>Calculating...</Text>
                             </View>
                         </View>
                     ) : null
                 }
             />
 
-            {/* Input Area */}
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                {messages.length < 3 && (
-                    <View style={styles.suggestionsContainer}>
-                        <FlatList
-                            horizontal
-                            data={SUGGESTIONS}
-                            showsHorizontalScrollIndicator={false}
-                            keyExtractor={(_, i) => i.toString()}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity
-                                    style={[styles.chip, { backgroundColor: colors.card, borderColor: colors.border }]}
-                                    onPress={() => sendMessage(item)}
-                                >
-                                    <Text style={{ color: colors.primary, fontSize: 12 }}>{item}</Text>
-                                </TouchableOpacity>
-                            )}
-                            contentContainerStyle={{ paddingHorizontal: 16 }}
-                        />
-                    </View>
-                )}
+            {/* Suggestion Chips — ALWAYS VISIBLE */}
+            <View style={[styles.suggestionsWrap, { backgroundColor: colors.background, borderTopColor: colors.border }]}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 8 }}>
+                    {SUGGESTIONS.map((s, i) => (
+                        <TouchableOpacity
+                            key={i}
+                            style={[styles.chip, { backgroundColor: colors.card, borderColor: colors.border }]}
+                            onPress={() => sendMessage(s.query)}
+                        >
+                            <Text style={{ color: colors.primary, fontSize: 12, fontWeight: '600' }}>{s.label}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
 
-                <View style={[
-                    styles.inputContainer,
-                    {
-                        backgroundColor: colors.card,
-                        borderTopColor: colors.border,
-                        paddingBottom: Platform.OS === 'ios' ? insets.bottom + 10 : 12
-                    }
-                ]}>
+            {/* Input */}
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <View style={[styles.inputBar, {
+                    backgroundColor: colors.card,
+                    borderTopColor: colors.border,
+                    paddingBottom: Platform.OS === 'ios' ? insets.bottom + 4 : 12,
+                }]}>
                     <TextInput
                         style={[styles.input, { backgroundColor: isDark ? colors.background : '#F1F5F9', color: colors.text }]}
-                        placeholder="Ask about ETA or Crowds..."
+                        placeholder="Ask me about your bus..."
                         placeholderTextColor={colors.textLight}
                         value={inputText}
                         onChangeText={setInputText}
                         onSubmitEditing={() => sendMessage(inputText)}
+                        returnKeyType="send"
                     />
                     <TouchableOpacity
                         style={[styles.sendBtn, { backgroundColor: inputText.trim() ? colors.primary : colors.border }]}
                         onPress={() => sendMessage(inputText)}
                         disabled={!inputText.trim()}
                     >
-                        <Ionicons name="send" size={20} color="#FFF" />
+                        <Ionicons name="send" size={18} color="#FFF" />
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -343,58 +398,38 @@ export const ChatScreen = ({ navigation }: any) => {
     );
 };
 
-// Styles including new AI Card styles
 const styles = StyleSheet.create({
     container: { flex: 1 },
     header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1 },
-    headerTitleRow: { flexDirection: 'row', alignItems: 'center' },
-    headerIcon: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
-    headerTitle: { fontSize: 16, fontWeight: '700' },
-    headerSubtitle: { fontSize: 12, fontWeight: '600' },
-    closeBtn: { padding: 4 },
-    listContent: { padding: 16, paddingBottom: 20 },
-    messageRow: { marginBottom: 16, flexDirection: 'row', alignItems: 'flex-end', maxWidth: '90%' },
+    headerIcon: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
+
+    msgRow: { marginBottom: 14, flexDirection: 'row', alignItems: 'flex-end' },
     userRow: { alignSelf: 'flex-end', flexDirection: 'row-reverse' },
     botRow: { alignSelf: 'flex-start' },
-    botAvatar: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginRight: 8 },
-    bubble: { padding: 12, borderRadius: 16, minWidth: 100 },
-    messageText: { fontSize: 15, lineHeight: 22 },
-    timestamp: { fontSize: 10, marginTop: 6, alignSelf: 'flex-end' },
+    avatar: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginRight: 8 },
+    bubble: { padding: 12, borderRadius: 18 },
 
-    // Rich Card Styles
-    richContent: { marginTop: 10 },
-    divider: { height: 1, width: '100%', marginBottom: 10 },
-    busInfoRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
-    busBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
-    busBadgeText: { color: '#FFF', fontWeight: 'bold' },
-    infoLabel: { fontSize: 12, marginBottom: 2 },
-    mapContainer: { height: 120, width: 200, borderRadius: 12, overflow: 'hidden', marginBottom: 6 },
-    map: { ...StyleSheet.absoluteFillObject },
+    // Prediction Cards
+    predCard: { marginTop: 12, borderRadius: 14, borderWidth: 1, padding: 12, gap: 10 },
+    cardHeader: { flexDirection: 'row', alignItems: 'center' },
+    iconCircle: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+    confBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 20 },
 
-    // AI Prediction Card Styles
-    aiCard: { marginTop: 12, borderWidth: 1, padding: 10, borderRadius: 12 },
-    aiHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 8 },
-    aiTitle: { fontWeight: '700', marginLeft: 6, fontSize: 13, color: '#A855F7' },
-    etaRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
-    etaItem: { alignItems: 'center' },
-    etaLabel: { fontSize: 10, marginBottom: 2 },
-    etaValue: { fontSize: 16 },
-    warningBadge: { flexDirection: 'row', alignItems: 'center', padding: 6, borderRadius: 6, marginBottom: 6 },
-    warningText: { color: '#EF4444', fontSize: 11, marginLeft: 4, flex: 1 },
-    confText: { fontSize: 10, color: '#9CA3AF', textAlign: 'right' },
+    // ETA specific
+    etaRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingVertical: 8 },
+    etaBox: { alignItems: 'center' },
+    arrowCircle: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
 
-    // Crowd Forecast Styles
-    forecastContainer: { flexDirection: 'row', justifyContent: 'space-around', height: 80, alignItems: 'flex-end', marginBottom: 8 },
-    forecastBarCol: { alignItems: 'center', width: 30 },
-    barCtx: { width: 12, height: 60, borderRadius: 6, justifyContent: 'flex-end', overflow: 'hidden' },
-    barFill: { width: '100%', borderRadius: 6 },
-    barLabel: { fontSize: 10, marginTop: 4 },
-    recBox: { borderWidth: 1, padding: 6, borderRadius: 6, alignItems: 'center' },
+    // Crowd specific
+    gaugeCircle: { width: 80, height: 80, borderRadius: 40, borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
 
-    // Inputs
-    suggestionsContainer: { marginBottom: 10 },
-    chip: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, borderWidth: 1, marginRight: 8 },
-    inputContainer: { flexDirection: 'row', alignItems: 'center', padding: 12, borderTopWidth: 1 },
-    input: { flex: 1, height: 44, borderRadius: 22, paddingHorizontal: 16, marginRight: 10 },
+    // Shared
+    reasonRow: { flexDirection: 'row', alignItems: 'center', padding: 8, borderRadius: 8, borderLeftWidth: 3 },
+
+    // Input area
+    suggestionsWrap: { borderTopWidth: 1, paddingVertical: 8 },
+    chip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20, borderWidth: 1 },
+    inputBar: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingTop: 10, borderTopWidth: 1 },
+    input: { flex: 1, height: 44, borderRadius: 22, paddingHorizontal: 16, marginRight: 10, fontSize: 14 },
     sendBtn: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
 });
