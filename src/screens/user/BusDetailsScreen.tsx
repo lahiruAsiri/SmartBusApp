@@ -17,17 +17,17 @@ import { ML_API_URL } from '../../constants/config';
 
 
 export const BusDetailsScreen = ({ route, navigation }: any) => {
-  const { bus } = route.params;
+  const { bus } = route.params || {};
   const { colors, isDark } = useTheme();
   const { userData } = useAuth();
-  const [busData, setBusData] = useState(bus);
+  const [busData, setBusData] = useState(bus || {});
 
   const [aiEtaData, setAiEtaData] = useState<any>(null);
   const [aiCrowdData, setAiCrowdData] = useState<any>(null);
   const [isAiLoading, setIsAiLoading] = useState(true);
 
   useEffect(() => {
-    if (!bus.id || !userData) return;
+    if (!bus?.id || !userData) return;
 
     const unsubscribe = subscribeToBus(bus.id, (updatedBus) => {
       if (updatedBus && userData) {
@@ -36,7 +36,7 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
     });
 
     return () => unsubscribe();
-  }, [bus.id, !!userData]);
+  }, [bus?.id, !!userData]);
 
   useEffect(() => {
     // Fetch AI predictions when screen mounts
@@ -165,21 +165,6 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
           <Text style={[styles.fromText, { color: colors.textLight }]}>
             from {busData.from}
           </Text>
-          <View style={styles.statusRow}>
-            <View style={styles.statusItem}>
-              <Ionicons name="time-outline" size={18} color={colors.primary} />
-              <Text style={[styles.statusValue, { color: colors.text }]}>
-                {busData.arrivalTime}
-              </Text>
-            </View>
-            <View style={styles.statusDivider} />
-            <View style={styles.statusItem}>
-              <Ionicons name="checkmark-circle" size={18} color={busData.status === 'On time' ? '#22C55E' : '#F59E0B'} />
-              <Text style={[styles.statusValue, { color: colors.text }]}>
-                {busData.status}
-              </Text>
-            </View>
-          </View>
         </View>
 
         {/* Occupancy Section */}
@@ -394,68 +379,9 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                 </Text>
               </View>
             </View>
-            <View style={[styles.journeyLine, { backgroundColor: colors.border }]} />
-            <View style={styles.journeyItem}>
-              <View style={[styles.journeyIconWrap, { backgroundColor: '#FEF3C7' }]}>
-                <Ionicons name="time" size={20} color="#F59E0B" />
-              </View>
-              <View style={styles.journeyInfo}>
-                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
-                  Expected Arrival
-                </Text>
-                <Text style={[styles.journeyValue, { color: colors.text }]}>
-                  {busData.arrivalTime}
-                </Text>
-              </View>
-            </View>
-            <View style={[styles.journeyLine, { backgroundColor: colors.border }]} />
-            <View style={styles.journeyItem}>
-              <View style={[styles.journeyIconWrap, { backgroundColor: '#E0F2FE' }]}>
-                <Ionicons name="partly-sunny" size={20} color="#0EA5E9" />
-              </View>
-              <View style={styles.journeyInfo}>
-                <Text style={[styles.journeyLabel, { color: colors.textLight }]}>
-                  Current Weather
-                </Text>
-                <Text style={[styles.journeyValue, { color: colors.text }]}>
-                  {busData.weather || 'Fetching...'}
-                </Text>
-              </View>
-            </View>
           </View>
         </View>
 
-        {/* Live Updates */}
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Live Updates</Text>
-          <View style={[styles.updatesCard, { backgroundColor: colors.card }]}>
-            <View style={styles.updateItem}>
-              <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
-              <View style={styles.updateContent}>
-                <Text style={[styles.updateText, { color: colors.text }]}>
-                  Bus departed from {busData.from}
-                </Text>
-                <Text style={[styles.updateTime, { color: colors.textLight }]}>2 min ago</Text>
-              </View>
-            </View>
-            <View style={styles.updateItem}>
-              <View style={[styles.updateDot, { backgroundColor: colors.primary }]} />
-              <View style={styles.updateContent}>
-                <Text style={[styles.updateText, { color: colors.text }]}>
-                  Occupancy level: {busData.occupancy}%
-                </Text>
-                <Text style={[styles.updateTime, { color: colors.textLight }]}>1 min ago</Text>
-              </View>
-            </View>
-            <View style={styles.updateItem}>
-              <View style={[styles.updateDot, { backgroundColor: '#22C55E' }]} />
-              <View style={styles.updateContent}>
-                <Text style={[styles.updateText, { color: colors.text }]}>Next stop in 500m</Text>
-                <Text style={[styles.updateTime, { color: colors.textLight }]}>Just now</Text>
-              </View>
-            </View>
-          </View>
-        </View>
 
         {/* Action Buttons */}
         <View style={styles.actions}>
