@@ -254,37 +254,17 @@ export const MapScreen = ({ navigation, route }: any) => {
                   </TouchableOpacity>
                 </View>
 
-                <View style={[styles.modalStats, { backgroundColor: isDark ? colors.background : '#F8FAFC' }]}>
-                  <View style={styles.statItem}>
-                    <Ionicons name="time-outline" size={20} color={colors.primary} />
-                    <Text style={[styles.statValue, { color: colors.text }]}>
-                      {selectedBus.arrivalTime || 'N/A'}
-                    </Text>
-                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Arrival</Text>
-                  </View>
-                  <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
+                <View style={[styles.modalStats, { backgroundColor: isDark ? colors.background : '#F8FAFC', justifyContent: 'center' }]}>
                   <View style={styles.statItem}>
                     <MaterialCommunityIcons
                       name="account-group"
-                      size={20}
+                      size={24}
                       color={getOccupancyColor(selectedBus.occupancy)}
                     />
-                    <Text style={[styles.statValue, { color: colors.text }]}>
+                    <Text style={[styles.statValue, { color: colors.text, fontSize: 20 }]}>
                       {selectedBus.occupancy}%
                     </Text>
-                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Full</Text>
-                  </View>
-                  <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
-                  <View style={styles.statItem}>
-                    <Ionicons
-                      name="checkmark-circle"
-                      size={20}
-                      color={selectedBus.status === 'On time' ? '#22C55E' : '#F59E0B'}
-                    />
-                    <Text style={[styles.statValue, { color: colors.text }]}>
-                      {selectedBus.status}
-                    </Text>
-                    <Text style={[styles.statLabel, { color: colors.textLight }]}>Status</Text>
+                    <Text style={[styles.statLabel, { color: colors.textLight, fontSize: 14 }]}>Crowd Level</Text>
                   </View>
                 </View>
 
