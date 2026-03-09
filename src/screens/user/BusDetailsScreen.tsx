@@ -218,20 +218,20 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                     <Text style={{ fontSize: 12, color: colors.textLight }}>Predictive ETA (XGBoost)</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'baseline', marginVertical: 2 }}>
                       <Text style={{ fontSize: 18, fontWeight: 'bold', color: colors.text }}>
-                        {aiEtaData ? `${Math.round(aiEtaData.prediction_seconds / 60)} mins` : busData.arrivalTime}
+                        {aiEtaData?.is_trained ? `${Math.round(aiEtaData.prediction_seconds / 60)} mins` : "Coming Soon"}
                       </Text>
-                      {aiEtaData && aiEtaData.delay_seconds > 0 && (
+                      {aiEtaData?.is_trained && aiEtaData.delay_seconds > 0 && (
                         <Text style={{ fontSize: 12, color: '#EF4444', marginLeft: 8, fontWeight: '600' }}>
                           (+{Math.round(aiEtaData.delay_seconds / 60)}m delay likely)
                         </Text>
                       )}
                     </View>
                     <Text style={{ fontSize: 11, color: colors.textLight }}>
-                      Dynamic traffic adjustment applied.
+                      {aiEtaData?.is_trained ? "Dynamic traffic adjustment applied." : "Analytical data processing in progress."}
                     </Text>
                   </View>
                   <View style={{ paddingHorizontal: 8, paddingVertical: 4, backgroundColor: isDark ? 'rgba(168, 85, 247, 0.2)' : '#F3E8FF', borderRadius: 8, height: 24 }}>
-                    <Text style={{ fontSize: 10, color: '#A855F7', fontWeight: 'bold' }}>95% Conf.</Text>
+                    <Text style={{ fontSize: 10, color: '#A855F7', fontWeight: 'bold' }}>{aiEtaData?.is_trained ? "95% Conf." : "Beta"}</Text>
                   </View>
                 </View>
 
@@ -245,30 +245,34 @@ export const BusDetailsScreen = ({ route, navigation }: any) => {
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: 12, color: colors.textLight }}>Crowd Forecast (Next Hour)</Text>
                     <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.text, marginVertical: 2 }}>
-                      {aiCrowdData ? `Expected: ${Math.round(aiCrowdData.prediction)}%` : 'Predictive models offline'}
+                      {aiCrowdData?.is_trained ? `Expected: ${Math.round(aiCrowdData.prediction)}%` : 'Processing Route...'}
                     </Text>
-                    <Text style={{ fontSize: 11, color: aiCrowdData?.level === 'High' ? '#EF4444' : '#22C55E', fontWeight: '600' }}>
-                      {aiCrowdData?.level === 'High' ? 'Recommendation: Delay journey' : 'Recommendation: Good to board'}
+                    <Text style={{ fontSize: 11, color: aiCrowdData?.is_trained ? (aiCrowdData?.level === 'High' ? '#EF4444' : '#22C55E') : colors.textLight, fontWeight: '600' }}>
+                      {aiCrowdData?.is_trained
+                        ? (aiCrowdData?.level === 'High' ? 'Recommendation: Delay journey' : 'Recommendation: Good to board')
+                        : 'Updated details available soon!'}
                     </Text>
                   </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 30 }}>
-                    {/* Mock trend chart based on prediction */}
-                    {[
-                      aiCrowdData ? aiCrowdData.prediction - 20 : 40,
-                      aiCrowdData ? aiCrowdData.prediction - 10 : 60,
-                      aiCrowdData ? aiCrowdData.prediction : 85,
-                      aiCrowdData ? aiCrowdData.prediction + 5 : 90,
-                      aiCrowdData ? aiCrowdData.prediction + 15 : 70
-                    ].map((h, i) => (
-                      <View key={i} style={{
-                        width: 6,
-                        height: Math.max(5, Math.min(30, h / 3)),
-                        backgroundColor: h > 75 ? '#EF4444' : '#22C55E',
-                        borderRadius: 3,
-                        marginHorizontal: 2
-                      }} />
-                    ))}
-                  </View>
+                  {aiCrowdData?.is_trained && (
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 30 }}>
+                      {/* Mock trend chart based on prediction */}
+                      {[
+                        aiCrowdData.prediction - 20,
+                        aiCrowdData.prediction - 10,
+                        aiCrowdData.prediction,
+                        aiCrowdData.prediction + 5,
+                        aiCrowdData.prediction + 15
+                      ].map((h, i) => (
+                        <View key={i} style={{
+                          width: 6,
+                          height: Math.max(5, Math.min(30, h / 3)),
+                          backgroundColor: h > 75 ? '#EF4444' : '#22C55E',
+                          borderRadius: 3,
+                          marginHorizontal: 2
+                        }} />
+                      ))}
+                    </View>
+                  )}
                 </View>
               </>
             )}
