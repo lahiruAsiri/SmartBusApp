@@ -5,6 +5,12 @@ import { database, db } from '../api/firebase';
 const BUS_ID = 'Bus_01';
 
 /**
+ * [MANAGEMENT FLAG] Set to true to temporarily pause the background sync 
+ * from Realtime Database to Firestore.
+ */
+const IS_SYNC_PAUSED = true;
+
+/**
  * Syncs real-time IoT data from Firebase Realtime Database to Firestore
  * and conditionally appends weather data when new locations are detected.
  */
@@ -14,16 +20,21 @@ export const syncIoTDataToFirestore = () => {
   // We keep track of the last processed timestamp to prevent duplicate weather API calls
   let lastProcessedTimestamp: string | null = null;
   let isInitialLoad = true;
-  
+
   // Throttle weather fetching (5 minutes = 300,000 ms)
   let lastWeatherFetchTime = 0;
   let cachedWeatherStr: string | null = null;
 
   const unsubscribe = onValue(busRef, async (snapshot) => {
+    if (IS_SYNC_PAUSED) {
+      console.log('[Sync] Background synchronization is currently PAUSED via IS_SYNC_PAUSED flag.');
+      return;
+    }
+
     if (!snapshot.exists()) return;
 
     const data = snapshot.val();
-    
+
     const liveData = data.live_data;
     const history = data.history;
 
@@ -33,14 +44,14 @@ export const syncIoTDataToFirestore = () => {
     // The history object keys are auto-generated Push IDs, but Object.values maintains insertion order generally,
     // or we can sort them based on the timestamp string.
     const historyArray: any[] = Object.values(history);
-    
+
     // safe string sorting instead of date math which breaks on the Hermes engine with "YYYY-MM-DD HH:mm:ss"
     historyArray.sort((a, b) => {
       const tsA = a.timestamp || "";
       const tsB = b.timestamp || "";
       return tsA.localeCompare(tsB);
     });
-    
+
     const latestHistory = historyArray[historyArray.length - 1];
     const passengerCount = latestHistory?.count || 0;
 
@@ -83,10 +94,10 @@ export const syncIoTDataToFirestore = () => {
           // Fetch new weather
           fetchAndStoreWeather(lat, lng, updateTime).then(async (weatherStr) => {
             if (weatherStr) {
-               cachedWeatherStr = weatherStr;
-               lastWeatherFetchTime = now;
-               const busDocRef = doc(db, 'buses', BUS_ID);
-               await setDoc(busDocRef, { weather: weatherStr }, { merge: true });
+              cachedWeatherStr = weatherStr;
+              lastWeatherFetchTime = now;
+              const busDocRef = doc(db, 'buses', BUS_ID);
+              await setDoc(busDocRef, { weather: weatherStr }, { merge: true });
             }
           });
         } else {
@@ -96,7 +107,7 @@ export const syncIoTDataToFirestore = () => {
       }
       lastProcessedTimestamp = updateTime;
     }
-    
+
     isInitialLoad = false;
   });
 
@@ -117,7 +128,7 @@ const fetchAndStoreWeather = async (lat: number, lng: number, timestamp: string)
     // Append to location_history
     const locationHistRef = ref(database, `${BUS_ID}/location_history`);
     const newEntryRef = push(locationHistRef);
-    
+
     await set(newEntryRef, {
       lat,
       lng,
@@ -142,12 +153,12 @@ const pushLocationHistoryWithCachedWeather = async (lat: number, lng: number, ti
   try {
     const locationHistRef = ref(database, `${BUS_ID}/location_history`);
     const newEntryRef = push(locationHistRef);
-    
+
     await set(newEntryRef, {
       lat,
       lng,
       timestamp,
-      speed: 0, 
+      speed: 0,
       weather: cachedWeatherStr || 'Weather data unavailable',
     });
 
