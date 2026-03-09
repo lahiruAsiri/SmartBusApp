@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   modalHandle: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 20 },
   modalHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
   modalBadge: { width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
-  modalRouteNumber: { fontSize: 20, fontWeight: '800', color: '#FFF' },
+  modalRouteNumber: { fontSize: 16, fontWeight: '800', color: '#FFF' },
   modalInfo: { flex: 1, marginLeft: 14 },
   modalDestination: { fontSize: 20, fontWeight: '700' },
   modalFrom: { fontSize: 14, marginTop: 2 },
