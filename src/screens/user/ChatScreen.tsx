@@ -12,12 +12,16 @@ import {
     Platform,
     Dimensions,
     ScrollView,
+    ActivityIndicator,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MAP_CONFIG, ML_API_URL } from '../../constants/config';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BusRouteOptimizer } from '../../services/BusRouteOptimizer';
+import { subscribeToAllBuses, Bus } from '../../services/busService';
+import { useLocation } from '../../contexts/LocationContext';
 
 const { width } = Dimensions.get('window');
 
@@ -26,7 +30,7 @@ interface Message {
     text: string;
     sender: 'user' | 'bot';
     timestamp: Date;
-    type: 'text' | 'rich_response' | 'ai_prediction' | 'crowd_forecast';
+    type: 'text' | 'rich_response' | 'ai_prediction' | 'crowd_forecast' | 'find_route';
     data?: any;
 }
 
@@ -39,6 +43,7 @@ const SUGGESTIONS = [
 export const ChatScreen = ({ navigation }: any) => {
     const { colors, isDark } = useTheme();
     const insets = useSafeAreaInsets();
+    const { location } = useLocation();
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
@@ -73,10 +78,15 @@ export const ChatScreen = ({ navigation }: any) => {
             body: JSON.stringify({ text }),
         })
             .then(r => r.json())
-            .then(data => {
+            .then(async data => {
                 if (data.success && data.message) {
                     const botMsg = { ...data.message, timestamp: new Date(data.message.timestamp) };
                     setMessages(prev => [...prev, botMsg]);
+
+                    // SPECIAL HANDLING: If it's a find_route intent, perform live lookup
+                    if (data.message.type === 'find_route') {
+                        await processLiveRouteLookup(data.message.data, botMsg.id);
+                    }
                 } else {
                     throw new Error("Invalid response");
                 }
@@ -94,6 +104,96 @@ export const ChatScreen = ({ navigation }: any) => {
                 setIsTyping(false);
                 setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
             });
+    };
+
+    const processLiveRouteLookup = async (data: any, botMsgId: string) => {
+        const dest = data.destination;
+        if (!dest) {
+            setMessages(prev => prev.map(m => {
+                if (m.id === botMsgId) {
+                    return {
+                        ...m,
+                        text: "I'm sorry, I couldn't identify the destination you're looking for. Could you please specify a city or bus stop name?",
+                        data: { ...m.data, noRouteFound: true }
+                    };
+                }
+                return m;
+            }));
+            return;
+        }
+
+        const optimizer = BusRouteOptimizer.getInstance();
+        const userLat = location?.latitude || 6.9271;
+        const userLon = location?.longitude || 79.8612;
+
+        const result = optimizer.findTransferRoute(userLat, userLon, dest);
+
+        if (result) {
+            const routeNum = result.route1.routeNumber;
+
+            // Check for nearby buses
+            return new Promise((resolve) => {
+                const unsub = subscribeToAllBuses((buses) => {
+                    const activeBuses = buses.filter(b => b.routeNumber === routeNum && b.isActive);
+
+                    // Find closest bus
+                    let closestBus: Bus | null = null;
+                    let minDist = Infinity;
+
+                    activeBuses.forEach(bus => {
+                        const d = optimizer['haversineDistance'](userLat, userLon, bus.location.latitude, bus.location.longitude);
+                        if (d < minDist) {
+                            minDist = d;
+                            closestBus = bus;
+                        }
+                    });
+
+                    // Update message with details
+                    setMessages(prev => prev.map(m => {
+                        if (m.id === botMsgId) {
+                            return {
+                                ...m,
+                                text: closestBus
+                                    ? `I found Route ${routeNum} for you. A bus is currently nearby (${Math.round(minDist)}m away) with ${closestBus.occupancy}% crowd level.`
+                                    : `Route ${routeNum} is the best option to reach ${dest}, but there are no buses currently active on this route.`,
+                                data: {
+                                    ...m.data,
+                                    routeNumber: routeNum,
+                                    hasBus: !!closestBus,
+                                    busDetails: closestBus,
+                                    distance: minDist,
+                                    destination: dest,
+                                    journey: result
+                                }
+                            };
+                        }
+                        return m;
+                    }));
+
+                    unsub();
+                    resolve(true);
+                }, (err) => {
+                    unsub();
+                    resolve(false);
+                });
+            });
+        } else {
+            // NO ROUTE FOUND CASE
+            setMessages(prev => prev.map(m => {
+                if (m.id === botMsgId) {
+                    return {
+                        ...m,
+                        text: `I'm sorry, I couldn't find a direct or transfer route to "${dest}" in our current database. Please try a different destination or check the route map.`,
+                        data: {
+                            ...m.data,
+                            noRouteFound: true,
+                            destination: dest
+                        }
+                    };
+                }
+                return m;
+            }));
+        }
     };
 
     // ── Helper to derive crowd color/label ──────────────────
@@ -195,7 +295,89 @@ export const ChatScreen = ({ navigation }: any) => {
                         </View>
                     )}
 
-                    {/* ━━━ CROWD CARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                    {/* ━━━ FIND ROUTE CARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                    {item.type === 'find_route' && item.data && (
+                        <View style={[styles.predCard, {
+                            backgroundColor: isDark ? 'rgba(34,197,94,0.08)' : '#F0FDF4',
+                            borderColor: isDark ? 'rgba(34,197,94,0.3)' : '#BBF7D0',
+                        }]}>
+                            <View style={styles.cardHeader}>
+                                <View style={[styles.iconCircle, { backgroundColor: '#22C55E' }]}>
+                                    <Ionicons name="navigate" size={16} color="#FFF" />
+                                </View>
+                                <View style={{ flex: 1, marginLeft: 8 }}>
+                                    <Text style={{ color: '#166534', fontWeight: '700', fontSize: 13 }}>
+                                        Best Route to {item.data.destination || 'Destination'}
+                                    </Text>
+                                    <Text style={{ color: colors.textLight, fontSize: 11 }}>Optimal path found via SmartBus AI</Text>
+                                </View>
+                            </View>
+
+                            {item.data.routeNumber ? (
+                                <View style={{ marginTop: 12 }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+                                        <View style={[styles.routeBadge, { backgroundColor: colors.primary }]}>
+                                            <Text style={styles.routeBadgeText}>{item.data.routeNumber}</Text>
+                                        </View>
+                                        <View style={{ marginLeft: 12, flex: 1 }}>
+                                            <Text style={[styles.routeTitle, { color: colors.text }]}>Direct Route Available</Text>
+                                            <Text style={{ color: colors.textLight, fontSize: 12 }}>
+                                                {item.data.hasBus ? `Live bus detected nearby` : 'No active buses currently'}
+                                            </Text>
+                                        </View>
+                                    </View>
+
+                                    {item.data.hasBus && item.data.busDetails && (
+                                        <View style={[styles.liveStatusBox, { backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)' }]}>
+                                            <View style={styles.liveStatusRow}>
+                                                <MaterialCommunityIcons name="bus-marker" size={18} color="#22C55E" />
+                                                <Text style={{ marginLeft: 8, color: colors.text, fontWeight: '600', fontSize: 13 }}>
+                                                    {Math.round(item.data.distance)}m away
+                                                </Text>
+                                                <View style={styles.dot} />
+                                                <Text style={{ color: getCrowdColor(item.data.busDetails.occupancy), fontWeight: '700', fontSize: 13 }}>
+                                                    {item.data.busDetails.occupancy}% Crowded
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    )}
+
+                                    <TouchableOpacity
+                                        style={[styles.startJourneyBtn, { backgroundColor: colors.primary }]}
+                                        onPress={() => {
+                                            if (item.data.journey) {
+                                                navigation.navigate('TripResult', {
+                                                    journey: item.data.journey,
+                                                    userLocation: location || { latitude: 6.9271, longitude: 79.8612 }
+                                                });
+                                            }
+                                        }}
+                                    >
+                                        <Text style={styles.startJourneyText}>
+                                            See Bus Stops
+                                        </Text>
+                                        <Ionicons name="location-outline" size={16} color="#FFF" />
+                                    </TouchableOpacity>
+                                </View>
+                            ) : item.data.noRouteFound ? (
+                                <View style={{ marginTop: 10, padding: 10, alignItems: 'center' }}>
+                                    <Ionicons name="alert-circle-outline" size={32} color={isDark ? '#94A3B8' : '#64748B'} />
+                                    <Text style={{ color: colors.text, fontSize: 13, textAlign: 'center', marginTop: 8, fontWeight: '500' }}>
+                                        Route information not available
+                                    </Text>
+                                    <Text style={{ color: colors.textLight, fontSize: 11, textAlign: 'center', marginTop: 4 }}>
+                                        Try another destination like Malabe or Pettah
+                                    </Text>
+                                </View>
+                            ) : (
+                                <View style={{ marginTop: 10, alignItems: 'center', padding: 10 }}>
+                                    <ActivityIndicator size="small" color={colors.primary} />
+                                    <Text style={{ color: colors.textLight, fontSize: 12, marginTop: 8 }}>Calculating real-time route...</Text>
+                                </View>
+                            )}
+                        </View>
+                    )}
+
                     {item.type === 'crowd_forecast' && item.data && (() => {
                         const occ = item.data.currentOccupancy;
                         const crowdColor = getCrowdColor(occ);
@@ -425,6 +607,16 @@ const styles = StyleSheet.create({
 
     // Shared
     reasonRow: { flexDirection: 'row', alignItems: 'center', padding: 8, borderRadius: 8, borderLeftWidth: 3 },
+
+    // Smart Route Card
+    routeBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8 },
+    routeBadgeText: { color: '#FFF', fontWeight: '800', fontSize: 16 },
+    routeTitle: { fontWeight: '700', fontSize: 14 },
+    liveStatusBox: { padding: 10, borderRadius: 10, marginBottom: 12 },
+    liveStatusRow: { flexDirection: 'row', alignItems: 'center' },
+    dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: '#94A3B8', marginHorizontal: 8 },
+    startJourneyBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 12, borderRadius: 12 },
+    startJourneyText: { color: '#FFF', fontWeight: '700', marginRight: 6, fontSize: 14 },
 
     // Input area
     suggestionsWrap: { borderTopWidth: 1, paddingVertical: 8 },
