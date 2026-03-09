@@ -45,6 +45,10 @@ yarn-error.*
 
 scripts/serviceAccountKey.json
 
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
 novelty_crowd_forecasting.md
 novelty_predictive_eta.md
 presentation_content copy.md

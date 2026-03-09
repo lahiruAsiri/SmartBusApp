@@ -18,7 +18,9 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
-import { getDriverRewardData, predictDriverTier, DriverRewardData, RLPrediction } from '../../services/rewardService';
+import { getDriverRewardData, DriverRewardData } from '../../services/rewardService';
+import { database } from '../../api/firebase';
+import { ref, onValue, off } from 'firebase/database';
 
 export const DriverHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
@@ -34,37 +36,36 @@ export const DriverHomeScreen = ({ navigation }: any) => {
 
   // Live Data State
   const [driverData, setDriverData] = useState<DriverRewardData | null>(null);
-  const [rlResult, setRlResult] = useState<RLPrediction | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch real data on mount
+  // Real-time Firebase listener — re-fetches whenever Bus_01/violations changes
   useEffect(() => {
-    const loadRealData = async () => {
+    const violationsRef = ref(database, 'Bus_01/violations');
+    const unsubscribe = onValue(violationsRef, async () => {
       try {
         const data = await getDriverRewardData();
         setDriverData(data);
-        
-        const prediction = await predictDriverTier(
-          data.totalViolations, 
-          data.currentStreak, 
-          0 // avg speed over placeholder
-        );
-        setRlResult(prediction);
       } catch (error) {
-        console.error("Failed to load dashboard data:", error);
+        console.error('Failed to load dashboard data:', error);
       } finally {
         setLoading(false);
       }
-    };
-    loadRealData();
+    });
+    return () => off(violationsRef);
   }, []);
 
   // PERFORMANCE CALCULATIONS (from Live Data)
-  const totalViolations = driverData?.totalViolations ?? 0;
-  const totalTrips = 30; // Static baseline trips
-  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));
-  const daysSafe = driverData?.currentStreak ?? 0;
-  const currentTier = rlResult?.tier ?? 'Standard';
+  const totalViolations  = driverData?.totalViolations  ?? 0;
+  const speedingCount    = driverData?.rawSpeeding      ?? 0;
+  const harshAccelCount  = driverData?.rawHarshAccel    ?? 0;
+  const suddenBrakeCount = driverData?.rawSuddenBrake   ?? 0;
+  const daysSafe         = driverData?.currentStreak    ?? 0;
+
+  // RL model results embedded in driverData (no second API call needed)
+  const safetyScore  = driverData?.safetyScore        ?? 100;
+  const currentTier  = driverData?.currentTier        ?? 'Standard';
+  const pointsEarned = driverData?.totalPoints        ?? 0;
+  const monthlyBonus = driverData?.currentMonthBonus  ?? 0;
 
   // EARNINGS DATA (Dummy)
   const todayEarnings = 2450;
@@ -179,7 +180,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         </View>
 
         
-        {/* Performance Summary Card — USING YOUR DUMMY DATA */}
+        {/* Performance Summary Card  */}
         <TouchableOpacity 
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
@@ -189,24 +190,40 @@ export const DriverHomeScreen = ({ navigation }: any) => {
             <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
           </View>
           <View style={styles.perfContent}>
+            {/* Safety Score */}
             <View style={styles.riskScoreContainer}>
-              <Text style={[styles.riskScore, { color: riskScore < 50 ? '#22C55E' : '#EF4444' }]}>
-                {riskScore}
+              <Text style={[styles.riskScore, { color: safetyScore >= 60 ? '#22C55E' : safetyScore >= 40 ? '#F59E0B' : '#EF4444' }]}>
+                {loading ? '--' : Math.round(safetyScore)}
               </Text>
-              <Text style={styles.scoreLabel}>Risk Score</Text>
+              <Text style={styles.scoreLabel}>Safety Score</Text>
             </View>
             <View style={styles.perfDivider} />
+            {/* Per-type breakdown from Firebase */}
             <View style={styles.perfStats}>
               <View style={styles.perfStatItem}>
-                <Text style={styles.perfStatValue}>{totalViolations}</Text>
-                <Text style={styles.perfStatLabel}>Violations</Text>
+                <Text style={[styles.perfStatValue, { color: speedingCount > 0 ? '#EF4444' : '#22C55E' }]}>
+                  {speedingCount}
+                </Text>
+                <Text style={styles.perfStatLabel}>Speeding</Text>
               </View>
               <View style={styles.perfStatItem}>
-                <Text style={styles.perfStatValue}>{daysSafe}</Text>
-                <Text style={styles.perfStatLabel}>Days Safe</Text>
+                <Text style={[styles.perfStatValue, { color: harshAccelCount > 0 ? '#F59E0B' : '#22C55E' }]}>
+                  {harshAccelCount}
+                </Text>
+                <Text style={styles.perfStatLabel}>Harsh Accel</Text>
+              </View>
+              <View style={styles.perfStatItem}>
+                <Text style={[styles.perfStatValue, { color: suddenBrakeCount > 0 ? '#8B5CF6' : '#22C55E' }]}>
+                  {suddenBrakeCount}
+                </Text>
+                <Text style={styles.perfStatLabel}>Hard Brake</Text>
               </View>
             </View>
           </View>
+          {/* Total violations footnote */}
+          <Text style={[styles.perfFootnote, { color: colors.textLight }]}>
+            {loading ? 'Loading live data...' : `${totalViolations} total violations · tap for full report`}
+          </Text>
         </TouchableOpacity>
 
         {/* Rewards Highlight Card */}
@@ -226,24 +243,24 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           <View style={styles.rewardsStats}>
             <View style={styles.rewardStat}>
               <Ionicons name="star" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>2,500</Text>
-              <Text style={styles.rewardStatLabel}>Points</Text>
+              <Text style={styles.rewardStatValue}>{pointsEarned}</Text>
+              <Text style={styles.rewardStatLabel}>Points Earned</Text>
             </View>
             <View style={styles.rewardStat}>
               <Ionicons name="flame" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>15</Text>
+              <Text style={styles.rewardStatValue}>{daysSafe}</Text>
               <Text style={styles.rewardStatLabel}>Day Streak</Text>
             </View>
             <View style={styles.rewardStat}>
               <Ionicons name="cash" size={20} color="#FFF" />
-              <Text style={styles.rewardStatValue}>LKR 3,000</Text>
+              <Text style={styles.rewardStatValue}>LKR {monthlyBonus.toLocaleString()}</Text>
               <Text style={styles.rewardStatLabel}>This Month</Text>
             </View>
           </View>
         </TouchableOpacity>
 
         {/* Daily Earnings Tracker */}
-        <View style={[styles.earningsCard, { backgroundColor: colors.card }]}>
+        {/* <View style={[styles.earningsCard, { backgroundColor: colors.card }]}>
           <View style={styles.earningsHeader}>
             <View>
               <Text style={[styles.earningsTitle, { color: colors.text }]}>💰 Today's Earnings</Text>
@@ -271,7 +288,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.earningStatLabel}>Avg/Trip</Text>
             </View>
           </View>
-        </View>
+        </View> */}
 
         {/* Emergency Contacts */}
         <View style={[styles.emergencyCard, { backgroundColor: '#EF444410' }]}>
@@ -472,10 +489,11 @@ const styles = StyleSheet.create({
   riskScore: { fontSize: 36, fontWeight: 'bold' },
   scoreLabel: { fontSize: 11, color: '#666', marginTop: 4 },
   perfDivider: { width: 1, height: 50, backgroundColor: '#E5E7EB', marginRight: 16 },
-  perfStats: { flex: 1, flexDirection: 'row', gap: 20 },
-  perfStatItem: { flex: 1, alignItems: 'center' },
-  perfStatValue: { fontSize: 24, fontWeight: 'bold' },
-  perfStatLabel: { fontSize: 11, color: '#666', marginTop: 4 },
+  perfStats:           { flex: 1, flexDirection: 'row', gap: 8 },
+  perfStatItem:        { flex: 1, alignItems: 'center' },
+  perfStatValue:       { fontSize: 20, fontWeight: 'bold' },
+  perfStatLabel:       { fontSize: 10, color: '#666', marginTop: 3 },
+  perfFootnote:        { fontSize: 11, marginTop: 10, textAlign: 'center' },
   statusCard: { borderRadius: 20, padding: 20, marginBottom: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 3 },
   statusHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   statusTextContainer: {},

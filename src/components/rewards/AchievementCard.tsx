@@ -32,7 +32,10 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement })
           </Text>
           <View style={styles.pointsBadge}>
             <Ionicons name="star" size={14} color="#F59E0B" />
-            <Text style={styles.points}>{achievement.points}</Text>
+            <Text style={styles.points}>
+              {achievement.points}
+              {achievement.maxPoints !== undefined ? `/${achievement.maxPoints}` : ''}
+            </Text>
           </View>
         </View>
         
@@ -46,16 +49,17 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement })
           </Text>
         )}
         
-        {hasProgress && !achievement.unlocked && (
+        {hasProgress && (
           <View style={styles.progressContainer}>
-            <ProgressBar 
+            <ProgressBar
               progress={(achievement.progress! / achievement.target!) * 100}
-              color="#3B82F6"
+              color={achievement.unlocked ? '#22C55E' : '#3B82F6'}
               height={6}
               showPercentage={false}
             />
             <Text style={styles.progressText}>
               {achievement.progress} / {achievement.target}
+              {achievement.unlocked ? ' — keep it up! ✅' : ''}
             </Text>
           </View>
         )}

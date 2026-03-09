@@ -4,10 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { getDriverRewardData, DriverRewardData } from '../../services/rewardService';
 
 // Firebase Realtime Database Imports
-import { database } from '../../api/firebase';
+import { database, db } from '../../api/firebase';
 import { ref, onValue } from 'firebase/database';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export const DriverProfileScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
@@ -17,11 +19,30 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const [driverViolations, setDriverViolations] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+  const [driverStats, setDriverStats] = useState<DriverRewardData | null>(null);
+  const [fineCount, setFineCount] = useState(0);
 
   useEffect(() => {
     // Points to the specific path for Bus_01 violations
     const busViolationsRef = ref(database, 'Bus_01/violations');
     
+    // Also fetch the driver's RL safety score
+    getDriverRewardData().then(setDriverStats).catch(console.error);
+
+    // Fetch fine count from investigation notes
+    const fetchFines = async () => {
+      if (!userData?.displayName) return;
+      try {
+        const notesRef = collection(db, 'investigation_notes');
+        const q = query(notesRef, where('driverName', '==', userData.displayName));
+        const snapshot = await getDocs(q);
+        setFineCount(snapshot.size);
+      } catch (error) {
+        console.error("Failed to fetch fines:", error);
+      }
+    };
+    fetchFines();
+
     const unsubscribe = onValue(busViolationsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -43,7 +64,7 @@ export const DriverProfileScreen = ({ navigation }: any) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [userData?.displayName]);
 
   // PERFORMANCE CALCULATIONS
   const speedingCount = driverViolations.filter(v => v.type === 'SPEEDING').length;
@@ -51,19 +72,19 @@ export const DriverProfileScreen = ({ navigation }: any) => {
   const brakingCount = driverViolations.filter(v => v.type === 'HARSH_BRAKE').length;
 
   const totalViolations = driverViolations.length;
-  const totalTrips = 30; // Static baseline
-  // Risk Score: Higher violations = Higher risk
-  const riskScore = Math.min(100, Math.round((totalViolations / totalTrips) * 100));
+  // Use the RL Safety Score, defaulting to 100 if loading fails. Wait, Safety Score is out of 100 where higher is safer.
+  // The UI previously calculated Risk Score where higher meant Danger. Let's flip it or rename the UI to Safety Score.
+  const safetyScore = driverStats?.safetyScore ?? 100;
 
   const violationsOnDate = driverViolations.filter(v => 
     v.timestamp.toDateString() === selectedDate.toDateString()
   );
 
   // UI HELPERS
-  const getRiskColor = () => riskScore < 30 ? '#22C55E' : riskScore < 70 ? '#F59E0B' : '#EF4444';
+  const getRiskColor = () => safetyScore >= 70 ? '#22C55E' : safetyScore >= 40 ? '#F59E0B' : '#EF4444';
   const getRiskMessage = () => {
-    if (riskScore < 30) return 'Excellent Safe Driver!';
-    if (riskScore < 70) return 'Caution: Improving required';
+    if (safetyScore >= 70) return 'Excellent Safe Driver!';
+    if (safetyScore >= 40) return 'Caution: Improving required';
     return 'High Risk: Drive carefully';
   };
 
@@ -100,11 +121,11 @@ export const DriverProfileScreen = ({ navigation }: any) => {
           <Text style={styles.busId}>Bus ID: Bus_01</Text>
         </View>
 
-        {/* Risk Score Card */}
+        {/* Safety Score Card */}
         <View style={[styles.card, { backgroundColor: colors.card, alignItems: 'center' }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Safety Risk Score</Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>ML Safety Score</Text>
           <View style={[styles.scoreCircle, { borderColor: getRiskColor(), backgroundColor: `${getRiskColor()}15` }]}>
-            <Text style={[styles.scoreValue, { color: getRiskColor() }]}>{riskScore}</Text>
+            <Text style={[styles.scoreValue, { color: getRiskColor() }]}>{safetyScore}</Text>
           </View>
           <Text style={[styles.riskMessage, { color: getRiskColor() }]}>{getRiskMessage()}</Text>
         </View>
@@ -114,16 +135,24 @@ export const DriverProfileScreen = ({ navigation }: any) => {
           {[
             { label: 'Speeding', count: speedingCount, icon: 'speedometer', color: '#FF3B30' },
             { label: 'Harsh Accel', count: accelCount, icon: 'trending-up', color: '#F59E0B' },
-            { label: 'Harsh Brake', count: brakingCount, icon: 'remove-circle', color: '#8B5CF6' }
-          ].map((item, i) => (
-            <View key={i} style={[styles.countBox, { backgroundColor: colors.card }]}>
-              <View style={[styles.iconContainer, { backgroundColor: `${item.color}15` }]}>
-                <Ionicons name={item.icon as any} size={24} color={item.color} />
-              </View>
-              <Text style={[styles.countNumber, { color: colors.text }]}>{item.count}</Text>
-              <Text style={styles.countLabel}>{item.label}</Text>
-            </View>
-          ))}
+            { label: 'Harsh Brake', count: brakingCount, icon: 'remove-circle', color: '#8B5CF6' },
+            { label: 'Police Fines', count: fineCount, icon: 'document-text', color: '#EF4444', route: 'DriverFines' }
+          ].map((item, i) => {
+            const Wrapper: any = item.route ? TouchableOpacity : View;
+            return (
+              <Wrapper 
+                key={i} 
+                style={[styles.countBox, { backgroundColor: colors.card }]}
+                {...(item.route ? { onPress: () => navigation.navigate(item.route), activeOpacity: 0.7 } : {})}
+              >
+                <View style={[styles.iconContainer, { backgroundColor: `${item.color}15` }]}>
+                  <Ionicons name={item.icon as any} size={24} color={item.color} />
+                </View>
+                <Text style={[styles.countNumber, { color: colors.text }]}>{item.count}</Text>
+                <Text style={styles.countLabel}>{item.label}</Text>
+              </Wrapper>
+            );
+          })}
         </View>
 
         {/* Date Selector */}
@@ -197,8 +226,8 @@ const styles = StyleSheet.create({
   scoreCircle: { width: 120, height: 120, borderRadius: 60, borderWidth: 8, justifyContent: 'center', alignItems: 'center', marginVertical: 20 },
   scoreValue: { fontSize: 38, fontWeight: '900' },
   riskMessage: { fontSize: 18, fontWeight: '700' },
-  countsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
-  countBox: { flex: 1, alignItems: 'center', padding: 16, borderRadius: 20, marginHorizontal: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
+  countsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 20 },
+  countBox: { width: '48%', alignItems: 'center', padding: 16, borderRadius: 20, marginBottom: 12, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 },
   iconContainer: { width: 44, height: 44, borderRadius: 22, justifyContent: 'center', alignItems: 'center', marginBottom: 8 },
   countNumber: { fontSize: 22, fontWeight: '800', marginTop: 4 },
   countLabel: { fontSize: 11, color: '#64748b', textAlign: 'center', marginTop: 2, fontWeight: '600' },

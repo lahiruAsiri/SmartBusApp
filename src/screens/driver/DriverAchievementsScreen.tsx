@@ -14,16 +14,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { AchievementCard } from '../../components/rewards/AchievementCard';
 import { getDriverRewardData, DriverRewardData } from '../../services/rewardService';
+import { database } from '../../api/firebase';
+import { ref, onValue, off } from 'firebase/database';
 
 export const DriverAchievementsScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
   const [loading, setLoading] = useState(true);
   const [driverData, setDriverData] = useState<DriverRewardData | null>(null);
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
-
-  useEffect(() => {
-    loadData();
-  }, []);
 
   const loadData = async () => {
     try {
@@ -35,6 +33,16 @@ export const DriverAchievementsScreen = ({ navigation }: any) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Subscribe to Bus_01/violations — fires immediately AND on every DB change.
+    // When the IoT device writes a new violation, achievements auto-recompute.
+    const violationsRef = ref(database, 'Bus_01/violations');
+    const unsubscribe = onValue(violationsRef, () => {
+      loadData();
+    });
+    return () => off(violationsRef);
+  }, []);
 
   if (loading || !driverData) {
     return (

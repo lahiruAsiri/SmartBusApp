@@ -4,14 +4,17 @@
 # Uses a Q-table (dictionary) indexed by (state, action).
 # Q-values are updated using the Bellman equation after each real driving session.
 # The Q-table is persisted to q_table.json so it survives restarts.
+#
+# STATE is now 1D: only violation_bucket (0-4)
+# This makes the model simple, transparent, and easy to explain.
 
 import numpy as np
 import json
 import os
 from rl_environment import (
-    NUM_VIOLATION_STATES, NUM_SAFE_DAY_STATES,
-    NUM_SPEED_STATES, NUM_ACTIONS, TIERS, TIER_CONFIG,
-    encode_state, _score_from_state
+    NUM_VIOLATION_STATES, NUM_ACTIONS, TIERS, TIER_CONFIG,
+    encode_state, _score_from_state, compute_weighted_violations,
+    score_from_violations, tier_from_score, compute_reward
 )
 
 Q_TABLE_PATH = os.path.join(os.path.dirname(__file__), 'q_table.json')
@@ -38,14 +41,14 @@ class QLearningAgent:
         self.gamma   = gamma
         self.epsilon = epsilon
 
-        # Q-table: keys are "v_s_p_a" strings for JSON serialisability
+        # Q-table: keys are "v_a" strings for JSON serialisability
         self.q_table: dict[str, float] = {}
         self._load()
 
     # ── persistence ──────────────────────────────────────────────────────────
 
     def _key(self, state: tuple, action: int) -> str:
-        return f"{state[0]}_{state[1]}_{state[2]}_{action}"
+        return f"{state[0]}_{action}"
 
     def _load(self):
         if os.path.exists(Q_TABLE_PATH):
@@ -97,26 +100,26 @@ class QLearningAgent:
 
     def _warm_up(self):
         """
-        Pre-populate Q-table with expert knowledge so the agent starts smart.
-        Without this, the agent would take many real sessions to become useful.
-        
-        Rule: low violations + many safe days + low speed → prefer higher tiers
-        """
-        print("🔄 Initialising Q-table with domain knowledge warm-up...")
-        for v in range(NUM_VIOLATION_STATES):
-            for s in range(NUM_SAFE_DAY_STATES):
-                for p in range(NUM_SPEED_STATES):
-                    state = (v, s, p)
-                    # Compute an intuitive "ideal action" based on state
-                    # v=0(low)..4(high), s=0(few)..4(many), p=0(minor)..4(severe)
-                    ideal = round((s * 1.5 - v * 1.0 - p * 0.8) + 2)
-                    ideal = max(0, min(4, ideal))
+        Pre-populate Q-table with expert knowledge.
 
-                    for a in range(NUM_ACTIONS):
-                        # Q-value peaks at the ideal action, falls off for others
-                        distance = abs(a - ideal)
-                        q_val = 10.0 - (distance * 3.0)
-                        self.set_q(state, a, q_val)
+        Rule: lower violation bucket → prefer higher tier actions.
+        State 0 (0-2 violations)  → Platinum (action 4)
+        State 1 (3-5 violations)  → Gold     (action 3)
+        State 2 (6-8 violations)  → Silver   (action 2)
+        State 3 (9-12 violations) → Bronze   (action 1)
+        State 4 (13+ violations)  → Standard (action 0)
+        """
+        print("🔄 Initialising Q-table with simplified warm-up...")
+        # Ideal action for each violation bucket (0=best, 4=worst)
+        ideal_actions = [4, 3, 2, 1, 0]  # Platinum → Standard
+
+        for v in range(NUM_VIOLATION_STATES):
+            state = (v,)
+            ideal = ideal_actions[v]
+            for a in range(NUM_ACTIONS):
+                distance = abs(a - ideal)
+                q_val = 10.0 - (distance * 3.0)
+                self.set_q(state, a, q_val)
 
         self.save()
         print(f"✅ Q-table warm-up complete ({len(self.q_table)} entries saved)")
@@ -125,18 +128,28 @@ class QLearningAgent:
 
     def predict(
         self,
-        violations:    int,
-        safe_days:     int,
-        avg_speed_over: float,
+        speeding:     int,
+        harsh_accel:  int,
+        sudden_brake: int,
     ) -> dict:
         """
-        Given current driver stats, return the recommended tier.
-        This is what the Flask API calls.
+        Given raw IoT violation counts, compute the weighted violations,
+        safety score, tier, points, and monthly bonus.
         """
-        state  = encode_state(violations, safe_days, avg_speed_over)
+        # 1. Compute weighted violations
+        weighted = compute_weighted_violations(speeding, harsh_accel, sudden_brake)
+
+        # 2. Encode state and pick best action from Q-table
+        state  = encode_state(weighted)
         action = self.best_action(state)
         tier   = TIERS[action]
-        score  = _score_from_state(state)
+
+        # 3. Compute score directly from weighted violations (transparent formula)
+        score = score_from_violations(weighted)
+
+        # Override tier with direct score-based mapping for full transparency
+        # (Q-table action and score-based tier should agree after warm-up)
+        direct_tier = tier_from_score(score)
 
         # Compute Q-value distribution (confidence in each tier)
         q_values   = [self.get_q(state, a) for a in range(NUM_ACTIONS)]
@@ -145,50 +158,50 @@ class QLearningAgent:
         confidence = {TIERS[a]: round((q_values[a] - q_min) / span, 3) for a in range(NUM_ACTIONS)}
 
         return {
-            "safety_score":  round(score, 1),
-            "tier":          tier,
-            "action_idx":    action,
-            "points_earned": TIER_CONFIG[tier]['points'],
-            "monthly_bonus": TIER_CONFIG[tier]['bonus'],
-            "confidence":    confidence,
-            "q_values":      {TIERS[a]: round(q_values[a], 3) for a in range(NUM_ACTIONS)},
-            "state":         {"violation_bucket": state[0], "safe_day_bucket": state[1], "speed_bucket": state[2]},
+            "safety_score":       round(score, 1),
+            "tier":               direct_tier,
+            "action_idx":         action,
+            "weighted_violations": round(weighted, 2),
+            "points_earned":      TIER_CONFIG[direct_tier]['points'],
+            "monthly_bonus":      TIER_CONFIG[direct_tier]['bonus'],
+            "confidence":         confidence,
+            "q_values":           {TIERS[a]: round(q_values[a], 3) for a in range(NUM_ACTIONS)},
+            "state":              {"violation_bucket": state[0]},
         }
 
     # ── learn from real IoT session ───────────────────────────────────────────
 
     def learn_from_session(
         self,
-        prev_violations:    int,
-        prev_safe_days:     int,
-        prev_speed_over:    float,
-        curr_violations:    int,
-        curr_safe_days:     int,
-        curr_speed_over:    float,
+        prev_speeding:     int,
+        prev_harsh_accel:  int,
+        prev_sudden_brake: int,
+        curr_speeding:     int,
+        curr_harsh_accel:  int,
+        curr_sudden_brake: int,
     ) -> dict:
         """
         Called after each real driving session to update the Q-table.
-        This is the core RL loop — the model learns from real IoT data over time.
+        Compares previous and current weighted violations to compute reward.
         """
-        from rl_environment import compute_reward
+        prev_weighted = compute_weighted_violations(prev_speeding, prev_harsh_accel, prev_sudden_brake)
+        curr_weighted = compute_weighted_violations(curr_speeding, curr_harsh_accel, curr_sudden_brake)
 
-        prev_state = encode_state(prev_violations, prev_safe_days, prev_speed_over)
-        curr_state = encode_state(curr_violations, curr_safe_days, curr_speed_over)
+        prev_state = encode_state(prev_weighted)
+        curr_state = encode_state(curr_weighted)
 
-        # What action did we assign last session?
         action = self.best_action(prev_state)
+        reward = compute_reward(prev_weighted, curr_weighted, action)
 
-        # Compute reward: did driver improve?
-        reward = compute_reward(prev_violations, curr_violations, prev_safe_days, curr_safe_days, action)
-
-        # Update Q-table with Bellman equation
         self.update(prev_state, action, reward, curr_state)
         self.save()
 
         return {
-            "reward":    round(reward, 3),
-            "updated":   True,
-            "action":    TIERS[action],
-            "prev_state": prev_state,
-            "curr_state": curr_state,
+            "reward":              round(reward, 3),
+            "updated":             True,
+            "action":              TIERS[action],
+            "prev_weighted":       round(prev_weighted, 2),
+            "curr_weighted":       round(curr_weighted, 2),
+            "prev_state":          prev_state,
+            "curr_state":          curr_state,
         }
