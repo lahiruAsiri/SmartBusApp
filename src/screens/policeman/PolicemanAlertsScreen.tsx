@@ -12,8 +12,17 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { LiveViolations, RealViolation } from './PolicemanHomeScreen';
-import { database } from '../../api/firebase';
+import { database, db } from '../../api/firebase';
 import { ref, onValue, off } from 'firebase/database';
+import { doc, getDoc } from 'firebase/firestore';
+
+// ─── Bus info (route from Firestore, passenger count from RTDB) ──────────────
+interface BusInfo {
+  routeNumber?: string;
+  from?: string;
+  destination?: string;
+  passengerCount?: number;  // live from RTDB history
+}
 
 // ─── Violation type → human label ────────────────────────────────────────────
 const violationLabel = (type: string): string => {
@@ -37,13 +46,39 @@ const violationIcon = (type: string): string => {
   return 'alert-circle';
 };
 
+// ─── Fetch route/from/destination from Firestore (once per busId) ────────────
+const fetchBusRouteInfo = async (busId: string): Promise<Omit<BusInfo, 'passengerCount'> | null> => {
+  try {
+    const snap = await getDoc(doc(db, 'buses', busId));
+    if (!snap.exists()) return null;
+    const d = snap.data();
+    return {
+      routeNumber: d.routeNumber,
+      from:        d.from,
+      destination: d.destination,
+    };
+  } catch {
+    return null;
+  }
+};
+
+// ─── Get latest passenger count from RTDB history node ───────────────────────
+const getPassengerCount = (history: any): number | undefined => {
+  if (!history) return undefined;
+  const arr: any[] = Object.values(history);
+  arr.sort((a, b) => (a.timestamp || '').localeCompare(b.timestamp || ''));
+  const latest = arr[arr.length - 1];
+  return latest?.count !== undefined ? Number(latest.count) : undefined;
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export const PolicemanAlertsScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
   const [violations, setViolations] = useState<RealViolation[]>(LiveViolations);
+  const [busInfoMap, setBusInfoMap] = useState<Record<string, BusInfo>>({});
   const [refreshing, setRefreshing] = useState(false);
 
-  // ─── Subscribe to live Firebase violations ────────────────────────────────
+  // ─── Subscribe to live Firebase violations ────────────────────────────
   useEffect(() => {
     const rootRef = ref(database, '/');
 
@@ -58,11 +93,31 @@ export const PolicemanAlertsScreen = ({ navigation }: any) => {
         const busData = data[busKey];
         if (!busData?.violations) return;
 
+        // ── Live passenger count from RTDB history ────────────────────
+        const livePassengerCount = getPassengerCount(busData.history);
+
+        // Update busInfoMap with fresh passenger count on every RTDB push
+        setBusInfoMap(prev => ({
+          ...prev,
+          [busKey]: {
+            ...prev[busKey],          // keep route/from/destination already fetched
+            passengerCount: livePassengerCount,
+          },
+        }));
+
+        // Fetch route info from Firestore only if not already cached
+        if (!busInfoMap[busKey]?.routeNumber) {
+          fetchBusRouteInfo(busKey).then(info => {
+            if (info) {
+              setBusInfoMap(prev => ({ ...prev, [busKey]: { ...prev[busKey], ...info } }));
+            }
+          });
+        }
+
         Object.keys(busData.violations).forEach((vKey) => {
           const v = busData.violations[vKey];
           if (!v) return;
 
-          // Check if LiveViolations (set by HomeScreen) has proximity info
           const liveMatch = LiveViolations.find(lv => lv.id === `${busKey}_${vKey}`);
 
           allViolations.push({
@@ -95,6 +150,8 @@ export const PolicemanAlertsScreen = ({ navigation }: any) => {
   const onRefresh = () => {
     setRefreshing(true);
     setViolations([...LiveViolations]);
+    // Also re-fetch bus info for all known busIds
+    setBusInfoMap({});
     setTimeout(() => setRefreshing(false), 600);
   };
 
@@ -140,92 +197,136 @@ export const PolicemanAlertsScreen = ({ navigation }: any) => {
           keyExtractor={item => item.id}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[
-                styles.card,
-                { backgroundColor: colors.card },
-                item.isNearby && styles.nearbyCard,
-              ]}
-              onPress={() =>
-                navigation.navigate('Map', {
-                  violationLocation: { latitude: item.latitude, longitude: item.longitude },
-                  title: `${item.busId} — ${violationLabel(item.type)}`,
-                })
-              }
-            >
-              <View style={styles.cardTop}>
-                {/* Type icon */}
-                <View style={[styles.iconCircle, { backgroundColor: item.isNearby ? '#FEE2E2' : '#F3F4F6' }]}>
-                  <Ionicons
-                    name={violationIcon(item.type) as any}
-                    size={22}
-                    color={item.isNearby ? '#DC2626' : '#6B7280'}
-                  />
-                </View>
-
-                <View style={{ flex: 1, marginLeft: 12 }}>
-                  <View style={styles.row}>
-                    <Text style={[styles.busId, { color: colors.text }]}>{item.busId}</Text>
-                    {item.isNearby && (
-                      <View style={styles.nearbyBadge}>
-                        <Ionicons name="location" size={10} color="#FFF" />
-                        <Text style={styles.nearbyBadgeText}>
-                          NEARBY {item.distanceM !== undefined ? `· ${item.distanceM}m` : ''}
-                        </Text>
-                      </View>
-                    )}
+          renderItem={({ item }) => {
+            const busInfo = busInfoMap[item.busId];
+            return (
+              <TouchableOpacity
+                style={[
+                  styles.card,
+                  { backgroundColor: colors.card },
+                  item.isNearby && styles.nearbyCard,
+                ]}
+                onPress={() =>
+                  navigation.navigate('Map', {
+                    violationLocation: { latitude: item.latitude, longitude: item.longitude },
+                    title: `${item.busId} — ${violationLabel(item.type)}`,
+                  })
+                }
+              >
+                {/* ── Violation Info ──────────────────────────────────── */}
+                <View style={styles.cardTop}>
+                  <View style={[styles.iconCircle, { backgroundColor: item.isNearby ? '#FEE2E2' : '#F3F4F6' }]}>
+                    <Ionicons
+                      name={violationIcon(item.type) as any}
+                      size={22}
+                      color={item.isNearby ? '#DC2626' : '#6B7280'}
+                    />
                   </View>
 
-                  <Text style={styles.violationType}>{violationLabel(item.type)}</Text>
+                  <View style={{ flex: 1, marginLeft: 12 }}>
+                    <View style={styles.row}>
+                      <Text style={[styles.busId, { color: colors.text }]}>{item.busId}</Text>
+                      {item.isNearby && (
+                        <View style={styles.nearbyBadge}>
+                          <Ionicons name="location" size={10} color="#FFF" />
+                          <Text style={styles.nearbyBadgeText}>
+                            NEARBY {item.distanceM !== undefined ? `· ${item.distanceM}m` : ''}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
 
-                  {item.speed !== undefined && (
-                    <Text style={styles.speedText}>{item.speed} km/h</Text>
-                  )}
+                    <Text style={styles.violationType}>{violationLabel(item.type)}</Text>
 
-                  <Text style={[styles.coordText, { color: colors.textLight }]}>
-                    📍 {item.latitude.toFixed(5)}, {item.longitude.toFixed(5)}
-                  </Text>
+                    {item.speed !== undefined && (
+                      <Text style={styles.speedText}>{item.speed} km/h</Text>
+                    )}
 
-                  <Text style={[styles.timeText, { color: colors.textLight }]}>
-                    🕐 {new Date(item.dateTime).toLocaleString()}
-                  </Text>
+                    <Text style={[styles.coordText, { color: colors.textLight }]}>
+                      📍 {item.latitude.toFixed(5)}, {item.longitude.toFixed(5)}
+                    </Text>
+
+                    <Text style={[styles.timeText, { color: colors.textLight }]}>
+                      🕐 {new Date(item.dateTime).toLocaleString()}
+                    </Text>
+                  </View>
+
+                  <Ionicons name="map-outline" size={20} color={colors.primary} />
                 </View>
 
-                {/* Map arrow */}
-                <Ionicons name="map-outline" size={20} color={colors.primary} />
-              </View>
+                {/* ── Bus Details Section ──────────────────────────────── */}
+                <View style={[styles.busDetailsHeader, { borderTopColor: colors.border }]}>
+                  <Ionicons name="bus" size={14} color="#0EA5E9" />
+                  <Text style={[styles.busDetailsLabel, { color: colors.textLight }]}>Bus Details</Text>
+                </View>
 
-              {/* Action row */}
-              <View style={styles.actionRow}>
-                <TouchableOpacity
-                  style={[styles.actionBtn, { borderColor: colors.border }]}
-                  onPress={() =>
-                    navigation.navigate('Map', {
-                      violationLocation: { latitude: item.latitude, longitude: item.longitude },
-                      title: `${item.busId} — ${violationLabel(item.type)}`,
-                    })
-                  }
-                >
-                  <Ionicons name="map" size={14} color={colors.primary} />
-                  <Text style={[styles.actionBtnText, { color: colors.primary }]}>View on Map</Text>
-                </TouchableOpacity>
+                <View style={styles.busDetailChips}>
+                  {/* Route */}
+                  <View style={[styles.chip, { backgroundColor: '#EFF6FF' }]}>
+                    <Ionicons name="navigate-circle-outline" size={13} color="#2563EB" />
+                    <Text style={[styles.chipText, { color: '#2563EB' }]}>
+                      Route {busInfo?.routeNumber ?? '—'}
+                    </Text>
+                  </View>
 
-                <TouchableOpacity
-                  style={[styles.actionBtn, { borderColor: '#8B5CF6' }]}
-                  onPress={() =>
-                    navigation.navigate('InvestigationNote', {
-                      busId: item.busId,
-                      violationType: item.type,
-                    })
-                  }
-                >
-                  <Ionicons name="document-text" size={14} color="#8B5CF6" />
-                  <Text style={[styles.actionBtnText, { color: '#8B5CF6' }]}>Log Note</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          )}
+                  {/* From */}
+                  <View style={[styles.chip, { backgroundColor: '#F0FDF4' }]}>
+                    <Ionicons name="radio-button-on" size={13} color="#16A34A" />
+                    <Text style={[styles.chipText, { color: '#16A34A' }]}>
+                      From: {busInfo?.from ?? '—'}
+                    </Text>
+                  </View>
+
+                  {/* Destination */}
+                  <View style={[styles.chip, { backgroundColor: '#FFF7ED' }]}>
+                    <Ionicons name="flag" size={13} color="#EA580C" />
+                    <Text style={[styles.chipText, { color: '#EA580C' }]}>
+                      To: {busInfo?.destination ?? '—'}
+                    </Text>
+                  </View>
+
+                  {/* Live Passenger Count (from RTDB history) */}
+                  <View style={[styles.chip, { backgroundColor: '#F5F3FF' }]}>
+                    <Ionicons name="people" size={13} color="#7C3AED" />
+                    <Text style={[styles.chipText, { color: '#7C3AED' }]}>
+                      {busInfo?.passengerCount !== undefined
+                        ? `${busInfo.passengerCount} passengers on board`
+                        : 'Passengers: —'}
+                    </Text>
+                  </View>
+                </View>
+
+                {/* ── Action row ──────────────────────────────────────── */}
+                <View style={styles.actionRow}>
+                  <TouchableOpacity
+                    style={[styles.actionBtn, { borderColor: colors.border }]}
+                    onPress={() =>
+                      navigation.navigate('Map', {
+                        violationLocation: { latitude: item.latitude, longitude: item.longitude },
+                        title: `${item.busId} — ${violationLabel(item.type)}`,
+                      })
+                    }
+                  >
+                    <Ionicons name="map" size={14} color={colors.primary} />
+                    <Text style={[styles.actionBtnText, { color: colors.primary }]}>View on Map</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.actionBtn, { borderColor: '#8B5CF6' }]}
+                    onPress={() =>
+                      navigation.navigate('InvestigationNote', {
+                        busId: item.busId,
+                        violationType: item.type,
+                      })
+                    }
+                  >
+                    <Ionicons name="document-text" size={14} color="#8B5CF6" />
+                    <Text style={[styles.actionBtnText, { color: '#8B5CF6' }]}>Log Note</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
         />
       )}
     </View>
@@ -255,6 +356,13 @@ const styles = StyleSheet.create({
   speedText:        { fontSize: 15, fontWeight: 'bold', color: '#EF4444', marginTop: 2 },
   coordText:        { fontSize: 12, marginTop: 4 },
   timeText:         { fontSize: 11, marginTop: 3 },
+  // ── Bus Details ──────────────────────────────────────────────────────────
+  busDetailsHeader: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth },
+  busDetailsLabel:  { fontSize: 11, fontWeight: '700', letterSpacing: 0.5, textTransform: 'uppercase' },
+  busDetailChips:   { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 8 },
+  chip:             { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20 },
+  chipText:         { fontSize: 11, fontWeight: '600' },
+  // ── Actions ──────────────────────────────────────────────────────────────
   actionRow:        { flexDirection: 'row', gap: 10, marginTop: 14 },
   actionBtn:        { flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 7 },
   actionBtnText:    { fontSize: 12, fontWeight: '600' },
