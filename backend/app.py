@@ -1,5 +1,6 @@
 import time
 import re
+import json
 import pandas as pd
 import joblib
 from flask import Flask, request, jsonify
@@ -39,6 +40,57 @@ def load_all_models():
 
 # Initial Load
 load_all_models()
+
+# ==========================================
+# 1.5 DYNAMIC DESTINATION LOADING
+# ==========================================
+KNOWN_DESTINATIONS = []
+
+def load_destinations():
+    global KNOWN_DESTINATIONS
+    json_path = '../dataset/BusRoutes.json'
+    if not os.path.exists(json_path):
+        json_path = '../src/data/BusRoutes.json' # Fallback
+        
+    try:
+        with open(json_path, 'r') as f:
+            data = json.load(f)
+        
+        dests = set()
+        for district in data.get('districts', []):
+            for section in district.get('sections', []):
+                for subsection in section.get('subsections', []):
+                    for route in subsection.get('routes', []):
+                        # Start/End/Intermediate
+                        for key in ['start', 'end']:
+                            val = route.get(key)
+                            if val:
+                                items = [p.strip() for p in re.split(r'[/,-]', val)]
+                                dests.update(items)
+                        
+                        for loc in route.get('intermediate_locations', []):
+                            dests.add(loc.strip())
+                        
+                        # Bus Stops
+                        for stop in route.get('bus_stops', []):
+                            name = stop.get('location_name')
+                            if name: dests.add(name.strip())
+        
+        # Clean: remove noise, numbers, short strings
+        cleaned = set()
+        for d in dests:
+            # Remove leading "1) " or similar
+            name = re.sub(r'^[\d\)]+\s*', '', d)
+            if len(name) > 3 and len(name.split()) < 4:
+                cleaned.add(name.capitalize())
+        
+        KNOWN_DESTINATIONS = sorted(list(cleaned), key=len, reverse=True) # Sort by length for better matching
+        print(f"Loaded {len(KNOWN_DESTINATIONS)} dynamic destinations from {json_path}")
+    except Exception as e:
+        print(f"Error loading destinations: {e}")
+        KNOWN_DESTINATIONS = ['Malabe', 'Pettah', 'Kaduwela', 'Kollupitiya', 'Homagama']
+
+load_destinations()
 
 # ==========================================
 # 2. HELPER FUNCTIONS
@@ -330,12 +382,12 @@ def chat():
             'reason': "Higher traffic expected" if pred_sec > theoretical * 1.2 else "Smooth traffic predicted"
         }
     elif intent == 'find_route':
-        # Try to find a destination name from a known list or common patterns
-        destinations = ['malabe', 'pettah', 'kaduwela', 'kollupitiya', 'panadura', 'maharagama', 'kottawa', 'battaramulla', 'slit', 'fort', 'homagama', 'nugegoda', 'borella']
+        # Try to find a destination name from the dynamic list
         found_dest = None
-        for d in destinations:
-            if d in text.lower():
-                found_dest = d.capitalize()
+        text_lower = text.lower()
+        for d in KNOWN_DESTINATIONS:
+            if d.lower() in text_lower:
+                found_dest = d
                 break
         
         response_msg['type'] = 'find_route'
