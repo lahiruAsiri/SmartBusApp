@@ -3,7 +3,7 @@
 // ============================================
 
 // File: src/screens/user/UserHomeScreen.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -16,20 +16,33 @@ import {
   Image,
   TextInput,
   Keyboard,
-} from 'react-native';
-import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from 'react-native-maps';
-import { Ionicons } from '@expo/vector-icons';
-import { getInitialMapRegion, MAP_CONFIG } from '../../constants/config';
-import { useAuth } from '../../contexts/AuthContext';
-import { useTheme } from '../../contexts/ThemeContext';
-import { Alert } from 'react-native';
-import { subscribeToAllBuses, getNearbyBuses, Bus } from '../../services/busService';
-import { getCurrentLocation, UserLocation } from '../../services/locationService';
-import { BusRouteOptimizer, JourneyResult } from '../../services/BusRouteOptimizer';
+} from "react-native";
+import MapView, { Marker, UrlTile, PROVIDER_DEFAULT } from "react-native-maps";
+import { Ionicons } from "@expo/vector-icons";
+import { getInitialMapRegion, MAP_CONFIG } from "../../constants/config";
+import { useAuth } from "../../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
+import { Alert } from "react-native";
+import {
+  subscribeToAllBuses,
+  getNearbyBuses,
+  Bus,
+} from "../../services/busService";
+import {
+  getCurrentLocation,
+  UserLocation,
+} from "../../services/locationService";
+import {
+  BusRouteOptimizer,
+  JourneyResult,
+} from "../../services/BusRouteOptimizer";
 
-import { SavedAddress, subscribeToAddresses } from '../../services/addressService';
+import {
+  SavedAddress,
+  subscribeToAddresses,
+} from "../../services/addressService";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 export const UserHomeScreen = ({ navigation }: any) => {
   const { userData, logout } = useAuth();
@@ -42,22 +55,23 @@ export const UserHomeScreen = ({ navigation }: any) => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [loading, setLoading] = useState(true);
   const [miniMapRegion, setMiniMapRegion] = useState(MAP_CONFIG.initialRegion);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Bus[]>([]);
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [journeyResult, setJourneyResult] = useState<JourneyResult | null>(null);
+  const [journeyResult, setJourneyResult] = useState<JourneyResult | null>(
+    null,
+  );
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
 
   // Subscribe to saved addresses
   useEffect(() => {
     if (!userData) return;
     const unsubscribe = subscribeToAddresses(userData.uid, (data) => {
-      setSavedAddresses(data.filter(addr => addr.isFavorite)); // Only show favorites
+      setSavedAddresses(data.filter((addr) => addr.isFavorite)); // Only show favorites
     });
     return () => unsubscribe();
   }, [userData]);
-
 
   // Fetch user location on mount
   useEffect(() => {
@@ -67,12 +81,12 @@ export const UserHomeScreen = ({ navigation }: any) => {
         setUserLocation(location);
       } else {
         Alert.alert(
-          'Location Required',
-          'Please enable location services to see nearby buses.',
-          [{ text: 'OK' }]
+          "Location Required",
+          "Please enable location services to see nearby buses.",
+          [{ text: "OK" }],
         );
         // Use default location (Negombo)
-        setUserLocation({ latitude: 7.2906, longitude: 79.8570 });
+        setUserLocation({ latitude: 7.2906, longitude: 79.857 });
       }
     };
     fetchLocation();
@@ -90,7 +104,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
       (buses) => {
         setNearbyBuses(buses);
         setLoading(false);
-      }
+      },
     );
 
     return () => unsubscribe();
@@ -107,10 +121,10 @@ export const UserHomeScreen = ({ navigation }: any) => {
       (error) => {
         // Only log if we still have a user (to avoid spamming permission errors during logout)
         if (userData) {
-          console.error('Error loading buses:', error);
-          Alert.alert('Error', 'Failed to load bus data');
+          console.error("Error loading buses:", error);
+          Alert.alert("Error", "Failed to load bus data");
         }
-      }
+      },
     );
 
     return () => unsubscribe();
@@ -147,21 +161,24 @@ export const UserHomeScreen = ({ navigation }: any) => {
   };
 
   const getOccupancyColor = (occ: number) => {
-    if (occ < 50) return '#22C55E';
-    if (occ <= 75) return '#F59E0B';
-    return '#EF4444';
+    if (occ < 50) return "#22C55E";
+    if (occ <= 75) return "#F59E0B";
+    return "#EF4444";
   };
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning,';
-    if (hour < 18) return 'Good Afternoon,';
-    return 'Good Evening,';
+    if (hour < 12) return "Good Morning,";
+    if (hour < 18) return "Good Afternoon,";
+    return "Good Evening,";
   };
 
   const handleAddressClick = (address: SavedAddress) => {
     if (!userLocation) {
-      Alert.alert('Location Required', 'Current location is needed to find a route.');
+      Alert.alert(
+        "Location Required",
+        "Current location is needed to find a route.",
+      );
       return;
     }
 
@@ -182,7 +199,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
     // But we can try to find the closest stop to the SAVED ADDRESS using the optimizer's data (if we exposed it).
     // Or simply pass the saved address label and hope it matches? No, "Home" won't match.
 
-    // Ideally, when saving an address, we should pick the closest bus stop? 
+    // Ideally, when saving an address, we should pick the closest bus stop?
     // User request says: "serch that user adress nerest bus stop using our bus data"
 
     // So here, we should:
@@ -200,23 +217,26 @@ export const UserHomeScreen = ({ navigation }: any) => {
       userLocation.latitude,
       userLocation.longitude,
       savedLat,
-      savedLon
+      savedLon,
     );
 
     if (bestRoute) {
-      navigation.navigate('TripResult', {
+      navigation.navigate("TripResult", {
         journey: bestRoute,
-        userLocation: userLocation
+        userLocation: userLocation,
       });
     } else {
-      Alert.alert('No Route', 'Could not find a suitable bus route to this location.');
+      Alert.alert(
+        "No Route",
+        "Could not find a suitable bus route to this location.",
+      );
     }
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar
-        barStyle={isDark ? 'light-content' : 'dark-content'}
+        barStyle={isDark ? "light-content" : "dark-content"}
         backgroundColor={colors.background}
       />
 
@@ -228,7 +248,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
         <View style={styles.logoContainer}>
           <Image
-            source={require('../../../assets/AppLogo.png')}
+            source={require("../../../assets/AppLogo.png")}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -236,7 +256,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
         <TouchableOpacity onPress={toggleTheme} style={styles.themeButton}>
           <Ionicons
-            name={isDark ? 'sunny-outline' : 'moon-outline'}
+            name={isDark ? "sunny-outline" : "moon-outline"}
             size={24}
             color={colors.primary}
           />
@@ -247,26 +267,30 @@ export const UserHomeScreen = ({ navigation }: any) => {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Greeting */}
         <View style={styles.greetingSection}>
-          <Text style={[styles.greeting, { color: colors.text }]}>{getGreeting()},</Text>
+          <Text style={[styles.greeting, { color: colors.text }]}>
+            {getGreeting()},
+          </Text>
           <Text style={[styles.userName, { color: colors.primary }]}>
             {userData?.displayName}
           </Text>
         </View>
 
-
         {/* Search Bar */}
-        <View style={[styles.searchContainer, { backgroundColor: colors.card }]}>
+        <View
+          style={[styles.searchContainer, { backgroundColor: colors.card }]}
+        >
           <View style={styles.searchBarInner}>
             <Ionicons name="search" size={22} color={colors.textLight} />
             <TextInput
               style={[styles.searchInput, { color: colors.text }]}
               placeholder="Where do you want to go?"
-              placeholderTextColor={colors.textLight + '80'}
+              placeholderTextColor={colors.textLight + "80"}
               value={searchQuery}
               onChangeText={(text) => {
                 setSearchQuery(text);
                 if (text.length > 2) {
-                  const matches = BusRouteOptimizer.getInstance().searchLocations(text);
+                  const matches =
+                    BusRouteOptimizer.getInstance().searchLocations(text);
                   setSearchSuggestions(matches);
                   setShowResults(false);
                 } else {
@@ -274,15 +298,21 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 }
               }}
             />
-            {searchQuery !== '' && (
-              <TouchableOpacity onPress={() => {
-                setSearchQuery('');
-                setSearchSuggestions([]);
-                setJourneyResult(null);
-                setShowResults(false);
-                Keyboard.dismiss();
-              }}>
-                <Ionicons name="close-circle" size={20} color={colors.textLight} />
+            {searchQuery !== "" && (
+              <TouchableOpacity
+                onPress={() => {
+                  setSearchQuery("");
+                  setSearchSuggestions([]);
+                  setJourneyResult(null);
+                  setShowResults(false);
+                  Keyboard.dismiss();
+                }}
+              >
+                <Ionicons
+                  name="close-circle"
+                  size={20}
+                  color={colors.textLight}
+                />
               </TouchableOpacity>
             )}
           </View>
@@ -293,7 +323,10 @@ export const UserHomeScreen = ({ navigation }: any) => {
               {searchSuggestions.map((item, index) => (
                 <TouchableOpacity
                   key={index}
-                  style={[styles.searchResultItem, { borderTopColor: colors.border }]}
+                  style={[
+                    styles.searchResultItem,
+                    { borderTopColor: colors.border },
+                  ]}
                   onPress={() => {
                     setSearchQuery(item);
                     setSearchSuggestions([]);
@@ -301,37 +334,49 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
                     // Perform the route search
                     if (userLocation) {
-                      const result = BusRouteOptimizer.getInstance().findTransferRoute(
-                        userLocation.latitude,
-                        userLocation.longitude,
-                        item
-                      );
+                      const result =
+                        BusRouteOptimizer.getInstance().findTransferRoute(
+                          userLocation.latitude,
+                          userLocation.longitude,
+                          item,
+                        );
 
                       if (result) {
-                        navigation.navigate('TripResult', {
+                        navigation.navigate("TripResult", {
                           journey: result,
-                          userLocation: userLocation
+                          userLocation: userLocation,
                         });
                       } else {
-                        Alert.alert('No Routes', 'No suitable bus routes found for this destination.');
+                        Alert.alert(
+                          "No Routes",
+                          "No suitable bus routes found for this destination.",
+                        );
                       }
-                      setSearchQuery('');
+                      setSearchQuery("");
                       setSearchSuggestions([]);
                       setShowResults(false);
                     } else {
-                      Alert.alert('Location Missing', 'Current location is needed to find items.');
+                      Alert.alert(
+                        "Location Missing",
+                        "Current location is needed to find items.",
+                      );
                     }
                   }}
                 >
-                  <Ionicons name="location-outline" size={20} color={colors.textLight} />
-                  <Text style={[styles.suggestionText, { color: colors.text }]}>{item}</Text>
+                  <Ionicons
+                    name="location-outline"
+                    size={20}
+                    color={colors.textLight}
+                  />
+                  <Text style={[styles.suggestionText, { color: colors.text }]}>
+                    {item}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>
           )}
 
           {/* Search Results (Route Journey) */}
-
 
           {showResults && !journeyResult && (
             <View style={styles.noResults}>
@@ -345,28 +390,36 @@ export const UserHomeScreen = ({ navigation }: any) => {
         {/* Mini Map Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Live Tracking</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Map')}>
-              <Text style={[styles.showAllText, { color: colors.primary }]}>View full map</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Live Tracking
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+              <Text style={[styles.showAllText, { color: colors.primary }]}>
+                View full map
+              </Text>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity
             style={[styles.miniMapContainer, { backgroundColor: colors.card }]}
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('Map')}
+            onPress={() => navigation.navigate("Map")}
           >
             <MapView
               style={styles.miniMap}
               provider={PROVIDER_DEFAULT}
-              initialRegion={miniMapRegion}  // Use dynamic region
+              initialRegion={miniMapRegion} // Use dynamic region
               scrollEnabled={false}
               zoomEnabled={false}
               rotateEnabled={false}
               pitchEnabled={false}
               pointerEvents="none"
             >
-              <UrlTile urlTemplate={MAP_CONFIG.osmTileUrl} maximumZ={19} flipY={false} />
+              <UrlTile
+                urlTemplate={MAP_CONFIG.osmTileUrl}
+                maximumZ={19}
+                flipY={false}
+              />
 
               {nearbyBuses.map((bus) => (
                 <Marker key={bus.id} coordinate={bus.location}>
@@ -382,15 +435,24 @@ export const UserHomeScreen = ({ navigation }: any) => {
               ))}
             </MapView>
 
-            <View style={[styles.miniMapOverlay, { backgroundColor: colors.card }]}>
+            <View
+              style={[styles.miniMapOverlay, { backgroundColor: colors.card }]}
+            >
               <View style={styles.miniMapInfo}>
                 <View style={styles.miniMapInfoLeft}>
                   <Ionicons name="bus" size={20} color={colors.primary} />
-                  <Text style={[styles.miniMapInfoText, { color: colors.text }]}>
+                  <Text
+                    style={[styles.miniMapInfoText, { color: colors.text }]}
+                  >
                     {nearbyBuses.length} buses nearby
                   </Text>
                 </View>
-                <View style={[styles.miniMapBadge, { backgroundColor: colors.primary }]}>
+                <View
+                  style={[
+                    styles.miniMapBadge,
+                    { backgroundColor: colors.primary },
+                  ]}
+                >
                   <Ionicons name="expand-outline" size={16} color="#FFF" />
                   <Text style={styles.miniMapBadgeText}>Expand</Text>
                 </View>
@@ -402,7 +464,9 @@ export const UserHomeScreen = ({ navigation }: any) => {
                     key={bus.id}
                     style={[
                       styles.quickBusItem,
-                      { backgroundColor: isDark ? colors.background : '#F8FAFC' },
+                      {
+                        backgroundColor: isDark ? colors.background : "#F8FAFC",
+                      },
                     ]}
                   >
                     <View
@@ -411,16 +475,26 @@ export const UserHomeScreen = ({ navigation }: any) => {
                         { backgroundColor: getOccupancyColor(bus.occupancy) },
                       ]}
                     >
-                      <Text style={styles.quickBusNumber}>{bus.routeNumber}</Text>
+                      <Text style={styles.quickBusNumber}>
+                        {bus.routeNumber}
+                      </Text>
                     </View>
                     <View style={styles.quickBusInfo}>
                       <Text
-                        style={[styles.quickBusDestination, { color: colors.text }]}
+                        style={[
+                          styles.quickBusDestination,
+                          { color: colors.text },
+                        ]}
                         numberOfLines={1}
                       >
                         {bus.destination}
                       </Text>
-                      <Text style={[styles.quickBusTime, { color: colors.textLight }]}>
+                      <Text
+                        style={[
+                          styles.quickBusTime,
+                          { color: colors.textLight },
+                        ]}
+                      >
                         {bus.arrivalTime}
                       </Text>
                     </View>
@@ -432,20 +506,36 @@ export const UserHomeScreen = ({ navigation }: any) => {
             <View
               style={[
                 styles.mapLegend,
-                { backgroundColor: isDark ? colors.card : 'rgba(255,255,255,0.95)' },
+                {
+                  backgroundColor: isDark
+                    ? colors.card
+                    : "rgba(255,255,255,0.95)",
+                },
               ]}
             >
               <View style={styles.legendItem}>
-                <View style={[styles.legendDot, { backgroundColor: '#22C55E' }]} />
-                <Text style={[styles.legendText, { color: colors.textLight }]}>Available</Text>
+                <View
+                  style={[styles.legendDot, { backgroundColor: "#22C55E" }]}
+                />
+                <Text style={[styles.legendText, { color: colors.textLight }]}>
+                  Available
+                </Text>
               </View>
               <View style={styles.legendItem}>
-                <View style={[styles.legendDot, { backgroundColor: '#F59E0B' }]} />
-                <Text style={[styles.legendText, { color: colors.textLight }]}>Moderate</Text>
+                <View
+                  style={[styles.legendDot, { backgroundColor: "#F59E0B" }]}
+                />
+                <Text style={[styles.legendText, { color: colors.textLight }]}>
+                  Moderate
+                </Text>
               </View>
               <View style={styles.legendItem}>
-                <View style={[styles.legendDot, { backgroundColor: '#EF4444' }]} />
-                <Text style={[styles.legendText, { color: colors.textLight }]}>Crowded</Text>
+                <View
+                  style={[styles.legendDot, { backgroundColor: "#EF4444" }]}
+                />
+                <Text style={[styles.legendText, { color: colors.textLight }]}>
+                  Crowded
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -454,9 +544,13 @@ export const UserHomeScreen = ({ navigation }: any) => {
         {/* Your Routes Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Your routes</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Map')}>
-              <Text style={[styles.showAllText, { color: colors.primary }]}>View map</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Your routes
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+              <Text style={[styles.showAllText, { color: colors.primary }]}>
+                View map
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -464,7 +558,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             <TouchableOpacity
               key={bus.id}
               style={[styles.routeCard, { backgroundColor: colors.card }]}
-              onPress={() => navigation.navigate('BusDetails', { bus })}
+              onPress={() => navigation.navigate("BusDetails", { bus })}
             >
               <View
                 style={[
@@ -491,7 +585,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 <Text
                   style={[
                     styles.statusText,
-                    { color: bus.status === 'On time' ? '#22C55E' : '#F59E0B' },
+                    { color: bus.status === "On time" ? "#22C55E" : "#F59E0B" },
                   ]}
                 >
                   {bus.status}
@@ -504,9 +598,15 @@ export const UserHomeScreen = ({ navigation }: any) => {
         {/* Your Addresses Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Your addresses</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SavedAddresses')}>
-              <Text style={[styles.showAllText, { color: colors.primary }]}>Manage</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Your addresses
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SavedAddresses")}
+            >
+              <Text style={[styles.showAllText, { color: colors.primary }]}>
+                Manage
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -519,11 +619,11 @@ export const UserHomeScreen = ({ navigation }: any) => {
               <View
                 style={[
                   styles.addressIcon,
-                  { backgroundColor: isDark ? colors.background : '#F1F5F9' },
+                  { backgroundColor: isDark ? colors.background : "#F1F5F9" },
                 ]}
               >
                 <Ionicons
-                  name={addr.icon as any || 'location-outline'}
+                  name={(addr.icon as any) || "location-outline"}
                   size={22}
                   color={colors.primary}
                 />
@@ -531,8 +631,15 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
               <View style={styles.addressInfo}>
                 <View style={styles.addressNameRow}>
-                  <Text style={[styles.addressName, { color: colors.text }]}>{addr.label}</Text>
-                  <View style={[styles.routeSmallBadge, { backgroundColor: colors.primary }]}>
+                  <Text style={[styles.addressName, { color: colors.text }]}>
+                    {addr.label}
+                  </Text>
+                  <View
+                    style={[
+                      styles.routeSmallBadge,
+                      { backgroundColor: colors.primary },
+                    ]}
+                  >
                     <Text style={styles.routeSmallText}>GO</Text>
                   </View>
                 </View>
@@ -541,16 +648,26 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 </Text>
               </View>
 
-              <View style={{ justifyContent: 'center' }}>
-                <Ionicons name="chevron-forward" size={20} color={colors.textLight} />
+              <View style={{ justifyContent: "center" }}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.textLight}
+                />
               </View>
             </TouchableOpacity>
           ))}
           {savedAddresses.length === 0 && (
-            <View style={{ padding: 20, alignItems: 'center' }}>
-              <Text style={{ color: colors.textLight }}>No saved favorites yet.</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('SavedAddresses')}>
-                <Text style={{ color: colors.primary, marginTop: 10 }}>Add Address</Text>
+            <View style={{ padding: 20, alignItems: "center" }}>
+              <Text style={{ color: colors.textLight }}>
+                No saved favorites yet.
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SavedAddresses")}
+              >
+                <Text style={{ color: colors.primary, marginTop: 10 }}>
+                  Add Address
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -559,9 +676,13 @@ export const UserHomeScreen = ({ navigation }: any) => {
         {/* Nearby Buses Section */}
         <View style={[styles.section, { marginBottom: 100 }]}>
           <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Nearby buses</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Nearby buses
+            </Text>
             <TouchableOpacity>
-              <Text style={[styles.showAllText, { color: colors.primary }]}>Refresh</Text>
+              <Text style={[styles.showAllText, { color: colors.primary }]}>
+                Refresh
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -569,7 +690,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
             <TouchableOpacity
               key={bus.id}
               style={[styles.busCard, { backgroundColor: colors.card }]}
-              onPress={() => navigation.navigate('BusDetails', { bus })}
+              onPress={() => navigation.navigate("BusDetails", { bus })}
             >
               <View style={styles.busCardLeft}>
                 <View
@@ -594,7 +715,12 @@ export const UserHomeScreen = ({ navigation }: any) => {
                 <Text style={[styles.busArrival, { color: colors.text }]}>
                   {bus.arrivalTime}
                 </Text>
-                <View style={[styles.occupancyIndicator, { backgroundColor: colors.border }]}>
+                <View
+                  style={[
+                    styles.occupancyIndicator,
+                    { backgroundColor: colors.border },
+                  ]}
+                >
                   <View
                     style={[
                       styles.occupancyBar,
@@ -621,7 +747,7 @@ export const UserHomeScreen = ({ navigation }: any) => {
 
       {/* Sidebar Overlay */}
       <Animated.View
-        pointerEvents={sidebarVisible ? 'auto' : 'none'}
+        pointerEvents={sidebarVisible ? "auto" : "none"}
         style={[styles.overlay, { opacity: overlayAnim }]}
       >
         <TouchableOpacity
@@ -635,10 +761,15 @@ export const UserHomeScreen = ({ navigation }: any) => {
       <Animated.View
         style={[
           styles.sidebar,
-          { transform: [{ translateX: sidebarAnim }], backgroundColor: colors.card },
+          {
+            transform: [{ translateX: sidebarAnim }],
+            backgroundColor: colors.card,
+          },
         ]}
       >
-        <View style={[styles.sidebarHeader, { backgroundColor: colors.primary }]}>
+        <View
+          style={[styles.sidebarHeader, { backgroundColor: colors.primary }]}
+        >
           <View style={styles.sidebarAvatar}>
             <Text style={[styles.sidebarAvatarText, { color: colors.primary }]}>
               {userData?.displayName?.charAt(0).toUpperCase()}
@@ -649,24 +780,33 @@ export const UserHomeScreen = ({ navigation }: any) => {
         </View>
 
         <ScrollView style={styles.sidebarMenu}>
-          <MenuItem icon="home-outline" label="Home" colors={colors} onPress={toggleSidebar} />
+          <MenuItem
+            icon="home-outline"
+            label="Home"
+            colors={colors}
+            onPress={toggleSidebar}
+          />
           <MenuItem
             icon="map-outline"
             label="Live Map"
             colors={colors}
             onPress={() => {
               toggleSidebar();
-              navigation.navigate('Map');
+              navigation.navigate("Map");
             }}
           />
-          <MenuItem icon="notifications-outline" label="Notifications" colors={colors} />
+          <MenuItem
+            icon="notifications-outline"
+            label="Notifications"
+            colors={colors}
+          />
           <MenuItem
             icon="location-outline"
             label="Saved Addresses"
             colors={colors}
             onPress={() => {
               toggleSidebar();
-              navigation.navigate('SavedAddresses');
+              navigation.navigate("SavedAddresses");
             }}
           />
           <MenuItem
@@ -675,39 +815,58 @@ export const UserHomeScreen = ({ navigation }: any) => {
             colors={colors}
             onPress={() => {
               toggleSidebar();
-              navigation.navigate('Settings');
+              navigation.navigate("Settings");
             }}
           />
-
-          {/* TEMPORARY IoT TEST SCREEN */}
           <MenuItem
-            icon="hardware-chip-outline"
-            label="[Temp] IoT Simulator"
+            icon="alert-circle-outline"
+            label="Submit Complaint"
             colors={colors}
             onPress={() => {
               toggleSidebar();
-              navigation.navigate('IoTMock');
+              navigation.navigate("ComplaintForm");
+            }}
+          />
+          <MenuItem
+            icon="list-outline"
+            label="My Complaints"
+            colors={colors}
+            onPress={() => {
+              toggleSidebar();
+              navigation.navigate("MyComplaints");
             }}
           />
 
-          <View style={[styles.menuDivider, { backgroundColor: colors.border }]} />
+          <View
+            style={[styles.menuDivider, { backgroundColor: colors.border }]}
+          />
 
           {/* Theme Toggle */}
           <TouchableOpacity style={styles.menuItem} onPress={toggleTheme}>
             <Ionicons
-              name={isDark ? 'sunny-outline' : 'moon-outline'}
+              name={isDark ? "sunny-outline" : "moon-outline"}
               size={22}
               color={colors.primary}
             />
             <Text style={[styles.menuLabel, { color: colors.text }]}>
-              {isDark ? 'Light Mode' : 'Dark Mode'}
+              {isDark ? "Light Mode" : "Dark Mode"}
             </Text>
           </TouchableOpacity>
 
-          <View style={[styles.menuDivider, { backgroundColor: colors.border }]} />
+          <View
+            style={[styles.menuDivider, { backgroundColor: colors.border }]}
+          />
 
-          <MenuItem icon="help-circle-outline" label="Help & Support" colors={colors} />
-          <MenuItem icon="information-circle-outline" label="About" colors={colors} />
+          <MenuItem
+            icon="help-circle-outline"
+            label="Help & Support"
+            colors={colors}
+          />
+          <MenuItem
+            icon="information-circle-outline"
+            label="About"
+            colors={colors}
+          />
           <MenuItem
             icon="log-out-outline"
             label="Logout"
@@ -730,22 +889,40 @@ export const UserHomeScreen = ({ navigation }: any) => {
       >
         <TouchableOpacity style={styles.navItem}>
           <Ionicons name="home" size={24} color={colors.primary} />
-          <Text style={[styles.navLabelActive, { color: colors.primary }]}>Home</Text>
+          <Text style={[styles.navLabelActive, { color: colors.primary }]}>
+            Home
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Chat')}>
-          <Ionicons name="chatbubble-ellipses-outline" size={24} color={colors.textLight} />
-          <Text style={[styles.navLabel, { color: colors.textLight }]}>Chat</Text>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate("Chat")}
+        >
+          <Ionicons
+            name="chatbubble-ellipses-outline"
+            size={24}
+            color={colors.textLight}
+          />
+          <Text style={[styles.navLabel, { color: colors.textLight }]}>
+            Chat
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Map')}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate("Map")}
+        >
           <Ionicons name="map-outline" size={24} color={colors.textLight} />
-          <Text style={[styles.navLabel, { color: colors.textLight }]}>Map</Text>
+          <Text style={[styles.navLabel, { color: colors.textLight }]}>
+            Map
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem} onPress={toggleSidebar}>
           <Ionicons name="menu-outline" size={24} color={colors.textLight} />
-          <Text style={[styles.navLabel, { color: colors.textLight }]}>More</Text>
+          <Text style={[styles.navLabel, { color: colors.textLight }]}>
+            More
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -755,8 +932,14 @@ export const UserHomeScreen = ({ navigation }: any) => {
 // Menu Item Component
 const MenuItem = ({ icon, label, onPress, isLogout, colors }: any) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-    <Ionicons name={icon} size={22} color={isLogout ? '#EF4444' : colors.text} />
-    <Text style={[styles.menuLabel, { color: isLogout ? '#EF4444' : colors.text }]}>
+    <Ionicons
+      name={icon}
+      size={22}
+      color={isLogout ? "#EF4444" : colors.text}
+    />
+    <Text
+      style={[styles.menuLabel, { color: isLogout ? "#EF4444" : colors.text }]}
+    >
       {label}
     </Text>
   </TouchableOpacity>
@@ -767,9 +950,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 55,
     paddingBottom: 20,
@@ -782,8 +965,8 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   logo: { width: 200, height: 50 },
   content: {
@@ -795,26 +978,26 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 28,
-    fontWeight: '300',
+    fontWeight: "300",
   },
   userName: {
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   searchContainer: {
     marginHorizontal: 20,
     marginBottom: 25,
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
     shadowRadius: 8,
     elevation: 3,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   searchBarInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
@@ -822,14 +1005,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 12,
     fontSize: 16,
-    height: '100%',
+    height: "100%",
   },
   searchResultsList: {
     maxHeight: 250,
   },
   searchResultItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 12,
     paddingHorizontal: 16,
     borderTopWidth: 1,
@@ -838,31 +1021,31 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
   },
   resultInfo: {
     flex: 1,
   },
   resultHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 2,
   },
   resultRoute: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 8,
   },
   resultDestination: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
   resultFrom: {
     fontSize: 12,
   },
   noResults: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   noResultsText: {
     fontSize: 14,
@@ -871,32 +1054,32 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   section: {
     marginBottom: 25,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     marginBottom: 12,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   showAllText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   miniMapContainer: {
     marginHorizontal: 20,
     borderRadius: 20,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
@@ -904,23 +1087,23 @@ const styles = StyleSheet.create({
   },
   miniMap: {
     height: 180,
-    width: '100%',
+    width: "100%",
   },
   suggestionText: {
     fontSize: 16,
     marginLeft: 10,
   },
   resultCard: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
     marginTop: 10,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: "#E2E8F0",
   },
   resultHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   busRouteBadgeSmall: {
@@ -930,20 +1113,20 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   busRouteNumberSmall: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 12,
   },
   timelineContainer: {
     borderLeftWidth: 2,
-    borderLeftColor: '#E2E8F0',
+    borderLeftColor: "#E2E8F0",
     marginLeft: 10,
     paddingLeft: 20,
     paddingVertical: 5,
   },
   timelineItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   timelineText: {
     marginLeft: 10,
@@ -951,32 +1134,32 @@ const styles = StyleSheet.create({
   },
   resultTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   stepContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 16,
   },
   stepBadge: {
     width: 24,
     height: 24,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
     marginTop: 2,
   },
   stepBadgeText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 12,
   },
   stepContent: {
     flex: 1,
   },
   stepTitle: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 14,
     marginBottom: 4,
   },
@@ -985,8 +1168,8 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   alertBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     borderRadius: 8,
     marginTop: 10,
@@ -1000,50 +1183,50 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 2,
-    borderColor: '#FFF',
+    borderColor: "#FFF",
   },
   miniMapOverlay: {
     padding: 16,
   },
   miniMapInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   miniMapInfoLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   miniMapInfoText: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   miniMapBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
   },
   miniMapBadgeText: {
     fontSize: 12,
-    fontWeight: '600',
-    color: '#FFF',
+    fontWeight: "600",
+    color: "#FFF",
     marginLeft: 4,
   },
   quickBusList: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
   },
   quickBusItem: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     borderRadius: 12,
   },
@@ -1051,13 +1234,13 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   quickBusNumber: {
     fontSize: 13,
-    fontWeight: '700',
-    color: '#FFF',
+    fontWeight: "700",
+    color: "#FFF",
   },
   quickBusInfo: {
     flex: 1,
@@ -1065,22 +1248,22 @@ const styles = StyleSheet.create({
   },
   quickBusDestination: {
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   quickBusTime: {
     fontSize: 11,
     marginTop: 2,
   },
   mapLegend: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 10,
     padding: 8,
     borderRadius: 10,
   },
   legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 4,
   },
   legendDot: {
@@ -1091,16 +1274,16 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 10,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   routeCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: 20,
     marginBottom: 10,
     padding: 16,
     borderRadius: 14,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 4,
@@ -1110,13 +1293,13 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   routeNumber: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#FFF',
+    fontWeight: "700",
+    color: "#FFF",
   },
   routeInfo: {
     flex: 1,
@@ -1124,32 +1307,32 @@ const styles = StyleSheet.create({
   },
   routeDestination: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   routeFrom: {
     fontSize: 13,
     marginTop: 2,
   },
   routeTime: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   arrivalText: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     marginTop: 2,
   },
   addressCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: 20,
     marginBottom: 10,
     padding: 16,
     borderRadius: 14,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 4,
@@ -1159,20 +1342,20 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   addressInfo: {
     flex: 1,
     marginLeft: 14,
   },
   addressNameRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   addressName: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   routeSmallBadge: {
     paddingHorizontal: 8,
@@ -1182,8 +1365,8 @@ const styles = StyleSheet.create({
   },
   routeSmallText: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#FFF',
+    fontWeight: "700",
+    color: "#FFF",
   },
   addressFrom: {
     fontSize: 13,
@@ -1191,38 +1374,38 @@ const styles = StyleSheet.create({
   },
   addressTime: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   busCard: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginHorizontal: 20,
     marginBottom: 10,
     padding: 16,
     borderRadius: 14,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 4,
     elevation: 2,
   },
   busCardLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   busRouteBadge: {
     width: 48,
     height: 48,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   busRouteNumber: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#FFF',
+    fontWeight: "700",
+    color: "#FFF",
   },
   busInfo: {
     marginLeft: 14,
@@ -1230,42 +1413,42 @@ const styles = StyleSheet.create({
   },
   busDestination: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   busFrom: {
     fontSize: 12,
     marginTop: 2,
   },
   busCardRight: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   busArrival: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 6,
   },
   occupancyIndicator: {
     width: 60,
     height: 6,
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginBottom: 4,
   },
   occupancyBar: {
-    height: '100%',
+    height: "100%",
     borderRadius: 3,
   },
   occupancyText: {
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
     zIndex: 100,
   },
   sidebar: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     top: 0,
     bottom: 0,
@@ -1276,29 +1459,29 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 25,
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   sidebarAvatar: {
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: '#FFF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FFF",
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 12,
   },
   sidebarAvatarText: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   sidebarName: {
     fontSize: 18,
-    fontWeight: '700',
-    color: '#FFF',
+    fontWeight: "700",
+    color: "#FFF",
   },
   sidebarEmail: {
     fontSize: 13,
-    color: '#FFF',
+    color: "#FFF",
     opacity: 0.9,
     marginTop: 4,
   },
@@ -1307,15 +1490,15 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 15,
     paddingHorizontal: 20,
   },
   menuLabel: {
     fontSize: 16,
     marginLeft: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   menuDivider: {
     height: 1,
@@ -1323,14 +1506,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   bottomNav: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: 10,
     paddingBottom: 25,
     borderTopWidth: 1,
   },
   navItem: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   navLabel: {
     fontSize: 11,
@@ -1339,6 +1522,6 @@ const styles = StyleSheet.create({
   navLabelActive: {
     fontSize: 11,
     marginTop: 4,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
