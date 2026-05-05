@@ -8,7 +8,10 @@ if (!firebaseConfig) {
   throw new Error('Firebase config not loaded! Check your app.config.js and .env');
 }
 
-export const FIREBASE_CONFIG = firebaseConfig as {
+export const FIREBASE_CONFIG = {
+  ...firebaseConfig,
+  databaseURL: firebaseConfig?.databaseURL || 'https://smartbus-23f62-default-rtdb.firebaseio.com'
+} as {
   apiKey: string;
   authDomain: string;
   projectId: string;

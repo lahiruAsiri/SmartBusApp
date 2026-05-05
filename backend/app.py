@@ -120,7 +120,7 @@ def get_crowd_prediction(route, hour, minute, day_of_week, is_weekend):
 
     X = pd.DataFrame([input_data])
     
-    # Ensure columns match strict XGBoost/SKLearn expected order
+    # Ensure columns match strict 
     X = X[crowd_features]
     
     pred = crowd_model.predict(X)[0]

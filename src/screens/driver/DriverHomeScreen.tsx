@@ -55,17 +55,17 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   }, []);
 
   // PERFORMANCE CALCULATIONS (from Live Data)
-  const totalViolations  = driverData?.totalViolations  ?? 0;
-  const speedingCount    = driverData?.rawSpeeding      ?? 0;
-  const harshAccelCount  = driverData?.rawHarshAccel    ?? 0;
-  const suddenBrakeCount = driverData?.rawSuddenBrake   ?? 0;
-  const daysSafe         = driverData?.currentStreak    ?? 0;
+  const totalViolations = driverData?.totalViolations ?? 0;
+  const speedingCount = driverData?.rawSpeeding ?? 0;
+  const harshAccelCount = driverData?.rawHarshAccel ?? 0;
+  const suddenBrakeCount = driverData?.rawSuddenBrake ?? 0;
+  const daysSafe = driverData?.currentStreak ?? 0;
 
   // RL model results embedded in driverData (no second API call needed)
-  const safetyScore  = driverData?.safetyScore        ?? 100;
-  const currentTier  = driverData?.currentTier        ?? 'Standard';
-  const pointsEarned = driverData?.totalPoints        ?? 0;
-  const monthlyBonus = driverData?.currentMonthBonus  ?? 0;
+  const safetyScore = driverData?.safetyScore ?? 100;
+  const currentTier = driverData?.currentTier ?? 'Standard';
+  const pointsEarned = driverData?.totalPoints ?? 0;
+  const monthlyBonus = driverData?.currentMonthBonus ?? 0;
 
   // EARNINGS DATA (Dummy)
   const todayEarnings = 2450;
@@ -133,7 +133,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-      
+
       {/* Header */}
       <View style={[styles.header, { backgroundColor: colors.card }]}>
         <View>
@@ -168,7 +168,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
             </View>
             <Switch value={isShiftActive} onValueChange={toggleShift} />
           </View>
-          
+
           {isShiftActive && (
             <View style={styles.broadcastingContainer}>
               <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]} />
@@ -179,9 +179,9 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           )}
         </View>
 
-        
+
         {/* Performance Summary Card  */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.performanceCard, { backgroundColor: colors.card }]}
           onPress={() => navigation.navigate('DriverProfile')}
         >
@@ -227,7 +227,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         </TouchableOpacity>
 
         {/* Rewards Highlight Card */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.rewardsCard, { backgroundColor: '#8B5CF6' }]}
           onPress={() => navigation.navigate('DriverRewards')}
         >
@@ -294,7 +294,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         <View style={[styles.emergencyCard, { backgroundColor: '#EF444410' }]}>
           <Text style={styles.emergencyTitle}>🚨 Emergency Contacts</Text>
           <View style={styles.emergencyButtons}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.emergencyButton, { backgroundColor: '#EF4444' }]}
               onPress={() => Alert.alert('Calling Police', 'Dialing 119...')}
             >
@@ -302,7 +302,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.emergencyButtonText}>Police</Text>
               <Text style={styles.emergencyButtonNumber}>119</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.emergencyButton, { backgroundColor: '#DC2626' }]}
               onPress={() => Alert.alert('Calling Ambulance', 'Dialing 1990...')}
             >
@@ -310,7 +310,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.emergencyButtonText}>Ambulance</Text>
               <Text style={styles.emergencyButtonNumber}>1990</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.emergencyButton, { backgroundColor: '#F59E0B' }]}
               onPress={() => Alert.alert('Calling Supervisor', 'Dialing supervisor...')}
             >
@@ -319,7 +319,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               <Text style={styles.emergencyButtonNumber}>077-XXX</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.sosButton}
             onPress={() => Alert.alert('SOS Alert', 'Emergency alert sent to all contacts!')}
           >
@@ -328,7 +328,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
 
-        {/* Weather & Route Alerts */}
+        {/* Weather & Route Alerts
         {weatherAlert.hasAlert && (
           <View style={[styles.weatherCard, { backgroundColor: '#FEF3C7' }]}>
             <View style={styles.weatherHeader}>
@@ -356,9 +356,9 @@ export const DriverHomeScreen = ({ navigation }: any) => {
               </TouchableOpacity>
             </View>
           </View>
-        )}
+        )} */}
 
-        
+
         {/* Route Configuration */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>Route Details</Text>
@@ -412,12 +412,12 @@ export const DriverHomeScreen = ({ navigation }: any) => {
         {/* Live Controls */}
         {isShiftActive && (
           <>
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={[styles.sectionTitle, { color: colors.text }]}>Passenger Occupancy</Text>
               <View style={[styles.card, { backgroundColor: colors.card, padding: 15 }]}>
                 <View style={styles.occupancyButtons}>
                   {(['Low', 'Medium', 'High'] as const).map(level => (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       key={level}
                       style={[styles.occButton, occupancy === level && { backgroundColor: getOccupancyColor(level), borderColor: getOccupancyColor(level) }]}
                       onPress={() => setOccupancy(level)}
@@ -428,7 +428,7 @@ export const DriverHomeScreen = ({ navigation }: any) => {
                   ))}
                 </View>
               </View>
-            </View>
+            </View> */}
 
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { color: colors.text }]}>Quick Actions</Text>
@@ -489,11 +489,11 @@ const styles = StyleSheet.create({
   riskScore: { fontSize: 36, fontWeight: 'bold' },
   scoreLabel: { fontSize: 11, color: '#666', marginTop: 4 },
   perfDivider: { width: 1, height: 50, backgroundColor: '#E5E7EB', marginRight: 16 },
-  perfStats:           { flex: 1, flexDirection: 'row', gap: 8 },
-  perfStatItem:        { flex: 1, alignItems: 'center' },
-  perfStatValue:       { fontSize: 20, fontWeight: 'bold' },
-  perfStatLabel:       { fontSize: 10, color: '#666', marginTop: 3 },
-  perfFootnote:        { fontSize: 11, marginTop: 10, textAlign: 'center' },
+  perfStats: { flex: 1, flexDirection: 'row', gap: 8 },
+  perfStatItem: { flex: 1, alignItems: 'center' },
+  perfStatValue: { fontSize: 20, fontWeight: 'bold' },
+  perfStatLabel: { fontSize: 10, color: '#666', marginTop: 3 },
+  perfFootnote: { fontSize: 11, marginTop: 10, textAlign: 'center' },
   statusCard: { borderRadius: 20, padding: 20, marginBottom: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 3 },
   statusHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   statusTextContainer: {},

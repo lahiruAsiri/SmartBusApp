@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, confusion_matrix, classification_report, roc_curve, auc
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, confusion_matrix, classification_report, roc_curve, auc, accuracy_score
 from sklearn.preprocessing import label_binarize
 import xgboost as xgb
 from sklearn.ensemble import RandomForestRegressor
@@ -63,6 +63,10 @@ def evaluate_crowd_model():
         
     y_test_class = y_test.apply(categorize_crowd)
     y_pred_class = pd.Series(y_pred).apply(categorize_crowd)
+    
+    # Calculate Overall Accuracy Percentage
+    crowd_accuracy = accuracy_score(y_test_class, y_pred_class) * 100
+    print(f"  Overall Crowd Classification Accuracy: {crowd_accuracy:.2f}%\n")
     
     # 3. Confusion Matrix
     cm = confusion_matrix(y_test_class, y_pred_class)
@@ -142,6 +146,10 @@ def evaluate_eta_model():
         
     y_test_class = y_test.apply(categorize_delay)
     y_pred_class = pd.Series(y_pred).apply(categorize_delay)
+    
+    # Calculate Overall Accuracy Percentage
+    eta_accuracy = accuracy_score(y_test_class, y_pred_class) * 100
+    print(f"  Overall ETA Classification Accuracy: {eta_accuracy:.2f}%\n")
     
     # 3. Confusion Matrix
     cm = confusion_matrix(y_test_class, y_pred_class)

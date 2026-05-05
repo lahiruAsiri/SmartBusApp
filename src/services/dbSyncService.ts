@@ -8,7 +8,7 @@ const BUS_ID = 'Bus_01';
  * [MANAGEMENT FLAG] Set to true to temporarily pause the background sync 
  * from Realtime Database to Firestore.
  */
-const IS_SYNC_PAUSED = true;
+const IS_SYNC_PAUSED = false;
 
 /**
  * Syncs real-time IoT data from Firebase Realtime Database to Firestore
@@ -31,9 +31,13 @@ export const syncIoTDataToFirestore = () => {
       return;
     }
 
-    if (!snapshot.exists()) return;
+    if (!snapshot.exists()) {
+      console.log('[Sync] Snapshot does not exist for', BUS_ID);
+      return;
+    }
 
     const data = snapshot.val();
+    console.log('[Sync] Received realtime data:', data.live_data);
 
     const liveData = data.live_data;
     const history = data.history;
@@ -56,8 +60,8 @@ export const syncIoTDataToFirestore = () => {
     const passengerCount = latestHistory?.count || 0;
 
     // 2. Extracted coordinates
-    const lat = liveData.lat;
-    const lng = liveData.lng;
+    const lat = parseFloat(liveData.lat);
+    const lng = parseFloat(liveData.lng);
     const updateTime = liveData.lastUpdate;
 
     // Calculate occupancy percentage 
@@ -74,8 +78,8 @@ export const syncIoTDataToFirestore = () => {
         totalSeats: totalSeats,
         routeNumber: '400/4',
         lastUpdated: serverTimestamp(), // or construct Date from updateTime
-        destination: 'Pettah',
-        from: 'Panadura',
+        destination: 'Kaluthara',
+        from: 'Aluthgama',
         status: 'Delayed',
         isActive: true
       }, { merge: true });

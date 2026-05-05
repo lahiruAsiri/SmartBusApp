@@ -10,7 +10,7 @@ import os
 
 ENV_FILE = os.path.join(os.path.dirname(__file__), '.env')
 RL_ENV_KEY = 'EXPO_PUBLIC_RL_API_URL'
-PORT = 5001
+PORT = 5002
 
 # ── 1. Detect current local IP ──────────────────────────────────────────────
 def get_local_ip():
@@ -60,4 +60,10 @@ if __name__ == '__main__':
     print('   Press Ctrl+C to stop.\n')
     
     rl_dir = os.path.join(os.path.dirname(__file__), 'rl_model')
-    subprocess.run([sys.executable, 'app.py'], cwd=rl_dir)
+    
+    # Auto-detect virtual environment python
+    venv_python = os.path.join(os.path.dirname(__file__), 'backend', 'venv', 'bin', 'python3')
+    python_exe = venv_python if os.path.exists(venv_python) else sys.executable
+    
+    print(f'   Using Python: {python_exe}')
+    subprocess.run([python_exe, 'app.py'], cwd=rl_dir)

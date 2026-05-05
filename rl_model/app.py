@@ -115,7 +115,7 @@ def predict_batch():
 
 
 if __name__ == '__main__':
-    print("🚀 RL Reward API v2.0 running on http://localhost:5001")
+    print("🚀 RL Reward API v2.0 running on http://localhost:5002")
     print("📊 Scoring: score = max(0, 100 - weighted_violations * 5)")
     print("⚖️  Weights: speeding=1, harsh_accel/10=1, sudden_brake/10=1")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5002, debug=True)
